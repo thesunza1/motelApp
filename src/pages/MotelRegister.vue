@@ -187,9 +187,7 @@
                 />
               </div>
               <div class="col-12"><br /></div>
-              <div class="text-h5">
-                thiết lập giá
-              </div>
+              <div class="text-h5">thiết lập giá</div>
 
               <div class="col-12 row items-center justify-around">
                 <q-input
@@ -212,9 +210,7 @@
                 />
               </div>
               <div class="col-12"><br /></div>
-              <div class="text-h5">
-                thiết lập thuế thiết bị
-              </div>
+              <div class="text-h5">thiết lập thuế thiết bị</div>
               <div class="col-12">
                 <Tax
                   v-model:cost="motel.water_more"
@@ -229,6 +225,73 @@
                   :name="motel.people_name"
                 ></Tax>
               </div>
+              <div class="col-12 row items-center">
+                <div class="col-12 text-h5 text-center">
+                  {{ motel_img.content }}
+                </div>
+                <div class="col-12">
+                  <mulity-img v-model:imgs="motel_img.imgs"></mulity-img>
+                </div>
+              </div>
+              <div class="col-12 row items-center">
+                <div class="col-12 text-h5 text-center">
+                  {{ motel_equip.content }}
+                </div>
+                <q-input class="col-12" v-model="motel_equip.place" type="text" filled  label=" nơi để" />
+                <div class="col-12">
+                  <br>
+                  <mulity-img v-model:imgs="motel_equip.imgs"></mulity-img>
+                </div>
+              </div>
+              <div class="col-12 row items-center">
+                <div class="col-12 text-h5 text-center">
+                  {{ motel_equip1.content }}
+
+                </div>
+                <q-input class="col-12" v-model="motel_equip1.place" type="text" filled  label=" nơi để" />
+                <div class="col-12">
+                  <br>
+                  <mulity-img v-model:imgs="motel_equip1.imgs"></mulity-img>
+                </div>
+              </div>
+              <div class="col-12 row items-center">
+                <div class="col-12 text-center text-h5">
+                  cấu hình loại phòng
+                </div>
+                <div class="col-12 text-right">
+                  <q-btn color="primary" icon="add" label=" thêm loại " @click="addTypeRoom" />
+                </div>
+                <div class="col-12 row items-center card-tro" v-for="(room , index) in room_types" :key="index">
+                  <div class="col-12"><br></div>
+                  <div class="col-12 row justify-between">
+                  <q-input class="col-6" v-model="room.names" type="text" label=" tên loại "  />
+                  <q-btn class="col-3" color="negative" icon="delete" label=" xóa " @click="delTypeRoom(index)" />
+                  </div>
+                  <div class="col-12"><br></div>
+                  <div class="col-12 row items-center justify-around">
+                    <q-input standout="bg-teal text-white" class="col-3" v-model="room.area" type="number" label=" diện tích" suffix="m2"/>
+                    <q-input standout="bg-teal text-white" class="col-4" v-model="room.content" type="textarea" label=" đặt điểm" />
+                    <q-input standout="bg-teal text-white" class="col-3" v-model="room.room_num" type="number" label=" số phòng " />
+                  </div>
+                  <div class="col-12"><br></div>
+                  <div class="col-12 row items-center justify-around">
+
+                    <q-checkbox left-label v-model="room.male" label=" cho nam" />
+                    <q-checkbox left-label v-model="room.female" label=" cho nữ " />
+                    <q-checkbox left-label v-model="room.everyone" label=" bất kì " />
+                  </div>
+                  <div class="col-12"><br></div>
+                  <div class="col-12">
+                    <br>
+                    <mulity-img v-model:imgs="room.imgs"></mulity-img>
+                  </div>
+                  <div class="col-12"><br></div>
+                  <div class="col-12"><br></div>
+                </div>
+                <div class="col-12 text-h6">
+                  <q-checkbox right-label v-model="motel.auto_post" label=" tự động đăng bài khi có phòng trống " />
+                </div>
+              </div>
             </q-card-section>
           </q-card>
         </form>
@@ -239,9 +302,11 @@
 
 <script>
 import Tax from "../components/Tax.vue";
+import MulityImg from "../components/MulityImg.vue";
 export default {
   components: {
     Tax,
+    MulityImg,
   },
   data() {
     return {
@@ -280,20 +345,25 @@ export default {
         content: "",
         auto_post: 1,
       },
-      motel_img: [
-        {
-          place: "hinh ảnh chung của trọ",
-          content: "",
-          img_type_id: 1,
-          imgs: "",
-        },
-        {
-          place: "",
-          content: "",
-          img_type_id: 2,
-          imgs: "",
-        },
-      ],
+      motel_img: {
+        place: "",
+        content: "hinh ảnh chung của trọ",
+        img_type_id: 1,
+        imgs: null,
+      },
+
+      motel_equip: {
+        place: "",
+        content: " thiết bị chửa cháy :",
+        img_type_id: 2,
+        imgs: null,
+      },
+      motel_equip1: {
+        place: "",
+        content: " thiết bị sơ cứu",
+        img_type_id: 2,
+        imgs: null,
+      },
       room_types: [
         {
           names: "",
@@ -309,8 +379,31 @@ export default {
       ],
     };
   },
+  methods: {
+    addTypeRoom() {
+      this.room_types.push({
+          names: "",
+          area: 0,
+          const: 0,
+          male: 0,
+          female: 0,
+          everyone: 0,
+          content: " ",
+          room_num: 0,
+          imgs: "",
+      });
+    },
+    delTypeRoom(num) {
+      this.room_types.splice(num,1)
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped lang="sass">
+.card-tro
+  background-color: #F4F4F4
+  margin-top: 20px
+  border-radius: 2px
+  padding: 0px 10px
 </style>
