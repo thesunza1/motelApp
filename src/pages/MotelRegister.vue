@@ -18,7 +18,14 @@
         </q-card>
       </q-dialog>
       <q-card class="my-card col-12 col-md-8">
-        <form method="post">
+
+        <q-form
+
+          @reset="onReset"
+          class="q-gutter-md"
+        >
+
+
           <q-card-section>
             <div class="text-h3 text-center">register as motel</div>
           </q-card-section>
@@ -27,7 +34,7 @@
               class="col-11 col-md-6"
               clearable
               v-model="user.email"
-              type="email"
+              type="text"
               :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
               label="email"
               suffix="@gmail.com"
@@ -158,7 +165,29 @@
                     (val) => val.length > 0 || ' địa chỉ không được để trống',
                   ]"
                 />
-                <div class="col-12">map</div>
+                <div class="col-12 row items-center">
+                  <q-btn
+                    color="primary"
+                    icon="check"
+                    label="get location"
+                    @click="getLocation()"
+                  />
+                  <div class="col-12"><br /></div>
+                  <div class="col-12" style="height: 700px">
+                    <l-map v-model:zoom="zoom" :center="center">
+                      <l-tile-layer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      ></l-tile-layer>
+                      <l-control-layers />
+                      <l-marker
+                        v-model:lat-lng="center"
+                        draggable
+                        @mouseup="log"
+                      >
+                      </l-marker>
+                    </l-map>
+                  </div>
+                </div>
                 <div class="col-12 row items-center justify-around">
                   <q-checkbox
                     left-label
@@ -249,7 +278,8 @@
                   {{ motel_img.content }}
                 </div>
                 <div class="col-12 text-red" style="padding-left: 10px">
-                  * hình ảnh sẽ được sử dụng khi đăng bài                </div>
+                  * hình ảnh sẽ được sử dụng khi đăng bài
+                </div>
                 <div class="col-12">
                   <mulity-img v-model:imgs="motel_img.imgs"></mulity-img>
                 </div>
@@ -273,11 +303,11 @@
               </div>
               <div class="col-12 row items-center border-card">
                 <div class="col-12 text-h5 text-center">
-                  {{ motel_equip1.content }}
+                  {{ motel_equips.content }}
                 </div>
                 <q-input
                   class="col-12"
-                  v-model="motel_equip1.place"
+                  v-model="motel_equips.place"
                   :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
                   type="text"
                   filled
@@ -285,7 +315,7 @@
                 />
                 <div class="col-12">
                   <br />
-                  <mulity-img v-model:imgs="motel_equip1.imgs"></mulity-img>
+                  <mulity-img v-model:imgs="motel_equips.imgs"></mulity-img>
                 </div>
               </div>
               <div class="col-12 row items-center">
@@ -371,20 +401,30 @@
                     <br />
                     <mulity-img v-model:imgs="room.imgs"></mulity-img>
                   </div>
-                  <div class="col-12"><br /></div>
+
                   <div class="col-12"><br /></div>
                 </div>
-                <div class="col-12 text-h6">
-                  <q-checkbox
-                    right-label
-                    v-model="motel.auto_post"
-                    label=" tự động đăng bài khi có phòng trống "
-                  />
+                <div class="col-12 row">
+                  <div class="col-12 text-h6">
+                    <q-checkbox
+                      right-label
+                      v-model="motel.auto_post"
+                      label=" tự động đăng bài khi có phòng trống "
+                    />
+                  </div>
+                  <div class="col-12 text-red">
+                    *sử dụng các hình ảnh về loại phòng ,hình ảnh trọ, các thông tin có sẳn để tạo bài đăng
+                  </div>
                 </div>
               </div>
             </q-card-section>
           </q-card>
-        </form>
+          <div>
+            <q-btn @click.prevent="onsubmit" label="Submit" type="submit" color="primary"/>
+            <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+          </div>
+        </q-form>
+
       </q-card>
     </div>
   </q-page>
@@ -398,8 +438,21 @@ export default {
     Tax,
     MulityImg,
   },
+  computed: {
+    iconUrl() {
+      return `https://placekitten.com/${this.iconWidth}/${this.iconHeight}`;
+    },
+    iconSize() {
+      return [this.iconWidth, this.iconHeight];
+    },
+  },
   data() {
     return {
+      zoom: 17,
+      iconWidth: 25,
+      center: { lat: 10.012245, lng: 105.76248 },
+
+      iconHeight: 40,
       user: {
         names: "sdfs",
         email: "",
@@ -448,7 +501,7 @@ export default {
         img_type_id: 2,
         imgs: null,
       },
-      motel_equip1: {
+      motel_equips: {
         place: "",
         content: " thiết bị sơ cứu",
         img_type_id: 2,
@@ -485,6 +538,45 @@ export default {
     },
     delTypeRoom(num) {
       this.room_types.splice(num, 1);
+    },
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+      }
+    },
+    showPosition(position) {
+      this.center = [position.coords.latitude, position.coords.longitude];
+      this.motel.latitude = position.coords.latitude;
+      this.motel.longitude = position.coords.latitude;
+      console.log(this.center);
+    },
+    log(e) {
+      this.motel.latitude = this.center.lat;
+      this.motel.longitude = this.center.lng;
+    },
+    async onsubmit() {
+      let fd = new FormData();
+      fd.append('motel_img',this.motel_img.imgs);
+      fd.append('motel_equip',this.motel_equip.imgs);
+      fd.append('motel_equips',this.motel_equips.imgs);
+      let a = this.room_types.length ;
+      for(let i = 0 ; i< a ; i++ ) {
+        let type_name = 'room_imgs' + i.toString();
+        fd.append(type_name, this.room_types[i]);
+      }
+      fd.append('users' , JSON.stringify( this.user));
+      fd.append('motel' , JSON.stringify( this.motel));
+      fd.append('motel_img' , JSON.stringify( this.motel_img));
+      fd.append('motel_equip' , JSON.stringify( this.motel_equip));
+      fd.append('motel_equips' , JSON.stringify( this.motel_equips));
+      fd.append('room_types' , JSON.stringify(this.room_types));
+      const response = await this.$api.post('motelRegister',
+        fd
+      );
+      console.log(response.data);
+    },
+    onReset() {
+      console.log('sdf');
     },
   },
 };
