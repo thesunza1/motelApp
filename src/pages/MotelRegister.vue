@@ -18,14 +18,7 @@
         </q-card>
       </q-dialog>
       <q-card class="my-card col-12 col-md-8">
-
-        <q-form
-
-          @reset="onReset"
-          class="q-gutter-md"
-        >
-
-
+        <q-form @reset="onReset" class="q-gutter-md">
           <q-card-section>
             <div class="text-h3 text-center">register as motel</div>
           </q-card-section>
@@ -353,6 +346,17 @@
                     />
                   </div>
                   <div class="col-12"><br /></div>
+                  <div class="col-12 row">
+                    <q-input
+                      class="col-3"
+                      v-model="room.const"
+                      type="number"
+                      label=" giá phòng "
+                      :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
+                      standout="bg-teal text-white"
+                      outline
+                    />
+                  </div>
                   <div class="col-12 row items-center justify-around">
                     <q-input
                       standout="bg-teal text-white"
@@ -367,7 +371,7 @@
                       standout="bg-teal text-white"
                       class="col-4"
                       v-model="room.content"
-                      type="textarea"
+                      type="text"
                       label=" đặt điểm"
                     />
                     <q-input
@@ -413,18 +417,29 @@
                     />
                   </div>
                   <div class="col-12 text-red">
-                    *sử dụng các hình ảnh về loại phòng ,hình ảnh trọ, các thông tin có sẳn để tạo bài đăng
+                    *sử dụng các hình ảnh về loại phòng ,hình ảnh trọ, các thông
+                    tin có sẳn để tạo bài đăng
                   </div>
                 </div>
               </div>
             </q-card-section>
           </q-card>
           <div>
-            <q-btn @click.prevent="onsubmit" label="Submit" type="submit" color="primary"/>
-            <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+            <q-btn
+              @click.prevent="onsubmit"
+              label="Submit"
+              type="submit"
+              color="primary"
+            />
+            <q-btn
+              label="Reset"
+              type="reset"
+              color="primary"
+              flat
+              class="q-ml-sm"
+            />
           </div>
         </q-form>
-
       </q-card>
     </div>
   </q-page>
@@ -476,7 +491,7 @@ export default {
         open: 0,
         camera: false,
         parking: "",
-        deposit: "00",
+        deposit: 0,
         elec_cost: 0,
         water_cost: 0,
         elec_more: 0,
@@ -486,7 +501,7 @@ export default {
         people_cost: 0,
         people_name: " thuế người ",
         content: "",
-        auto_post: 1,
+        auto_post: true,
       },
       motel_img: {
         place: "",
@@ -510,13 +525,13 @@ export default {
       room_types: [
         {
           names: "",
-          area: 0,
-          const: 0,
-          male: 0,
-          female: 0,
-          everyone: 0,
-          content: " ",
-          room_num: 0,
+          area: '',
+          const: '',
+          male: true,
+          female: true,
+          everyone: true,
+          content: '',
+          room_num: 1,
           imgs: "",
         },
       ],
@@ -526,13 +541,13 @@ export default {
     addTypeRoom() {
       this.room_types.push({
         names: "",
-        area: 0,
-        const: 0,
-        male: 0,
-        female: 0,
-        everyone: 0,
-        content: " ",
-        room_num: 0,
+        area: '' ,
+        const: '',
+        male: true,
+        female: true,
+        everyone: true,
+        content: '',
+        room_num: 1,
         imgs: "",
       });
     },
@@ -548,7 +563,7 @@ export default {
       this.center = [position.coords.latitude, position.coords.longitude];
       this.motel.latitude = position.coords.latitude;
       this.motel.longitude = position.coords.latitude;
-      console.log(this.center);
+      // console.log(this.center);
     },
     log(e) {
       this.motel.latitude = this.center.lat;
@@ -556,27 +571,38 @@ export default {
     },
     async onsubmit() {
       let fd = new FormData();
-      fd.append('motel_img',this.motel_img.imgs);
-      fd.append('motel_equip',this.motel_equip.imgs);
-      fd.append('motel_equips',this.motel_equips.imgs);
-      let a = this.room_types.length ;
-      for(let i = 0 ; i< a ; i++ ) {
-        let type_name = 'room_imgs' + i.toString();
-        fd.append(type_name, this.room_types[i]);
+      this.append(fd, this.motel_img.imgs, "motel_img");
+      this.append(fd, this.motel_equip.imgs, "motel_equip");
+      this.append(fd, this.motel_equips.imgs, "motel_equips");
+      let a = this.room_types.length;
+      fd.append("room_num", a);
+      for (let i = 0; i < a; i++) {
+        let type_name = "room" + i.toString();
+        this.append(fd, this.room_types[i].imgs, type_name);
       }
-      fd.append('users' , JSON.stringify( this.user));
-      fd.append('motel' , JSON.stringify( this.motel));
-      fd.append('motel_img' , JSON.stringify( this.motel_img));
-      fd.append('motel_equip' , JSON.stringify( this.motel_equip));
-      fd.append('motel_equips' , JSON.stringify( this.motel_equips));
-      fd.append('room_types' , JSON.stringify(this.room_types));
-      const response = await this.$api.post('motelRegister',
-        fd
-      );
+      fd.append("users", JSON.stringify(this.user));
+      fd.append("motel", JSON.stringify(this.motel));
+      fd.append("motel_img", JSON.stringify(this.motel_img));
+      fd.append("motel_equip", JSON.stringify(this.motel_equip));
+      fd.append("motel_equips", JSON.stringify(this.motel_equips));
+      fd.append("room_types", JSON.stringify(this.room_types));
+      const response = await this.$api.post("motelRegister", fd, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
       console.log(response.data);
     },
+    append(fd, imgs, name) {
+      const len = imgs.length;
+      for (let i = 0; i < len; i++) {
+        fd.append(name + i.toString(), imgs[i]);
+      }
+      fd.append(name + "_num", len);
+      console.log(imgs[0]);
+    },
     onReset() {
-      console.log('sdf');
+      console.log("sdf");
     },
   },
 };

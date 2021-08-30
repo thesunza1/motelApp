@@ -170,7 +170,7 @@ export default {
         this.errorMes = "email đã tồn tại ";
         this.isError = true;
       } else {
-        this.$route.push("/");
+        this.$router.push("/login");
       }
     },
   },
