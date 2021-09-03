@@ -18,7 +18,9 @@
         </q-card>
       </q-dialog>
       <q-card class="my-card col-12 col-md-8">
-        <q-form @reset="onReset" class="q-gutter-md">
+        <q-form @reset="onReset" class="q-gutter-md"
+         @submit="onsubmit"
+        >
           <q-card-section>
             <div class="text-h3 text-center">register as motel</div>
           </q-card-section>
@@ -162,7 +164,7 @@
                   <q-btn
                     color="primary"
                     icon="check"
-                    label="get location"
+                    label=" định vị "
                     @click="getLocation()"
                   />
                   <div class="col-12"><br /></div>
@@ -181,7 +183,7 @@
                     </l-map>
                   </div>
                 </div>
-                <div class="col-12 row items-center justify-around">
+                <div class="col-12 row items-center justify-around bd">
                   <q-checkbox
                     left-label
                     v-model="isOpen"
@@ -203,7 +205,7 @@
                   />
                 </div>
                 <div class="col-12"><br /></div>
-                <div class="col-12 row items-center justify-around">
+                <div class="col-12 row items-center justify-around bd">
                   <q-checkbox
                     class="col-5"
                     right-label
@@ -236,7 +238,7 @@
                   <q-input
                     v-model="motel.deposit"
                     type="number"
-                    label="Label"
+                    label=" đặt cọc"
                     suffix="VND/phong"
                   />
                 </div>
@@ -252,14 +254,17 @@
                 </div>
                 <div class="col-12">
                   <Tax
+                    class="bd"
                     v-model:cost="motel.water_more"
                     :name="motel.water_name"
                   ></Tax>
                   <Tax
+                    class="bd"
                     v-model:cost="motel.elec_more"
                     :name="motel.elec_name"
                   ></Tax>
                   <Tax
+                    class="bd"
                     v-model:cost="motel.people_cost"
                     :name="motel.people_name"
                   ></Tax>
@@ -271,10 +276,14 @@
                   {{ motel_img.content }}
                 </div>
                 <div class="col-12 text-red" style="padding-left: 10px">
-                  * hình ảnh sẽ được sử dụng khi đăng bài
+                  * hình ảnh và nội dung sẽ được sử dụng khi đăng bài
                 </div>
                 <div class="col-12">
                   <mulity-img v-model:imgs="motel_img.imgs"></mulity-img>
+                </div>
+                <div class="col-12"><br></div>
+                <div class="col-12">
+                  <q-input outlined v-model="motel.content" type="textarea" label=" giới thiệu về trọ" />
                 </div>
               </div>
               <div class="col-12 row items-center border-card">
@@ -371,7 +380,7 @@
                       standout="bg-teal text-white"
                       class="col-4"
                       v-model="room.content"
-                      type="text"
+                      type="textarea"
                       label=" đặt điểm"
                     />
                     <q-input
@@ -383,7 +392,7 @@
                     />
                   </div>
                   <div class="col-12"><br /></div>
-                  <div class="col-12 row items-center justify-around">
+                  <div class="col-12 row items-center justify-around bd">
                     <q-checkbox
                       left-label
                       v-model="room.male"
@@ -426,7 +435,6 @@
           </q-card>
           <div>
             <q-btn
-              @click.prevent="onsubmit"
               label="Submit"
               type="submit"
               color="primary"
@@ -591,7 +599,13 @@ export default {
           "Content-type": "multipart/form-data",
         },
       });
-      console.log(response.data);
+      let errorCode = response.statusCode;
+      if(errorCode == 0 ) {
+        this.isError =true ;
+        this.errorMes = 'email đã tồn tại ' ;
+      } else  {
+        this.$router.push('/login');
+      }
     },
     append(fd, imgs, name) {
       const len = imgs.length;
@@ -599,7 +613,6 @@ export default {
         fd.append(name + i.toString(), imgs[i]);
       }
       fd.append(name + "_num", len);
-      console.log(imgs[0]);
     },
     onReset() {
       console.log("sdf");
@@ -614,10 +627,17 @@ export default {
   margin-top: 20px
   border-radius: 2px
   padding: 0px 10px
+  box-shadow: 0px 0px 6px gray
 .border-card
   background-color: #f4f4f4
   padding: 20px 7px
   border-radius: 20px
   margin: 10px 0px
-  box-shadow: 0px 0px 3px #f3f3f3
+  box-shadow: 0px 0px 6px gray
+.bd
+  padding: 10px 0px
+  border-radius: 5px
+  margin: 10px 0px
+  box-shadow: 0px 0px 3px green
+
 </style>

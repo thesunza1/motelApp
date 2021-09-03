@@ -11,22 +11,27 @@
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
-      <div v-if="user">ban da dang nhap</div>
-      <div class="row justify-center nav">
-        <div class="col col-md-3">
-          <router-link v-if="!user" to="/" @click.prevent="loginModal = true">
-            my room</router-link
-          >
-          <router-link v-else to="/"> my room</router-link>
-        </div>
-        <div class="col col-md-3">
-          <router-link to="/"> search</router-link>
-        </div>
-        <div class="col col-md-3">
-          <router-link v-if="!user" to="/" @click.prevent="loginModal = true">
-            motel</router-link
-          >
-          <router-link v-else to="/"> motel</router-link>
+      <div class="row justify-center">
+        <div class="col-12 col-md-8 row justify-center nav">
+          <div class="col" v-if="!user">
+            <router-link to="/" @click.prevent="loginModal = true">
+              my room</router-link
+            >
+          </div>
+          <div v-if="user && role_id == 1" class="col">
+            <router-link to="/"> my room</router-link>
+          </div>
+          <div class="col">
+            <router-link to="/"> search</router-link>
+          </div>
+          <div class="col" v-if="!user">
+            <router-link to="/" @click.prevent="loginModal = true">
+              motel</router-link
+            >
+          </div>
+          <div v-if="user && role_id == 2" class="col">
+            <router-link to="motel/all"> motel</router-link>
+          </div>
         </div>
       </div>
     </q-header>
@@ -55,21 +60,54 @@
     </q-dialog>
     <q-drawer v-model="rightDrawerOpen" side="right" behavior="mobile" elevated>
       <!-- drawer content -->
-      <div class="flex">
-        <q-card class="my-card">
-          <img src="https://cdn.quasar.dev/img/mountains.jpg" />
-        </q-card>
-        <div style="width: 100%">
+      <div class="row">
+        <div class="col-12 row justify-center">
+          <div class="col-12"><br /></div>
+          <q-chip
+            class="col-10"
+            v-if="!user"
+            icon="account_circle"
+            label=" bạn chưa đăng nhập"
+          />
+          <q-chip
+            class="col-10"
+            color="teal"
+            text-color="white"
+            v-else
+            icon="account_circle"
+            :label="user.name"
+          />
+          <q-chip
+            class="col-10"
+            color="orange"
+            text-color="white"
+            v-if="user"
+            icon="done"
+            :label="get_role()"
+          />
+          <div class="col-12"><br /></div>
+        </div>
+      </div>
+      <div class="row items-end justify-center" style="height: 78%">
+        <div class="col-10">
           <div v-for="(link, index) in links" :key="index">
             <main-leftbar :link="link"></main-leftbar>
           </div>
           <q-btn
             v-if="user"
-            style="width:100%;margin-top:10px"
+            style="width: 100%; margin-top: 10px"
             color="primary"
             icon="logout"
             label=" đăng xuất "
             @click="logout"
+          />
+          <q-btn
+            v-if="user"
+            style="width: 100%; margin-top: 10px"
+            color="primary"
+            icon="logout"
+            label=" tải lại "
+            @click="reloadPage"
           />
         </div>
       </div>
@@ -85,24 +123,34 @@
 import { ref } from "vue";
 import MainLeftbar from "./MainLeftbar.vue";
 import { mapGetters } from "vuex";
+import { useStore } from "vuex";
+import { api } from "boot/axios";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
     const loginModal = ref(false);
+    var role_id = 0;
     return {
       rightDrawerOpen,
       loginModal,
+      role_id,
       toggleRightDrawer() {
         rightDrawerOpen.value = !rightDrawerOpen.value;
       },
     };
   },
   async created() {
-    try {
-      const response = await this.$api.get("user");
-      this.$store.dispatch("User/user", response.data.user);
-    } catch (err) {}
+    try{
+    const response = await this.$api.get("user");
+    this.$store.dispatch("User/user", response.data.user);
+    }
+    catch (e) {}
+
+    const user = this.$store.state.User.user;
+    this.role_id = user.role_id;
+    console.log(this.role_id);
   },
+
   components: {
     MainLeftbar,
   },
@@ -131,10 +179,21 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem('key');
-      location.reload() ;
-    }
-  }
+      localStorage.removeItem("key");
+      location.reload();
+    },
+    get_role() {
+      if (this.isUser) {
+        return " tài khoảng người dùng ";
+      }
+      if (this.isMotel) {
+        return " tài khoảng trọ ";
+      }
+    },
+    reloadPage() {
+      this.$router.go();
+    },
+  },
 };
 </script>
 <style scoped lang="sass">

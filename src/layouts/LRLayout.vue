@@ -11,7 +11,7 @@
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
-
+    <q-ajax-bar position="top" size="4px" color="red" skip-hijack/>
     <q-page-container>
       <router-view />
     </q-page-container>

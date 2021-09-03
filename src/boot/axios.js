@@ -9,7 +9,7 @@ import axios from 'axios'
 // for each client)
 // const api = axios.create({ baseURL: 'http://localhost:8000/api' })
 // const api = axios.create({ baseURL: 'http://192.168.0.102:8001/api' })
-const api = axios.create({ baseURL: 'http://192.168.0.101:8001/api' })
+const api = axios.create({ baseURL: 'http://192.168.0.105:8001/api' })
 api.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('key');
 
 export default boot(({ app }) => {
