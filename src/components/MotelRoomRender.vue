@@ -1,20 +1,89 @@
 <template>
   <div class="row items-center" style="width: 100%">
     <div
-      class="col-3 col-md-3 text-h4"
+      class="col-4 col-md-2 text-h4"
       v-for="(room, index) in rooms"
       :key="index"
     >
       <q-card class="my-card">
-        <q-card-section class=" text-white text-center" :class="{'bg-positive' : roomStatus(room) == 'none'}">
-          {{ room.name}}
+        <q-card-section
+          class="text-white text-center rooms row justify-center items-center"
+          :class="{ 'bg-positive': roomStatus(room) == 'none' }"
+          @click="openDialog(room)"
+        >
+          <div class="col-12">{{ room.name }}</div>
         </q-card-section>
       </q-card>
     </div>
+    <q-dialog v-model="isNone">
+      <q-card class="row modalb fs">
+        <q-card-section class="row pd full-width justify-center">
+          <div class="col-12 text-center text-h5">chi tiết phòng</div>
+          <div class="col-12"><br /></div>
+          <div class="col-11 align-left">phòng : {{ thisRoom.name }}</div>
+        </q-card-section>
+        <q-card-section class="col-12 row justify-center">
+          <q-select
+            class="col-11 col-md-8"
+            label="trạng thái phòng"
+            filled
+            v-model="thisStatus"
+            :options="roomStatuses"
+            option-value="id"
+            option-label="name"
+            emit-value
+            map-options
+            @onChange="updateRoomStatus()"
+          />
+          <div class="col-12"><br /></div>
+          <div class="col-12">
+            <find-user :userFind="userFind" @updateUserFind="updateUserFind"></find-user>
+          </div>
+        </q-card-section>
+        <q-card-section class="row full-width items-center pd justify-end">
+          <q-btn
+            color="primary"
+            icon="add"
+            label=" mời vào "
+            @click="addUserToRoom()"
+          />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="isHad">
+      <q-card class="modalb">
+        <q-card-section class="row items-center">
+          <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
+          <span class="q-ml-sm"
+            >You are currently not connected to any network.</span
+          >
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="isDisable">
+      <q-card class="modalb">
+        <q-card-section class="row items-center">
+          <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
+          <span class="q-ml-sm"
+            >You are currently not connected to any network.</span
+          >
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import FindUser from 'components/FindUser.vue'
 export default {
   props: {
     rooms: {
@@ -24,19 +93,68 @@ export default {
   },
   data() {
     return {
-      isRoomDetail: false ,
-    }
+      isRoomDetail: false,
+      isNone: false,
+      isHad: false,
+      isDisable: false,
+      thisRoom: {},
+      thisStatus: 1,
+      userFind: {},
+    };
+  },
+  computed: {
+    ...mapGetters("RoomStatuses", ["roomStatuses"]),
   },
   methods: {
-    roomStatus(room){
-      return room.room_status.name
+    roomStatus(room) {
+      return room.room_status.name;
+    },
+    openDialog(room) {
+      let status_name = this.roomStatus(room);
+      this.thisStatus = room.room_status.id;
+      this.thisRoom = room;
+      if (status_name == "none") {
+        this.isNone = true;
+      } else if (status_name == "had") this.isHad = true;
+      else this.isDisable = true;
+    },
+    updateRoomStatus() {
+      console.log("oke ");
+    },
+    updateUserFind(data){
+      this.userFind = data ;
+      console.log(data) ;
     }
+  },
+  components : {
+    FindUser,
   }
 };
 </script>
 
 <style scoped lang='sass'>
+$fontSize: 20px
 .my-card
   // height: 130px
   margin: 10px 10px
+
+.rooms
+  height: 70px
+.modalb
+  min-width: 95vw
+@media (min-width: 1026px)
+  .rooms
+    height: 150px
+  .modalb
+    min-width: 75vw
+.pd
+  padding: 10px 20px
+.fs
+  font-size: $fontSize
+.br
+  border: solid 1px gray
+  border-radius: 3px
+  box-shadow: 0px 0px 3px gray
+.mr
+  margin: 10px !important
 </style>
