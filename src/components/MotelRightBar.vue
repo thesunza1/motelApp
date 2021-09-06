@@ -34,15 +34,32 @@
           <div
             v-for="(room_type, index) in motel.room_types"
             :key="index"
-            style="padding-left:20px"
+            style="padding-left: 20px"
             class="col-12 row items-center"
           >
-            <b class="col-6"> {{ ++index}}</b>
+            <b class="col-6"> {{ ++index }}</b>
             <div class="col-6">{{ room_type.name }}</div>
             <div class="col-12"><br /></div>
           </div>
         </div>
       </q-card>
+    </div>
+    <div class="full-width row justify-center items-end" style="height: 50vh">
+      <q-btn
+        color="primary"
+        icon="refresh"
+        label=" tải lại trang "
+        @click="$router.go()"
+      />
+    </div>
+    <div class="col-12"><br></div>
+    <div class="row justify-center full-width" >
+      <q-btn
+        color="primary"
+        icon="login"
+        label=" đăng xuất "
+        @click="$router.go()"
+      />
     </div>
   </div>
 </template>

@@ -8,7 +8,11 @@
       <q-card class="my-card">
         <q-card-section
           class="text-white text-center rooms row justify-center items-center"
-          :class="{ 'bg-positive': roomStatus(room) == 'none' }"
+          :class="{
+            'bg-positive': roomStatus(room) == 'none',
+            'bg-blue-7': roomStatus(room) == 'had',
+            'bg-red': roomStatus(room) == 'disable',
+          }"
           @click="openDialog(room)"
         >
           <div class="col-12">{{ room.name }}</div>
@@ -16,15 +20,17 @@
       </q-card>
     </div>
     <q-dialog v-model="isNone">
-      <q-card class="row modalb fs">
-        <q-card-section class="row pd full-width justify-center">
+      <q-card class="row modalb fs" style="max-height: 80vh">
+        <q-card-section
+          class="row pd full-width justify-center text-white bg-positive"
+        >
           <div class="col-12 text-center text-h5">chi tiết phòng</div>
           <div class="col-12"><br /></div>
           <div class="col-11 align-left">phòng : {{ thisRoom.name }}</div>
         </q-card-section>
         <q-card-section class="col-12 row justify-center">
           <q-select
-            class="col-11 col-md-8"
+            class="col-9 col-md-8"
             label="trạng thái phòng"
             filled
             v-model="thisStatus"
@@ -33,16 +39,25 @@
             option-label="name"
             emit-value
             map-options
-            @onChange="updateRoomStatus()"
+          />
+          <q-btn
+            class="col-2"
+            color="green-7"
+            label="đổi"
+            icon="check"
+            @click="updateRoomStatus"
           />
           <div class="col-12"><br /></div>
           <div class="col-12">
-            <find-user :userFind="userFind" @updateUserFind="updateUserFind"></find-user>
+            <find-user
+              :userFind="userFind"
+              @updateUserFind="updateUserFind"
+            ></find-user>
           </div>
         </q-card-section>
         <q-card-section class="row full-width items-center pd justify-end">
           <q-btn
-            color="primary"
+            color="orange-9"
             icon="add"
             label=" mời vào "
             @click="addUserToRoom()"
@@ -83,8 +98,24 @@
 
 <script>
 import { mapGetters } from "vuex";
-import FindUser from 'components/FindUser.vue'
+import FindUser from "components/FindUser.vue";
+import { useQuasar } from "quasar";
+
 export default {
+  setup() {
+    const $q = useQuasar();
+    function showNoti(mess, col) {
+      $q.notify({
+        message: mess,
+        color: col,
+        position: "top",
+        timeout: 1000,
+      });
+    }
+    return {
+      showNoti,
+    };
+  },
   props: {
     rooms: {
       type: Array,
@@ -98,7 +129,7 @@ export default {
       isHad: false,
       isDisable: false,
       thisRoom: {},
-      thisStatus: 1,
+      thisStatus: null,
       userFind: {},
     };
   },
@@ -118,17 +149,33 @@ export default {
       } else if (status_name == "had") this.isHad = true;
       else this.isDisable = true;
     },
-    updateRoomStatus() {
-      console.log("oke ");
+    async updateRoomStatus() {
+      // thisStatus
+      const response = await this.$api.put(
+        "updateRoomStatus/" + this.thisRoom.id,
+        {
+          roomStatusId: this.thisStatus,
+        }
+      );
+      let statusCode = response.data.statusCode;
+      if (statusCode == 0) {
+        this.showNoti("khong thể đổi thành có người", "warning");
+      } else if (statusCode == 1) {
+        this.showNoti(" thành công", "info");
+        const motel = await this.$api.get("getMotelRoomType");
+        this.$store.dispatch("Motel/motel", motel.data.data);
+        this.isNone = false;
+        this.isHad = false;
+      }
     },
-    updateUserFind(data){
-      this.userFind = data ;
-      console.log(data) ;
-    }
+    updateUserFind(data) {
+      this.userFind = data;
+      console.log(data);
+    },
   },
-  components : {
+  components: {
     FindUser,
-  }
+  },
 };
 </script>
 

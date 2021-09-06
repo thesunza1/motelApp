@@ -14,11 +14,16 @@
       class="row full-width justify-center items-center br bd mr"
       v-if="userFind"
     >
-      <div class="col-12">Họ tên: {{ userFind.name }}</div>
-      <div class="col-12">ngày sinh: {{ userFind.birth_date }}</div>
-      <div class="col-12">giới tính: {{ sex(userFind.sex) }}</div>
-      <div class="col-12">sdt : {{ userFind.phone_number }}</div>
-      <div class="col-12">công việc : {{ userFind.job }}</div>
+      <div class="col-5 col-md-4">Họ tên:</div>
+      <div class="col-7 col-md-8"> {{ userFind.name }}</div>
+      <div class="col-5 col-md-4">ngày sinh:</div>
+      <div class="col-7 col-md-8"> {{ userFind.birth_date }}</div>
+      <div class="col-5 col-md-4">giới tính:</div>
+      <div class="col-7 col-md-8"> {{ sex(userFind.sex) }}</div>
+      <div class="col-5 col-md-4">sdt:</div>
+      <div class="col-7 col-md-8"> {{ userFind.phone_number }}</div>
+      <div class="col-5 col-md-4">công việc:</div>
+      <div class="col-7 col-md-8"> {{ userFind.job }}</div>
     </q-card-section>
   </div>
 </template>
@@ -28,7 +33,6 @@ import { useQuasar } from "quasar";
 export default {
   setup() {
     const $q = useQuasar();
-
     return {
       showNoti(mess) {
         $q.notify({
@@ -38,7 +42,6 @@ export default {
           timeout:1000
         })
       },
-
     };
   },
   props: {
@@ -56,7 +59,8 @@ export default {
     },
     sex(sex) {
       if (sex == 1) return "nam";
-      return "nữ";
+      else if(sex == 0) return "nữ";
+      return '' ;
     },
   },
   data() {
@@ -74,9 +78,9 @@ $fontSize: 20px
 .fs
   font-size: $fontSize
 .br
-  border: solid 1px gray
+  border: solid 1px #f3f3f3
   border-radius: 3px
-  box-shadow: 0px 0px 3px gray
+  box-shadow: 0px 2px 12px gray
 .mr
   margin: 10px !important
 </style>
