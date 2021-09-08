@@ -6,7 +6,9 @@
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          <router-link class="link logo" to="motel/all"> motel manager</router-link>
+          <router-link class="link logo" to="motel/all">
+            motel manager</router-link
+          >
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
@@ -15,7 +17,10 @@
       <q-tabs align="left">
         <q-route-tab to="motel/all" label="trạng thái" />
         <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
+
+        <q-route-tab to="motel/noti" label="thông báo" >
+          <q-badge floating color="red" text-color="white" :label="notiNum " />
+        </q-route-tab>
       </q-tabs>
     </q-header>
 
@@ -27,7 +32,7 @@
       elevated
     >
       <!-- drawer content -->
-      <motel-right-bar ></motel-right-bar>
+      <motel-right-bar></motel-right-bar>
     </q-drawer>
 
     <q-page-container>
@@ -38,11 +43,11 @@
 
 <script>
 import { ref } from "vue";
-import MotelRightBar from 'components/MotelRightBar';
+import MotelRightBar from "components/MotelRightBar";
+import {api} from 'boot/axios'
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
-
     return {
       rightDrawerOpen,
       toggleRightDrawer() {
@@ -50,12 +55,23 @@ export default {
       },
     };
   },
+  data(){
+    let notiNum = 0 ;
+     this.$api.get("countNoti")
+     .then((res)=> {
+       notiNum = res.data.num ;
+     });
+
+    return {
+      notiNum,
+    }
+  },
   async created() {
-    const user = await this.$api.get('user');
-    const motel = await this.$api.get('getMotelRoomType');
-    this.$store.dispatch('Motel/motel', motel.data.data);
-    this.$store.dispatch('User/user',user.data.user);
-    this.$store.dispatch('RoomStatuses/roomStatuses');
+    const user = await this.$api.get("user");
+    const motel = await this.$api.get("getMotelRoomType");
+    this.$store.dispatch("Motel/motel", motel.data.data);
+    this.$store.dispatch("User/user", user.data.user);
+    this.$store.dispatch("RoomStatuses/roomStatuses");
   },
   components: {
     MotelRightBar,

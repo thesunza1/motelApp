@@ -18,9 +18,7 @@
         </q-card>
       </q-dialog>
       <q-card class="my-card col-12 col-md-8">
-        <q-form @reset="onReset" class="q-gutter-md"
-         @submit="onsubmit"
-        >
+        <q-form @reset="onReset" class="q-gutter-md" @submit="onsubmit">
           <q-card-section>
             <div class="text-h3 text-center">register as motel</div>
           </q-card-section>
@@ -165,7 +163,7 @@
                     color="primary"
                     icon="check"
                     label=" định vị "
-                    @click="getLocation()"
+                    @click="getLocation"
                   />
                   <div class="col-12"><br /></div>
                   <div class="col-12" style="height: 700px">
@@ -241,35 +239,17 @@
                     label=" đặt cọc"
                     suffix="VND/phong"
                   />
+                  <div class="col-12"><br /></div>
+                  <div class="col-12">
+                    <Tax
+                      class="bd"
+                      v-model:cost="motel.people_cost"
+                      :name="motel.people_name"
+                    ></Tax>
+                  </div>
                 </div>
               </div>
               <div class="col-12"><br /></div>
-              <div class="col-12 row items-center border-card">
-                <div class="col-12 text-h5 text-center">
-                  thiết lập thuế thiết bị
-                </div>
-                <div class="col-12 text-red" style="padding-left: 10px">
-                  *sử dụng các thiết bị tiêu hao nhiều điện,nước sẽ tính thêm
-                  tiền
-                </div>
-                <div class="col-12">
-                  <Tax
-                    class="bd"
-                    v-model:cost="motel.water_more"
-                    :name="motel.water_name"
-                  ></Tax>
-                  <Tax
-                    class="bd"
-                    v-model:cost="motel.elec_more"
-                    :name="motel.elec_name"
-                  ></Tax>
-                  <Tax
-                    class="bd"
-                    v-model:cost="motel.people_cost"
-                    :name="motel.people_name"
-                  ></Tax>
-                </div>
-              </div>
 
               <div class="col-12 row items-center border-card">
                 <div class="col-12 text-h5 text-center">
@@ -281,9 +261,14 @@
                 <div class="col-12">
                   <mulity-img v-model:imgs="motel_img.imgs"></mulity-img>
                 </div>
-                <div class="col-12"><br></div>
+                <div class="col-12"><br /></div>
                 <div class="col-12">
-                  <q-input outlined v-model="motel.content" type="textarea" label=" giới thiệu về trọ" />
+                  <q-input
+                    outlined
+                    v-model="motel.content"
+                    type="textarea"
+                    label=" giới thiệu về trọ"
+                  />
                 </div>
               </div>
               <div class="col-12 row items-center border-card">
@@ -434,11 +419,7 @@
             </q-card-section>
           </q-card>
           <div>
-            <q-btn
-              label="Submit"
-              type="submit"
-              color="primary"
-            />
+            <q-btn label="Submit" type="submit" color="primary" />
             <q-btn
               label="Reset"
               type="reset"
@@ -502,10 +483,6 @@ export default {
         deposit: 0,
         elec_cost: 0,
         water_cost: 0,
-        elec_more: 0,
-        elec_name: " thuế điện ",
-        water_more: 0,
-        water_name: " thuế nước",
         people_cost: 0,
         people_name: " thuế người ",
         content: "",
@@ -533,12 +510,12 @@ export default {
       room_types: [
         {
           names: "",
-          area: '',
-          const: '',
+          area: "",
+          const: "",
           male: true,
           female: true,
           everyone: true,
-          content: '',
+          content: "",
           room_num: 1,
           imgs: "",
         },
@@ -549,12 +526,12 @@ export default {
     addTypeRoom() {
       this.room_types.push({
         names: "",
-        area: '' ,
-        const: '',
+        area: "",
+        const: "",
         male: true,
         female: true,
         everyone: true,
-        content: '',
+        content: "",
         room_num: 1,
         imgs: "",
       });
@@ -565,6 +542,10 @@ export default {
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition);
+        console.log('oke roi');
+      }
+      else {
+        console.log('khong ho tro');
       }
     },
     showPosition(position) {
@@ -600,11 +581,11 @@ export default {
         },
       });
       let errorCode = response.statusCode;
-      if(errorCode == 0 ) {
-        this.isError =true ;
-        this.errorMes = 'email đã tồn tại ' ;
-      } else  {
-        this.$router.push('/login');
+      if (errorCode == 0) {
+        this.isError = true;
+        this.errorMes = "email đã tồn tại ";
+      } else {
+        this.$router.push("/login");
       }
     },
     append(fd, imgs, name) {
@@ -639,5 +620,4 @@ export default {
   border-radius: 5px
   margin: 10px 0px
   box-shadow: 0px 0px 3px green
-
 </style>

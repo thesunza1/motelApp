@@ -20,7 +20,7 @@
       </q-card>
     </div>
     <q-dialog v-model="isNone">
-      <q-card class="row modalb fs" style="max-height: 80vh">
+      <q-card class="row modalb fs br" style="max-height: 80vh">
         <q-card-section
           class="row pd full-width justify-center text-white bg-positive"
         >
@@ -63,6 +63,9 @@
             @click="addUserToRoom()"
           />
         </q-card-section>
+        <q-card-section>
+          <div class="full-width mob"></div>
+        </q-card-section>
       </q-card>
     </q-dialog>
     <q-dialog v-model="isHad">
@@ -80,17 +83,34 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="isDisable">
-      <q-card class="modalb">
-        <q-card-section class="row items-center">
-          <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
-          <span class="q-ml-sm"
-            >You are currently not connected to any network.</span
-          >
+      <q-card class="row modalb fs br" style="max-height: 80vh">
+        <q-card-section
+          class="row pd full-width justify-center text-white bg-red"
+        >
+          <div class="col-12 text-center text-h5">chi tiết phòng</div>
+          <div class="col-12"><br /></div>
+          <div class="col-11 align-left">phòng : {{ thisRoom.name }}</div>
         </q-card-section>
-        <q-card-actions align="right">
-          <q-btn flat label="Cancel" color="primary" v-close-popup />
-          <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
-        </q-card-actions>
+        <q-card-section class="col-12 row justify-center">
+          <q-select
+            class="col-9 col-md-8"
+            label="trạng thái phòng"
+            filled
+            v-model="thisStatus"
+            :options="roomStatuses"
+            option-value="id"
+            option-label="name"
+            emit-value
+            map-options
+          />
+          <q-btn
+            class="col-2"
+            color="green-7"
+            label="đổi"
+            icon="check"
+            @click="updateRoomStatus"
+          />
+        </q-card-section>
       </q-card>
     </q-dialog>
   </div>
@@ -130,7 +150,7 @@ export default {
       isDisable: false,
       thisRoom: {},
       thisStatus: null,
-      userFind: {},
+      userFind: null,
     };
   },
   computed: {
@@ -166,11 +186,30 @@ export default {
         this.$store.dispatch("Motel/motel", motel.data.data);
         this.isNone = false;
         this.isHad = false;
+        this.isDisable= false;
       }
     },
     updateUserFind(data) {
       this.userFind = data;
       console.log(data);
+    },
+    async addUserToRoom() {
+      let roomId = this.thisRoom.id;
+      if (this.userFind) {
+        let userId = this.userFind.id;
+        const response = await this.$api.post("sendInvite", {
+          roomId: roomId,
+          receiverId: userId,
+        });
+        let statusCode = response.data.statusCode;
+        if (statusCode == 0)
+          this.showNoti("lỗi: người được gửi là chủ trọ", "negative");
+        else if (statusCode == 2)
+          this.showNoti("lỗi: do người gửi là quản trị viên", "negative");
+        else this.showNoti("thành công: chờ người dùng xác nhận", "info");
+      } else {
+        this.showNoti("bạn cần tìm người trọ trước", "negative");
+      }
     },
   },
   components: {
@@ -199,9 +238,9 @@ $fontSize: 20px
 .fs
   font-size: $fontSize
 .br
-  border: solid 1px gray
-  border-radius: 3px
-  box-shadow: 0px 0px 3px gray
+  border-radius: 10px
 .mr
   margin: 10px !important
+.mob
+  height: 10vh
 </style>

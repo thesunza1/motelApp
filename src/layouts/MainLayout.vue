@@ -19,10 +19,10 @@
             >
           </div>
           <div v-if="user && role_id == 1" class="col">
-            <router-link to="/"> my room</router-link>
+            <router-link to="/">my room</router-link>
           </div>
           <div class="col">
-            <router-link to="/"> search</router-link>
+            <router-link to="/">search</router-link>
           </div>
           <div class="col" v-if="!user">
             <router-link to="/" @click.prevent="loginModal = true">
@@ -30,7 +30,13 @@
             >
           </div>
           <div v-if="user && role_id == 2" class="col">
-            <router-link to="motel/all"> motel</router-link>
+            <router-link to="motel/all">motel</router-link>
+          </div>
+          <div v-if="user && role_id == 1" class="col">
+            <router-link to="/userNoti">
+              thông báo
+              <q-badge color="red" text-color="white" :label="notiNum" />
+            </router-link>
           </div>
         </div>
       </div>
@@ -130,9 +136,12 @@ export default {
     const rightDrawerOpen = ref(false);
     const loginModal = ref(false);
     var role_id = 0;
+    var notiNum = 0;
+
     return {
       rightDrawerOpen,
       loginModal,
+      notiNum,
       role_id,
       toggleRightDrawer() {
         rightDrawerOpen.value = !rightDrawerOpen.value;
@@ -140,15 +149,14 @@ export default {
     };
   },
   async created() {
-    try{
-    const response = await this.$api.get("user");
-    this.$store.dispatch("User/user", response.data.user);
-    }
-    catch (e) {}
-
+    try {
+      var notiNum = await this.$api.get("countNoti");
+      const response = await this.$api.get("user");
+      this.$store.dispatch("User/user", response.data.user);
+    } catch (e) {}
+    this.notiNum = notiNum.data.num;
     const user = this.$store.state.User.user;
     this.role_id = user.role_id;
-    console.log(this.role_id);
   },
 
   components: {

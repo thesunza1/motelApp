@@ -9,6 +9,7 @@ import Login from 'pages/Login.vue'
 import UserRegister from 'pages/UserRegister.vue'
 import MotelRegister from 'pages/MotelRegister.vue'
 import MotelIndex from 'pages/MotelIndex.vue'
+import Noti from 'pages/Noti.vue'
 
 
 const routes = [
@@ -16,7 +17,8 @@ const routes = [
     path: '/',
     component: MainLayout,
     children: [
-      { path: '', component: Index}
+      { path: '', component: Index},
+      { path: 'userNoti', component: Noti},
     ]
   },
   {
@@ -32,7 +34,9 @@ const routes = [
     path: '/motel',
     component: MotelLayout,
     children: [
-      {path: '/all', component: MotelIndex}
+      {path: '/all', component: MotelIndex},
+      {path: '/noti', component: Noti},
+
 
     ]
   },
