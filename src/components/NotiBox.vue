@@ -1,0 +1,211 @@
+<template>
+  <div class="full-width">
+    <div v-for="(noti, index) in notis" :key="index" class="full-width">
+      <div><br /></div>
+      <q-card
+        @click="open(noti.noti_type_id, noti, index)"
+        v-if="noti.status == isSeen"
+        class="my-card row"
+        :class="{ 'bg-green-2': isSeen == 0 }"
+      >
+        <q-card-section horizontal class="flex items-center full-width">
+          <q-icon
+            class="text-purple"
+            :name="
+              noti.noti_type_id == 1
+                ? 'info'
+                : noti.noti_type_id == 2
+                ? 'report_problem'
+                : noti.noti_type_id == 3
+                ? 'person_add'
+                : 'check'
+            "
+            style="font-size: 40px; padding-left: 10px"
+          />
+          <q-card-section class="row col-12 items-center">
+            <div class="col-12 col-md-8 text-h6">
+              người gửi: {{ noti.senderUser.name }}
+            </div>
+            <div class="col-12 col-md-4">
+              thời gian: {{ toDate(noti.created_at) }}
+            </div>
+            <div class="col-12 text-subtitle2">tiêu đề: {{ noti.title }}</div>
+          </q-card-section>
+        </q-card-section>
+      </q-card>
+    </div>
+    <div class="full-width">
+      <q-dialog v-model="isInvite">
+        <q-card v-if="thisRoom">
+          <q-card-section class="row items-center text-white" :class="notiHDer">
+            <div class="col-12 text-center text-h5">
+              {{ nt.title }}
+            </div>
+            <div class="col-12"><br /></div>
+            <div class="col-2 text-bold">id: {{ nt.senderUser.id }}</div>
+            <div class="col-md-5 col-10 text-left">
+              {{ nt.senderUser.name }}
+            </div>
+            <div class="col-md-5 col-12 text-right">
+              {{ toDate(nt.created_at) }}
+            </div>
+          </q-card-section>
+          <q-card-section class="row items-center justify-center full-width">
+            <div class="col-12 row items-center justify-center">
+              <div class="col-6 text-left">phòng {{thisRoom.name}}</div>
+              <div class="col-6 text-left">loại: {{thisRoom.room_type.name}}</div>
+            </div>
+            <div class="col-12 row items-center justify-center">
+              <div class="col-6 text-left"> phòng: {{thisRoom.room_type.cost}}vnd</div>
+              <div class="col-6 text-left"> người: {{thisRoom.room_type.motel.people_cost}}vnd</div>
+              <div class="col-6 text-left"> điện: {{thisRoom.room_type.motel.elec_cost}}vnd</div>
+              <div class="col-6 text-left"> nước: {{thisRoom.room_type.motel.water_cost}}vnd</div>
+            </div>
+            <div class="col-12"><br></div>
+            <div class="col-12 row items-center justify-center">
+              <div class="col-12 text-bold"> đặc diểm</div>
+              <div class="col-12"> {{thisRoom.room_type.content}}</div>
+            </div>
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn flat label="đóng" color="negative" v-close-popup />
+            <q-btn
+              flat
+              label="trả lời"
+              color="primary"
+              v-close-popup
+              @click="reply"
+            />
+            <q-btn
+              flat
+              label="xác nhận vào phòng"
+              color="primary"
+              v-close-popup
+              @click="isConfirm=!isConfirm"
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="isDiff">
+        <q-card>
+          <q-card-section class="row items-center text-white" :class="notiHDer">
+            <div class="col-12 text-center text-h5">
+              {{ nt.title }}
+            </div>
+            <div class="col-12"><br /></div>
+            <div class="col-2 text-bold">id: {{ nt.senderUser.id }}</div>
+            <div class="col-md-5 col-10 text-left">
+              {{ nt.senderUser.name }}
+            </div>
+            <div class="col-md-5 col-12 text-right">
+              {{ toDate(nt.created_at) }}
+            </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-bold mr">nội dung:</div>
+            <div class="br">
+              {{ nt.content }}
+            </div>
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn flat label="đóng" color="negative" v-close-popup />
+            <q-btn
+              flat
+              label=" trả lời"
+              color="primary"
+              v-close-popup
+              @click="reply"
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="isConfirm" persistent>
+        <q-card>
+          <q-card-section class="row items-center text-white bg-primary">
+            <q-avatar icon="warning" color="primary" text-color="white" />
+            <span class="q-ml-sm"> sao khi bạn xác nhận thì sẽ được đưa vào trọ!</span>
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn flat label="Cancel" color="negative" v-close-popup />
+            <q-btn flat label="oke" color="primary" @click="intoRoom" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    notis: {
+      type: Array,
+    },
+    isSeen: {
+      type: Number,
+    },
+  },
+  data() {
+    return {
+      isInvite: false,
+      isDiff: false,
+      isConfirm: false,
+      thisRoom: null,
+      nt: null,
+      notiHDer: "",
+    };
+  },
+  methods: {
+    toDate(time) {
+      return time.substring(0, 10);
+    },
+    async open(type_id, noti, index) {
+      if (this.isSeen == 0) {
+        const Seen = await this.$api.get("isSeen/" + noti.id);
+        if (Seen.data.statusCode == 1) {
+          this.$emit("updateStatus", index);
+        }
+      }
+      this.nt = noti;
+      if (type_id == 3) {
+        this.isInvite = true;
+        try {
+          const notiInvite = await this.$api.get("getNotiRoom/" + noti.room_id);
+          this.thisRoom = notiInvite.data.room;
+        } catch (error) {}
+      } else {
+        this.isDiff = true;
+      }
+      this.notiHDer =
+        type_id == 1
+          ? "bg-accent"
+          : type_id == 2
+          ? "bg-negative"
+          : type_id == 3
+          ? "bg-primary"
+          : "bg-warning";
+    },
+    reply() {
+      this.$emit("openCreate");
+    },
+    async intoRoom() {
+      const response =await this.$api.post('intoRoom' , {
+        roomId : this.thisRoom.id ,
+      });
+      console.log(response.data);
+    }
+  },
+};
+</script>
+
+<style lang="sass" scoped>
+.br
+  padding: 10px 3px
+  margin: 5px 1px
+  border-radius: 2px
+  box-shadow: 0px 0px 2px gray
+  background: #f3f3f3
+.mr
+  padding: 10px 3px
+  margin: 2px 0px
+</style>

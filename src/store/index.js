@@ -2,6 +2,7 @@ import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
 import User from './user'
 import Motel from './motel'
+import NotiType from './notiType'
 import RoomStatuses from './roomStatuses'
 // import example from './module-example'
 
@@ -20,6 +21,7 @@ export default store(function (/* { ssrContext } */) {
       // example
       User,
       Motel,
+      NotiType,
       RoomStatuses
     },
 
