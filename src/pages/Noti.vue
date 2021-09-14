@@ -33,7 +33,7 @@
 <script>
 import NotiCreate from "components/NotiCreate.vue";
 import NotiBox from "components/NotiBox.vue";
-import { api } from "boot/axios";
+// import { api } from "boot/axios";
 export default {
   components: {
     NotiCreate,
@@ -51,9 +51,7 @@ export default {
       const notiType = await this.$api.get("notiType");
       this.$store.dispatch("NotiType/notiType", notiType.data.notiType);
       this.notis = noti.data.notis;
-      console.log(this.notis);
     } catch (error) {
-      console.log("loi roi");
     }
   },
   data() {

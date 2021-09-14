@@ -2,6 +2,7 @@
 import MainLayout from 'layouts/MainLayout.vue'
 import LRLayout from 'layouts/LRLayout.vue'
 import MotelLayout from 'layouts/MotelLayout.vue'
+import RoomLayout from 'layouts/RoomLayout.vue'
 
 //page
 import Index from 'pages/Index.vue'
@@ -10,6 +11,7 @@ import UserRegister from 'pages/UserRegister.vue'
 import MotelRegister from 'pages/MotelRegister.vue'
 import MotelIndex from 'pages/MotelIndex.vue'
 import Noti from 'pages/Noti.vue'
+import RoomIndex from 'pages/RoomIndex.vue'
 
 
 const routes = [
@@ -36,11 +38,17 @@ const routes = [
     children: [
       {path: '/all', component: MotelIndex},
       {path: '/noti', component: Noti},
-
-
     ]
   },
-  // Always leave this as last one,
+  {
+    path: '/room',
+    component: RoomLayout,
+    children: [
+      {path: '/roomAll', component: RoomIndex},
+      {path: '/roomNoti', component: Noti},
+    ]
+  },
+ // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',

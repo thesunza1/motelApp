@@ -4,6 +4,8 @@ import User from './user'
 import Motel from './motel'
 import NotiType from './notiType'
 import RoomStatuses from './roomStatuses'
+import Tenant from './tenant'
+import RoomTypeUser from './roomTypeUser'
 // import example from './module-example'
 
 /*
@@ -22,7 +24,9 @@ export default store(function (/* { ssrContext } */) {
       User,
       Motel,
       NotiType,
-      RoomStatuses
+      RoomStatuses,
+      Tenant,
+      RoomTypeUser,
     },
 
     // enable strict mode (adds overhead!)

@@ -19,7 +19,7 @@
             >
           </div>
           <div v-if="user && role_id == 1" class="col">
-            <router-link to="/">my room</router-link>
+            <router-link to="room/roomAll">my room</router-link>
           </div>
           <div class="col">
             <router-link to="/">search</router-link>
@@ -110,8 +110,8 @@
           <q-btn
             v-if="user"
             style="width: 100%; margin-top: 10px"
-            color="primary"
-            icon="logout"
+            color="orange"
+            icon="refresh"
             label=" tải lại "
             @click="reloadPage"
           />
@@ -129,20 +129,14 @@
 import { ref } from "vue";
 import MainLeftbar from "./MainLeftbar.vue";
 import { mapGetters } from "vuex";
-import { useStore } from "vuex";
-import { api } from "boot/axios";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
     const loginModal = ref(false);
-    var role_id = 0;
-    var notiNum = 0;
 
     return {
       rightDrawerOpen,
       loginModal,
-      notiNum,
-      role_id,
       toggleRightDrawer() {
         rightDrawerOpen.value = !rightDrawerOpen.value;
       },
@@ -151,10 +145,11 @@ export default {
   async created() {
     try {
       var notiNum = await this.$api.get("countNoti");
+      this.notiNum = notiNum.data.num;
       const response = await this.$api.get("user");
       this.$store.dispatch("User/user", response.data.user);
     } catch (e) {}
-    this.notiNum = notiNum.data.num;
+
     const user = this.$store.state.User.user;
     this.role_id = user.role_id;
   },
@@ -180,6 +175,8 @@ export default {
       },
       email: "",
       password: "",
+      role_id: null ,
+      notiNum: 0 ,
     };
   },
   computed: {
@@ -191,10 +188,10 @@ export default {
       location.reload();
     },
     get_role() {
-      if (this.isUser) {
+      if (this.role_id == 1) {
         return " tài khoảng người dùng ";
       }
-      if (this.isMotel) {
+      if (this.role_id == 2) {
         return " tài khoảng trọ ";
       }
     },
