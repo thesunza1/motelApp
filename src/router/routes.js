@@ -12,7 +12,7 @@ import MotelRegister from 'pages/MotelRegister.vue'
 import MotelIndex from 'pages/MotelIndex.vue'
 import Noti from 'pages/Noti.vue'
 import RoomIndex from 'pages/RoomIndex.vue'
-
+import MotelBill from 'pages/MotelBill.vue'
 
 const routes = [
   {
@@ -38,6 +38,7 @@ const routes = [
     children: [
       {path: '/all', component: MotelIndex},
       {path: '/noti', component: Noti},
+      {path: '/bill', component: MotelBill},
     ]
   },
   {
