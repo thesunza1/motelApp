@@ -52,19 +52,19 @@
       </q-card>
     </q-dialog>
     <q-footer class="bg-grey-1 row items-center justify-center">
-      <div class="col-3">
+      <div class=" col-6 col-md-3">
         <q-btn
           color="primary"
           icon="add"
-          label=" tạo bill toàn trọ"
+          label=" tạo cả trọ"
           @click="createAllBill"
         />
       </div>
-      <div class="col-3">
+      <div class="col-6 col-md-3">
         <q-btn
           color="primary"
           icon="add"
-          label=" tạo bill theo phòng"
+          label=" tạo theo phòng"
           @click="onClick"
         />
       </div>
