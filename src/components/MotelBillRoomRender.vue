@@ -25,8 +25,7 @@
                 'bg-blue-6': room.tenant.bill_num == 0,
                 'bg-red-7': room.tenant.no_bills > 0,
                 'bg-deep-orange-7':
-                  room.tenant.no_bills == 0 &&
-                  room.tenant.bill_num > 0,
+                  room.tenant.no_bills == 0 && room.tenant.bill_num > 0,
               }"
               @click="openDialog(room)"
             >
@@ -38,7 +37,7 @@
       </div>
     </div>
 
-    <q-dialog v-model="isDetailUser">
+    <q-dialog v-model="isDetailBill">
       <q-card class="row modalb fs br" style="max-height: 80vh">
         <q-card-section
           class="row pd full-width justify-center text-white bg-positive"
@@ -52,7 +51,7 @@
       </q-card>
     </q-dialog>
     <q-footer class="bg-grey-1 row items-center justify-center">
-      <div class=" col-6 col-md-3">
+      <div class="col-6 col-md-3">
         <q-btn
           color="primary"
           icon="add"
@@ -100,10 +99,11 @@ export default {
   },
   data() {
     return {
-      isRoomDetail: false,
       thisRoom: {},
       userFind: null,
       allBillRoom: null,
+      error: {},
+      isDetailBill: false,
     };
   },
   computed: {
@@ -113,18 +113,50 @@ export default {
     roomStatus(room) {
       return room.room_status.name;
     },
-    createAllBill()  {
-      const allbill = this.$api.post('createAllBill');
-
+    async createAllBill() {
+      const allbill = await this.$api.post("createAllBill");
+      var mes = " ";
+      var col = "red";
+      if (allbill.data.statusCode == 3) {
+        this.error = allbill.data.room;
+        mes = " phòng " + this.error.name + " chưa xác nhận điện nước";
+        col = " red";
+      } else if (allbill.data.statusCode == 2) {
+        this.error = allbill.data.room;
+        mes = " phòng " + this.error.name + " chưa đủ ngày để tạo thanh toán";
+        col = " red";
+      } else if (allbill.data.statusCode == 1) {
+        mes = "thành công";
+        col = "positive";
+        this.getAllBill;
+      } else if (allbill.data.statusCode == 0) {
+        mes = " phòng " + this.error.name + "chưa xác nhận điện nước";
+        col = " red";
+      }
+      this.showNoti(mes, col);
+    },
+    async getAllBill() {
+      try {
+        const bills = await this.$api.get("getBillAllRoom");
+        if (bills.data.statusCode == 1) {
+          this.allBillRoom = bills.data.allBillRoom;
+        }
+      } catch (error) {}
+    },
+    openDialog(room) {
+      this.thisRoom = room ;
+      this.isDetailBill = true ;
     }
   },
   components: {},
   async created() {
-    console.log(this.motel_id);
-    const bills = await this.$api.get("getBillAllRoom");
-    if (bills.data.statusCode == 1) {
-      this.allBillRoom = bills.data.allBillRoom;
-    }
+    try {
+      const bills = await this.$api.get("getBillAllRoom");
+
+      if (bills.data.statusCode == 1) {
+        this.allBillRoom = bills.data.allBillRoom;
+      }
+    } catch (error) {}
   },
 };
 </script>

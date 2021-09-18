@@ -71,7 +71,7 @@ export default {
     const motel = await this.$api.get("getMotelRoomType");
     this.$store.dispatch("Motel/motel", motel.data.data);
     this.$store.dispatch("User/user", user.data.user);
-    this.$store.dispatch("RoomStatuses/roomStatuses");
+    // this.$store.dispatch("RoomStatuses/roomStatuses");
   },
   components: {
     MotelRightBar,
