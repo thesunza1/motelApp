@@ -1,7 +1,7 @@
 <template>
   <div class="full-width">
     <div v-for="(noti, index) in notis" :key="index" class="full-width">
-      <div><br /></div>
+      <div v-if="noti.status == isSeen"><br /></div>
       <q-card
         @click="open(noti.noti_type_id, noti, index)"
         v-if="noti.status == isSeen"
@@ -10,7 +10,6 @@
       >
         <q-card-section horizontal class="flex items-center full-width">
           <q-icon
-            class="text-purple"
             :name="
               noti.noti_type_id == 1
                 ? 'info'
@@ -20,16 +19,28 @@
                 ? 'person_add'
                 : 'check'
             "
+            :class="
+              noti.noti_type_id == 1
+                ? 'text-purple'
+                : noti.noti_type_id == 2
+                ? 'text-red'
+                : noti.noti_type_id == 3
+                ? 'text-primary'
+                : 'text-warning'
+            "
+
             style="font-size: 40px; padding-left: 10px"
           />
           <q-card-section class="row col-12 items-center">
             <div class="col-12 col-md-8 text-h6">
-              người gửi: {{ noti.senderUser.name }}
+              tiêu đề: {{ noti.title }}
             </div>
             <div class="col-12 col-md-4">
               thời gian: {{ toDate(noti.created_at) }}
             </div>
-            <div class="col-12 text-subtitle2">tiêu đề: {{ noti.title }}</div>
+            <div class="col-12 text-subtitle2">
+              người gửi: {{ noti.senderUser.name }}
+              </div>
           </q-card-section>
         </q-card-section>
       </q-card>

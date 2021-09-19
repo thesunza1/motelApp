@@ -40,18 +40,155 @@
     <q-dialog v-model="isDetailBill">
       <q-card class="row modalb fs br" style="max-height: 80vh">
         <q-card-section
+          v-if="thisRoom"
           class="row pd full-width justify-center text-white bg-positive"
         >
-          <div class="col-12 text-center text-h5">chi tiết</div>
+          <div class="col-12 text-center text-h5">
+            phòng: {{ thisRoom.name }}
+          </div>
           <div class="col-12"><br /></div>
         </q-card-section>
-        <q-card-section v-if="userFind" class="col-12 row justify-center">
+        <div
+          v-for="(bill, index) in thisBills"
+          :key="index"
+          class="full-width row items-center"
+        >
+          <div class="col-12"><br /></div>
+          <q-card-section
+            class="col-12 row justify-center"
+            :class="{
+              'bg-red-2': bill.status == 0,
+              'bg-green-2': bill.status == 1,
+            }"
           >
+            <div class="col-6">từ: {{ toDate(bill.date_begin) }}</div>
+            <div class="col-6">đến: {{ toDate(bill.date_end) }}</div>
+            <div class="col-12"><br /></div>
+            <div v-if="index ==0" class="col-md-4 col-12 row justify-center items-center">
+              <div class="col-7 text-left">điện: {{ bill.elec_begin }} -</div>
+              <q-input
+                outlined
+                standout="bg-teal text-white"
+                bg-color="white"
+                class="col-4"
+                v-model="bill.elec_end"
+                type="number"
+              />
+              <div class="col-1">kwh</div>
+            </div>
+            <div v-else class="col-md-4 col-12 row justify-center items-center">
+              <div class=" text-left">điện: {{ bill.elec_begin }} - {{bill.elec_end}} kwh</div>
+            </div>
+            <div class="col-md-8 col-12 row items-center justify-center">
+              <div>
+                tổng: {{ bill.elec_end - bill.elec_begin }} *
+                {{ bill.elec_cost }}
+              </div>
+              <div>
+                = {{ (bill.elec_end - bill.elec_begin) * bill.elec_cost }}vnd
+              </div>
+            </div>
+            <div class="col-12"><br></div>
+            <div v-if="index==0" class="col-md-4 col-12 row justify-center items-center">
+              <div class="col-7 text-left"> nước: {{ bill.water_begin }} -</div>
+              <q-input
+                outlined
+                standout="bg-teal text-white"
+                bg-color="white"
+                class="col-4"
+                v-model="bill.water_end"
+                type="number"
+              />
+              <div class="col-1">m3</div>
+            </div>
+            <div v-else class="col-md-4 col-12 row justify-center items-center">
+              <div class=" text-left"> nước: {{ bill.water_begin }} - {{bill.water_end}} kwh</div>
+            </div>
+            <div class="col-12 col-md-8 row items-center justify-center">
+              <div>
+                tổng: {{ bill.water_end - bill.water_begin }} *
+                {{ bill.water_cost }}vnd
+              </div>
+              <div>
+                = {{ (bill.water_end - bill.water_begin) * bill.water_cost }}
+              </div>
+            </div>
+            <div class="col-12"><br /></div>
+            <div class="col-12 row justify-end items-center">
+              <div class="gt-sm col-6"></div>
+              <div class="col-md-6 col-10">
+                phí người: {{ bill.people_cost }}nvd
+              </div>
+              <div class="gt-sm col-6"></div>
+              <div class="col-md-6 col-10">tiền trọ: {{ bill.cost }}nvd</div>
+              <div class="col-12"><br /></div>
+              <div class="gt-sm col-6"></div>
+              <div class="col-md-6 col-10">
+                tổng phải trả:
+                {{
+                  bill.cost +
+                  bill.people_cost +
+                  (bill.water_end - bill.water_begin) * bill.water_cost +
+                  (bill.elec_end - bill.elec_begin) * bill.elec_cost
+                }}vnd
+              </div>
+            </div>
+            <div class="col-12"><br /></div>
+            <div class="col-12 row justify-end">
+              <q-btn
+                v-if="bill.status == 0"
+                color="positive"
+                style="margin-right: 5px"
+                label="đã trả"
+                @click="checkBill(bill.id, index)"
+              />
+              <q-btn
+                v-if="bill.status == 0 && index == 0"
+                color="primary"
+                style="margin-right: 5px"
+                label="cập nhật"
+                @click="updateBill(bill.id, bill.water_end, bill.elec_end)"
+              />
+              <q-btn
+                color="orange"
+                label="thông báo"
+                @click="notiUser(bill.id)"
+              />
+            </div>
+          </q-card-section>
+        </div>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="isRoomBill">
+      <q-card>
+        <q-card-section class="row items-center bg-primary text-white">
+          <span class="q-ml-sm"> chọn phòng để tạo</span>
         </q-card-section>
+        <q-card-section> *chọn phòng để tạo bill </q-card-section>
+        <q-card-section>
+          <div v-for="(roomType, index) in allBillRoom" :key="index">
+            <div class="row full-width items-center">
+              <div class="col-12">{{ roomType.name }}</div>
+              <div class="col-12 row items-center">
+                <div v-for="(room, index) in roomType.had_rooms" :key="index">
+                  <q-checkbox
+                    v-model="chooseRoom"
+                    :val="room.id"
+                    :label="room.name"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label=" thoát" v-close-popup />
+          <q-btn flat label=" tạo bill " @click="createSomeBill" />
+        </q-card-actions>
       </q-card>
     </q-dialog>
     <q-footer class="bg-grey-1 row items-center justify-center">
-      <div class="col-6 col-md-3">
+      <div class="">
         <q-btn
           color="primary"
           icon="add"
@@ -59,12 +196,13 @@
           @click="createAllBill"
         />
       </div>
-      <div class="col-6 col-md-3">
+      <div class="">
         <q-btn
           color="primary"
           icon="add"
           label=" tạo theo phòng"
-          @click="onClick"
+          @click="isRoomBill = true"
+          style="margin-left: 7px"
         />
       </div>
       <div class="col-12"><br /></div>
@@ -100,10 +238,13 @@ export default {
   data() {
     return {
       thisRoom: {},
+      thisBills: null,
       userFind: null,
       allBillRoom: null,
       error: {},
       isDetailBill: false,
+      isRoomBill: false,
+      chooseRoom: [],
     };
   },
   computed: {
@@ -126,7 +267,7 @@ export default {
         mes = " phòng " + this.error.name + " chưa đủ ngày để tạo thanh toán";
         col = " red";
       } else if (allbill.data.statusCode == 1) {
-        mes = "thành công";
+        mes = "khởi tạo thành công";
         col = "positive";
         this.getAllBill;
       } else if (allbill.data.statusCode == 0) {
@@ -144,11 +285,51 @@ export default {
       } catch (error) {}
     },
     openDialog(room) {
-      this.thisRoom = room ;
-      this.isDetailBill = true ;
-    }
+      this.thisRoom = room;
+      this.thisBills = room.tenant.bills;
+      this.isDetailBill = true;
+    },
+    async createSomeBill() {
+      const create = await this.$api.post("createSomeBill", {
+        rooms: this.chooseRoom,
+      });
+      if (create.data.statusCode == 1) {
+        this.showNoti("đã tạo thành công");
+        this.getAllBill();
+        this.isRoomBill = false;
+      }
+    },
+    toDate(date) {
+      return date.slice(0, 10);
+    },
+    async updateBill(billId, waterEnd, elecEnd) {
+      const update = await this.$api.post("updateBillNum", {
+        bill_id: billId,
+        water_end: waterEnd,
+        elec_end: elecEnd,
+      });
+      if (update.data.statusCode == 1) {
+        this.getAllBill();
+        this.showNoti("cập nhật thành công");
+      }
+    },
+    async checkBill(billId, index) {
+      const update = await this.$api.post("updateBillStatus", {
+        bill_id: billId,
+      });
+      if (update.data.statusCode == 1) {
+        this.showNoti("thay đổi thành công");
+        this.getAllBill();
+        this.isDetailBill = false;
+      }
+    },
+    async notiUser(billId) {
+      const send = await this.$api.get("sendNotiBill/" + billId);
+      if (send.data.statusCode == 1) {
+        this.showNoti("đã gửi thành công");
+      }
+    },
   },
-  components: {},
   async created() {
     try {
       const bills = await this.$api.get("getBillAllRoom");

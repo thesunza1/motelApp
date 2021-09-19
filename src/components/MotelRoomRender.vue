@@ -290,6 +290,10 @@ export default {
       showNoti,
     };
   },
+  async created() {
+    const roomStatus = await this.$api.get('roomStatuses');
+    this.roomStatuses = roomStatus.data.data ;
+  },
   props: {
     rooms: {
       type: Array,
@@ -298,6 +302,7 @@ export default {
   },
   data() {
     return {
+      roomStatuses: {},
       isRoomDetail: false,
       isNone: false,
       isHad: false,
