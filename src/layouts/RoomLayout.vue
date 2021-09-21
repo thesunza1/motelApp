@@ -19,7 +19,7 @@
         <q-route-tab to="room/roomNoti" label="thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
-        <q-route-tab to="/page2" label="Page Two" />
+        <q-route-tab to="room/roomBills" label="bills" />
       </q-tabs>
     </q-header>
 
@@ -31,6 +31,54 @@
       elevated
     >
       <!-- drawer content -->
+      <div class="row">
+        <div class="col-12 row justify-center">
+          <div class="col-12"><br /></div>
+          <q-chip
+            class="col-10"
+            v-if="!user"
+            icon="account_circle"
+            label=" bạn chưa đăng nhập"
+          />
+          <q-chip
+            class="col-10"
+            color="teal"
+            text-color="white"
+            v-else
+            icon="account_circle"
+            :label="user.name"
+          />
+          <q-chip
+            class="col-10"
+            color="orange"
+            text-color="white"
+            v-if="user"
+            icon="done"
+            label="bạn là người trọ"
+          />
+          <div class="col-12"><br /></div>
+        </div>
+      </div>
+      <div class="row items-end justify-center" style="height: 78%">
+        <div class="col-10">
+         <q-btn
+            v-if="user"
+            style="width: 100%; margin-top: 10px"
+            color="primary"
+            icon="logout"
+            label=" đăng xuất "
+            @click="logout"
+          />
+          <q-btn
+            v-if="user"
+            style="width: 100%; margin-top: 10px"
+            color="orange"
+            icon="refresh"
+            label=" tải lại "
+            @click="reloadPage"
+          />
+        </div>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -41,6 +89,7 @@
 
 <script>
 import { ref } from "vue";
+import { mapGetters } from 'vuex';
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -68,6 +117,18 @@ export default {
     this.$store.dispatch("User/user", user.data.user);
     this.$store.dispatch("RoomTypeUser/roomTypeUser");
   },
+  computed: {
+    ...mapGetters('User',['user']),
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("key");
+      location.reload();
+    },
+    reloadPage() {
+      this.$router.go();
+    },
+  }
 };
 </script>
 

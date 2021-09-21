@@ -16,8 +16,7 @@
 
       <q-tabs align="left">
         <q-route-tab to="motel/all" label="trạng thái" />
-        <q-route-tab to="/page2" label="Page Two" />
-
+        <q-route-tab to="motel/config" label="cấu hình" />
         <q-route-tab to="motel/noti" label="thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>

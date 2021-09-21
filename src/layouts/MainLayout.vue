@@ -143,14 +143,22 @@ export default {
     };
   },
   async created() {
-    try {
-      var notiNum = await this.$api.get("countNoti");
+    // try {
+    var notiNum = await this.$api.get("countNoti");
+    if (notiNum.data.statusCode == 1) {
       this.notiNum = notiNum.data.num;
-      const response = await this.$api.get("user");
-      this.$store.dispatch("User/user", response.data.user);
-    } catch (e) {}
+    }
+    const response = await this.$api.get("user");
+    this.$store.dispatch("User/user", response.data.user);
+    // } catch (e) {
 
+    // }
     const user = this.$store.state.User.user;
+    // let key = localStorage.getItem("key");
+    // if( typeof user == 'object' && key == null){
+    //   this.$router.go();
+    // }
+
     this.role_id = user.role_id;
   },
 
@@ -175,8 +183,8 @@ export default {
       },
       email: "",
       password: "",
-      role_id: null ,
-      notiNum: 0 ,
+      role_id: null,
+      notiNum: 0,
     };
   },
   computed: {

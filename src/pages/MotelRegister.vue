@@ -552,7 +552,7 @@ export default {
       this.center = [position.coords.latitude, position.coords.longitude];
       this.motel.latitude = position.coords.latitude;
       this.motel.longitude = position.coords.latitude;
-      // console.log(this.center);
+      console.log(this.center);
     },
     log(e) {
       this.motel.latitude = this.center.lat;

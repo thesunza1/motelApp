@@ -12,7 +12,9 @@ import MotelRegister from 'pages/MotelRegister.vue'
 import MotelIndex from 'pages/MotelIndex.vue'
 import Noti from 'pages/Noti.vue'
 import RoomIndex from 'pages/RoomIndex.vue'
+import RoomBills from 'pages/RoomBills.vue'
 import MotelBill from 'pages/MotelBill.vue'
+import MotelConfig from 'pages/MotelConfig.vue'
 
 const routes = [
   {
@@ -39,6 +41,7 @@ const routes = [
       {path: '/all', component: MotelIndex},
       {path: '/noti', component: Noti},
       {path: '/bill', component: MotelBill},
+      {path: '/config', component: MotelConfig},
     ]
   },
   {
@@ -47,6 +50,7 @@ const routes = [
     children: [
       {path: '/roomAll', component: RoomIndex},
       {path: '/roomNoti', component: Noti},
+      {path: '/roomBills', component: RoomBills},
     ]
   },
  // Always leave this as last one,

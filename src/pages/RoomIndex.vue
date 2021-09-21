@@ -246,7 +246,7 @@
           <q-card-section class="row full-width items-center">
             <div class="col-12"><br /></div>
             <div class="col-6 text-center">
-              trạng thái : {{ check(infoShare.info_share) }}
+              trạng thái : {{ infoShare.infor_share ==0 ? 'đang đóng' : 'đang mở'}}
             </div>
             <div class="col-5 row justify-around">
               <q-btn
@@ -384,7 +384,7 @@ export default {
     },
     check(status) {
       if (status == 1) return "đang mở";
-      return "đang đống";
+      if(status == 0 ) return "đang đống";
     },
     async deletePost(post_id, index) {
       const del = await this.$api.post("deleteConpound", {
@@ -413,7 +413,7 @@ export default {
         "changeInfoShare/" + this.infoShare.id
       );
       if (change.data.statusCode == 1) {
-        this.infoShare.info_share = this.infoShare.info_share == 1 ? 0 :1  ;
+        this.infoShare.infor_share = this.infoShare.infor_share == 1 ? 0 :1  ;
         this.showNoti("thay đổi thành công ", "postitive");
       } else {
         this.showNoti(" thất bại ", "negative");
