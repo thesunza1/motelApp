@@ -246,7 +246,8 @@
           <q-card-section class="row full-width items-center">
             <div class="col-12"><br /></div>
             <div class="col-6 text-center">
-              trạng thái : {{ infoShare.infor_share ==0 ? 'đang đóng' : 'đang mở'}}
+              trạng thái :
+              {{ infoShare.infor_share == 0 ? "đang đóng" : "đang mở" }}
             </div>
             <div class="col-5 row justify-around">
               <q-btn
@@ -268,7 +269,7 @@
             color="negative"
             icon="logout"
             label=" rời phòng trọ"
-            @click="onClick"
+            @click="isOut = true "
           />
         </div>
         <q-dialog v-model="isCreate">
@@ -291,6 +292,20 @@
               <q-btn flat label=" Đăng bài " color="primary" @click="post" />
             </q-card-actions>
             <div class="lt-sm" style="height: 30vh"></div>
+          </q-card>
+        </q-dialog>
+        <q-dialog v-model="isOut" persistent>
+          <q-card>
+            <q-card-section class="row items-center bg-warning text-white ">
+              <div class=" col-12 text-h6 text-center"> cảnh báo </div>
+            </q-card-section>
+            <q-card-section>
+               bạn chắc là sẽ rời phòng trọ này không
+            </q-card-section>
+            <q-card-actions align="right">
+              <q-btn flat label=" thoát "  v-close-popup />
+              <q-btn flat label=" rời trọ" color="negative" @click="outRoom()" v-close-popup />
+            </q-card-actions>
           </q-card>
         </q-dialog>
       </div>
@@ -384,7 +399,7 @@ export default {
     },
     check(status) {
       if (status == 1) return "đang mở";
-      if(status == 0 ) return "đang đống";
+      if (status == 0) return "đang đống";
     },
     async deletePost(post_id, index) {
       const del = await this.$api.post("deleteConpound", {
@@ -402,7 +417,7 @@ export default {
         post_id: post_id,
       });
       if (del.data.statusCode == 1) {
-        this.posts[index].status = this.posts[index].status ==1 ? 0:1;
+        this.posts[index].status = this.posts[index].status == 1 ? 0 : 1;
         this.showNoti("thay đổi thành công ", "postitive");
       } else {
         this.showNoti(" thất bại ", "negative");
@@ -413,12 +428,22 @@ export default {
         "changeInfoShare/" + this.infoShare.id
       );
       if (change.data.statusCode == 1) {
-        this.infoShare.infor_share = this.infoShare.infor_share == 1 ? 0 :1  ;
+        this.infoShare.infor_share = this.infoShare.infor_share == 1 ? 0 : 1;
         this.showNoti("thay đổi thành công ", "postitive");
       } else {
         this.showNoti(" thất bại ", "negative");
       }
     },
+    async outRoom() {
+      const out = await this.$api.post("outRoom");
+      if(out.data?.statusCode == 1) {
+        this.showNoti('rời trọ thành công ' , 'positive');
+        this.$router.push('/');
+      }
+      else{
+        this.showNoti(' lỗi do còn bill chưa trả  ' , 'negative');
+      }
+    }
   },
   data() {
     return {
@@ -433,6 +458,7 @@ export default {
       isCreate: false,
       posts: null,
       infoShare: null,
+      isOut: false
     };
   },
   async created() {

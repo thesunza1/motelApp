@@ -7,7 +7,7 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="room/roomAll">
-            room manager</router-link
+             quản lý phòng </router-link
           >
         </q-toolbar-title>
 
@@ -16,10 +16,11 @@
 
       <q-tabs align="left">
         <q-route-tab to="room/roomAll" label="phòng" />
+        <q-route-tab to="room/roomShare" label="trọ" />
+        <q-route-tab to="room/roomBills" label="bills" />
         <q-route-tab to="room/roomNoti" label="thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
-        <q-route-tab to="room/roomBills" label="bills" />
       </q-tabs>
     </q-header>
 
@@ -113,6 +114,8 @@ export default {
   async created() {
     const user = await this.$api.get("user");
     const tenant = await this.$api.get('getTenant');
+    const infor = await this.$api.get('getInfoShareMotel');
+    this.$store.dispatch("InforShareRoom/inforShareRoom",infor.data.room_type_share);
     this.$store.dispatch("Tenant/tenant",tenant.data.tenant);
     this.$store.dispatch("User/user", user.data.user);
     this.$store.dispatch("RoomTypeUser/roomTypeUser");

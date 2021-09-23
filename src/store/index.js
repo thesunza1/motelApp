@@ -6,6 +6,7 @@ import NotiType from './notiType'
 import RoomStatuses from './roomStatuses'
 import Tenant from './tenant'
 import RoomTypeUser from './roomTypeUser'
+import InforShareRoom from './inforShareRoom'
 // import example from './module-example'
 
 /*
@@ -27,6 +28,7 @@ export default store(function (/* { ssrContext } */) {
       RoomStatuses,
       Tenant,
       RoomTypeUser,
+      InforShareRoom,
     },
 
     // enable strict mode (adds overhead!)

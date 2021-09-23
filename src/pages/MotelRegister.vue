@@ -163,7 +163,7 @@
                     color="primary"
                     icon="check"
                     label=" định vị "
-                    @click="getLocation"
+                    @click="getLocation()"
                   />
                   <div class="col-12"><br /></div>
                   <div class="col-12" style="height: 700px">

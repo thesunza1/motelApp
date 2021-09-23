@@ -15,6 +15,7 @@ import RoomIndex from 'pages/RoomIndex.vue'
 import RoomBills from 'pages/RoomBills.vue'
 import MotelBill from 'pages/MotelBill.vue'
 import MotelConfig from 'pages/MotelConfig.vue'
+import RoomShare from 'pages/RoomShare.vue'
 
 const routes = [
   {
@@ -51,6 +52,7 @@ const routes = [
       {path: '/roomAll', component: RoomIndex},
       {path: '/roomNoti', component: Noti},
       {path: '/roomBills', component: RoomBills},
+      {path: '/roomShare', component: RoomShare},
     ]
   },
  // Always leave this as last one,

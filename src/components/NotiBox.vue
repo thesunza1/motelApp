@@ -8,7 +8,7 @@
         class="my-card row"
         :class="{ 'bg-green-2': isSeen == 0 }"
       >
-        <q-card-section horizontal class="flex items-center full-width">
+        <q-card-section horizontal class=" col-2 col-md-1 flex items-center full-width">
           <q-icon
             :name="
               noti.noti_type_id == 1
@@ -31,7 +31,7 @@
 
             style="font-size: 40px; padding-left: 10px"
           />
-          <q-card-section class="row col-12 items-center">
+          <q-card-section class="row col-10 col-md-11 items-center">
             <div class="col-12 col-md-8 text-h6">
               tiêu đề: {{ noti.title }}
             </div>
@@ -147,7 +147,21 @@
 </template>
 
 <script>
+import {useQuasar} from 'quasar'
 export default {
+  setup(){
+    const $q = useQuasar() ;
+    function showNoti(mess , col) {
+      $q.notify({
+        message: mess ,
+        color: col ,
+        position:"top"
+      });
+    }
+    return {
+      showNoti
+    }
+  },
   props: {
     notis: {
       type: Array,
@@ -203,8 +217,18 @@ export default {
       const response =await this.$api.post('intoRoom' , {
         roomId : this.thisRoom.id ,
       });
-      console.log(response.data);
-    }
+      if(response.data.statusCode == 1 ) {
+        this.showNoti('đã vào trọ' , 'positive');
+      }
+      else if(response.data.statusCode ==2 ) {
+        this.showNoti(' lỗi: phòng đang bị khóa ' , 'negative');
+      }
+      else {
+
+        this.showNoti(' lỗi: bạn đã ở trọ khác ' , 'negative');
+      }
+      }
+
   },
 };
 </script>
