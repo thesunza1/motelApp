@@ -3,6 +3,7 @@ import MainLayout from 'layouts/MainLayout.vue'
 import LRLayout from 'layouts/LRLayout.vue'
 import MotelLayout from 'layouts/MotelLayout.vue'
 import RoomLayout from 'layouts/RoomLayout.vue'
+import SearchLayout from 'layouts/SearchLayout.vue'
 
 //page
 import Index from 'pages/Index.vue'
@@ -16,6 +17,8 @@ import RoomBills from 'pages/RoomBills.vue'
 import MotelBill from 'pages/MotelBill.vue'
 import MotelConfig from 'pages/MotelConfig.vue'
 import RoomShare from 'pages/RoomShare.vue'
+import DetailAccount from 'pages/DetailAccount.vue'
+import SearchIndex from 'pages/SearchIndex.vue'
 
 const routes = [
   {
@@ -32,7 +35,8 @@ const routes = [
     children: [
       {path:'login' , component: Login},
       {path:'userRegister',component: UserRegister},
-      {path:'motelRegister',component: MotelRegister}
+      {path:'motelRegister',component: MotelRegister},
+      {path: 'homeDetailAccount', component: DetailAccount},
     ]
   },
   {
@@ -43,6 +47,14 @@ const routes = [
       {path: '/noti', component: Noti},
       {path: '/bill', component: MotelBill},
       {path: '/config', component: MotelConfig},
+      {path: '/detailAccount', component: DetailAccount},
+    ]
+  },
+  {
+    path: '/search' ,
+    component: SearchLayout,
+    children: [
+      {path: '/searchIndex' , component: SearchIndex},
     ]
   },
   {
@@ -53,6 +65,7 @@ const routes = [
       {path: '/roomNoti', component: Noti},
       {path: '/roomBills', component: RoomBills},
       {path: '/roomShare', component: RoomShare},
+      {path: '/roomDetailAccount', component: DetailAccount},
     ]
   },
  // Always leave this as last one,

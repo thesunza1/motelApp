@@ -7,87 +7,14 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
             <!-- <img :src="'/icons/favicon-96x96.png'" /> -->
           </q-avatar>
-          <router-link to="/" class="text-white">Tmq-motel</router-link>
+          <router-link to="search/searchIndex" class="text-white" style="text-decoration:none "> tìm trọ</router-link>
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
-      <div class="row justify-center">
-        <div class="col-12 col-md-8 row justify-center nav">
-          <div class="col" v-if="!user">
-            <router-link to="/" @click.prevent="loginModal = true">
-              my room</router-link
-            >
-          </div>
-          <div v-if="user && role_id == 1" class="col">
-            <router-link to="room/roomAll">my room</router-link>
-          </div>
-          <div class="col">
-            <router-link to="search/searchIndex">search</router-link>
-          </div>
-          <div class="col" v-if="!user">
-            <router-link to="/" @click.prevent="loginModalMotel = true">
-              motel</router-link
-            >
-          </div>
-          <div v-if="user && role_id == 2" class="col">
-            <router-link to="motel/all">motel</router-link>
-          </div>
-          <div v-if="user && role_id == 1" class="col">
-            <router-link to="/userNoti">
-              thông báo
-              <q-badge color="red" text-color="white" :label="notiNum" />
-            </router-link>
-          </div>
-        </div>
+      <div class="row justify-center full-width">
       </div>
     </q-header>
-    <q-dialog v-model="loginModal">
-      <q-card>
-        <q-card-section style="text-align: center">
-          <p>you not login</p>
-          <p style="font-size: 1.3em">login or register to continue</p>
-          <q-icon
-            name="account_circle"
-            class="text-blue"
-            style="font-size: 4rem"
-          />
-        </q-card-section>
-        <q-card-actions horizontal align="right">
-          <div>
-            <router-link class="lr lgs" to="/login">login</router-link>
-            <!-- <router-link class="lr lg" to="/">login</router-link> -->
-            <router-link class="lr rg" to="/">register</router-link>
-          </div>
-        </q-card-actions>
-        <q-card-actions vertical align="center">
-          <br />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <q-dialog v-model="loginModalMotel">
-      <q-card>
-        <q-card-section style="text-align: center">
-          <p>you not login</p>
-          <p style="font-size: 1.3em">login or register to continue</p>
-          <q-icon
-            name="account_circle"
-            class="text-blue"
-            style="font-size: 4rem"
-          />
-        </q-card-section>
-        <q-card-actions horizontal align="right">
-          <div>
-            <router-link class="lr lgs" to="/login">login</router-link>
-            <!-- <router-link class="lr lg" to="/">login</router-link> -->
-            <router-link class="lr rg" to="/"> tk trọ</router-link>
-          </div>
-        </q-card-actions>
-        <q-card-actions vertical align="center">
-          <br />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
 
     <q-drawer v-model="rightDrawerOpen" side="right" behavior="mobile" elevated>
       <!-- drawer content -->

@@ -57,6 +57,7 @@
             icon="done"
             label="bạn là người trọ"
           />
+          <q-btn color="primary"  label=" tài khoảng" @click="detailAccount" />
           <div class="col-12"><br /></div>
         </div>
       </div>
@@ -131,6 +132,9 @@ export default {
     reloadPage() {
       this.$router.go();
     },
+    detailAccount(){
+      this.$router.push('room/roomDetailAccount');
+    }
   }
 };
 </script>

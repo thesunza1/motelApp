@@ -16,6 +16,7 @@
         icon="done"
         label="bạn là chủ trọ"
       />
+      <q-btn color="primary"  label=" tài khoảng" @click="detailAccount" />
     </div>
     <div class="col-12 row items-center justify-center">
       <div class="col-12"><br /></div>
@@ -68,11 +69,16 @@
 import { mapGetters } from "vuex";
 
 export default {
-  methods: {},
+  methods: {
+    detailAccount() {
+      this.$router.push('motel/detailAccount');
+    }
+  },
   computed: {
     ...mapGetters("User", ["user"]),
     ...mapGetters("Motel", ["motel"]),
   },
+
 };
 </script>
 

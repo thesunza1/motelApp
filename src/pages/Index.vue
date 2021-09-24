@@ -99,7 +99,20 @@
       </q-card>
 
       <q-card class="my-cards col-12 col-md-8">
-        <img src="https://cdn.quasar.dev/img/mountains.jpg" />
+        <q-card-section style="height:100px">
+          <q-carousel style="height:1000px" animated v-model="slide1" arrows navigation>
+            <q-carousel-slide :name="1">
+              <q-img
+                :src="'/images/roomIndex.png'"
+                :ratio="351 / 464"
+                :fit="'fill'"
+              />
+            </q-carousel-slide>
+
+            <q-carousel-slide :name="2" :img-src="'/images/roomBill.png'" />
+            <q-carousel-slide :name="3" :img-src="'/images/roomShare.png'" />
+          </q-carousel>
+        </q-card-section>
         <q-card-section>
           <div class="text-h6">quản lý phòng</div>
         </q-card-section>
@@ -132,12 +145,10 @@ export default defineComponent({
     };
   },
   name: "PageIndex",
-  methods: {
-
-  },
+  methods: {},
   data() {
     return {
-
+      slide1: 1,
     };
   },
 });

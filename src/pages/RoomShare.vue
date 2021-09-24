@@ -1,5 +1,8 @@
 <template>
   <q-page padding>
+    <div class="full-width">
+      <motel-room-detail></motel-room-detail>
+    </div>
     <div
       v-for="(roomType, index) in inforShareRoom"
       :key="index"
@@ -69,7 +72,11 @@
 <script>
 import { mapGetters } from "vuex";
 import { useQuasar } from "quasar";
+import MotelRoomDetail from '../components/MotelRoomDetail.vue'
 export default {
+  components: {
+    MotelRoomDetail,
+  },
   setup() {
     const $q = useQuasar();
     function showNoti(mess, col) {

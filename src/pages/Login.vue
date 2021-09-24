@@ -23,7 +23,7 @@
       >
         <q-card class="my-card col-12 col-md-8">
           <q-card-section>
-            <h3 class="text-center">login</h3>
+            <h3 class="text-center"> đăng nhập </h3>
           </q-card-section>
           <q-card-section class="row justify-center">
             <q-input
@@ -42,12 +42,8 @@
             />
           </q-card-section>
           <q-card-section> </q-card-section>
-          <q-card-actions horizontal align="center">
-            <q-btn flat label="Login" type="submit"  />
-            <router-link to="/">
-              <q-btn flat label="user register" class="bg-primary text-white" />
-            </router-link>
-            <q-btn flat label="motel register" />
+          <q-card-actions  align="center">
+            <q-btn label=" đăng nhập" color="primary" type="submit"  />
           </q-card-actions>
         </q-card>
 
