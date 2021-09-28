@@ -57,7 +57,7 @@
         </q-card-section>
         <q-card-actions  align="right">
           <q-btn color="primary" >
-            <router-link to="/" style="text-decoration:none; color:white" > đi tới </router-link>
+            <router-link :to="{ name: 'searchDetail', params: {post_id: post.id}}" style="text-decoration:none; color:white" > đi tới </router-link>
           </q-btn>
         </q-card-actions>
 
@@ -118,7 +118,7 @@
         </q-card-section>
         <q-card-actions  align="right">
           <q-btn color="primary" >
-            <router-link to="/" style="text-decoration:none; color:white" > đi tới</router-link>
+            <router-link :to="{ name: 'searchDetail', params: {post_id: post.id}}"  style="text-decoration:none; color:white" > đi tới</router-link>
           </q-btn>
         </q-card-actions>
       </q-card>
@@ -148,6 +148,7 @@ export default {
   data() {
     return {
       urlBase: this.$api.defaults.baseURL + "/image/",
+
     };
   },
 };

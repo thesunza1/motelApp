@@ -19,6 +19,7 @@ import MotelConfig from 'pages/MotelConfig.vue'
 import RoomShare from 'pages/RoomShare.vue'
 import DetailAccount from 'pages/DetailAccount.vue'
 import SearchIndex from 'pages/SearchIndex.vue'
+import SearchDetail from 'pages/SearchDetail.vue'
 
 const routes = [
   {
@@ -55,6 +56,7 @@ const routes = [
     component: SearchLayout,
     children: [
       {path: '/searchIndex' , component: SearchIndex},
+      {path: '/searchDetail/:post_id', name:'searchDetail' , component: SearchDetail},
     ]
   },
   {

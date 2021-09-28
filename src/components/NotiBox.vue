@@ -114,9 +114,7 @@
           </q-card-section>
           <q-card-section>
             <div class="text-bold mr">nội dung:</div>
-            <div class="br">
-              {{ nt.content }}
-            </div>
+            <div class="br" v-html="nt.content"></div>
           </q-card-section>
           <q-card-actions align="right">
             <q-btn flat label="đóng" color="negative" v-close-popup />
