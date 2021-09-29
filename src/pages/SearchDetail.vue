@@ -338,6 +338,10 @@
           </div>
         </div>
       </div>
+      <div v-if="post" class="col-12 items-center justify-center">
+        <div class="col-12"><br></div>
+        <search-comment-render :post_id="post.id" class="col-12"></search-comment-render>
+      </div>
     </div>
     <q-footer
       class="col-12 row justify-center items-center bg-blue-2 pd"
@@ -363,6 +367,7 @@
 import MotelShowImgs from "../components/MotelShowImgs.vue";
 import SearchShowMap from "../components/SearchShowMap.vue";
 import SearchSendIntoRoom from "../components/SearchSendIntoRoom.vue"
+import SearchCommentRender from "../components/SearchCommentRender.vue"
 export default {
   setup() {
     function toNamNu(data) {
@@ -419,6 +424,7 @@ export default {
     MotelShowImgs,
     SearchShowMap,
     SearchSendIntoRoom,
+    SearchCommentRender,
   },
 };
 </script>

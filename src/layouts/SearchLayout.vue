@@ -7,13 +7,18 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
             <!-- <img :src="'/icons/favicon-96x96.png'" /> -->
           </q-avatar>
-          <router-link to="search/searchIndex" class="text-white" style="text-decoration:none "> tìm trọ</router-link>
+          <router-link
+            to="search/searchIndex"
+            class="text-white"
+            style="text-decoration: none"
+          >
+            tìm trọ</router-link
+          >
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
-      <div class="row justify-center full-width">
-      </div>
+      <div class="row justify-center full-width"></div>
     </q-header>
 
     <q-drawer v-model="rightDrawerOpen" side="right" behavior="mobile" elevated>
@@ -34,7 +39,6 @@
             v-else
             icon="account_circle"
             :label="user.name"
-
           />
           <q-chip
             class="col-10"
@@ -44,7 +48,7 @@
             icon="done"
             :label="get_role()"
           />
-          <q-btn color="primary"  label=" tài khoảng" @click="detail()" />
+          <q-btn color="primary" label=" tài khoảng" @click="detail()" />
           <div class="col-12"><br /></div>
         </div>
       </div>
@@ -125,16 +129,24 @@ export default {
     return {
       links: {
         id1: {
-          name: "login",
+          name: " đăng nhập",
+          col1: "primary",
           link: "/login",
         },
         id2: {
-          name: "User register",
+          name: " đăng kí ",
+          col1: "accent",
           link: "/userRegister",
         },
         id3: {
-          name: "Motel register",
+          name: " đăng kí trọ",
+          col1: "positive",
           link: "/motelRegister",
+        },
+        id4: {
+          name: " về trang chủ",
+          col1: "positive",
+          link: "/",
         },
       },
       email: "",
@@ -148,7 +160,7 @@ export default {
   },
   methods: {
     detail() {
-      this.$router.push('/homeDetailAccount');
+      this.$router.push("/homeDetailAccount");
     },
     logout() {
       localStorage.removeItem("key");

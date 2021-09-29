@@ -198,16 +198,24 @@ export default {
     return {
       links: {
         id1: {
-          name: "login",
+          name: " đăng nhập",
+          col1: "primary",
           link: "/login",
         },
         id2: {
-          name: "User register",
+          name: " đăng kí ",
+          col1: "accent",
           link: "/userRegister",
         },
         id3: {
-          name: "Motel register",
+          name: " đăng kí trọ",
+          col1: "positive",
           link: "/motelRegister",
+        },
+        id4: {
+          name: " về trang chủ",
+          col1: "positive",
+          link: "/",
         },
       },
       email: "",

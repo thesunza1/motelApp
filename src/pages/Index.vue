@@ -99,19 +99,15 @@
       </q-card>
 
       <q-card class="my-cards col-12 col-md-8">
-        <q-card-section style="height:100px">
-          <q-carousel style="height:1000px" animated v-model="slide1" arrows navigation>
-            <q-carousel-slide :name="1">
-              <q-img
-                :src="'/images/roomIndex.png'"
-                :ratio="351 / 464"
-                :fit="'fill'"
-              />
-            </q-carousel-slide>
-
-            <q-carousel-slide :name="2" :img-src="'/images/roomBill.png'" />
-            <q-carousel-slide :name="3" :img-src="'/images/roomShare.png'" />
-          </q-carousel>
+        <q-card-section style="height: auto;" class="row justify-center bg-dark" >
+          <q-responsive :ratio="9/16" style="width:70%; bg-dark ">
+            <q-carousel animated v-model="slide1" thumbnails swipeable control-color="red">
+              <q-carousel-slide :name="1" :img-src="'/images/roomIndex.png'">
+              </q-carousel-slide>
+              <q-carousel-slide :name="2" :img-src="'/images/roomBill.png'" />
+              <q-carousel-slide :name="3" :img-src="'/images/roomShare.png'" />
+            </q-carousel>
+          </q-responsive>
         </q-card-section>
         <q-card-section>
           <div class="text-h6">quản lý phòng</div>
