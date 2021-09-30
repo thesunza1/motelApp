@@ -1,5 +1,9 @@
 <template>
   <q-page padding class="row justify-center">
+    <div class="col-12 col-md-10" >
+        <search-box @update="updatePost($event)"></search-box>
+    </div>
+    <div class="col-12"><br></div>
     <div v-if="posts" class="col-12 col-md-10">
       <search-render-post :posts="posts.data"></search-render-post>
     </div>
@@ -19,6 +23,7 @@
 
 <script>
 import SearchRenderPost from "../components/SearchRenderPost.vue";
+import SearchBox from "../components/SearchBox.vue"
 export default {
   setup() {},
   data() {
@@ -51,9 +56,15 @@ export default {
       }
       return 1;
     },
+    updatePost(data) {
+      this.posts=data ;
+      this.max_page = data.last_page;
+      this.num_page.value = 1 ;
+    }
   },
   components: {
     SearchRenderPost,
+    SearchBox,
   },
 };
 </script>

@@ -541,11 +541,15 @@ export default {
     },
     getLocation() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.showPosition);
+        navigator.geolocation.getCurrentPosition(this.showPosition , error => {
+          alert('lskdjf');
+        });
         console.log('oke roi');
+        alert('ho tro ');
       }
       else {
         console.log('khong ho tro');
+        // alert('khong ho tro');
       }
     },
     showPosition(position) {

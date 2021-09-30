@@ -7,8 +7,8 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="room/roomAll">
-             quản lý phòng </router-link
-          >
+            quản lý phòng
+          </router-link>
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
@@ -18,8 +18,8 @@
         <q-route-tab to="room/roomAll" label="phòng" />
         <q-route-tab to="room/roomShare" label="trọ" />
         <q-route-tab to="room/roomBills" label="bills" />
-        <q-route-tab to="room/roomNoti" label="thông báo" >
-          <q-badge floating color="red" text-color="white" :label="notiNum " />
+        <q-route-tab to="room/roomNoti" label="thông báo">
+          <q-badge floating color="red" text-color="white" :label="notiNum" />
         </q-route-tab>
       </q-tabs>
     </q-header>
@@ -57,13 +57,13 @@
             icon="done"
             label="bạn là người trọ"
           />
-          <q-btn color="primary"  label=" tài khoảng" @click="detailAccount" />
+          <q-btn color="primary" label=" tài khoảng" @click="detailAccount" />
           <div class="col-12"><br /></div>
         </div>
       </div>
       <div class="row items-end justify-center" style="height: 78%">
         <div class="col-10">
-         <q-btn
+          <q-btn
             v-if="user"
             style="width: 100%; margin-top: 10px"
             color="primary"
@@ -79,6 +79,13 @@
             label=" tải lại "
             @click="reloadPage"
           />
+          <q-btn
+            style="width: 100%; margin-top: 10px"
+            color="positive"
+            icon="home"
+            label=" trang chủ"
+            @click="$router.push('/')"
+          />
         </div>
       </div>
     </q-drawer>
@@ -91,7 +98,7 @@
 
 <script>
 import { ref } from "vue";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -102,27 +109,30 @@ export default {
       },
     };
   },
-  data(){
-    let notiNum = 0 ;
+  data() {
+    let notiNum = 0;
     //  this.$api.get("countNoti")
     //  .then((res)=> {
     //    notiNum = res.data.num ;
     //  });
     return {
       notiNum,
-    }
+    };
   },
   async created() {
     const user = await this.$api.get("user");
-    const tenant = await this.$api.get('getTenant');
-    const infor = await this.$api.get('getInfoShareMotel');
-    this.$store.dispatch("InforShareRoom/inforShareRoom",infor.data.room_type_share);
-    this.$store.dispatch("Tenant/tenant",tenant.data.tenant);
+    const tenant = await this.$api.get("getTenant");
+    const infor = await this.$api.get("getInfoShareMotel");
+    this.$store.dispatch(
+      "InforShareRoom/inforShareRoom",
+      infor.data.room_type_share
+    );
+    this.$store.dispatch("Tenant/tenant", tenant.data.tenant);
     this.$store.dispatch("User/user", user.data.user);
     this.$store.dispatch("RoomTypeUser/roomTypeUser");
   },
   computed: {
-    ...mapGetters('User',['user']),
+    ...mapGetters("User", ["user"]),
   },
   methods: {
     logout() {
@@ -132,10 +142,10 @@ export default {
     reloadPage() {
       this.$router.go();
     },
-    detailAccount(){
-      this.$router.push('room/roomDetailAccount');
-    }
-  }
+    detailAccount() {
+      this.$router.push("room/roomDetailAccount");
+    },
+  },
 };
 </script>
 

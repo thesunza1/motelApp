@@ -142,6 +142,13 @@
             label=" tải lại "
             @click="reloadPage"
           />
+          <q-btn
+            style="width: 100%; margin-top: 10px"
+            color="positive"
+            icon="home"
+            label=" trang chủ"
+            @click="$router.push('/')"
+          />
         </div>
       </div>
     </q-drawer>

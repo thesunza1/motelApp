@@ -297,6 +297,8 @@ export default {
         this.showNoti("đã tạo thành công");
         this.getAllBill();
         this.isRoomBill = false;
+      } else if(create.data.statusCode ==3) {
+        this.showNoti(' lỗi : phòng '+ create.data.room.name+' chưa xác nhận số điện nước');
       }
     },
     toDate(date) {

@@ -73,6 +73,14 @@
             label=" tải lại "
             @click="reloadPage"
           />
+          <q-btn
+            v-if="user"
+            color="positive"
+            icon="home"
+            label=" trang chủ"
+            @click="toHome"
+            style="width: 100%; margin-top: 10px"
+          />
         </div>
       </div>
     </q-drawer>
@@ -176,6 +184,9 @@ export default {
     },
     reloadPage() {
       this.$router.go();
+    },
+    toHome() {
+      this.$router.push("/");
     },
   },
 };

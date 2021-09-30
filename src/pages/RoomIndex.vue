@@ -4,7 +4,7 @@
       <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-8">
         <q-card class="my-card full-width br">
           <q-card-section class="row items-center bg-purple-6 text-white">
-            <div class="col-12 text-center text-subtitle1">phòng</div>
+            <div class="col-12 text-center text-subtitle1"> <q-icon name="home" /> phòng</div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
@@ -91,7 +91,7 @@
         <q-card class="my-card br full-width">
           <q-card-section class="row items-center bg-purple-6 text-white">
             <div class="text-subtitle2 col-12 text-center">
-              tình trạng thiết bị phòng
+              <q-icon name="view_agenda" /> tình trạng thiết bị phòng
             </div>
           </q-card-section>
           <q-card-section class="row items-center">
@@ -218,16 +218,16 @@
               <div class="col-5 row justify-around">
                 <q-btn
                   color="negative"
-                  label=" xóa"
+                  icon="delete"
                   @click="deletePost(post.id, index)"
                 />
                 <q-btn
                   class="text-black"
                   color="warning"
-                  label=" đổi tt"
+                  icon="autorenew"
                   @click="changeStatus(post.id, index)"
                 />
-                <q-btn color="primary" label=" xem" @click="goPost(post.id)" />
+                <q-btn color="primary" icon="visibility"  @click="goPost(post.id)" />
               </div>
               <div class="col-12">
                 <hr />
@@ -253,7 +253,7 @@
               <q-btn
                 class="text-black"
                 color="warning"
-                label=" đổi tt"
+                icon="autorenew"
                 @click="changeInfoShare"
               />
             </div>
@@ -269,7 +269,7 @@
             color="negative"
             icon="logout"
             label=" rời phòng trọ"
-            @click="isOut = true "
+            @click="isOut = true"
           />
         </div>
         <q-dialog v-model="isCreate">
@@ -296,15 +296,21 @@
         </q-dialog>
         <q-dialog v-model="isOut" persistent>
           <q-card>
-            <q-card-section class="row items-center bg-warning text-white ">
-              <div class=" col-12 text-h6 text-center"> cảnh báo </div>
+            <q-card-section class="row items-center bg-warning text-white">
+              <div class="col-12 text-h6 text-center">cảnh báo</div>
             </q-card-section>
             <q-card-section>
-               bạn chắc là sẽ rời phòng trọ này không
+              bạn chắc là sẽ rời phòng trọ này không
             </q-card-section>
             <q-card-actions align="right">
-              <q-btn flat label=" thoát "  v-close-popup />
-              <q-btn flat label=" rời trọ" color="negative" @click="outRoom()" v-close-popup />
+              <q-btn flat label=" thoát " v-close-popup />
+              <q-btn
+                flat
+                label=" rời trọ"
+                color="negative"
+                @click="outRoom()"
+                v-close-popup
+              />
             </q-card-actions>
           </q-card>
         </q-dialog>
@@ -436,14 +442,13 @@ export default {
     },
     async outRoom() {
       const out = await this.$api.post("outRoom");
-      if(out.data?.statusCode == 1) {
-        this.showNoti('rời trọ thành công ' , 'positive');
-        this.$router.push('/');
+      if (out.data?.statusCode == 1) {
+        this.showNoti("rời trọ thành công ", "positive");
+        this.$router.push("/");
+      } else {
+        this.showNoti(" lỗi do còn bill chưa trả  ", "negative");
       }
-      else{
-        this.showNoti(' lỗi do còn bill chưa trả  ' , 'negative');
-      }
-    }
+    },
   },
   data() {
     return {
@@ -458,7 +463,7 @@ export default {
       isCreate: false,
       posts: null,
       infoShare: null,
-      isOut: false
+      isOut: false,
     };
   },
   async created() {
