@@ -227,7 +227,7 @@
                   icon="autorenew"
                   @click="changeStatus(post.id, index)"
                 />
-                <q-btn color="primary" icon="visibility"  @click="goPost(post.id)" />
+                <q-btn color="primary" icon="visibility"  @click="$router.push('/searchDetail/'+post.id)" />
               </div>
               <div class="col-12">
                 <hr />

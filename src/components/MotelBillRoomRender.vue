@@ -6,7 +6,7 @@
         :key="index"
         class="col-12 row pd roomsbg"
       >
-        <div class="col-12 text-h5">{{ room_type.name }}</div>
+        <div class="col-12 text-h5"> <q-icon name="store" class="text-light-green-10" style="font-size:30px" /> {{ room_type.name }}</div>
         <div
           class="col-4 col-md-2 text-h4"
           v-for="(room, index) in room_type.had_rooms"
@@ -44,6 +44,7 @@
           class="row pd full-width justify-center text-white bg-positive"
         >
           <div class="col-12 text-center text-h5">
+            <q-icon name="store" />
             phòng: {{ thisRoom.name }}
           </div>
           <div class="col-12"><br /></div>

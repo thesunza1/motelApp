@@ -2,7 +2,7 @@
   <div class="full-width">
     <div v-for="(post, index) in posts" :key="index" class="full-width">
       <q-card class="my-card" v-if="post.post_type_id == 1">
-         <q-card-section horizontal>
+        <q-card-section horizontal>
           <q-card-section
             class="row items-center"
             style="
@@ -22,27 +22,33 @@
             />
           </q-card-section>
 
-          <q-card-section style="max-width:80%" class="row">
+          <q-card-section style="max-width: 80%" class="row">
             <div class="col-12 text-blue text-subtitle2">
+              <q-icon name="home" style="font-size: 30px" />
               {{ post.room_type.name }} - {{ post.title }} -
               {{ post.room_type.motel.name }}
             </div>
             <div class="col-12 row items-center">
               <div class="text-green text-subtitle2 col-6 col-md-2">
+                <q-icon name="monetization_on" style="font-size: 30px" />
                 {{ toCost(post.room_type.cost) }}nvnd/th
               </div>
               <div class="gt-sm col-md-1 text-center">
+                <q-icon name="crop_square" style="font-size: 30px" />
                 {{ post.room_type.area }}m2
               </div>
               <div class="col-6 col-md-3 text-right">
+                <q-icon name="date_range" class="text-positive" style="font-size: 30px" />
                 {{ toDate(post.updated_at) }}
               </div>
-              <div class="col-12 lt-md"><br></div>
+              <div class="col-12 lt-md"><br /></div>
               <div class="col-12 col-md-6 text-center">
+                <q-icon name="room" class="text-warning" style="font-size: 30px" />
                 {{ post.room_type.motel.address }}
               </div>
             </div>
             <div class="gt-sm col-12">
+              <q-icon name="list_alt" class="text-accent" style="font-size: 30px" />
               {{ post.room_type.content }}
             </div>
             <div class="col-12">
@@ -55,12 +61,16 @@
             </div>
           </q-card-section>
         </q-card-section>
-        <q-card-actions  align="right">
-          <q-btn color="primary" >
-            <router-link :to="{ name: 'searchDetail', params: {post_id: post.id}}" style="text-decoration:none; color:white" > đi tới </router-link>
+        <q-card-actions align="right">
+          <q-btn icon="near_me" color="primary">
+            <router-link
+              :to="{ name: 'searchDetail', params: { post_id: post.id } }"
+              style="text-decoration: none; color: white"
+            >
+              đi tới
+            </router-link>
           </q-btn>
         </q-card-actions>
-
       </q-card>
       <q-card class="my-card" v-else>
         <q-card-section horizontal>
@@ -83,27 +93,33 @@
             />
           </q-card-section>
 
-          <q-card-section  style="max-width:80%" class="row">
+          <q-card-section style="max-width: 80%" class="row">
             <div class="col-12 text-blue text-subtitle2">
+              <q-icon name="home" style="font-size: 30px" />
               {{ post.room.room_type.name }} - {{ post.title }} -
               {{ post.room.room_type.motel.name }}
             </div>
             <div class="col-12 row items-center">
               <div class="text-green text-subtitle2 col-6 col-md-2">
+                <q-icon name="monetization_on" style="font-size: 30px" />
                 {{ toCost(post.room.room_type.cost) }}nvnd/th
               </div>
               <div class="col-1 gt-sm text-center">
+                <q-icon name="crop_square" style="font-size: 30px" />
                 {{ post.room.room_type.area }}m2
               </div>
               <div class="col-6 col-md-3 text-right">
+                <q-icon name="date_range"  class="text-positive" style="font-size: 30px" />
                 {{ toDate(post.updated_at) }}
               </div>
-              <div class="col-12 lt-md"><br></div>
+              <div class="col-12 lt-md"><br /></div>
               <div class="col-12 col-md-6 text-center">
+                <q-icon name="room" class="text-warning" style="font-size: 30px" />
                 {{ post.room.room_type.motel.address }}
               </div>
             </div>
             <div class="gt-sm col-12">
+              <q-icon name="list_alt" class="text-accent" style="font-size: 30px" />
               {{ post.conpound_content }}-{{ post.room.room_type.content }}
             </div>
             <div class="col-12">
@@ -116,9 +132,14 @@
             </div>
           </q-card-section>
         </q-card-section>
-        <q-card-actions  align="right">
-          <q-btn color="primary" >
-            <router-link :to="{ name: 'searchDetail', params: {post_id: post.id}}"  style="text-decoration:none; color:white" > đi tới</router-link>
+        <q-card-actions align="right">
+          <q-btn icon="near_me" color="primary">
+            <router-link
+              :to="{ name: 'searchDetail', params: { post_id: post.id } }"
+              style="text-decoration: none; color: white"
+            >
+              đi tới</router-link
+            >
           </q-btn>
         </q-card-actions>
       </q-card>
@@ -148,7 +169,6 @@ export default {
   data() {
     return {
       urlBase: this.$api.defaults.baseURL + "/image/",
-
     };
   },
 };

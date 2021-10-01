@@ -7,12 +7,10 @@
       transition="scale"
       class="full-width"
     >
-      <div v-if="noti.status == isSeen"><br /></div>
+      <div><br></div>
       <q-card
-        @click="open(noti.noti_type_id, noti, index)"
-        v-if="noti.status == isSeen"
+        @click="open(noti.noti_type_id, noti)"
         class="my-card row"
-        :class="{ 'bg-green-2': isSeen == 0 }"
       >
         <q-card-section
           horizontal
@@ -45,57 +43,12 @@
               thời gian: {{ toDate(noti.created_at) }}
             </div>
             <div class="col-12 text-subtitle2">
-              người gửi: {{ noti.senderUser.name }}
+                người nhận: {{ noti.receiverUser.name }}
             </div>
           </q-card-section>
         </q-card-section>
       </q-card>
     </q-intersection>
-    <!-- <div v-for="(noti, index) in notis" :key="index" class="full-width">
-      <div v-if="noti.status == isSeen"><br /></div>
-      <q-card
-        @click="open(noti.noti_type_id, noti, index)"
-        v-if="noti.status == isSeen"
-        class="my-card row"
-        :class="{ 'bg-green-2': isSeen == 0 }"
-      >
-        <q-card-section
-          horizontal
-          class="col-2 col-md-1 flex items-center full-width"
-        >
-          <q-icon
-            :name="
-              noti.noti_type_id == 1
-                ? 'info'
-                : noti.noti_type_id == 2
-                ? 'report_problem'
-                : noti.noti_type_id == 3
-                ? 'person_add'
-                : 'check'
-            "
-            :class="
-              noti.noti_type_id == 1
-                ? 'text-purple'
-                : noti.noti_type_id == 2
-                ? 'text-red'
-                : noti.noti_type_id == 3
-                ? 'text-primary'
-                : 'text-warning'
-            "
-            style="font-size: 40px; padding-left: 10px"
-          />
-          <q-card-section class="row col-10 col-md-11 items-center">
-            <div class="col-12 col-md-8 text-h6">tiêu đề: {{ noti.title }}</div>
-            <div class="col-12 col-md-4">
-              thời gian: {{ toDate(noti.created_at) }}
-            </div>
-            <div class="col-12 text-subtitle2">
-              người gửi: {{ noti.senderUser.name }}
-            </div>
-          </q-card-section>
-        </q-card-section>
-      </q-card>
-    </div> -->
     <div class="full-width">
       <q-dialog v-model="isInvite">
         <q-card v-if="thisRoom">
@@ -104,9 +57,9 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">id: {{ nt.senderUser.id }}</div>
+            <div class="col-2 text-bold">id: {{ nt.receiverUser.id }}</div>
             <div class="col-md-5 col-10 text-left">
-              {{ nt.senderUser.name }}
+              {{ nt.receiverUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
               {{ toDate(nt.created_at) }}
@@ -143,17 +96,10 @@
             <q-btn flat label="đóng" color="negative" v-close-popup />
             <q-btn
               flat
-              label="trả lời"
+              label=" tạo"
               color="primary"
               v-close-popup
               @click="reply"
-            />
-            <q-btn
-              flat
-              label="xác nhận vào phòng"
-              color="primary"
-              v-close-popup
-              @click="isConfirm = !isConfirm"
             />
           </q-card-actions>
         </q-card>
@@ -165,9 +111,9 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">id: {{ nt.senderUser.id }}</div>
+            <div class="col-2 text-bold">id: {{ nt.receiverUser.id }}</div>
             <div class="col-md-5 col-10 text-left">
-              {{ nt.senderUser.name }}
+              {{ nt.receiverUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
               {{ toDate(nt.created_at) }}
@@ -181,30 +127,10 @@
             <q-btn flat label="đóng" color="negative" v-close-popup />
             <q-btn
               flat
-              label=" trả lời"
+              label=" tạo"
               color="primary"
               v-close-popup
               @click="reply"
-            />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-      <q-dialog v-model="isConfirm" persistent>
-        <q-card>
-          <q-card-section class="row items-center text-white bg-primary">
-            <q-avatar icon="warning" color="primary" text-color="white" />
-            <span class="q-ml-sm">
-              sao khi bạn xác nhận thì sẽ được đưa vào trọ!</span
-            >
-          </q-card-section>
-          <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="negative" v-close-popup />
-            <q-btn
-              flat
-              label="oke"
-              color="primary"
-              @click="intoRoom"
-              v-close-popup
             />
           </q-card-actions>
         </q-card>
@@ -233,9 +159,6 @@ export default {
     notis: {
       type: Array,
     },
-    isSeen: {
-      type: Number,
-    },
   },
   data() {
     return {
@@ -251,13 +174,7 @@ export default {
     toDate(time) {
       return time.substring(0, 10);
     },
-    async open(type_id, noti, index) {
-      if (this.isSeen == 0) {
-        const Seen = await this.$api.get("isSeen/" + noti.id);
-        if (Seen.data.statusCode == 1) {
-          this.$emit("updateStatus", index);
-        }
-      }
+    async open(type_id, noti) {
       this.nt = noti;
       if (type_id == 3) {
         this.isInvite = true;
@@ -279,18 +196,6 @@ export default {
     },
     reply() {
       this.$emit("openCreate");
-    },
-    async intoRoom() {
-      const response = await this.$api.post("intoRoom", {
-        roomId: this.thisRoom.id,
-      });
-      if (response.data.statusCode == 1) {
-        this.showNoti("đã vào trọ", "positive");
-      } else if (response.data.statusCode == 2) {
-        this.showNoti(" lỗi: phòng đang bị khóa ", "negative");
-      } else {
-        this.showNoti(" lỗi: bạn đã ở trọ khác ", "negative");
-      }
     },
   },
 };

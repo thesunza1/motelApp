@@ -20,6 +20,7 @@ import RoomShare from 'pages/RoomShare.vue'
 import DetailAccount from 'pages/DetailAccount.vue'
 import SearchIndex from 'pages/SearchIndex.vue'
 import SearchDetail from 'pages/SearchDetail.vue'
+import NotiOutbox from 'pages/NotiOutbox.vue'
 
 const routes = [
   {
@@ -28,6 +29,7 @@ const routes = [
     children: [
       { path: '', component: Index},
       { path: 'userNoti', component: Noti},
+      { path: 'userOutbox', component: NotiOutbox},
     ]
   },
   {
@@ -49,6 +51,7 @@ const routes = [
       {path: '/bill', component: MotelBill},
       {path: '/config', component: MotelConfig},
       {path: '/detailAccount', component: DetailAccount},
+      { path: '/motelOutbox', component: NotiOutbox},
     ]
   },
   {
@@ -68,6 +71,7 @@ const routes = [
       {path: '/roomBills', component: RoomBills},
       {path: '/roomShare', component: RoomShare},
       {path: '/roomDetailAccount', component: DetailAccount},
+      { path: '/roomOutbox', component: NotiOutbox},
     ]
   },
  // Always leave this as last one,

@@ -1,17 +1,21 @@
 <template>
-  <div v-if="!user" class="row full-width justify-center" >
-    <q-btn :class=" `bg-${link.col1}`"  class="col-8 text-white">
-      <router-link :to="link.link" class="text-white" style="text-decoration:none">{{ link.name }}</router-link>
+  <div v-if="!user" class="row full-width justify-center">
+    <q-btn
+      :class="`bg-${link.col1}`"
+      class="col-8 text-white"
+      :label="link.name"
+      :icon="link.icon"
+      @click="$router.push(link.link)"
+    >
     </q-btn>
-    <div class="col-12" style="height:5px"></div>
+    <div class="col-12" style="height: 5px"></div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 export default {
-  setup() {
-  },
+  setup() {},
   computed: {
     ...mapGetters("User", ["user"]),
   },

@@ -7,37 +7,30 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
             <!-- <img :src="'/icons/favicon-96x96.png'" /> -->
           </q-avatar>
-          <router-link to="/" class="text-white">Tmq-motel</router-link>
+          <router-link to="/" class="text-white" style="text-decoration: none "> Tmq-motel</router-link>
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
       <div class="row justify-center">
-        <div class="col-12 col-md-8 row justify-center nav">
-          <div class="col" v-if="!user">
-            <router-link to="/" @click.prevent="loginModal = true">
-              my room</router-link
-            >
+        <div class="col-11 row items-center justify-center col-md-8" style="padding: 0px 0px 10px 0px ; ">
+          <div v-if="!user" class="col-4 row items-center justify-center " >
+            <q-btn class="col-10 pd" color="primary" icon="home" label="phòng" @click="loginModal=true" />
           </div>
-          <div v-if="user && role_id == 1" class="col">
-            <router-link to="room/roomAll">my room</router-link>
+          <div v-if="user && user.role_id==1" class="col-4 row items-center justify-center">
+            <q-btn class="col-10 pd" color="primary" icon="home" label="phòng" @click="openModal(0)" />
           </div>
-          <div class="col">
-            <router-link to="search/searchIndex">search</router-link>
+          <div class="col-4 row items-center justify-center">
+            <q-btn  class="col-10 pd" color="positive" icon="search" label="tìm " @click="$router.push('search/searchIndex')"  />
           </div>
-          <div class="col" v-if="!user">
-            <router-link to="/" @click.prevent="loginModalMotel = true">
-              motel</router-link
-            >
+          <div v-if="!user" class="col-4 row items-center justify-center">
+            <q-btn color="primary"  class="col-10 pd" icon="home" label="trọ"  @click="loginModalMotel=true"  />
           </div>
-          <div v-if="user && role_id == 2" class="col">
-            <router-link to="motel/all">motel</router-link>
+          <div v-if="user && user.role_id ==2" class="col-4 row items-center justify-center">
+            <q-btn color="primary"  class="col-10 pd" icon="home" label="trọ"  @click="openModal(1)"  />
           </div>
-          <div v-if="user && role_id == 1" class="col">
-            <router-link to="/userNoti">
-              thông báo
-              <q-badge color="red" text-color="white" :label="notiNum" />
-            </router-link>
+          <div v-if="user" class="col-4 row items-center justify-center">
+            <q-btn color="accent"  class="col-10 pd" icon="infor" label="tbáo" @click="$router.push('/userNoti')" />
           </div>
         </div>
       </div>
@@ -45,8 +38,8 @@
     <q-dialog v-model="loginModal">
       <q-card>
         <q-card-section style="text-align: center">
-          <p>you not login</p>
-          <p style="font-size: 1.3em">login or register to continue</p>
+          <p> bạn chưa đăng nhập</p>
+          <p style="font-size: 1.3em"> đăng nhập hoặc tạo để tiếp tục</p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -55,9 +48,8 @@
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
-            <router-link class="lr lgs" to="/login">login</router-link>
-            <!-- <router-link class="lr lg" to="/">login</router-link> -->
-            <router-link class="lr rg" to="/">register</router-link>
+            <router-link class="lr lgs" to="/login">d nhập</router-link>
+            <router-link class="lr rg" to="/userRegister">d kí</router-link>
           </div>
         </q-card-actions>
         <q-card-actions vertical align="center">
@@ -68,8 +60,8 @@
     <q-dialog v-model="loginModalMotel">
       <q-card>
         <q-card-section style="text-align: center">
-          <p>you not login</p>
-          <p style="font-size: 1.3em">login or register to continue</p>
+          <p> bạn chưa đăng nhập</p>
+          <p style="font-size: 1.3em"> đăng nhập hoặc tạo để tiếp tục</p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -78,9 +70,8 @@
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
-            <router-link class="lr lgs" to="/login">login</router-link>
-            <!-- <router-link class="lr lg" to="/">login</router-link> -->
-            <router-link class="lr rg" to="/"> tk trọ</router-link>
+            <router-link class="lr lgs" to="/login">d nhập</router-link>
+            <router-link class="lr rg" to="/motelRegister"> tk trọ</router-link>
           </div>
         </q-card-actions>
         <q-card-actions vertical align="center">
@@ -88,7 +79,16 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-
+    <q-dialog v-model="isNonRoom" >
+      <q-card>
+        <q-card-section class="row items-center bg-positive">
+          <div class="col-12 text-center text-h6 text-white"> bạn chưa có phòng</div>
+        </q-card-section>
+        <q-card-section>
+          <div class="full-width"> bạn cần vào 1 trọ nào đó để sử dụng tính năng này </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     <q-drawer v-model="rightDrawerOpen" side="right" behavior="mobile" elevated>
       <!-- drawer content -->
       <div class="row">
@@ -117,7 +117,8 @@
             icon="done"
             :label="get_role()"
           />
-          <q-btn color="primary"  label=" tài khoảng" @click="detail()" />
+          <div class="col-12"><br></div>
+          <q-btn v-if="user" icon="account_circle" color="primary"  label=" tài khoảng" @click="detail()" />
           <div class="col-12"><br /></div>
         </div>
       </div>
@@ -143,6 +144,7 @@
             @click="reloadPage"
           />
           <q-btn
+            v-if="userd"
             style="width: 100%; margin-top: 10px"
             color="positive"
             icon="home"
@@ -168,10 +170,12 @@ export default {
     const rightDrawerOpen = ref(false);
     const loginModal = ref(false);
     const loginModalMotel = ref(false);
+    const isNonRoom = ref(false);
 
     return {
       rightDrawerOpen,
       loginModal,
+      isNonRoom,
       loginModalMotel,
       toggleRightDrawer() {
         rightDrawerOpen.value = !rightDrawerOpen.value;
@@ -205,24 +209,28 @@ export default {
     return {
       links: {
         id1: {
-          name: " đăng nhập",
+          name: "đăng nhập",
           col1: "primary",
           link: "/login",
+          icon: "login"
         },
         id2: {
-          name: " đăng kí ",
+          name: "đk ",
           col1: "accent",
           link: "/userRegister",
+          icon: "assignment"
         },
         id3: {
-          name: " đăng kí trọ",
+          name: "đk trọ",
           col1: "positive",
           link: "/motelRegister",
+          icon: "receipt"
         },
         id4: {
-          name: " về trang chủ",
+          name: "trang chủ",
           col1: "positive",
           link: "/",
+          icon: "home"
         },
       },
       email: "",
@@ -253,7 +261,17 @@ export default {
     reloadPage() {
       this.$router.go();
     },
+    openModal(val) {
+      if( val == 0 ){
+        if(this.user.have_room ==1 ) return this.$router.push('room/roomAll');
+        else this.isNonRoom = true ;
+      }
+      else {
+        this.$router.push('motel/all');
+      }
+    }
   },
+
 };
 </script>
 <style scoped lang="sass">
@@ -295,4 +313,6 @@ export default {
 .lgs
   background-color: $info
   color: white
+.pd
+  padding: 10px 0px
 </style>

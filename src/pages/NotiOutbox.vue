@@ -1,15 +1,11 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-12 col-md-10 row items-center justify-center">
+    <div class="col-12 col-md-10 row items-center">
       <div class="col-12">
         <q-tabs v-model="tab" class="text-teal">
+          <q-route-tab :to="toPath()" icon="all_inbox" label="nhận" />
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
-            label="nhận"
-            icon="all_inbox"
-          />
-          <q-route-tab
-            :to="toPath()"
             name="movies"
             icon="outbox"
             label=" gửi"
@@ -25,24 +21,12 @@
           @click="isCreate = !isCreate"
         />
       </div>
-      <div class="row col-12 justify-center">
+      <div class="row full-width justify-center col-12">
         <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-red-5">chưa đọc:</div>
-        <div class="col-12">
-          <noti-box
-            :notis="notis"
-            :isSeen="0"
-            @updateStatus="updateStatus($event)"
-            @openCreate="isCreate = !isCreate"
-          ></noti-box>
-        </div>
-        <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-green">đã đọc:</div>
         <div class="col-12">
           <noti-box
             :notis="notis"
             @openCreate="isCreate = !isCreate"
-            :isSeen="1"
           ></noti-box>
         </div>
       </div>
@@ -57,7 +41,7 @@
 
 <script>
 import NotiCreate from "components/NotiCreate.vue";
-import NotiBox from "components/NotiBox.vue";
+import NotiBox from "components/NotiOut.vue";
 // import { api } from "boot/axios";
 export default {
   components: {
@@ -72,7 +56,7 @@ export default {
   },
   async created() {
     try {
-      const noti = await this.$api.get("getAllNoti");
+      const noti = await this.$api.get("getAllOutbox");
       const notiType = await this.$api.get("notiType");
       this.$store.dispatch("NotiType/notiType", notiType.data.notiType);
       this.notis = noti.data.notis;
@@ -94,11 +78,11 @@ export default {
     toPath() {
       let path = this.$router.currentRoute._rawValue.matched[0].path;
       if (path == "/") {
-        return "userOutbox";
+        return "userNoti";
       } else if (path == "/room") {
-        return "roomOutbox";
+        return "roomNoti";
       } else if (path == "/motel") {
-        return "motelOutbox";
+        return "noti";
       }
     },
   },
