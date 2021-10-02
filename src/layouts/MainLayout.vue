@@ -7,30 +7,90 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
             <!-- <img :src="'/icons/favicon-96x96.png'" /> -->
           </q-avatar>
-          <router-link to="/" class="text-white" style="text-decoration: none "> Tmq-motel</router-link>
+          <router-link to="/" class="text-white" style="text-decoration: none">
+            Tmq-motel</router-link
+          >
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
       <div class="row justify-center">
-        <div class="col-11 row items-center justify-center col-md-8" style="padding: 0px 0px 10px 0px ; ">
-          <div v-if="!user" class="col-4 row items-center justify-center " >
-            <q-btn class="col-10 pd" color="primary" icon="home" label="phòng" @click="loginModal=true" />
+        <div
+          class="col-11 row items-center justify-center col-md-8"
+          style="padding: 0px 0px 10px 0px"
+        >
+          <div v-if="!user" class="col-4 row items-center justify-center">
+            <q-btn
+              class="col-10 pd"
+              color="primary"
+              icon="home"
+              label="phòng"
+              @click="loginModal = true"
+            />
           </div>
-          <div v-if="user && user.role_id==1" class="col-4 row items-center justify-center">
-            <q-btn class="col-10 pd" color="primary" icon="home" label="phòng" @click="openModal(0)" />
+          <div
+            v-if="user && user.role_id == 1"
+            class="col-4 row items-center justify-center"
+          >
+            <q-btn
+              class="col-10 pd"
+              color="primary"
+              icon="home"
+              label="phòng"
+              @click="openModal(0)"
+            />
           </div>
           <div class="col-4 row items-center justify-center">
-            <q-btn  class="col-10 pd" color="positive" icon="search" label="tìm " @click="$router.push('search/searchIndex')"  />
+            <q-btn
+              class="col-10 pd"
+              color="positive"
+              icon="search"
+              label="tìm "
+              @click="$router.push('search/searchIndex')"
+            />
           </div>
           <div v-if="!user" class="col-4 row items-center justify-center">
-            <q-btn color="primary"  class="col-10 pd" icon="home" label="trọ"  @click="loginModalMotel=true"  />
+            <q-btn
+              color="primary"
+              class="col-10 pd"
+              icon="home"
+              label="trọ"
+              @click="loginModalMotel = true"
+            />
           </div>
-          <div v-if="user && user.role_id ==2" class="col-4 row items-center justify-center">
-            <q-btn color="primary"  class="col-10 pd" icon="home" label="trọ"  @click="openModal(1)"  />
+          <div
+            v-if="user && user.role_id == 2"
+            class="col-4 row items-center justify-center"
+          >
+            <q-btn
+              color="primary"
+              class="col-10 pd"
+              icon="home"
+              label="trọ"
+              @click="openModal(1)"
+            />
           </div>
           <div v-if="user" class="col-4 row items-center justify-center">
-            <q-btn color="accent"  class="col-10 pd" icon="infor" label="tbáo" @click="$router.push('/userNoti')" />
+            <q-btn
+              color="accent"
+              class="col-10 pd"
+              icon="infor"
+              label="tbáo"
+              @click="$router.push('/userNoti')"
+            >
+              <q-badge
+                color="red"
+                text-color="white"
+                :label="notiNum"
+                floating
+                style="
+                  margin-right: 40px;
+                  font-size: 20px;
+                  height: auto;
+                  width: auto;
+                "
+              />
+            </q-btn>
           </div>
         </div>
       </div>
@@ -38,8 +98,8 @@
     <q-dialog v-model="loginModal">
       <q-card>
         <q-card-section style="text-align: center">
-          <p> bạn chưa đăng nhập</p>
-          <p style="font-size: 1.3em"> đăng nhập hoặc tạo để tiếp tục</p>
+          <p>bạn chưa đăng nhập</p>
+          <p style="font-size: 1.3em">đăng nhập hoặc tạo để tiếp tục</p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -60,8 +120,8 @@
     <q-dialog v-model="loginModalMotel">
       <q-card>
         <q-card-section style="text-align: center">
-          <p> bạn chưa đăng nhập</p>
-          <p style="font-size: 1.3em"> đăng nhập hoặc tạo để tiếp tục</p>
+          <p>bạn chưa đăng nhập</p>
+          <p style="font-size: 1.3em">đăng nhập hoặc tạo để tiếp tục</p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -79,13 +139,17 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <q-dialog v-model="isNonRoom" >
+    <q-dialog v-model="isNonRoom">
       <q-card>
         <q-card-section class="row items-center bg-positive">
-          <div class="col-12 text-center text-h6 text-white"> bạn chưa có phòng</div>
+          <div class="col-12 text-center text-h6 text-white">
+            bạn chưa có phòng
+          </div>
         </q-card-section>
         <q-card-section>
-          <div class="full-width"> bạn cần vào 1 trọ nào đó để sử dụng tính năng này </div>
+          <div class="full-width">
+            bạn cần vào 1 trọ nào đó để sử dụng tính năng này
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -107,7 +171,6 @@
             v-else
             icon="account_circle"
             :label="user.name"
-
           />
           <q-chip
             class="col-10"
@@ -117,8 +180,14 @@
             icon="done"
             :label="get_role()"
           />
-          <div class="col-12"><br></div>
-          <q-btn v-if="user" icon="account_circle" color="primary"  label=" tài khoảng" @click="detail()" />
+          <div class="col-12"><br /></div>
+          <q-btn
+            v-if="user"
+            icon="account_circle"
+            color="primary"
+            label=" tài khoảng"
+            @click="detail()"
+          />
           <div class="col-12"><br /></div>
         </div>
       </div>
@@ -190,18 +259,9 @@ export default {
     }
     const response = await this.$api.get("user");
     this.$store.dispatch("User/user", response.data.user);
-    // } catch (e) {
-
-    // }
     const user = this.$store.state.User.user;
-    // let key = localStorage.getItem("key");
-    // if( typeof user == 'object' && key == null){
-    //   this.$router.go();
-    // }
-
     this.role_id = user.role_id;
   },
-
   components: {
     MainLeftbar,
   },
@@ -212,25 +272,25 @@ export default {
           name: "đăng nhập",
           col1: "primary",
           link: "/login",
-          icon: "login"
+          icon: "login",
         },
         id2: {
           name: "đk ",
           col1: "accent",
           link: "/userRegister",
-          icon: "assignment"
+          icon: "assignment",
         },
         id3: {
           name: "đk trọ",
           col1: "positive",
           link: "/motelRegister",
-          icon: "receipt"
+          icon: "receipt",
         },
         id4: {
           name: "trang chủ",
           col1: "positive",
           link: "/",
-          icon: "home"
+          icon: "home",
         },
       },
       email: "",
@@ -244,7 +304,7 @@ export default {
   },
   methods: {
     detail() {
-      this.$router.push('/homeDetailAccount');
+      this.$router.push("/homeDetailAccount");
     },
     logout() {
       localStorage.removeItem("key");
@@ -262,16 +322,20 @@ export default {
       this.$router.go();
     },
     openModal(val) {
-      if( val == 0 ){
-        if(this.user.have_room ==1 ) return this.$router.push('room/roomAll');
-        else this.isNonRoom = true ;
+      if (val == 0) {
+        if (this.user.have_room == 1) return this.$router.push("room/roomAll");
+        else this.isNonRoom = true;
+      } else {
+        this.$router.push("motel/all");
       }
-      else {
-        this.$router.push('motel/all');
+    },
+    async updateNotiNum() {
+      var notiNum = await this.$api.get("countNoti");
+      if (notiNum.data.statusCode == 1) {
+        this.notiNum = notiNum.data.num;
       }
-    }
+    },
   },
-
 };
 </script>
 <style scoped lang="sass">
