@@ -77,14 +77,21 @@
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-12 row items-center bd">
-                  <div class="col-3"></div>
-                  <q-checkbox
-                    class="col-2"
-                    right-label
-                    v-model="motel.camera"
-                    val="1"
-                    label=" có camera "
-                  />
+                  <div class="col-1"></div>
+                  <div class="col-4 row justify-center">
+                    <q-radio
+                      class="col-6"
+                      v-model="motel.camera"
+                      val="1"
+                      label=" có cam"
+                    />
+                    <q-radio
+                      class="col-6"
+                      v-model="motel.camera"
+                      val="0"
+                      label=" không cam"
+                    />
+                  </div>
                   <q-input
                     class="col-7"
                     v-model="motel.parking"
@@ -93,6 +100,9 @@
                   />
                 </div>
               </q-card-section>
+              <q-card-actions align="right">
+                <q-btn label="cập nhật" color="positive" />
+              </q-card-actions>
             </q-card>
             <q-card class="my-card">
               <div class="col-12 text-h5 text-center">thiết lập giá</div>
@@ -148,7 +158,6 @@
                       label-color="blue"
                       bg-color="green-1"
                       type="text"
-                      label="nơi để"
                     />
                   </div>
                   <div class="col-12"><br /></div>
@@ -158,16 +167,26 @@
                   <div class="col-12"><br /></div>
                   <div class="col-12 row justify-center">
                     <!-- <mulity-img v-model:imgs="motelImgs[index].imgs"></mulity-img> -->
-                    <q-uploader
-                      color="teal"
-                      flat
-                      bordered
-                      class="col-12"
-                      label='chọn ảnh'
-                    />
-                    <motel-show-imgs
-                      :img_details="motelImg.img_details"
-                    ></motel-show-imgs>
+                    <div class="col-12 row justify-center">
+                      <mulity-img v-model:imgs="imgs"> </mulity-img>
+                    </div>
+                    <div class="col-12">
+                      <q-card-actions align="right">
+                        <q-btn
+                          label=" cập nhật"
+                          color="primary"
+                          @click="uploadImgs(motelImg.id)"
+                        />
+                      </q-card-actions>
+                    </div>
+                    <div
+                      class="col-12 row justify-center items-center pd bg-dark"
+                    >
+                      <motel-show-imgs
+                        class="col-12"
+                        :img_details="motelImg.img_details"
+                      ></motel-show-imgs>
+                    </div>
                   </div>
                   <div class="col-12"><br /></div>
                   <div
@@ -181,14 +200,12 @@
                       bg-color="green-1"
                       color="orange"
                       label-color="blue"
-                      label=" giới thiệu về trọ"
                     />
                   </div>
                   <div class="col-12"><br /></div>
                 </q-card-section>
               </q-card>
             </div>
-
           </q-form>
         </q-card>
       </div>
@@ -197,43 +214,76 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
 import Tax from "../components/Tax.vue";
 import MotelShowImgs from "../components/MotelShowImgs.vue";
-// import MulityImg from "../components/MulityImg.vue";
+import MulityImg from "../components/MulityImg.vue";
 export default {
   data() {
     return {
       roomTypeImgs: null,
-      MotelImgs: null,
+      motelImgs: null,
       zoom: 17,
       center: { lat: 0.01, lng: 105.77 },
+      lat: null,
+      lng: null,
       motel: null,
       base: this.$api.defaults.baseURL + "/image/",
+      baseUpload: this.$api.defaults.baseURL + "/uploadImg/",
+      imgs: null,
+      count: null,
     };
+  },
+  watch: {
+    center(newval, oldval) {
+      this.lat = newval.lat;
+      this.lng = newval.lng;
+    },
   },
   async created() {
     const roomTypeImgs = await this.$api.get("getRoomTypeImgs");
     const getMotelImgs = await this.$api.get("getMotelImgs");
     const motels = await this.$api.get("getMotelRoomType");
-    // if (roomTypeImgs.data.statusCode == 1) {
-      this.roomTypeImgs = roomTypeImgs.data.roomTypeImg;
-    // }
-    // if (getMotelImgs.data?.statusCode == 1) {
-      this.motelImgs = getMotelImgs.data.motelImgs;
-    // }
-    // if (motels.data?.statusCode == 1) {
+    this.roomTypeImgs = roomTypeImgs.data.roomTypeImg;
+    this.motelImgs = getMotelImgs.data.motelImgs;
     this.motel = motels.data?.data;
-    // }
     this.center = { lat: this.motel?.latitude, lng: this.motel?.longitude };
   },
   components: {
     Tax,
     MotelShowImgs,
-    // MulityImg,
+    MulityImg,
+  },
+  methods: {
+    async uploadImgs(motelImg) {
+      let fd = new FormData();
+      const len = this.imgs.length;
+      for (let i = 0; i < len; i++) {
+        fd.append('img' + i.toString(), this.imgs[i]);
+      }
+      fd.append("img_num", len);
+      fd.append("count" , motelImg);
+      const res = await this.$api.post("uploadImg" , fd, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
+
+      if (res.data?.statusCode) {
+        console.log("thanh cong ");
+      }
+    },
+    append(fd, imgs, name) {
+      const len = imgs.length;
+      for (let i = 0; i < len; i++) {
+        fd.append(name + i.toString(), imgs[i]);
+      }
+      fd.append(name + "_num", len);
+    },
   },
 };
 </script>
 
-<style>
+<style lang="sass" scoped>
+.pd
+  padding: 10px 0px
 </style>

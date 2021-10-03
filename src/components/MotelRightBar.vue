@@ -16,7 +16,7 @@
         icon="done"
         label="bạn là chủ trọ"
       />
-      <q-btn color="primary"  label=" tài khoảng" @click="detailAccount" />
+      <q-btn color="primary" label=" tài khoảng" @click="detailAccount" />
     </div>
     <div class="col-12 row items-center justify-center">
       <div class="col-12"><br /></div>
@@ -49,17 +49,24 @@
       <q-btn
         color="primary"
         icon="refresh"
-        label=" tải lại trang "
+        label="tải lại"
         @click="$router.go()"
       />
     </div>
-    <div class="col-12"><br></div>
-    <div class="row justify-center full-width" >
+    <div class="row justify-center full-width pad">
       <q-btn
-        color="primary"
+        color="orange"
         icon="login"
         label=" đăng xuất "
-        @click="$router.go()"
+        @click="logout()"
+      />
+    </div>
+    <div class="row justify-center full-width pad">
+      <q-btn
+        color="positive"
+        icon="home"
+        label=" trang chủ"
+        @click="$router.push('/')"
       />
     </div>
   </div>
@@ -71,14 +78,18 @@ import { mapGetters } from "vuex";
 export default {
   methods: {
     detailAccount() {
-      this.$router.push('motel/detailAccount');
-    }
+      this.$router.push("motel/detailAccount");
+    },
+    logout() {
+      localStorage.removeItem("key");
+      this.$store.dispatch("User/user", null);
+      this.$router.push("/");
+    },
   },
   computed: {
     ...mapGetters("User", ["user"]),
     ...mapGetters("Motel", ["motel"]),
   },
-
 };
 </script>
 

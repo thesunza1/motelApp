@@ -24,10 +24,7 @@
 <script>
 export default {
   props: {
-    img_details: {
-      type: Object,
-      type: Array,
-    },
+    img_details: [Object, Array] ,
   },
   data() {
     return {

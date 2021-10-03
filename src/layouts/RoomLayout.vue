@@ -110,16 +110,15 @@ export default {
     };
   },
   data() {
-    let notiNum = 0;
-    //  this.$api.get("countNoti")
-    //  .then((res)=> {
-    //    notiNum = res.data.num ;
-    //  });
     return {
-      notiNum,
+      notiNum : 0 ,
     };
   },
   async created() {
+    const notiNum = await this.$api.get("countNoti");
+    if (notiNum.data.statusCode == 1) {
+      this.notiNum = notiNum.data.num;
+    }
     const user = await this.$api.get("user");
     const tenant = await this.$api.get("getTenant");
     const infor = await this.$api.get("getInfoShareMotel");
@@ -145,7 +144,22 @@ export default {
     detailAccount() {
       this.$router.push("room/roomDetailAccount");
     },
+    async updateNotiNum() {
+      var notiNum = await this.$api.get("countNoti");
+      if (notiNum.data.statusCode == 1) {
+        if (this.notiNum != notiNum.data.num) {
+          this.notiNum = notiNum.data.num;
+        }
+      }
+      return;
+    },
   },
+  mounted: function () {
+    window.setInterval(() => {
+      this.updateNotiNum();
+    }, 5000);
+  },
+
 };
 </script>
 

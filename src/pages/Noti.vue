@@ -58,7 +58,6 @@
 <script>
 import NotiCreate from "components/NotiCreate.vue";
 import NotiBox from "components/NotiBox.vue";
-// import { api } from "boot/axios";
 export default {
   components: {
     NotiCreate,
@@ -101,7 +100,19 @@ export default {
         return "motelOutbox";
       }
     },
+    async updateNotis() {
+      const noti = await this.$api.get("getAllNoti");
+      if(this.notis[0].id != noti.data.notis[0].id){
+        this.notis = noti.data.notis ;
+      }
+      return ;
+    }
   },
+  mounted: function () {
+    window.setInterval(() => {
+      this.updateNotis() ;
+    } , 5000);
+  }
 };
 </script>
 

@@ -332,9 +332,17 @@ export default {
     async updateNotiNum() {
       var notiNum = await this.$api.get("countNoti");
       if (notiNum.data.statusCode == 1) {
-        this.notiNum = notiNum.data.num;
+        if (this.notiNum != notiNum.data.num) {
+          this.notiNum = notiNum.data.num;
+        }
       }
+      return;
     },
+  },
+  mounted: function () {
+    window.setInterval(() => {
+      this.updateNotiNum();
+    }, 5000);
   },
 };
 </script>
