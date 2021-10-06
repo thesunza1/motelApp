@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-12 col-md-10 row items-center">
+    <div class="col-12 col-md-10 row content-start">
       <div class="col-12">
         <q-tabs v-model="tab" class="text-teal">
           <q-route-tab :to="toPath()" icon="all_inbox" label="nhận" />
@@ -83,6 +83,8 @@ export default {
         return "roomNoti";
       } else if (path == "/motel") {
         return "noti";
+      } else {
+        return "adminNoti" ;
       }
     },
   },

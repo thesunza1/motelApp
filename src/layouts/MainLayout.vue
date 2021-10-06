@@ -70,6 +70,19 @@
               @click="openModal(1)"
             />
           </div>
+          <div
+            v-if="user && user.role_id == 3"
+            class="col-4 row items-center justify-center"
+          >
+            <q-btn
+              color="primary"
+              class="col-10 pd"
+              icon="config"
+              label="admin"
+              @click="$router.push('admin/adminNoti')"
+            />
+          </div>
+
           <div v-if="user" class="col-4 row items-center justify-center">
             <q-btn
               color="accent"

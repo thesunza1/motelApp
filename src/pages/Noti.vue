@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-12 col-md-10 row items-center justify-center">
-      <div class="col-12">
+    <div class="col-12 col-md-10 row content-start">
+      <div class="col-12" >
         <q-tabs v-model="tab" class="text-teal">
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
@@ -16,7 +16,7 @@
           />
         </q-tabs>
       </div>
-      <div class="row justify-end col-12">
+      <div class="row justify-end col-12" style="height: 10%">
         <q-btn
           class="col-4 col-md-2"
           color="primary"
@@ -48,7 +48,8 @@
       </div>
       <div class="row col-12">
         <q-dialog v-model="isCreate">
-          <noti-create></noti-create>
+          <admin-noti-create v-if=" user?.role_id == 3"></admin-noti-create>
+          <noti-create v-if=" user?.role_id == 2"></noti-create>
         </q-dialog>
       </div>
     </div>
@@ -57,11 +58,14 @@
 
 <script>
 import NotiCreate from "components/NotiCreate.vue";
+import AdminNotiCreate from "components/AdminNotiCreate.vue";
 import NotiBox from "components/NotiBox.vue";
+import {mapGetters} from 'vuex'
 export default {
   components: {
     NotiCreate,
     NotiBox,
+    AdminNotiCreate,
   },
   setup() {
     var isSeen = false;
@@ -83,6 +87,9 @@ export default {
       notis: null,
     };
   },
+  computed: {
+    ...mapGetters('User',['user']),
+  },
   methods: {
     updateStatus(index) {
       this.notis[index].status = 1;
@@ -98,6 +105,8 @@ export default {
         return "roomOutbox";
       } else if (path == "/motel") {
         return "motelOutbox";
+      } else {
+        return "adminOutBox";
       }
     },
     async updateNotis() {
