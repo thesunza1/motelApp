@@ -77,9 +77,9 @@
             <q-btn
               color="primary"
               class="col-10 pd"
-              icon="config"
+              icon="admin_panel_settings"
               label="admin"
-              @click="$router.push('admin/adminNoti')"
+              @click="$router.push('admin/adminUser')"
             />
           </div>
 
@@ -204,7 +204,7 @@
           <div class="col-12"><br /></div>
         </div>
       </div>
-      <div class="row items-end justify-center" style="height: 78%">
+      <!-- <div class="row items-end justify-center" style="height: 78%">
         <div class="col-10">
           <div v-for="(link, index) in links" :key="index">
             <main-leftbar :link="link"></main-leftbar>
@@ -234,7 +234,37 @@
             @click="$router.push('/')"
           />
         </div>
-      </div>
+      </div> -->
+      <q-footer class="bg-white"   >
+          <div v-for="(link, index) in links" :key="index">
+            <main-leftbar :link="link"></main-leftbar>
+          </div>
+          <q-btn
+            v-if="user"
+            style="width: 100%; margin-top: 10px"
+            color="primary"
+            icon="logout"
+            label=" đăng xuất "
+            @click="logout"
+          />
+          <q-btn
+            v-if="user"
+            style="width: 100%; margin-top: 10px"
+            color="orange"
+            icon="refresh"
+            label=" tải lại "
+            @click="reloadPage"
+          />
+          <q-btn
+            v-if="userd"
+            style="width: 100%; margin-top: 10px"
+            color="positive"
+            icon="home"
+            label=" trang chủ"
+            @click="$router.push('/')"
+          />
+
+      </q-footer>
     </q-drawer>
 
     <q-page-container>

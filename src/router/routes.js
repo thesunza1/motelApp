@@ -22,6 +22,7 @@ import DetailAccount from "pages/DetailAccount.vue";
 import SearchIndex from "pages/SearchIndex.vue";
 import SearchDetail from "pages/SearchDetail.vue";
 import NotiOutbox from "pages/NotiOutbox.vue";
+import AdminUser from "pages/AdminUser.vue";
 
 const routes = [
   {
@@ -85,6 +86,7 @@ const routes = [
     children: [
       { path: "/adminNoti", component: Noti },
       { path: "/adminOutBox", component: NotiOutbox },
+      { path: "/adminUser", component: AdminUser },
     ],
   },
   // Always leave this as last one,

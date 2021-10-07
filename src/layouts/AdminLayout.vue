@@ -15,6 +15,7 @@
       </q-toolbar>
 
       <q-tabs align="left">
+        <q-route-tab to="admin/adminUser" label="người dùng"></q-route-tab>
         <q-route-tab to="admin/adminNoti" label="thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
