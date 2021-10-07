@@ -2,14 +2,28 @@
   <q-page padding>
     <div v-if="users">
       <div class="full-width">
-      <q-card-actions v-if="thisUser.length ==1" align="right">
-        <q-btn color="warning" icon="update" label="Cập nhật" @click="isUpdate = true"/>
-        <q-btn color="negative" icon="delete"  label="Xóa"  @click="isDelete = true"/>
-        <!-- <q-btn color="warning" icon="update" /> -->
-      </q-card-actions>
-      <q-card-section v-if="thisUser.length ==1" >
-        <div>id : <b>{{thisUser[0].id}}</b>- email:  <b>{{thisUser[0].email  }}</b>- điện thoại: <b>{{thisUser[0].phone_number}}</b></div>
-      </q-card-section>
+        <q-card-actions v-if="thisUser.length == 1" align="right">
+          <q-btn
+            color="warning"
+            icon="update"
+            label="Cập nhật"
+            @click="isUpdate = true"
+          />
+          <q-btn
+            color="negative"
+            icon="delete"
+            label="Xóa"
+            @click="isDelete = true"
+          />
+          <!-- <q-btn color="warning" icon="update" /> -->
+        </q-card-actions>
+        <q-card-section v-if="thisUser.length == 1">
+          <div>
+            id : <b>{{ thisUser[0].id }}</b
+            >- email: <b>{{ thisUser[0].email }}</b
+            >- điện thoại: <b>{{ thisUser[0].phone_number }}</b>
+          </div>
+        </q-card-section>
       </div>
       <q-table
         title=" Danh sách người dùng"
@@ -22,34 +36,62 @@
       />
     </div>
     <q-dialog v-model="isUpdate">
-      <q-card style="min-width:60%">
+      <q-card style="min-width: 60%">
         <q-card-section class="text-center text-white text-h6 bg-positive">
-          <div> Cập nhật người dùng</div>
+          <div>Cập nhật người dùng</div>
         </q-card-section>
         <q-card-section class="row justify-center items-center">
-          <q-input class="col-8" v-model="thisUser[0].name" type="text"  label=" Họ Tên" />
+          <q-input
+            class="col-8"
+            v-model="thisUser[0].name"
+            type="text"
+            label=" Họ Tên"
+          />
           <div class="col-12 row justify-center items-center">
             <q-input v-model="thisUser[0].email" type="text" label=" email" />
             <q-input v-model="password" type="text" label=" đổi mật khẩu" />
           </div>
+          <div class="col-12 row justify-around items-center">
+            <q-btn icon="event" round color="primary">
+              <q-popup-proxy
+                @before-show="updateProxy"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date v-model="proxyDate">
+                  <div class="row items-center justify-end q-gutter-sm">
+                    <q-btn label="Cancel" color="primary" flat v-close-popup />
+                    <q-btn
+                      label="OK"
+                      color="primary"
+                      flat
+                      @click="save"
+                      v-close-popup
+                    />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-btn>
+          </div>
         </q-card-section>
+
         <q-card-actions align="right">
           <q-btn label=" Thoát" color="primary" v-close-popup />
-          <q-btn  label=" Thay đổi" color="primary" v-close-popup />
+          <q-btn label=" Thay đổi" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <q-dialog v-model="isDelete" persistent>
-      <q-card style="min-width:80%">
+      <q-card style="min-width: 80%">
         <q-card-section class="row items-center">
-          <div> Xóa người dùng</div>
+          <div>Xóa người dùng</div>
         </q-card-section>
         <q-card-section>
-          <div>Bạn có muốn xóa tài khoảng vĩnh viễn ? </div>
+          <div>Bạn có muốn xóa tài khoảng vĩnh viễn ?</div>
         </q-card-section>
         <q-card-actions align="right">
           <q-btn label=" Thoát" color="negative" v-close-popup />
-          <q-btn  label=" Xác nhận" color="primary" v-close-popup />
+          <q-btn label=" Xác nhận" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -120,8 +162,8 @@ export default {
       },
     ];
     var pagination = {
-      rowsPerPage:10,
-    }
+      rowsPerPage: 10,
+    };
     return {
       users: null,
       thisUser: [],
