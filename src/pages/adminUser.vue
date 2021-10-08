@@ -2,6 +2,23 @@
   <q-page padding>
     <div v-if="users">
       <div class="full-width">
+        <q-card-section class="row items-center">
+          <div class="col-6 row items-center justify-around">
+            <div class="text-bold">Tìm User:</div>
+            <q-input
+              v-model="userId"
+              type="number"
+              label=" Nhập id User"
+              label-color="primary"
+            />
+            <q-btn
+              color="primary"
+              icon="search"
+              label=" Tìm"
+              @click="findUser()"
+            />
+          </div>
+        </q-card-section>
         <q-card-actions v-if="thisUser.length == 1" align="right">
           <q-btn
             color="warning"
@@ -15,7 +32,12 @@
             label="Xóa"
             @click="isDelete = true"
           />
-          <!-- <q-btn color="warning" icon="update" /> -->
+          <q-btn
+            color="primary"
+            icon="question_answer"
+            label="Thông báo"
+            @click="isCreate = true"
+          />
         </q-card-actions>
         <q-card-section v-if="thisUser.length == 1">
           <div>
@@ -26,6 +48,7 @@
         </q-card-section>
       </div>
       <q-table
+        class="my-header-table"
         title=" Danh sách người dùng"
         :rows="users"
         :columns="columns"
@@ -34,7 +57,22 @@
         v-model:selected="thisUser"
         :pagination="pagination"
       />
+      <q-footer
+        class="q-py-md bg-white row items-center justify-center full-width"
+        elevated
+      >
+        <div>
+          <q-pagination
+            v-model="numPage"
+            :max="maxPage"
+            color="accent"
+            direction-links
+            bounadary-links
+          />
+        </div>
+      </q-footer>
     </div>
+
     <q-dialog v-model="isUpdate">
       <q-card style="min-width: 60%">
         <q-card-section class="text-center text-white text-h6 bg-positive">
@@ -46,44 +84,66 @@
             v-model="thisUser[0].name"
             type="text"
             label=" Họ Tên"
+            label-color="primary"
           />
-          <div class="col-12 row justify-center items-center">
-            <q-input v-model="thisUser[0].email" type="text" label=" email" />
-            <q-input v-model="password" type="text" label=" đổi mật khẩu" />
+          <div class="col-12 row justify-around items-center mr">
+            <q-input
+              v-model="thisUser[0].email"
+              type="text"
+              label=" Email"
+              label-color="primary"
+            />
+            <q-input
+              v-model="password"
+              type="text"
+              label=" đổi mật khẩu"
+              label-color="primary"
+            />
           </div>
-          <div class="col-12 row justify-around items-center">
-            <q-btn icon="event" round color="primary">
-              <q-popup-proxy
-                @before-show="updateProxy"
-                transition-show="scale"
-                transition-hide="scale"
-              >
-                <q-date v-model="proxyDate">
+          <div class="col-12 row justify-around items-center mr">
+            <q-input
+              v-model="thisUser[0].phone_number"
+              type="text"
+              label-color="primary"
+              label=" Điện thoại"
+            />
+            <q-input v-model="thisUser[0].birth_date" color="primary">
+              <q-popup-proxy transition-show="scale" transition-hide="scale">
+                <q-date v-model="thisUser[0].birth_date">
                   <div class="row items-center justify-end q-gutter-sm">
                     <q-btn label="Cancel" color="primary" flat v-close-popup />
-                    <q-btn
-                      label="OK"
-                      color="primary"
-                      flat
-                      @click="save"
-                      v-close-popup
-                    />
+                    <q-btn label="OK" color="primary" flat v-close-popup />
                   </div>
                 </q-date>
               </q-popup-proxy>
-            </q-btn>
+            </q-input>
+          </div>
+          <div class="col-12 row justify-around items-center mr">
+            <q-input
+              v-model="thisUser[0].job"
+              type="text"
+              label=" Nghề nghiệp"
+              label-color="primary"
+            />
           </div>
         </q-card-section>
 
         <q-card-actions align="right">
           <q-btn label=" Thoát" color="primary" v-close-popup />
-          <q-btn label=" Thay đổi" color="primary" v-close-popup />
+          <q-btn
+            label=" Thay đổi"
+            color="primary"
+            v-close-popup
+            @click="updateUser()"
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <q-dialog v-model="isDelete" persistent>
       <q-card style="min-width: 80%">
-        <q-card-section class="row items-center">
+        <q-card-section
+          class="row items-center justify-center text-white text-h6 bg-negative"
+        >
           <div>Xóa người dùng</div>
         </q-card-section>
         <q-card-section>
@@ -91,9 +151,17 @@
         </q-card-section>
         <q-card-actions align="right">
           <q-btn label=" Thoát" color="negative" v-close-popup />
-          <q-btn label=" Xác nhận" color="primary" v-close-popup />
+          <q-btn
+            label=" Xác nhận"
+            color="primary"
+            v-close-popup
+            @click="deleteUser()"
+          />
         </q-card-actions>
       </q-card>
+    </q-dialog>
+    <q-dialog v-model="isCreate">
+      <admin-noti-create></admin-noti-create>
     </q-dialog>
   </q-page>
 </template>
@@ -101,12 +169,16 @@
 <script>
 import { useQuasar } from "quasar";
 import userApi from "../boot/callApi/adminUser";
+import user from "../boot/callApi/user";
 import { ref } from "vue";
+import { mapGetters } from "vuex";
+import AdminNotiCreate from "../components/AdminNotiCreate.vue";
 export default {
   setup() {
     const $q = useQuasar();
     const isDelete = ref(false);
     const isUpdate = ref(false);
+    const isCreate = ref(false);
     const numPage = ref(1);
     function showNoti(mess, col) {
       $q.notify({
@@ -131,45 +203,24 @@ export default {
         return val == 0 ? " chưa có" : "đã có";
       }
     }
-
+    function noti(statusCode) {
+      if (statusCode == 1) {
+        this.showNoti("thành công", "positive");
+      }
+      if (statusCode == 2) {
+        this.showNoti(" Không tìm thấy user", "dark");
+      } else {
+        this.showNoti(" thất bại", "negative");
+      }
+    }
     return {
       isDelete,
       isUpdate,
+      isCreate,
       showNoti,
       boolNumToString,
       numPage,
-    };
-  },
-  data() {
-    var columns = [
-      { name: "id", label: "id", field: "id", align: "center" },
-      { name: "name", label: " tên", field: "name", align: "center" },
-      { name: "email", label: "email", field: "email", align: "center" },
-      {
-        name: "sex",
-        label: " giới tính",
-        field: "sex",
-        align: "center",
-        format: (val) => this.boolNumToString("sex", val),
-      },
-      {
-        name: "have_room",
-        label: " phòng",
-        field: "have_room",
-        align: "center",
-        sortable: true,
-        format: (val) => this.boolNumToString("have_room", val),
-      },
-    ];
-    var pagination = {
-      rowsPerPage: 10,
-    };
-    return {
-      users: null,
-      thisUser: [],
-      maxPage: 1,
-      columns,
-      pagination,
+      noti,
     };
   },
   async created() {
@@ -177,14 +228,107 @@ export default {
     if (res?.statusCode) {
       this.maxPage = res.users.last_page;
       this.users = res.users.data;
-      console.table(this.users);
-    } else {
-      console.log("kkk");
     }
-    console.log("alskdjf");
+  },
+  data() {
+    return {
+      users: null,
+      thisUser: [],
+      maxPage: 1,
+      columns: [
+        {
+          name: "id",
+          label: "id",
+          field: "id",
+          align: "center",
+          sortable: true,
+        },
+        {
+          name: "name",
+          label: " tên",
+          field: "name",
+          align: "center",
+          sortable: true,
+        },
+        { name: "email", label: "email", field: "email", align: "center" },
+        {
+          name: "sex",
+          label: " giới tính",
+          field: "sex",
+          align: "center",
+          format: (val) => this.boolNumToString("sex", val),
+        },
+        {
+          name: "have_room",
+          label: " phòng",
+          field: "have_room",
+          align: "center",
+          sortable: true,
+          format: (val) => this.boolNumToString("have_room", val),
+        },
+      ],
+      pagination: {
+        rowsPerPage: 10,
+      },
+      password: null,
+      userId: null,
+    };
+  },
+
+  methods: {
+    async updateUser() {
+      const res = await userApi.updateUser(this.thisUser[0], this.password);
+      this.noti(res?.statusCode);
+      this.updateUsers();
+    },
+    async deleteUser() {
+      const res = await userApi.deleteUser(this.thisUser[0].id);
+      this.noti(res?.statusCode);
+      this.updateUsers();
+    },
+    async updateUsers() {
+      const res = await userApi.getAllUser();
+      if (res?.statusCode) {
+        this.maxPage = res.users.last_page;
+        this.users = res.users.data;
+      }
+      this.numPage = 1;
+      return;
+    },
+    async findUser() {
+      const res = await user.findUser(this.userId);
+      this.thisUser = res ? [res] : [];
+      this.noti(res ? 1 : 2);
+    },
+    async loadpage(num_page) {
+      const res = await this.$api.get("getAllUser?page=" + num_page);
+      if (res.data?.statusCode == 1) {
+        this.users = res.data?.users.data;
+        this.maxPage = res.data?.user.last_page;
+      }
+      return;
+    },
+  },
+  watch: {
+    numPage(newVal) {
+      this.loadpage(newVal);
+    },
+  },
+  computed: {
+    ...mapGetters("User", ["user"]),
+  },
+  components: {
+    AdminNotiCreate,
   },
 };
 </script>
 
-<style>
+<style lang="sass" >
+.mr
+  margin-top: 10px
+.my-header-table
+  .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child
+    background-color: $blue-2 !important
 </style>

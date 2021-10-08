@@ -3,7 +3,7 @@
     <div class="row full-width items-center justify-center">
       <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-8">
         <q-card class="my-card full-width br">
-          <q-card-section class="row items-center bg-purple-6 text-white">
+          <q-card-section class="row items-center text-primary">
             <div class="col-12 text-center text-subtitle1"> <q-icon name="home" /> phòng</div>
           </q-card-section>
           <q-card-section class="row items-center">
@@ -25,8 +25,9 @@
         </q-card>
         <div><br /></div>
         <q-card class="my-card full-width br">
-          <q-card-section class="row items-center bg-purple-6 text-white">
-            <div class="col-12 text-subtitle1 text-center">chi phí</div>
+          <q-card-section class="row items-center  text-primary">
+
+            <div class="col-12 text-subtitle1 text-center"> <q-icon name="paid" /> chi phí</div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
@@ -47,7 +48,7 @@
         </q-card>
         <div><br /></div>
         <q-card class="my-card br full-width">
-          <q-card-section class="row items-center bg-purple-6 text-white">
+          <q-card-section class="row items-center text-primary">
             <div class="text-subtitle2 col-12 text-center">
               nhập số điện nước khi vào trọ
             </div>
@@ -89,7 +90,7 @@
         </q-card>
         <div><br /></div>
         <q-card class="my-card br full-width">
-          <q-card-section class="row items-center bg-purple-6 text-white">
+          <q-card-section class="row items-center text-primary">
             <div class="text-subtitle2 col-12 text-center">
               <q-icon name="view_agenda" /> tình trạng thiết bị phòng
             </div>
@@ -159,7 +160,7 @@
         </q-card>
         <div><br /></div>
         <q-card v-if="tenant_users" class="my-card full-width br">
-          <q-card-section class="full-width bg-purple-6 text-white">
+          <q-card-section class="full-width text-primary">
             <div class="text-center text-subtitle2">người ở</div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
@@ -202,8 +203,9 @@
             </div>
           </q-card-section>
         </q-card>
+        <div><br /></div>
         <q-card v-if="posts" class="my-card full-width br">
-          <q-card-section class="full-width bg-purple-6 text-white">
+          <q-card-section class="full-width text-primary">
             <div class="text-center text-subtitle2">bài đăng</div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
@@ -236,8 +238,9 @@
             </div>
           </q-card-section>
         </q-card>
+        <div><br /></div>
         <q-card v-if="infoShare" class="my-card full-width br">
-          <q-card-section class="full-width bg-purple-6 text-white">
+          <q-card-section class="full-width text-primary">
             <div class="text-center text-subtitle2">chia sẽ thông tin</div>
           </q-card-section>
           <q-card-section class="text-red">
@@ -263,6 +266,7 @@
             <div class="col-12"><br /></div>
           </q-card-section>
         </q-card>
+        <div><br /></div>
         <div class="col-12 row justify-center full-width">
           <q-btn
             class="col-10"
@@ -272,6 +276,7 @@
             @click="isOut = true"
           />
         </div>
+        <div><br /></div>
         <q-dialog v-model="isCreate">
           <q-card>
             <q-card-section class="row items-center">

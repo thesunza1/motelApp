@@ -40,65 +40,20 @@
             style="font-size: 40px; padding-left: 10px"
           />
           <q-card-section class="row col-10 col-md-11 items-center">
-            <div class="col-12 col-md-8 text-h6">tiêu đề: {{ noti.title }}</div>
+            <div class="col-12 col-md-8 text-h6"> <q-icon name="feed" class="text-accent" style="font-size:30px" /> {{ noti.title }}</div>
             <div class="col-12 col-md-4">
-              thời gian: {{ toDate(noti.created_at) }}
+              <q-icon name="timelapse"  class="text-primary" style="font-size:30px"/> {{ toDate(noti.created_at) }}
             </div>
             <div class="col-12 text-subtitle2">
-              người gửi: {{ noti.senderUser.name }}
+               <q-icon name="person"  class="text-positive" style="font-size:30px"/>  {{ noti.senderUser.name }}
             </div>
           </q-card-section>
         </q-card-section>
       </q-card>
     </q-intersection>
-    <!-- <div v-for="(noti, index) in notis" :key="index" class="full-width">
-      <div v-if="noti.status == isSeen"><br /></div>
-      <q-card
-        @click="open(noti.noti_type_id, noti, index)"
-        v-if="noti.status == isSeen"
-        class="my-card row"
-        :class="{ 'bg-green-2': isSeen == 0 }"
-      >
-        <q-card-section
-          horizontal
-          class="col-2 col-md-1 flex items-center full-width"
-        >
-          <q-icon
-            :name="
-              noti.noti_type_id == 1
-                ? 'info'
-                : noti.noti_type_id == 2
-                ? 'report_problem'
-                : noti.noti_type_id == 3
-                ? 'person_add'
-                : 'check'
-            "
-            :class="
-              noti.noti_type_id == 1
-                ? 'text-purple'
-                : noti.noti_type_id == 2
-                ? 'text-red'
-                : noti.noti_type_id == 3
-                ? 'text-primary'
-                : 'text-warning'
-            "
-            style="font-size: 40px; padding-left: 10px"
-          />
-          <q-card-section class="row col-10 col-md-11 items-center">
-            <div class="col-12 col-md-8 text-h6">tiêu đề: {{ noti.title }}</div>
-            <div class="col-12 col-md-4">
-              thời gian: {{ toDate(noti.created_at) }}
-            </div>
-            <div class="col-12 text-subtitle2">
-              người gửi: {{ noti.senderUser.name }}
-            </div>
-          </q-card-section>
-        </q-card-section>
-      </q-card>
-    </div> -->
     <div class="full-width">
       <q-dialog v-model="isInvite">
-        <q-card v-if="thisRoom">
+        <q-card v-if="thisRoom" style="min-width: 70%">
           <q-card-section class="row items-center text-white" :class="notiHDer">
             <div class="col-12 text-center text-h5">
               {{ nt.title }}
@@ -159,7 +114,7 @@
         </q-card>
       </q-dialog>
       <q-dialog v-model="isDiff">
-        <q-card>
+        <q-card style="min-width: 60%">
           <q-card-section class="row items-center text-white" :class="notiHDer">
             <div class="col-12 text-center text-h5">
               {{ nt.title }}

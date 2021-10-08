@@ -16,7 +16,7 @@
           />
         </q-tabs>
       </div>
-      <div class="row justify-end col-12" style="height: 10%">
+      <div class="row justify-end col-12" >
         <q-btn
           class="col-4 col-md-2"
           color="primary"
@@ -27,7 +27,7 @@
       </div>
       <div class="row col-12 justify-center">
         <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-red-5">chưa đọc:</div>
+        <div class="col-12 text-h6 text-red-5"> <q-icon name="visibility_off" class="text-negative" style="font-size:30px" />chưa đọc:</div>
         <div class="col-12">
           <noti-box
             :notis="notis"
@@ -37,7 +37,7 @@
           ></noti-box>
         </div>
         <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-green">đã đọc:</div>
+        <div class="col-12 text-h6 text-green"> <q-icon name="visibility" class="text-positive" style="font-size:30px" /> đã đọc:</div>
         <div class="col-12">
           <noti-box
             :notis="notis"

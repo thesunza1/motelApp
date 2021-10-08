@@ -235,7 +235,7 @@
           />
         </div>
       </div> -->
-      <q-footer class="bg-white"   >
+      <q-footer class="bg-white q-py-sm q-px-md"   >
           <div v-for="(link, index) in links" :key="index">
             <main-leftbar :link="link"></main-leftbar>
           </div>

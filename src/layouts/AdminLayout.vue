@@ -6,7 +6,7 @@
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          <router-link class="link logo" to="admin/adminNoti">
+          <router-link class="link logo" to="admin/adminUser">
             admin </router-link
           >
         </q-toolbar-title>
@@ -42,7 +42,6 @@
 <script>
 import { ref } from "vue";
 import MotelRightBar from "components/MotelRightBar";
-import {api} from 'boot/axios'
 export default {
   setup() {
     const rightDrawerOpen = ref(false);

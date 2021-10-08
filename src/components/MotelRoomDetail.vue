@@ -1,8 +1,8 @@
 <template>
   <div class="full-width">
     <q-card v-if="roomTypeUser" class="my-card">
-      <q-card-section class="bg-accent">
-        <div class="text-subtitle2 text-center full-width ">chi tiết trọ</div>
+      <q-card-section class="text-primary">
+        <div class="text-h6 text-center full-width ">chi tiết trọ</div>
       </q-card-section>
       <q-card-section class="row justity-center items-center text-center">
         <div class="col-12 col-md-5"><b>tên trọ</b>: {{roomTypeUser.motel.name}}</div>
