@@ -23,6 +23,7 @@ import SearchIndex from "pages/SearchIndex.vue";
 import SearchDetail from "pages/SearchDetail.vue";
 import NotiOutbox from "pages/NotiOutbox.vue";
 import AdminUser from "pages/AdminUser.vue";
+import AdminMotel from "pages/AdminMotel.vue";
 
 const routes = [
   {
@@ -87,6 +88,7 @@ const routes = [
       { path: "/adminNoti", component: Noti },
       { path: "/adminOutBox", component: NotiOutbox },
       { path: "/adminUser", component: AdminUser },
+      { path: "/adminMotel", component: AdminMotel },
     ],
   },
   // Always leave this as last one,
