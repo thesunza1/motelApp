@@ -24,6 +24,7 @@ import SearchDetail from "pages/SearchDetail.vue";
 import NotiOutbox from "pages/NotiOutbox.vue";
 import AdminUser from "pages/AdminUser.vue";
 import AdminMotel from "pages/AdminMotel.vue";
+import AdminThisMotel from "pages/AdminThisMotel.vue";
 
 const routes = [
   {
@@ -89,6 +90,7 @@ const routes = [
       { path: "/adminOutBox", component: NotiOutbox },
       { path: "/adminUser", component: AdminUser },
       { path: "/adminMotel", component: AdminMotel },
+      { path: "/adminThisMotel/:motelId" , name: "adminThisMotel" , component : AdminThisMotel}
     ],
   },
   // Always leave this as last one,

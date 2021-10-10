@@ -21,7 +21,30 @@ async function findMotel(motelId, userId) {
   return res?.data ;
 }
 
+/**
+ * get motel for admin
+ * @param {int} motelId motel id
+ * @returns {object} motel-user , roomtype-room-tenant-tuser-user, motel-mimg-imgs
+ */
+async function  getMotel(motelId) {
+  const res = await api.get('adminGetMotel/'+motelId) ;
+  return res?.data ;
+}
+
+/**
+ * deleate motel for admin
+ * @param {int} motelId  motel id
+ * @returns statusCode
+ */
+async function deleteMotel(motelId) {
+  const res  = await api.post('deleteMotel' , {
+    motelId : motelId,
+  });
+  return res?.data;
+}
 export default {
   getAllMotel,
   findMotel,
+  getMotel,
+  deleteMotel,
 }

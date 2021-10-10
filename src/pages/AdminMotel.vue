@@ -17,11 +17,23 @@
               label=" tìm bằng id trọ"
               label-color="primary"
             />
-            <q-btn color="primary" icon="search" label=" Tìm" @click="searchMotel()" />
+            <q-btn
+              color="primary"
+              icon="search"
+              label=" Tìm"
+              @click="searchMotel()"
+            />
           </div>
         </q-card-section>
         <q-card-actions v-if="thisMotel.length == 1" align="right">
-          <q-btn color="primary" icon="question_answer" label="xem" />
+          <q-btn color="primary" icon="question_answer">
+            <router-link
+              :to="{ name: 'adminThisMotel', params: { motelId: thisMotel[0].id } }"
+              style="text-decoration: none; color: white"
+            >
+              đi tới
+            </router-link>
+          </q-btn>
         </q-card-actions>
         <q-card-section v-if="thisMotel.length == 1">
           <div>
@@ -34,7 +46,7 @@
       </div>
       <q-table
         class="my-header-table"
-        title=" Danh sách người dùng"
+        title=" Danh sách trọ"
         :rows="motels"
         :columns="columns"
         row-key="name"
@@ -164,8 +176,7 @@ export default {
     function noti(statusCode) {
       if (statusCode == 1) {
         this.showNoti("thành công", "positive");
-      }
-      else if  (statusCode == 2) {
+      } else if (statusCode == 2) {
         this.showNoti(" Không tìm thấy trọ", "dark");
       } else {
         this.showNoti(" thất bại", "negative");
@@ -256,11 +267,11 @@ export default {
     },
     async searchMotel() {
       const res = await adminMotel.findMotel(this.motelId, this.userId);
-      if(res.statusCode == 1) {
-        this.thisMotel = [res.motel ];
+      if (res.statusCode == 1) {
+        this.thisMotel = [res.motel];
       }
       this.noti(res.statusCode);
-    }
+    },
   },
   watch: {
     numPage(newVal) {
