@@ -6,6 +6,7 @@
           v-if="post.post_type_id == 1"
           class="col-12 row items-center justity-center"
         >
+          <!-- img roomtype  -->
           <div class="col-12 row items-center justify-center bg-dark br">
             <div class="col-12 text-subtitle2 text-white text-center">
               <q-icon
@@ -22,6 +23,7 @@
             ></motel-show-imgs>
           </div>
           <div class="col-12"><br /></div>
+          <!-- roomtype post  -->
           <div class="col-12 row items-center">
             <div class="col-12 text-h6 text-blue" style="padding: 0px 5px">
               {{ post.title }}- {{ post.room_type.name }}

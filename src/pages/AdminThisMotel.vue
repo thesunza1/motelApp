@@ -117,6 +117,42 @@
           </q-card-section>
         </q-card>
 
+        <div><br /></div>
+        <q-card class="my-card">
+          <q-card-section class="text-h6 header-color">
+            <q-icon name="home" style="font-size: 30px" />
+            Trọ
+          </q-card-section>
+          <q-card-section>
+            <admin-public-infor :publicImgs="publicImgs"></admin-public-infor>
+          </q-card-section>
+        </q-card>
+
+        <div><br /></div>
+        <q-card class="my-card">
+          <q-card-section class="text-h6 header-color">
+            <q-icon name="camera" style="font-size: 30px" />
+            Loại phòng
+          </q-card-section>
+          <q-card-section>
+            <admin-room-type-infor
+              :roomTypes="roomTypeImgs"
+            ></admin-room-type-infor>
+          </q-card-section>
+        </q-card>
+
+        <div><br /></div>
+        <q-card class="my-card">
+          <q-card-section class="text-h6 header-color">
+            <q-icon name="room" style="font-size: 30px" />
+            Vị Trí
+          </q-card-section>
+          <q-card-section>
+            <motel-location></motel-location>
+            <search-show-map :center="center"></search-show-map>
+          </q-card-section>
+        </q-card>
+        <div><br /></div>
         <q-footer class="bg-white">
           <q-card-actions align="center">
             <q-btn
@@ -203,6 +239,10 @@ import { useQuasar } from "quasar";
 
 import AdminMotelRoomTypeDetail from "../components/AdminMotelRoomTypeDetail.vue";
 import AdminNotiCreate from "../components/AdminNotiCreate.vue";
+import AdminRoomTypeInfor from "../components/AdminRoomTypeInfor.vue";
+import AdminPublicInfor from "../components/AdminPublicInfor.vue";
+import MotelLocation from "../components/motelLocation.vue";
+import SearchShowMap from "../components/SearchShowMap.vue";
 export default {
   setup() {
     const $q = useQuasar();
@@ -241,6 +281,10 @@ export default {
     console.table(this.motel);
     console.table(this.roomTypes);
     console.table(this.roomTypeImgs);
+    this.center = {
+      lat: res.motel.latitude,
+      lng: res.motel.longitude,
+    };
   },
   data() {
     return {
@@ -255,11 +299,16 @@ export default {
       thisUser: null,
       isDeleteYes: false,
       textDeleteYes: "",
+      center: null ,
     };
   },
   components: {
     AdminMotelRoomTypeDetail,
     AdminNotiCreate,
+    AdminRoomTypeInfor,
+    AdminPublicInfor,
+    MotelLocation,
+    SearchShowMap
   },
   watch: {
     textDeleteYes(newVal) {
@@ -283,7 +332,7 @@ export default {
     async outRoom() {
       const res = await adminRoom.outRoom(this.thisUser.id);
       this.noti(res.statusCode);
-      this.reload() ;
+      this.reload();
     },
     async reload() {
       const res = await adminMotel.getMotel(this.motelId);
@@ -294,7 +343,7 @@ export default {
         this.roomTypes = res.roomTypes;
         this.roomTypeImgs = res.roomTypeImgs;
       }
-      return ;
+      return;
     },
   },
 };
