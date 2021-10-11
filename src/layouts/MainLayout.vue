@@ -235,35 +235,34 @@
           />
         </div>
       </div> -->
-      <q-footer class="bg-white q-py-sm q-px-md"   >
-          <div v-for="(link, index) in links" :key="index">
-            <main-leftbar :link="link"></main-leftbar>
-          </div>
-          <q-btn
-            v-if="user"
-            style="width: 100%; margin-top: 10px"
-            color="primary"
-            icon="logout"
-            label=" đăng xuất "
-            @click="logout"
-          />
-          <q-btn
-            v-if="user"
-            style="width: 100%; margin-top: 10px"
-            color="orange"
-            icon="refresh"
-            label=" tải lại "
-            @click="reloadPage"
-          />
-          <q-btn
-            v-if="userd"
-            style="width: 100%; margin-top: 10px"
-            color="positive"
-            icon="home"
-            label=" trang chủ"
-            @click="$router.push('/')"
-          />
-
+      <q-footer class="bg-white q-py-sm q-px-md">
+        <div v-for="(link, index) in links" :key="index">
+          <main-leftbar :link="link"></main-leftbar>
+        </div>
+        <q-btn
+          v-if="user"
+          style="width: 100%; margin-top: 10px"
+          color="primary"
+          icon="logout"
+          label=" đăng xuất "
+          @click="logout"
+        />
+        <q-btn
+          v-if="user"
+          style="width: 100%; margin-top: 10px"
+          color="orange"
+          icon="refresh"
+          label=" tải lại "
+          @click="reloadPage"
+        />
+        <q-btn
+          v-if="userd"
+          style="width: 100%; margin-top: 10px"
+          color="positive"
+          icon="home"
+          label=" trang chủ"
+          @click="$router.push('/')"
+        />
       </q-footer>
     </q-drawer>
 
@@ -295,15 +294,21 @@ export default {
     };
   },
   async created() {
-    // try {
-    var notiNum = await this.$api.get("countNoti");
-    if (notiNum.data.statusCode == 1) {
-      this.notiNum = notiNum.data.num;
+    // try {\
+    try {
+      var notiNum = await this.$api.get("countNoti");
+      if (notiNum.data.statusCode == 1) {
+        this.notiNum = notiNum.data.num;
+      }
+      const response = await this.$api.get("user");
+      this.$store.dispatch("User/user", response.data.user);
+      const user = this.$store.state.User.user;
+      this.role_id = user.role_id;
+    } catch (error) {
+      if(this.user?.id > 0 ){
+        this.$router.go() ;
+      }
     }
-    const response = await this.$api.get("user");
-    this.$store.dispatch("User/user", response.data.user);
-    const user = this.$store.state.User.user;
-    this.role_id = user.role_id;
   },
   components: {
     MainLeftbar,

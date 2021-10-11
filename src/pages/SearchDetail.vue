@@ -334,7 +334,6 @@
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-11 row items-center justify-center">
-
                   <div
                     class="
                       col-12
@@ -345,7 +344,7 @@
                   >
                     tên trọ: {{ post.room.room_type.motel.name }}
                   </div>
-                  <div class="col-12"> <br></div>
+                  <div class="col-12"><br /></div>
                   <div class="col-11">
                     <b>địa chỉ: </b>{{ post.room.room_type.motel.address }}
                   </div>
@@ -453,13 +452,20 @@
       elevated
       bordered
     >
-      <q-btn
-        class="col-4 col-md-3"
-        color="positive"
-        icon="add"
-        label=" xin vào trọ"
-        @click="confirm = true"
-      />
+      <q-card-actions align="center">
+        <q-btn
+          color="negative"
+          icon="person"
+          label=" báo cáo"
+          @click="isReport = true"
+        />
+        <q-btn
+          color="positive"
+          icon="add"
+          label=" xin vào trọ"
+          @click="confirm = true"
+        />
+      </q-card-actions>
     </q-footer>
     <q-dialog v-model="confirm" persistent>
       <search-send-into-room
@@ -469,6 +475,9 @@
         @closePU="confirm = false"
       ></search-send-into-room>
     </q-dialog>
+    <q-dialog v-model="isReport" >
+      <user-report style="min-width: 70%" :type="1" :postId="postId"></user-report>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -477,6 +486,7 @@ import MotelShowImgs from "../components/MotelShowImgs.vue";
 import SearchShowMap from "../components/SearchShowMap.vue";
 import SearchSendIntoRoom from "../components/SearchSendIntoRoom.vue";
 import SearchCommentRender from "../components/SearchCommentRender.vue";
+import UserReport from "../components/UserReport.vue";
 export default {
   setup() {
     function toNamNu(data) {
@@ -505,6 +515,7 @@ export default {
       rooms: null,
       center: {},
       confirm: false,
+      isReport: false ,
     };
   },
   async created() {
@@ -540,6 +551,7 @@ export default {
     SearchShowMap,
     SearchSendIntoRoom,
     SearchCommentRender,
+    UserReport,
   },
 };
 </script>

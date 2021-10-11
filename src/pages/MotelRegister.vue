@@ -541,11 +541,7 @@ export default {
     },
     getLocation() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.showPosition , error => {
-          alert('lskdjf');
-        });
-        console.log('oke roi');
-        alert('ho tro ');
+        navigator.geolocation.getCurrentPosition(this.showPosition);
       }
       else {
         console.log('khong ho tro');
@@ -561,6 +557,7 @@ export default {
     log(e) {
       this.motel.latitude = this.center.lat;
       this.motel.longitude = this.center.lng;
+      console.log(this.motel.latitude + ' ' + this.motel.longitude);
     },
     async onsubmit() {
       let fd = new FormData();
