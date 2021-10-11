@@ -317,7 +317,7 @@
                           color="negative"
                           icon="delete"
                           label=" xóa vĩnh viễn"
-                          @click="deleteRoomType(roomType.id)"
+                          @click="deleteRoomType(roomType.id,index)"
                         />
                       </div>
                     </div>
@@ -526,6 +526,7 @@ import MotelShowImgs from "../components/MotelShowImgs.vue";
 import MulityImg from "../components/MulityImg.vue";
 import { useQuasar } from "quasar";
 import motel from "../boot/callApi/motel";
+import roomType from "../boot/callApi/roomType";
 import { ref } from "vue";
 export default {
   setup() {
@@ -642,6 +643,11 @@ export default {
       this.motelImgs = getMotelImgs.data.motelImgs;
       return;
     },
+    async updateRoomTypeImg() {
+      const getMotelImgs = await motel.getMotelImgs();
+      this.roomTypeImgs = getMotelImgs.roomTypeImg;
+      return;
+    },
     async updateMotelInfor() {
       const res = await this.$api.post("updateMotelInfor", {
         names: this.motel.name,
@@ -710,6 +716,18 @@ export default {
         }
       }
     },
+    async deleteRoomType(roomTypeId , index) {
+      const res = await roomType.deleteRoomType(roomTypeId) ;
+
+      if( res.statusCode ==1 ) {
+        this.showNoti('thành công' , 'positive') ;
+        this.roomTypeImgs.splice(index, 1 );
+        console.log(index) ;
+        // this.updateRoomTypeImg() ;
+      } else {
+        this.showNoti(' thất bại' , 'negative') ;
+      }
+    }
   },
 };
 </script>

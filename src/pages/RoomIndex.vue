@@ -79,7 +79,6 @@
             <div class="lt-md col-12"><br /></div>
             <div class="col-md-4 col-12 row items-center justify-center">
               <q-btn
-                class="col-10"
                 color="orange"
                 icon="check"
                 label="xin xác nhận"
@@ -101,7 +100,6 @@
               class="col-3"
               color="positive"
               icon="add"
-              label=" thêm"
               @click="addRowEquip"
             />
           </q-card-section>
@@ -112,7 +110,7 @@
             <div v-if="eq_status == 0" class="col-12 text-red text-left">
               *chưa xác nhận với chủ trọ
             </div>
-            <div v-else class="col-12 text-red text-left">
+            <div v-else class="col-12 text-primary text-left">
               *chủ trọ đã xác nhận
             </div>
             <div class="col-12"><br /></div>
@@ -219,17 +217,19 @@
               <div class="col-6 text-center">{{ check(post.status) }}</div>
               <div class="col-5 row justify-around">
                 <q-btn
+                  flat
                   color="negative"
                   icon="delete"
                   @click="deletePost(post.id, index)"
                 />
                 <q-btn
+                  flat
                   class="text-black"
                   color="warning"
                   icon="autorenew"
                   @click="changeStatus(post.id, index)"
                 />
-                <q-btn color="primary" icon="visibility"  @click="$router.push('/searchDetail/'+post.id)" />
+                <q-btn flat color="primary" icon="visibility"  @click="$router.push('/searchDetail/'+post.id)" />
               </div>
               <div class="col-12">
                 <hr />
@@ -254,7 +254,8 @@
             </div>
             <div class="col-5 row justify-around">
               <q-btn
-                class="text-black"
+
+                flat
                 color="warning"
                 icon="autorenew"
                 @click="changeInfoShare"
@@ -462,7 +463,7 @@ export default {
       num_status: null,
       room_equips: null,
       room_equips_num: 0,
-      eq_status: 0,
+      eq_status: null,
       tenant_users: null,
       content: "",
       isCreate: false,
@@ -479,6 +480,7 @@ export default {
     this.water_num = numRoom.data.water_num;
     this.elec_num = numRoom.data.elec_num;
     this.num_status = numRoom.data.num_status;
+    this.eq_status = numRoom.data.eq_status;
     const tenantUsers = await this.$api.get("getTenantUsers/" + this.tenant.id);
     if (tenantUsers.data.statusCode == 1) {
       this.tenant_users = tenantUsers.data.tenantUsers;

@@ -7,7 +7,7 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="motel/all">
-            motel manager</router-link
+            trọ tôi</router-link
           >
         </q-toolbar-title>
 

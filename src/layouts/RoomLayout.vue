@@ -1,13 +1,13 @@
 <template>
   <q-layout view="hHr lpR fFf">
-    <q-header elevated class="bg-primary text-white" height-hint="98">
+    <q-header elevated class="bg-brown text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="room/roomAll">
-            quản lý phòng
+            phòng tôi
           </router-link>
         </q-toolbar-title>
 

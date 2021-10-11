@@ -49,7 +49,7 @@
       <div class="row col-12">
         <q-dialog v-model="isCreate">
           <admin-noti-create v-if=" user?.role_id == 3"></admin-noti-create>
-          <noti-create v-if=" user?.role_id == 2"></noti-create>
+          <noti-create v-else></noti-create>
         </q-dialog>
       </div>
     </div>
