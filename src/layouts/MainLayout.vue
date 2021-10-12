@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-info text-white" height-hint="98">
+    <q-header elevated class="bg-grey-7 text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
@@ -21,8 +21,8 @@
         >
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd"
-              color="primary"
+              class="col-10 pd font-header"
+              color="brown"
               icon="home"
               label="phòng"
               @click="loginModal = true"
@@ -33,8 +33,8 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd"
-              color="primary"
+              class="col-10 pd font-header"
+              color="brown"
               icon="home"
               label="phòng"
               @click="openModal(0)"
@@ -42,7 +42,7 @@
           </div>
           <div class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd"
+              class="col-10 pd font-header"
               color="positive"
               icon="search"
               label="tìm "
@@ -52,8 +52,8 @@
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
               color="primary"
-              class="col-10 pd"
-              icon="home"
+              class="col-10 pd font-header"
+              icon="home_work"
               label="trọ"
               @click="loginModalMotel = true"
             />
@@ -64,8 +64,8 @@
           >
             <q-btn
               color="primary"
-              class="col-10 pd"
-              icon="home"
+              class="col-10 pd font-header"
+              icon="home_work"
               label="trọ"
               @click="openModal(1)"
             />
@@ -76,7 +76,7 @@
           >
             <q-btn
               color="primary"
-              class="col-10 pd"
+              class="col-10 pd font-header"
               icon="admin_panel_settings"
               label="admin"
               @click="$router.push('admin/adminUser')"
@@ -86,7 +86,7 @@
           <div v-if="user" class="col-4 row items-center justify-center">
             <q-btn
               color="accent"
-              class="col-10 pd"
+              class="col-10 pd font-header"
               icon="infor"
               label="tbáo"
               @click="$router.push('/userNoti')"
@@ -204,37 +204,7 @@
           <div class="col-12"><br /></div>
         </div>
       </div>
-      <!-- <div class="row items-end justify-center" style="height: 78%">
-        <div class="col-10">
-          <div v-for="(link, index) in links" :key="index">
-            <main-leftbar :link="link"></main-leftbar>
-          </div>
-          <q-btn
-            v-if="user"
-            style="width: 100%; margin-top: 10px"
-            color="primary"
-            icon="logout"
-            label=" đăng xuất "
-            @click="logout"
-          />
-          <q-btn
-            v-if="user"
-            style="width: 100%; margin-top: 10px"
-            color="orange"
-            icon="refresh"
-            label=" tải lại "
-            @click="reloadPage"
-          />
-          <q-btn
-            v-if="userd"
-            style="width: 100%; margin-top: 10px"
-            color="positive"
-            icon="home"
-            label=" trang chủ"
-            @click="$router.push('/')"
-          />
-        </div>
-      </div> -->
+
       <q-footer class="bg-white q-py-sm q-px-md">
         <div v-for="(link, index) in links" :key="index">
           <main-leftbar :link="link"></main-leftbar>
@@ -435,4 +405,8 @@ export default {
   color: white
 .pd
   padding: 10px 0px
+.font-header
+  font-size: 20px
+  font-weight: 500
+  letter-spacing: 0.5px
 </style>

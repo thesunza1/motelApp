@@ -19,7 +19,7 @@
         padding
         arrows
         height="300px"
-        class="col-12 col-md-8 bg-purple text-white shadow-1 rounded-borders"
+        class="col-12 col-md-8 bg-teal-6 text-white shadow-1 rounded-borders"
       >
         <q-carousel-slide name="style" class="column no-wrap flex-center">
           <q-icon name="search" size="56px" />
@@ -59,7 +59,16 @@
         </q-carousel-slide>
       </q-carousel>
       <q-card class="my-cards col-12 col-md-8">
-        <img src="https://cdn.quasar.dev/img/mountains.jpg" />
+         <q-card-section style="min-height:10%" class="row justify-center bg-dark" >
+          <q-responsive :ratio="16/9" style="min-width:70%; bg-dark ">
+            <q-carousel animated v-model="slide1" thumbnails swipeable control-color="red">
+              <q-carousel-slide :name="1" :img-src="'/images/searchIndex.png'">
+              </q-carousel-slide>
+              <q-carousel-slide :name="2" :img-src="'/images/searchDetail1.png'" />
+              <q-carousel-slide :name="3" :img-src="'/images/searchDetail2.png'" />
+            </q-carousel>
+          </q-responsive>
+        </q-card-section>
         <q-card-section vertical>
           <q-card-section class="col-12">
             <div class="text-h6">Tìm kiếm trọ</div>
@@ -80,7 +89,16 @@
       </q-card>
 
       <q-card class="my-cards col-12 col-md-8">
-        <img src="https://cdn.quasar.dev/img/mountains.jpg" />
+        <q-card-section style="height: auto;" class="row justify-center bg-dark" >
+          <q-responsive :ratio="16/9" style="min-width:70%; bg-dark ">
+            <q-carousel animated v-model="slide1" thumbnails swipeable control-color="red">
+              <q-carousel-slide :name="1" :img-src="'/images/motelAll.png'">
+              </q-carousel-slide>
+              <q-carousel-slide :name="2" :img-src="'/images/motelBill.png'" />
+              <q-carousel-slide :name="3" :img-src="'/images/motelConfig.png'" />
+            </q-carousel>
+          </q-responsive>
+        </q-card-section>
         <q-card-section>
           <div class="text-h6">quản lý trọ</div>
         </q-card-section>

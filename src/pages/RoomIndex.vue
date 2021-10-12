@@ -4,7 +4,7 @@
       <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-8">
         <q-card class="my-card full-width br">
           <q-card-section class="row items-center text-primary">
-            <div class="col-12 text-center text-subtitle1"> <q-icon name="home" /> phòng</div>
+            <div class="col-12 text-center co-card-header"> <q-icon name="home" /> phòng</div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
@@ -24,10 +24,11 @@
           </q-card-section>
         </q-card>
         <div><br /></div>
+
         <q-card class="my-card full-width br">
           <q-card-section class="row items-center  text-primary">
 
-            <div class="col-12 text-subtitle1 text-center"> <q-icon name="paid" /> chi phí</div>
+            <div class="col-12  co-card-header text-center"> <q-icon name="paid" /> chi phí</div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
@@ -47,9 +48,10 @@
           </q-card-section>
         </q-card>
         <div><br /></div>
+
         <q-card class="my-card br full-width">
           <q-card-section class="row items-center text-primary">
-            <div class="text-subtitle2 col-12 text-center">
+            <div class="co-card-header col-12 text-center">
               nhập số điện nước khi vào trọ
             </div>
           </q-card-section>
@@ -88,9 +90,10 @@
           </q-card-section>
         </q-card>
         <div><br /></div>
+
         <q-card class="my-card br full-width">
           <q-card-section class="row items-center text-primary">
-            <div class="text-subtitle2 col-12 text-center">
+            <div class="co-card-header col-12 text-center">
               <q-icon name="view_agenda" /> tình trạng thiết bị phòng
             </div>
           </q-card-section>
@@ -157,9 +160,10 @@
           </q-card-section>
         </q-card>
         <div><br /></div>
+
         <q-card v-if="tenant_users" class="my-card full-width br">
           <q-card-section class="full-width text-primary">
-            <div class="text-center text-subtitle2">người ở</div>
+            <div class="text-center co-card-header">người ở</div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
             <div class="col-1 text-center text-bold">id</div>
@@ -202,9 +206,10 @@
           </q-card-section>
         </q-card>
         <div><br /></div>
+
         <q-card v-if="posts" class="my-card full-width br">
           <q-card-section class="full-width text-primary">
-            <div class="text-center text-subtitle2">bài đăng</div>
+            <div class="text-center  co-card-header">bài đăng</div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
             <div class="col-12"><br /></div>
@@ -239,9 +244,10 @@
           </q-card-section>
         </q-card>
         <div><br /></div>
+
         <q-card v-if="infoShare" class="my-card full-width br">
           <q-card-section class="full-width text-primary">
-            <div class="text-center text-subtitle2">chia sẽ thông tin</div>
+            <div class="text-center  co-card-header">chia sẽ thông tin</div>
           </q-card-section>
           <q-card-section class="text-red">
             * những người trong trọ sẻ thấy các thông tin : tên , số điện thoại
@@ -294,7 +300,7 @@
               <q-input v-model="content" type="textarea" outlined />
             </q-card-section>
             <q-card-actions align="right">
-              <q-btn flat label=" hủy" color="negative" v-close-popup />
+              <q-btn flat label=" Hủy" color="negative" v-close-popup />
               <q-btn flat label=" Đăng bài " color="primary" @click="post" />
             </q-card-actions>
             <div class="lt-sm" style="height: 30vh"></div>
@@ -306,13 +312,13 @@
               <div class="col-12 text-h6 text-center">cảnh báo</div>
             </q-card-section>
             <q-card-section>
-              bạn chắc là sẽ rời phòng trọ này không
+              Bạn chắc là sẽ rời phòng trọ này không
             </q-card-section>
             <q-card-actions align="right">
               <q-btn flat label=" thoát " v-close-popup />
               <q-btn
                 flat
-                label=" rời trọ"
+                label="Rời trọ"
                 color="negative"
                 @click="outRoom()"
                 v-close-popup
@@ -502,4 +508,9 @@ export default {
   border-radius: 5px
 .req
   margin: 5px
+
+.co-card-header
+  font-weight: 500
+  letter-spacing: 2px
+  font-size: 20px
 </style>
