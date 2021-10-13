@@ -48,13 +48,13 @@
             </div>
             <div class="col-12 text-subtitle2 text-accent">
               phòng trống còn :
-              <p
+              <div
                 v-for="(room, index) in rooms"
                 :key="index"
                 style="display: inline-block"
               >
-                {{ room.name + ", " }}
-              </p>
+                <p v-if="room.room_status_id == 1"> {{ room.name + ", " }}</p>
+              </div>
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12">

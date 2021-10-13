@@ -17,6 +17,7 @@ import RoomIndex from "pages/RoomIndex.vue";
 import RoomBills from "pages/RoomBills.vue";
 import MotelBill from "pages/MotelBill.vue";
 import MotelConfig from "pages/MotelConfig.vue";
+import MotelPost from "pages/MotelPost.vue";
 import RoomShare from "pages/RoomShare.vue";
 import DetailAccount from "pages/DetailAccount.vue";
 import SearchIndex from "pages/SearchIndex.vue";
@@ -50,19 +51,20 @@ const routes = [
     path: "/motel",
     component: MotelLayout,
     children: [
-      { path: "/all", component: MotelIndex },
-      { path: "/noti", component: Noti },
-      { path: "/bill", component: MotelBill },
-      { path: "/config", component: MotelConfig },
-      { path: "/detailAccount", component: DetailAccount },
-      { path: "/motelOutbox", component: NotiOutbox },
+      { path: "/all", name: "all", component: MotelIndex },
+      { path: "/noti", name: "noti", component: Noti },
+      { path: "/bill", name: "bill", component: MotelBill },
+      { path: "/config", name: "config", component: MotelConfig },
+      { path: "/detailAccount", name: "detailAccount", component: DetailAccount },
+      { path: "/motelOutbox", name: "motelOutbox", component: NotiOutbox },
+      { path: "/motelPost", name: "motelPost", component: MotelPost },
     ],
   },
   {
     path: "/search",
     component: SearchLayout,
     children: [
-      { path: "/searchIndex", component: SearchIndex },
+      { path: "/searchIndex", name: "searchIndex", component: SearchIndex },
       {
         path: "/searchDetail/:post_id",
         name: "searchDetail",
@@ -90,7 +92,11 @@ const routes = [
       { path: "/adminOutBox", component: NotiOutbox },
       { path: "/adminUser", component: AdminUser },
       { path: "/adminMotel", component: AdminMotel },
-      { path: "/adminThisMotel/:motelId" , name: "adminThisMotel" , component : AdminThisMotel}
+      {
+        path: "/adminThisMotel/:motelId",
+        name: "adminThisMotel",
+        component: AdminThisMotel,
+      },
     ],
   },
   // Always leave this as last one,

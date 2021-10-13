@@ -8,7 +8,7 @@
             <!-- <img :src="'/icons/favicon-96x96.png'" /> -->
           </q-avatar>
           <router-link
-            to="search/searchIndex"
+            :to="{name: 'searchIndex'}"
             class="text-white"
             style="text-decoration: none"
           >
