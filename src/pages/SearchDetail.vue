@@ -23,6 +23,7 @@
             ></motel-show-imgs>
           </div>
           <div class="col-12"><br /></div>
+
           <!-- roomtype post  -->
           <div class="col-12 row items-center">
             <div class="col-12 text-h6 text-blue" style="padding: 0px 5px">
@@ -38,12 +39,13 @@
               <q-chip
                 class="col-4 col-md-4"
                 icon="directions"
-                :label="post.updated_at"
-              />
+              >
+                {{ toDate(post.updated_at) }}
+              </q-chip>
               <q-chip
                 class="col-2 col-md-4"
                 icon="directions"
-                :label="`post: ${post.id}`"
+                :label="`id: ${post.id}`"
               />
             </div>
             <div class="col-12 text-subtitle2 text-accent">
@@ -60,6 +62,8 @@
             <div class="col-12">
               <hr />
             </div>
+
+            <!-- infor room -->
             <div class="col-12 justify-center row items-center">
               <div class="col-12 text-h6">thông tin loại phòng</div>
               <div class="col-11 row items-center">
@@ -99,6 +103,8 @@
               <div class="col-12">
                 <hr />
               </div>
+
+              <!-- infor motel  -->
               <div class="col-12 row items-center">
                 <div class="col-12 text-h6">thông tin trọ</div>
                 <div class="col-12"><br /></div>
@@ -241,12 +247,12 @@
               <q-chip
                 class="col-6 col-md-6"
                 icon="directions"
-                :label="post.updated_at"
+                :label="toDate(post.updated_at)"
               />
               <q-chip
                 class="col-5 col-md-5"
                 icon="directions"
-                :label="`post: ${post.id}`"
+                :label="`id: ${post.id}`"
               />
             </div>
             <div class="col-12"><br /></div>
@@ -487,6 +493,8 @@ import SearchShowMap from "../components/SearchShowMap.vue";
 import SearchSendIntoRoom from "../components/SearchSendIntoRoom.vue";
 import SearchCommentRender from "../components/SearchCommentRender.vue";
 import UserReport from "../components/UserReport.vue";
+
+import td from "../boot/noti/date";
 export default {
   setup() {
     function toNamNu(data) {
@@ -544,6 +552,11 @@ export default {
     }
     if (resPost.data?.rooms) {
       this.rooms = resPost.data.rooms;
+    }
+  },
+  methods: {
+    toDate(date) {
+      return td.toDate(date);
     }
   },
   components: {
