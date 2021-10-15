@@ -139,6 +139,7 @@
 </template>
 
 <script>
+import noti from '../boot/noti/noti';
 export default {
   data() {
     return {
@@ -170,6 +171,7 @@ export default {
         this.errorMes = "email đã tồn tại ";
         this.isError = true;
       } else {
+        noti.showNoti('tạo tk thành công', 'positive');
         this.$router.push("/login");
       }
     },

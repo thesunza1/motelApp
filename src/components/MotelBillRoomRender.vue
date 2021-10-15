@@ -24,7 +24,7 @@
               :class="{
                 'bg-blue-6': room.tenant.bill_num == 0,
                 'bg-red-7': room.tenant.no_bills > 0,
-                'bg-deep-orange-7':
+                'bg-secondary':
                   room.tenant.no_bills == 0 && room.tenant.bill_num > 0,
               }"
               @click="openDialog(room)"

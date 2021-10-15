@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import noti from '../boot/noti/noti' ;
 export default {
   data() {
     return {
@@ -79,6 +80,7 @@ export default {
       } else {
         localStorage.setItem("key", response.data.tokenUser);
         this.$store.dispatch("User/user", response.data.user);
+        noti.showNoti(' đăng nhập thành công', 'positive') ;
         this.$router.go(-1);
       }
     },

@@ -24,9 +24,10 @@
               class="col-10 pd font-header"
               color="brown"
               icon="home"
-              label="phòng"
               @click="loginModal = true"
-            />
+            >
+              <div class="gt-sm"> Phòng</div>
+            </q-btn>
           </div>
           <div
             v-if="user && user.role_id == 1"
@@ -36,27 +37,30 @@
               class="col-10 pd font-header"
               color="brown"
               icon="home"
-              label="phòng"
               @click="openModal(0)"
-            />
+            >
+              <div class="gt-sm"> Phòng</div>
+            </q-btn>
           </div>
           <div class="col-4 row items-center justify-center">
             <q-btn
               class="col-10 pd font-header"
               color="positive"
               icon="search"
-              label="tìm "
               @click="$router.push('search/searchIndex')"
-            />
+            >
+              <div class="gt-sm"> Tìm</div>
+            </q-btn>
           </div>
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
               color="primary"
               class="col-10 pd font-header"
               icon="home_work"
-              label="trọ"
               @click="loginModalMotel = true"
-            />
+            >
+              <div class="gt-sm"> Trọ</div>
+            </q-btn>
           </div>
           <div
             v-if="user && user.role_id == 2"
@@ -66,9 +70,10 @@
               color="primary"
               class="col-10 pd font-header"
               icon="home_work"
-              label="trọ"
               @click="openModal(1)"
-            />
+            >
+              <div class="gt-sm"> Trọ</div>
+            </q-btn>
           </div>
           <div
             v-if="user && user.role_id == 3"
@@ -78,9 +83,10 @@
               color="primary"
               class="col-10 pd font-header"
               icon="admin_panel_settings"
-              label="admin"
               @click="$router.push('admin/adminUser')"
-            />
+            >
+              <div class="gt-sm"> admin</div>
+            </q-btn>
           </div>
 
           <div v-if="user" class="col-4 row items-center justify-center">
@@ -88,9 +94,9 @@
               color="accent"
               class="col-10 pd font-header"
               icon="infor"
-              label="tbáo"
               @click="$router.push('/userNoti')"
             >
+              <div class="gt-sm"> TBáo</div>
               <q-badge
                 color="red"
                 text-color="white"
@@ -183,7 +189,7 @@
             text-color="white"
             v-else
             icon="account_circle"
-            :label="user.name"
+            :label="` ${user.id}-${user.name} `"
           />
           <q-chip
             class="col-10"
@@ -406,7 +412,7 @@ export default {
 .pd
   padding: 10px 0px
 .font-header
-  font-size: 20px
+  font-size: 18px
   font-weight: 500
   letter-spacing: 0.5px
 </style>

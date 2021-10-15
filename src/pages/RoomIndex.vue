@@ -412,7 +412,7 @@ export default {
         this.showNoti("thành công", "positive");
         this.posts.push(post.data.posts);
       } else {
-        this.showNoti(" thất bại", "negative");
+        this.showNoti(" bạn đã có bài đăng rồi !", "negative");
       }
     },
     check(status) {

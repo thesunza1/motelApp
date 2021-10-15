@@ -437,6 +437,7 @@
 <script>
 import Tax from "../components/Tax.vue";
 import MulityImg from "../components/MulityImg.vue";
+import noti from '../boot/noti/noti';
 export default {
   components: {
     Tax,
@@ -586,6 +587,7 @@ export default {
         this.isError = true;
         this.errorMes = "email đã tồn tại ";
       } else {
+        noti.showNoti('tạo tài khoảng thành công' , 'positive') ;
         this.$router.push("/login");
       }
     },

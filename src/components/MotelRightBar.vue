@@ -7,7 +7,7 @@
         color="teal"
         text-color="white"
         icon="account_circle"
-        :label="user.name"
+        :label="` ${user.id}-${user.name} `"
       />
       <q-chip
         class="col-10"
