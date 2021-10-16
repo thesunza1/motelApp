@@ -22,9 +22,9 @@
                 items-center
               "
               :class="{
-                'bg-blue-6': room.tenant.bill_num == 0,
-                'bg-red-7': room.tenant.no_bills > 0,
-                'bg-secondary':
+                'bg-blue-5': room.tenant.bill_num == 0,
+                'bg-red-4': room.tenant.no_bills > 0,
+                'bg-green-5':
                   room.tenant.no_bills == 0 && room.tenant.bill_num > 0,
               }"
               @click="openDialog(room)"

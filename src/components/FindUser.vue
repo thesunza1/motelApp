@@ -1,29 +1,45 @@
 <template>
   <div class="row items-center">
-    <div class="col-12">tìm người vào trọ( sử dụng id )</div>
     <q-input
       outlined
-      class="col-8"
-      v-model="userId"
-      type="number"
-      label=" nhập id "
+      class="col-4"
+      v-model="email"
+      type="text"
+      label=" nhập email người sử dụng"
     />
     <div class="col-1"></div>
-    <q-btn class="col-2" color="primary" icon="search" @click="findUser" />
+    <q-btn
+      class="col-2"
+      outline
+      rounded
+      color="positive"
+      icon="search"
+      label="Tìm"
+      @click="findUser"
+    />
+    <div class="col-1"></div>
+    <q-btn
+      outline
+      rounded
+      color="orange-9"
+      icon="add"
+      label=" mời vào "
+      @click="addUserToRoom()"
+    />
     <q-card-section
       class="row full-width justify-center items-center br bd mr"
       v-if="userFind"
     >
       <div class="col-5 col-md-4">Họ tên:</div>
-      <div class="col-7 col-md-8"> {{ userFind.name }}</div>
+      <div class="col-7 col-md-8">{{ userFind.name }}</div>
       <div class="col-5 col-md-4">ngày sinh:</div>
-      <div class="col-7 col-md-8"> {{ userFind.birth_date }}</div>
+      <div class="col-7 col-md-8">{{ userFind.birth_date }}</div>
       <div class="col-5 col-md-4">giới tính:</div>
-      <div class="col-7 col-md-8"> {{ sex(userFind.sex) }}</div>
+      <div class="col-7 col-md-8">{{ sex(userFind.sex) }}</div>
       <div class="col-5 col-md-4">sdt:</div>
-      <div class="col-7 col-md-8"> {{ userFind.phone_number }}</div>
+      <div class="col-7 col-md-8">{{ userFind.phone_number }}</div>
       <div class="col-5 col-md-4">công việc:</div>
-      <div class="col-7 col-md-8"> {{ userFind.job }}</div>
+      <div class="col-7 col-md-8">{{ userFind.job }}</div>
     </q-card-section>
   </div>
 </template>
@@ -36,11 +52,11 @@ export default {
     return {
       showNoti(mess) {
         $q.notify({
-          message: mess ,
+          message: mess,
           color: "purle",
-          position: 'top',
-          timeout:1000
-        })
+          position: "top",
+          timeout: 1000,
+        });
       },
     };
   },
@@ -48,24 +64,45 @@ export default {
     userFind: {
       type: Object,
     },
+    roomId : {
+      type: Number,
+    }
   },
   methods: {
     async findUser() {
-      const response = await this.$api.get("findUser/" + this.userId);
-      this.$emit("updateUserFind", response.data.user);
+      const response = await this.$api.get("findUser/" + this.email);
+      this.$emit("updateUserFind", response.data.user[0]);
       if (response.data.statusCode == 0) {
         this.showNoti("id người dùng không tồn tại");
       }
     },
     sex(sex) {
       if (sex == 1) return "nam";
-      else if(sex == 0) return "nữ";
-      return '' ;
+      else if (sex == 0) return "nữ";
+      return "";
+    },
+    async addUserToRoom() {
+      let roomId = this.roomId;
+      if (this.userFind) {
+        let userId = this.userFind.id;
+        const response = await this.$api.post("sendInvite", {
+          roomId: roomId,
+          receiverId: userId,
+        });
+        let statusCode = response.data.statusCode;
+        if (statusCode == 0)
+          this.showNoti("lỗi: người được gửi là chủ trọ", "negative");
+        else if (statusCode == 2)
+          this.showNoti("lỗi: do người gửi là quản trị viên", "negative");
+        else this.showNoti("thành công: chờ người dùng xác nhận", "info");
+      } else {
+        this.showNoti("bạn cần tìm người trọ trước", "negative");
+      }
     },
   },
   data() {
     return {
-      userId: "",
+      email: "",
     };
   },
 };

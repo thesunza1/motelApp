@@ -1,13 +1,12 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-grey-7 text-white" height-hint="98">
+    <q-header  class="bg-teal-2 " height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-            <!-- <img :src="'/icons/favicon-96x96.png'" /> -->
           </q-avatar>
-          <router-link to="/" class="text-white" style="text-decoration: none">
+          <router-link to="/" class="text-black opc-top" style="text-decoration: none">
             Tmq-motel</router-link
           >
         </q-toolbar-title>
@@ -26,7 +25,7 @@
               icon="home"
               @click="loginModal = true"
             >
-              <div class="gt-sm"> Phòng</div>
+              <div class="gt-sm text-indent"> Phòng</div>
             </q-btn>
           </div>
           <div
@@ -39,7 +38,7 @@
               icon="home"
               @click="openModal(0)"
             >
-              <div class="gt-sm"> Phòng</div>
+              <div class="gt-sm text-indent"> Phòng</div>
             </q-btn>
           </div>
           <div class="col-4 row items-center justify-center">
@@ -49,7 +48,7 @@
               icon="search"
               @click="$router.push('search/searchIndex')"
             >
-              <div class="gt-sm"> Tìm</div>
+              <div class="gt-sm text-indent"> Tìm Trọ</div>
             </q-btn>
           </div>
           <div v-if="!user" class="col-4 row items-center justify-center">
@@ -59,7 +58,7 @@
               icon="home_work"
               @click="loginModalMotel = true"
             >
-              <div class="gt-sm"> Trọ</div>
+              <div class="gt-sm text-indent"> Trọ</div>
             </q-btn>
           </div>
           <div
@@ -72,7 +71,7 @@
               icon="home_work"
               @click="openModal(1)"
             >
-              <div class="gt-sm"> Trọ</div>
+              <div class="gt-sm text-indent"> Trọ</div>
             </q-btn>
           </div>
           <div
@@ -85,7 +84,7 @@
               icon="admin_panel_settings"
               @click="$router.push('admin/adminUser')"
             >
-              <div class="gt-sm"> admin</div>
+              <div class="gt-sm text-indent"> Quản lý </div>
             </q-btn>
           </div>
 
@@ -96,7 +95,7 @@
               icon="infor"
               @click="$router.push('/userNoti')"
             >
-              <div class="gt-sm"> TBáo</div>
+              <div class="gt-sm text-indent"> Thông báo</div>
               <q-badge
                 color="red"
                 text-color="white"
@@ -202,9 +201,10 @@
           <div class="col-12"><br /></div>
           <q-btn
             v-if="user"
+            class="col-10"
             icon="account_circle"
             color="primary"
-            label=" tài khoảng"
+            label=" Tài khoản"
             @click="detail()"
           />
           <div class="col-12"><br /></div>
@@ -220,7 +220,7 @@
           style="width: 100%; margin-top: 10px"
           color="primary"
           icon="logout"
-          label=" đăng xuất "
+          label=" Đăng xuất "
           @click="logout"
         />
         <q-btn
@@ -228,7 +228,7 @@
           style="width: 100%; margin-top: 10px"
           color="orange"
           icon="refresh"
-          label=" tải lại "
+          label=" Tải lại "
           @click="reloadPage"
         />
         <q-btn
@@ -236,7 +236,7 @@
           style="width: 100%; margin-top: 10px"
           color="positive"
           icon="home"
-          label=" trang chủ"
+          label=" Trang chủ"
           @click="$router.push('/')"
         />
       </q-footer>
@@ -293,25 +293,25 @@ export default {
     return {
       links: {
         id1: {
-          name: "đăng nhập",
+          name: " Đăng nhập",
           col1: "primary",
           link: "/login",
           icon: "login",
         },
         id2: {
-          name: "đk ",
+          name: " Đăng ký ",
           col1: "accent",
           link: "/userRegister",
           icon: "assignment",
         },
         id3: {
-          name: "đk trọ",
+          name: " Đăng ký trọ",
           col1: "positive",
           link: "/motelRegister",
           icon: "receipt",
         },
         id4: {
-          name: "trang chủ",
+          name: " Trang chủ",
           col1: "positive",
           link: "/",
           icon: "home",
@@ -415,4 +415,11 @@ export default {
   font-size: 18px
   font-weight: 500
   letter-spacing: 0.5px
+.opc-top
+  opacity: 0.70
+  font-weight: 500
+.text-indent
+  text-indent: 10px
+  text-transform: none
+
 </style>

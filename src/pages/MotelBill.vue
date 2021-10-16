@@ -2,8 +2,8 @@
   <q-page class="row content-start" padding>
     <div class="col-12 row items-center fscr rtname">
       <q-tabs align="left">
-        <q-route-tab to="motel/all" icon="home" label="phòng" />
-        <q-route-tab to="motel/bill" icon="paid" label=" tiền phòng " />
+        <q-route-tab :to="{name:'all'}" class="g-header" icon="home" label="Danh sách loại phòng" />
+        <q-route-tab :to="{name:'bill'}" class="g-header" icon="paid" label="Tiền phòng " />
       </q-tabs>
     </div>
     <div class="col-12"><br /></div>

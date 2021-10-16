@@ -7,7 +7,7 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="motel/all">
-            trọ tôi</router-link
+           Quản lý trọ</router-link
           >
         </q-toolbar-title>
 
@@ -15,10 +15,10 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="motel/all" label="trạng thái" />
-        <q-route-tab to="motel/motelPost" label="Bài Đăng" />
-        <q-route-tab to="motel/config" label="cấu hình" />
-        <q-route-tab to="motel/noti" label="thông báo" >
+        <q-route-tab to="motel/all" class="g-header" label="Trạng thái" />
+        <q-route-tab to="motel/motelPost" class="g-header" label="Bài đăng" />
+        <q-route-tab to="motel/config" class="g-header" label="Cấu hình" />
+        <q-route-tab to="motel/noti" class="g-header" label="Thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
       </q-tabs>

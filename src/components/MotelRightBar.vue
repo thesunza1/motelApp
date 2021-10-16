@@ -7,7 +7,7 @@
         color="teal"
         text-color="white"
         icon="account_circle"
-        :label="` ${user.id}-${user.name} `"
+        :label="`${user.id}-${user.name} `"
       />
       <q-chip
         class="col-10"
@@ -16,21 +16,21 @@
         icon="done"
         label="bạn là chủ trọ"
       />
-      <q-btn color="primary" label=" tài khoảng" @click="detailAccount" />
+      <q-btn color="primary" class="col-10 g-header" label="Tài khoản" @click="detailAccount" />
     </div>
     <div class="col-12 row items-center justify-center">
       <div class="col-12"><br /></div>
       <q-card class="my-card col-10 items-center pad">
         <div class="row items-center">
-          <b class="col-6">tên trọ</b>
+          <b class="col-6">Tên trọ</b>
           <div class="col-6">{{ motel.name }}</div>
           <div class="col-12"><br /></div>
 
-          <b class="col-6"> đóng-mở</b>
+          <b class="col-6"> Đóng-mở</b>
           <div class="col-6">{{ motel.open }}h-{{ motel.closed }}h</div>
           <div class="col-12"><br /></div>
 
-          <b class="col-12"> loại phòng </b>
+          <b class="col-12"> Loại phòng </b>
           <div class="col-12"><br /></div>
           <div
             v-for="(room_type, index) in motel.room_types"
@@ -45,11 +45,14 @@
         </div>
       </q-card>
     </div>
-    <div class="full-width row justify-center items-end" style="height: 50vh">
+
+  <q-footer class="bg-white q-py-md" >
+    <div class="full-width row justify-center pad ">
       <q-btn
         color="primary"
+        class="g-header col-10"
         icon="refresh"
-        label="tải lại"
+        label="Tải lại"
         @click="$router.go()"
       />
     </div>
@@ -57,6 +60,7 @@
       <q-btn
         color="orange"
         icon="login"
+        class="g-header col-10"
         label=" đăng xuất "
         @click="logout()"
       />
@@ -65,10 +69,12 @@
       <q-btn
         color="positive"
         icon="home"
+        class="g-header col-10"
         label=" trang chủ"
         @click="$router.push('/')"
       />
     </div>
+  </q-footer>
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import MainLayout from "layouts/MainLayout.vue";
 import LRLayout from "layouts/LRLayout.vue";
 import MotelLayout from "layouts/MotelLayout.vue";
 import RoomLayout from "layouts/RoomLayout.vue";
+import MotelRoomLayout from "layouts/MotelRoomLayout.vue";
 import SearchLayout from "layouts/SearchLayout.vue";
 import AdminLayout from "layouts/AdminLayout.vue";
 
@@ -18,6 +19,7 @@ import RoomBills from "pages/RoomBills.vue";
 import MotelBill from "pages/MotelBill.vue";
 import MotelConfig from "pages/MotelConfig.vue";
 import MotelPost from "pages/MotelPost.vue";
+import MotelRoomDetail from "pages/MotelRoomDetail.vue";
 import RoomShare from "pages/RoomShare.vue";
 import DetailAccount from "pages/DetailAccount.vue";
 import SearchIndex from "pages/SearchIndex.vue";
@@ -58,6 +60,13 @@ const routes = [
       { path: "/detailAccount", name: "detailAccount", component: DetailAccount },
       { path: "/motelOutbox", name: "motelOutbox", component: NotiOutbox },
       { path: "/motelPost", name: "motelPost", component: MotelPost },
+    ],
+  },
+  {
+    path: "/MotelRoom/:roomId",
+    component: MotelRoomLayout,
+    children: [
+      {path: "" ,name : "motelRoomDetail" , component: MotelRoomDetail} ,
     ],
   },
   {

@@ -2,8 +2,8 @@
   <q-page class="row content-start" padding>
     <div class="col-12 row items-center fscr rtname">
       <q-tabs align="left">
-        <q-route-tab to="motel/all" icon="home" label="phòng" />
-        <q-route-tab to="motel/bill" icon="paid" label=" tiền phòng " />
+        <q-route-tab :to="{name:'all'}" class="g-header" icon="home" label="Danh sách loại phòng" />
+        <q-route-tab :to="{name:'bill'}" class="g-header" icon="paid" label="Tiền phòng " />
       </q-tabs>
     </div>
     <div class="col-12"><br /></div>
@@ -11,17 +11,25 @@
       <div
         v-for="(room_type, index) in motel.room_types"
         :key="index"
-        class="col-12 row pd roomsbg"
+        class="col-12 row pd roomsbg shadow-up-3"
       >
-        <div class="col-12 text-h5"> <q-icon name="store" class="text-light-green-10" style="font-size:30px" /> {{ room_type.name }}</div>
-        <motel-room-render :rooms="room_type.rooms"></motel-room-render>
-        <div class="col-12"><br /></div>
+        <q-expansion-item
+          expand-separator
+          icon="store"
+          :label="` ${room_type.name}`"
+          :caption="` Tổng số: ${lengthArr(room_type.rooms)} --- Trống: ${numRoom(room_type.rooms,1)} --- Không sử dụng: ${numRoom(room_type.rooms,3)} --- Có người: ${numRoom(room_type.rooms,2)}  `"
+          header-class="text-primary g-icon-h1 g-header-up"
+          class="full-width"
+        >
+          <motel-room-render :rooms="room_type.rooms"></motel-room-render>
+        </q-expansion-item>
       </div>
     </div>
   </q-page>
 </template>
 
 <script>
+import sp from "../boot/support";
 import { mapGetters } from "vuex";
 import MotelRoomRender from "components/MotelRoomRender.vue";
 export default {
@@ -30,6 +38,14 @@ export default {
   },
   computed: {
     ...mapGetters("Motel", ["motel"]),
+  },
+  methods: {
+    lengthArr(arr) {
+      return sp.length(arr);
+    },
+    numRoom(rooms ,status) {
+      return sp.numRoom(rooms,status);
+    }
   },
 };
 </script>
@@ -47,7 +63,6 @@ export default {
   padding: 10px
   margin-bottom: 20px
   border-radius: 3px
-  box-shadow: 0px 1px 2px gray
 .roomsbg
-  background-color: #CDD9E0
+  background-color: white
 </style>
