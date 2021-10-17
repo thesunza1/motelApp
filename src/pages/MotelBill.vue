@@ -8,8 +8,9 @@
     </div>
     <div class="col-12"><br /></div>
     <div class="col-12">
-      <q-btn color="orange" label="gửi thông báo toàn trọ" @click="isSended = true " />
+      <q-btn class="g-header" outline color="primary" label="Gửi thông báo toàn trọ" @click="isSended = true " />
     </div>
+    <div class="col-12"><br></div>
     <div class="col-12 row fscr">
       <motel-bill-room-render :motel_id="motel.id"></motel-bill-room-render>
       <div class="col-12"><br /></div>
@@ -17,11 +18,11 @@
     <q-dialog v-model="isSended" >
       <q-card>
         <q-card-section class="row items-center">
-          <span class="q-ml-sm"> bạn có muốn gửi thông báo cho toàn bộ trọ hay không</span>
+          <span class="q-ml-sm text-subtitle2"> Bạn có muốn gửi thông báo cho toàn bộ trọ hay không?</span>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label=" thoát" color="negetive" v-close-popup />
-          <q-btn flat label="oke" color="primary" v-close-popup @click="sendAllNotiBill()" />
+          <q-btn flat label=" Hủy"  class="g-header" color="negative" v-close-popup />
+          <q-btn flat label=" Gửi" color="primary" class="g-header" v-close-popup @click="sendAllNotiBill()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -31,22 +32,9 @@
 <script>
 import { mapGetters } from "vuex";
 import MotelBillRoomRender from "components/MotelBillRoomRender.vue";
-import {  useQuasar} from 'quasar'
+import motelApi from "../boot/callApi/motel";
+import noti from "../boot/noti/noti";
 export default {
-  setup(){
-    const $q = useQuasar() ;
-
-    function showNoti(mess, col ) {
-      $q.notify({
-        color:col ,
-        message:mess,
-        position:'top',
-      });
-    }
-    return {
-      showNoti,
-    }
-  },
   components: {
     MotelBillRoomRender,
   },
@@ -60,9 +48,9 @@ export default {
   },
   methods: {
     async sendAllNotiBill() {
-      const sended = await this.$api.get('sendAllNotiBill/'+this.motel.id);
-      if(sended.data.statusCode == 1 ){
-        this.showNoti('thành công','positive');
+      const sended = await motelApi.sendAllNotiBill(this.motel.id);
+      if(sended.statusCode == 1 ){
+        noti.showNoti('thành công','positive');
       }
     }
   }

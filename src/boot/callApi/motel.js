@@ -65,6 +65,16 @@ async function createRoomType(fd) {
   return res?.data ;
 }
 
+/**
+ * send alll noti to user in motel
+ * @param {Integer} motelId  motel id
+ * @returns response data
+ */
+async function sendAllNotiBill(motelId){
+  const res = await api.get('sendAllNotiBill/'+motelId);
+  return res?.data;
+}
+
 export default {
   updateMotelImg,
   uploadRoomImgs,
@@ -74,4 +84,5 @@ export default {
   getMotelImgs,
   updateRoomTypeContent,
   createRoomType,
+  sendAllNotiBill,
 };

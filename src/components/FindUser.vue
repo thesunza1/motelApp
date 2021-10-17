@@ -2,14 +2,15 @@
   <div class="row items-center">
     <q-input
       outlined
-      class="col-4"
+      class="col-md-4 col-12"
       v-model="email"
       type="text"
-      label=" nhập email người sử dụng"
+      label=" Nhập email người muốn thuê"
     />
-    <div class="col-1"></div>
+    <div class="col-md-1"></div>
+    <div class="lt-md col-12"><br></div>
     <q-btn
-      class="col-2"
+      class="col-md-2 col-5 g-header-up"
       outline
       rounded
       color="positive"
@@ -21,6 +22,7 @@
     <q-btn
       outline
       rounded
+      class="g-header-up col-md-2 col-6"
       color="orange-9"
       icon="add"
       label=" mời vào "

@@ -1,176 +1,255 @@
 <template>
   <div class="row items-center" style="width: 100%">
-    <div v-if="allBillRoom" class="col-12 row items-center">
+    <div v-if="allBillRoom" class="row items-center col-12">
       <div
         v-for="(room_type, index) in allBillRoom"
         :key="index"
-        class="col-12 row pd roomsbg"
+        class="col-12 pd"
       >
-        <div class="col-12 text-h5"> <q-icon name="store" class="text-light-green-10" style="font-size:30px" /> {{ room_type.name }}</div>
-        <div
-          class="col-4 col-md-2 text-h4"
-          v-for="(room, index) in room_type.had_rooms"
-          :key="index"
+        <q-expansion-item
+          expand-separator
+          icon="store"
+          :label="` ${room_type.name}`"
+          :caption="` Phòng có người: ${numRoom(room_type.had_rooms)} `"
+          header-class="text-primary g-icon-h1 g-header-up "
+          class="col-12 shadow-up-2 pd bg-white g-border"
         >
-          <q-card class="my-card">
-            <q-card-section
-              class="
-                text-white text-center
-                rooms
-                row
-                justify-center
-                items-center
-              "
-              :class="{
-                'bg-blue-5': room.tenant.bill_num == 0,
-                'bg-red-4': room.tenant.no_bills > 0,
-                'bg-green-5':
-                  room.tenant.no_bills == 0 && room.tenant.bill_num > 0,
-              }"
-              @click="openDialog(room)"
+          <div class="full-width row items-center">
+            <div
+              class="col-4 col-md-2 text-h4"
+              v-for="(room, index) in room_type.had_rooms"
+              :key="index"
             >
-              <div class="col-12">{{ room.name }}</div>
-            </q-card-section>
-          </q-card>
-        </div>
+              <q-card class="my-card">
+                <q-card-section
+                  class="
+                    text-white text-center
+                    rooms
+                    row
+                    justify-center
+                    items-center
+                  "
+                  :class="{
+                    'bg-blue-5': room.tenant.bill_num == 0,
+                    'bg-red-4': room.tenant.no_bills > 0,
+                    'bg-green-5':
+                      room.tenant.no_bills == 0 && room.tenant.bill_num > 0,
+                  }"
+                  @click="openDialog(room)"
+                >
+                  <div class="col-12">{{ room.name }}</div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </q-expansion-item>
+
         <div class="col-12"><br /></div>
       </div>
     </div>
 
     <q-dialog v-model="isDetailBill">
-      <q-card class="row modalb fs br" style="max-height: 80vh">
-        <q-card-section
-          v-if="thisRoom"
-          class="row pd full-width justify-center text-white bg-positive"
-        >
-          <div class="col-12 text-center text-h5">
+      <q-layout
+        v-if="thisRoom"
+        view="hHr LpR lFf"
+        container
+        class="g-background g-card-width"
+      >
+        <q-header class="bg-white text-positive text-center">
+          <div class="text-h5 q-py-md">
             <q-icon name="store" />
-            phòng: {{ thisRoom.name }}
+            Phòng: {{ thisRoom.name }}
           </div>
-          <div class="col-12"><br /></div>
-        </q-card-section>
-        <div
-          v-for="(bill, index) in thisBills"
-          :key="index"
-          class="full-width row items-center"
-        >
-          <div class="col-12"><br /></div>
-          <q-card-section
-            class="col-12 row justify-center"
-            :class="{
-              'bg-red-2': bill.status == 0,
-              'bg-green-2': bill.status == 1,
-            }"
-          >
-            <div class="col-6">từ: {{ toDate(bill.date_begin) }}</div>
-            <div class="col-6">đến: {{ toDate(bill.date_end) }}</div>
-            <div class="col-12"><br /></div>
-            <div v-if="index ==0" class="col-md-4 col-12 row justify-center items-center">
-              <div class="col-7 text-left">điện: {{ bill.elec_begin }} -</div>
-              <q-input
-                outlined
-                standout="bg-teal text-white"
-                bg-color="white"
-                class="col-4"
-                v-model="bill.elec_end"
-                type="number"
-              />
-              <div class="col-1">kwh</div>
+          <q-card-section class="full-width text-left">
+            <div class="text-negative text-subtitle2">
+              {{ `Hóa đơn chưa trả: ${numBill(thisBills, 0)}` }}
             </div>
-            <div v-else class="col-md-4 col-12 row justify-center items-center">
-              <div class=" text-left">điện: {{ bill.elec_begin }} - {{bill.elec_end}} kwh</div>
-            </div>
-            <div class="col-md-8 col-12 row items-center justify-center">
-              <div>
-                tổng: {{ bill.elec_end - bill.elec_begin }} *
-                {{ bill.elec_cost }}
-              </div>
-              <div>
-                = {{ (bill.elec_end - bill.elec_begin) * bill.elec_cost }}vnd
-              </div>
-            </div>
-            <div class="col-12"><br></div>
-            <div v-if="index==0" class="col-md-4 col-12 row justify-center items-center">
-              <div class="col-7 text-left"> nước: {{ bill.water_begin }} -</div>
-              <q-input
-                outlined
-                standout="bg-teal text-white"
-                bg-color="white"
-                class="col-4"
-                v-model="bill.water_end"
-                type="number"
-              />
-              <div class="col-1">m3</div>
-            </div>
-            <div v-else class="col-md-4 col-12 row justify-center items-center">
-              <div class=" text-left"> nước: {{ bill.water_begin }} - {{bill.water_end}} kwh</div>
-            </div>
-            <div class="col-12 col-md-8 row items-center justify-center">
-              <div>
-                tổng: {{ bill.water_end - bill.water_begin }} *
-                {{ bill.water_cost }}vnd
-              </div>
-              <div>
-                = {{ (bill.water_end - bill.water_begin) * bill.water_cost }}
-              </div>
-            </div>
-            <div class="col-12"><br /></div>
-            <div class="col-12 row justify-end items-center">
-              <div class="gt-sm col-6"></div>
-              <div class="col-md-6 col-10">
-                phí người: {{ bill.people_cost }}nvd
-              </div>
-              <div class="gt-sm col-6"></div>
-              <div class="col-md-6 col-10">tiền trọ: {{ bill.cost }}nvd</div>
-              <div class="col-12"><br /></div>
-              <div class="gt-sm col-6"></div>
-              <div class="col-md-6 col-10">
-                tổng phải trả:
-                {{
-                  bill.cost +
-                  bill.people_cost +
-                  (bill.water_end - bill.water_begin) * bill.water_cost +
-                  (bill.elec_end - bill.elec_begin) * bill.elec_cost
-                }}vnd
-              </div>
-            </div>
-            <div class="col-12"><br /></div>
-            <div class="col-12 row justify-end">
-              <q-btn
-                v-if="bill.status == 0"
-                color="positive"
-                style="margin-right: 5px"
-                label="đã trả"
-                @click="checkBill(bill.id, index)"
-              />
-              <q-btn
-                v-if="bill.status == 0 && index == 0"
-                color="primary"
-                style="margin-right: 5px"
-                label="cập nhật"
-                @click="updateBill(bill.id, bill.water_end, bill.elec_end)"
-              />
-              <q-btn
-                color="orange"
-                label="thông báo"
-                @click="notiUser(bill.id)"
-              />
+            <div class="text-positive text-subtitle2">
+              {{ ` Đã trả: ${numBill(thisBills, 1)}` }}
             </div>
           </q-card-section>
-        </div>
-      </q-card>
+        </q-header>
+        <q-page-container>
+          <q-page padding>
+            <div
+              v-for="(bill, index) in thisBills"
+              :key="index"
+              class="full-width row items-center"
+            >
+              <div class="col-12"><br /></div>
+              <q-card class="my-card">
+                <q-card-section
+                  class="col-12 text-white row justify-center"
+                  :class="{
+                    'bg-negative': bill.status == 0,
+                    'bg-positive': bill.status == 1,
+                  }"
+                >
+                  <div class="col-6">
+                    <b> Từ:</b> {{ toDate(bill.date_begin) }}
+                  </div>
+                  <div class="col-6">
+                    <b> Đến:</b> {{ toDate(bill.date_end) }}
+                  </div>
+                </q-card-section>
+                <q-card-section class="col-12 row justify-center">
+                  <div
+                    v-if="index == 0 && bill.status == 0"
+                    class="col-md-4 col-12 row items-center"
+                  >
+                    <div class="text-left">
+                      <b> Số điện: </b>{{ bill.elec_begin }} -
+                    </div>
+                    <q-input
+                      outlined
+                      class="q-px-md"
+                      v-model="bill.elec_end"
+                      dense
+                      type="number"
+                    />
+                    <div class="">kwh</div>
+                  </div>
+                  <div
+                    v-else
+                    class="col-md-4 col-12 row justify-center items-center"
+                  >
+                    <div class="text-left">
+                      <b> Điện: </b> {{ bill.elec_begin }} -
+                      {{ bill.elec_end }} kwh
+                    </div>
+                  </div>
+                  <div class="col-md-8 col-12 row items-center justify-center">
+                    <div>
+                      <b> Tổng Điện: </b>{{ bill.elec_end - bill.elec_begin }} *
+                      {{ bill.elec_cost }}
+                    </div>
+                    <div>
+                      =
+                      {{ (bill.elec_end - bill.elec_begin) * bill.elec_cost }}
+                      Vnd
+                    </div>
+                  </div>
+                  <div class="col-12"><br /></div>
+                  <div
+                    v-if="index == 0 && bill.status == 0"
+                    class="col-md-4 col-12 row items-center"
+                  >
+                    <div class="text-left">
+                      <b>Số nước: </b>{{ bill.water_begin }} -
+                    </div>
+                    <q-input
+                      outlined
+                      bg-color="white"
+                      dense
+                      class="q-px-md"
+                      v-model="bill.water_end"
+                      type="number"
+                    />
+                    <div class="">M3</div>
+                  </div>
+                  <div
+                    v-else
+                    class="col-md-4 col-12 row justify-center items-center"
+                  >
+                    <div class="text-left">
+                      <b>Nước: </b> {{ bill.water_begin }} -
+                      {{ bill.water_end }} kwh
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-8 row items-center justify-center">
+                    <div>
+                      <b>Tổng nước:</b>
+                      {{ bill.water_end - bill.water_begin }} *
+                      {{ bill.water_cost }} Vnd
+                    </div>
+                    <div>
+                      =
+                      {{
+                        (bill.water_end - bill.water_begin) * bill.water_cost
+                      }}
+                    </div>
+                  </div>
+                  <div class="col-12"><br /></div>
+                  <div class="col-12">
+                    <hr />
+                  </div>
+                  <div class="col-12 row justify-center items-center">
+                    <div class="col-12 text-right">
+                      <b> Phụ thu:</b> {{ bill.people_cost }} Vnd
+                    </div>
+                    <div class="col-12"><br /></div>
+                    <div class="col-12 text-right">
+                      <b> Tiền trọ:</b> {{ bill.cost }} Vnd
+                    </div>
+                    <div class="col-12"><br /></div>
+                    <div class="col-12 text-right">
+                      <b> tổng phải trả:</b>
+                      {{
+                        bill.cost +
+                        bill.people_cost +
+                        (bill.water_end - bill.water_begin) * bill.water_cost +
+                        (bill.elec_end - bill.elec_begin) * bill.elec_cost
+                      }}
+                      Vnd
+                    </div>
+                  </div>
+                  <div class="col-12"><br /></div>
+                  <div class="col-12 row justify-end">
+                    <q-btn
+                      v-if="bill.status == 0"
+                      color="positive"
+                      style="margin-right: 5px"
+                      label=" Đã trả"
+                      class="g-header"
+                      outline
+                      dense
+                      @click="checkBill(bill.id, index)"
+                    />
+                    <q-btn
+                      v-if="bill.status == 0 && index == 0"
+                      dense
+                      color="primary"
+                      class="g-header"
+                      style="margin-right: 5px"
+                      label="Cập nhật"
+                      outline
+                      @click="
+                        updateBill(bill.id, bill.water_end, bill.elec_end)
+                      "
+                    />
+                    <q-btn
+                      dense
+                      color="orange"
+                      label="Thông báo"
+                      outline
+                      class="g-header"
+                      @click="notiUser(bill.id)"
+                    />
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </q-page>
+        </q-page-container>
+      </q-layout>
     </q-dialog>
     <q-dialog v-model="isRoomBill">
-      <q-card>
-        <q-card-section class="row items-center bg-primary text-white">
-          <span class="q-ml-sm"> chọn phòng để tạo</span>
+      <q-card class="my-card g-card-width">
+        <q-card-section
+          class="row items-center text-center text-primary bg-white text-h6"
+        >
+          <div class="col-12">Chọn phòng để tạo</div>
         </q-card-section>
-        <q-card-section> *chọn phòng để tạo bill </q-card-section>
+        <q-card-section class="text-subtitle2">
+          *Chọn phòng để tạo bill
+        </q-card-section>
         <q-card-section>
           <div v-for="(roomType, index) in allBillRoom" :key="index">
-            <div class="row full-width items-center">
-              <div class="col-12">{{ roomType.name }}</div>
-              <div class="col-12 row items-center">
+            <div class="row full-width justify-center items-center">
+              <div class="col-12 g-text-roomType text-primary g-header-up">
+                <q-icon name="store" class="g-icon-h2" /> {{ roomType.name }}
+              </div>
+              <div class="col-10 row items-center q-py-sm">
                 <div v-for="(room, index) in roomType.had_rooms" :key="index">
                   <q-checkbox
                     v-model="chooseRoom"
@@ -179,12 +258,18 @@
                   />
                 </div>
               </div>
+              <div class="col-12"><br /></div>
             </div>
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label=" thoát" v-close-popup />
-          <q-btn flat label=" tạo bill " @click="createSomeBill" />
+          <q-btn flat color="negative" label="Thoát" v-close-popup />
+          <q-btn
+            flat
+            color="positive"
+            label="Tạo bill "
+            @click="createSomeBill"
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -213,23 +298,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { useQuasar } from "quasar";
+import noti from "../boot/noti/noti";
+import sp from "../boot/support";
 
 export default {
-  setup() {
-    const $q = useQuasar();
-    function showNoti(mess, col) {
-      $q.notify({
-        message: mess,
-        color: col,
-        position: "top",
-        timeout: 1000,
-      });
-    }
-    return {
-      showNoti,
-    };
-  },
   props: {
     motel_id: {
       type: Number,
@@ -252,6 +324,9 @@ export default {
     ...mapGetters("RoomStatuses", ["roomStatuses"]),
   },
   methods: {
+    numRoom(rooms) {
+      return sp.length(rooms);
+    },
     roomStatus(room) {
       return room.room_status.name;
     },
@@ -275,7 +350,7 @@ export default {
         mes = " phòng " + this.error.name + "chưa xác nhận điện nước";
         col = " red";
       }
-      this.showNoti(mes, col);
+      noti.showNoti(mes, col);
     },
     async getAllBill() {
       try {
@@ -295,11 +370,15 @@ export default {
         rooms: this.chooseRoom,
       });
       if (create.data.statusCode == 1) {
-        this.showNoti("đã tạo thành công");
+        noti.showNoti("đã tạo thành công");
         this.getAllBill();
         this.isRoomBill = false;
-      } else if(create.data.statusCode ==3) {
-        this.showNoti(' lỗi : phòng '+ create.data.room.name+' chưa xác nhận số điện nước');
+      } else if (create.data.statusCode == 3) {
+        noti.showNoti(
+          " lỗi : phòng " +
+            create.data.room.name +
+            " chưa xác nhận số điện nước"
+        );
       }
     },
     toDate(date) {
@@ -313,7 +392,7 @@ export default {
       });
       if (update.data.statusCode == 1) {
         this.getAllBill();
-        this.showNoti("cập nhật thành công");
+        noti.showNoti("cập nhật thành công");
       }
     },
     async checkBill(billId, index) {
@@ -321,7 +400,7 @@ export default {
         bill_id: billId,
       });
       if (update.data.statusCode == 1) {
-        this.showNoti("thay đổi thành công");
+        noti.showNoti("thay đổi thành công");
         this.getAllBill();
         this.isDetailBill = false;
       }
@@ -329,8 +408,11 @@ export default {
     async notiUser(billId) {
       const send = await this.$api.get("sendNotiBill/" + billId);
       if (send.data.statusCode == 1) {
-        this.showNoti("đã gửi thành công");
+        noti.showNoti("đã gửi thành công");
       }
+    },
+    numBill(bills, status) {
+      return sp.numBill(bills, status);
     },
   },
   async created() {
@@ -345,7 +427,7 @@ export default {
 };
 </script>
 
-<style scoped lang='sass'>
+<style scoped lang="sass">
 $fontSize: 20px
 .my-card
   // height: 130px

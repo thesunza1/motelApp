@@ -10,12 +10,13 @@
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-12 row items-center">
-              <div class="col-4 text-h6">
+              <div class="col-md-4 col-12 text-h6">
                 <b> Trạng thái hiện tại : </b>
                 <p class="text-positive" style="display: inline">Trống</p>
               </div>
-              <div class="col-4"><b> Tên phòng : </b>{{ room.name }}</div>
-              <div class="col-4">
+              <div class="lt-md col-12"><br></div>
+              <div class="col-md-4 col-6"><b> Tên phòng : </b>{{ room.name }}</div>
+              <div class="col-md-4 col-6">
                 <b> Loại phòng : </b>{{ room.room_type.name }}
               </div>
             </div>
@@ -32,7 +33,7 @@
           </q-card-section>
           <q-card-section class="col-12 row justify-center">
             <q-select
-              class="col-3"
+              class="col-md-3"
               label="trạng thái phòng"
               filled
               v-model="thisStatus"
@@ -51,7 +52,7 @@
               emit-value
               map-options
             />
-            <div class="col-2 row justify-center">
+            <div class="col-md-2 row justify-center">
               <q-btn
                 outline
                 rounded
@@ -93,17 +94,19 @@
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-12 row items-center">
-              <div class="col-4 text-h6">
+              <div class="col-md-4 col-12 text-h6">
                 <b> Trạng thái hiện tại : </b>
                 <p class="text-positive" style="display: inline">Có người</p>
               </div>
-              <div class="col-4">
+              <div class="lt-md col-12"><br></div>
+              <div class="col-md-4 col-6">
                 <b class="q-pl-sm"> Tên phòng : </b>{{ room.name }}
               </div>
-              <div class="col-4">
+              <div class="col-md-4 col-6">
                 <b> Loại phòng : </b>{{ room.room_type.name }}
               </div>
             </div>
+
           </q-card-section>
         </q-card>
         <br />
@@ -118,9 +121,10 @@
             <div class="col-12 text-center subtitle2"><br /></div>
             <div class="col-12"><hr /></div>
             <div class="col-12 row items-center">
-              <div class="col-4 text-bold">Tên</div>
-              <div class="col-4 text-bold">Email</div>
-              <div class="col-2 text-bold">Sdt</div>
+              <div class="col-1 text-bold q-pl-sm"> Stt</div>
+              <div class="col-3 text-bold">Tên</div>
+              <div class="col-md-4 col-5 text-bold">Email</div>
+              <div class="col-2 gt-sm text-bold">Sdt</div>
               <div class="col-2 text-bold text-center">Xem</div>
               <div class="col-12 text-bold"><hr /></div>
               <div class="col-12 text-bold"><br /></div>
@@ -130,13 +134,13 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-4">{{ user.user.name }}</div>
-              <div class="col-4">{{ user.user.email }}</div>
-              <div class="col-2">{{ user.user.phone_number }}</div>
+              <div class="col-1 q-pl-sm"> {{++index  }} </div>
+              <div class="col-3">{{ user.user.name }}</div>
+              <div class="col-md-4 col-5">{{ user.user.email }}</div>
+              <div class="col-2 gt-sm">{{ user.user.phone_number }}</div>
               <div class="col-2 text-center">
                 <q-btn
                   outline
-                  rounded
                   style="margin: 0px 7px"
                   color="primary"
                   label="Chi tiết"
@@ -156,6 +160,7 @@
           </q-card-section>
           <q-card-section class="col-12 row justify-center">
             <div class="col-12 row items-center">
+              <div class="col-1 text-bold q-pl-sm"> Stt</div>
               <div class="col-4 text-bold">Tên thiết bị</div>
               <div class="col-4 text-bold">Trạng Thái</div>
               <div class="col-12 text-bold"><hr /></div>
@@ -166,13 +171,14 @@
               :key="index"
               class="col-12 row items-center"
             >
+              <div class="col-1 q-pl-sm"> {{++index  }} </div>
               <div class="col-4">{{ equip.name }}</div>
               <div class="col-4">{{ equip.content }}</div>
               <div class="col-12"><br /></div>
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 items-center row">
-              <div v-if="room.tenant.eq_status == 0" class="col-7 text-red">
+              <div v-if="room.tenant.eq_status == 0" class="col-12 text-red">
                 <q-chip
                   icon="star"
                   label=" Bạn chưa xác nhận"
@@ -180,7 +186,7 @@
                   text-color="white"
                 />
               </div>
-              <div v-else class="col-7 text-blue-10">
+              <div v-else class="col-12 text-blue-10">
                 <q-chip
                   icon="star"
                   label=" Bạn đã xác nhận tình trạng "
@@ -213,8 +219,8 @@
             </div>
           </q-card-section>
           <q-card-section class="col-12 row justify-center">
-            <div class="col-12 row items-center">
-              <div class="col-6 text-center">
+            <div class="col-12 row items-center g-text-roomType">
+              <div class="col-6 text-center ">
                 <b>Số điện: </b> {{ room.tenant.elec_num }}
               </div>
               <div class="col-6 text-center">
@@ -223,7 +229,7 @@
               <div class="col-12"><br /></div>
             </div>
             <div class="col-12 items-center row">
-              <div v-if="room.tenant.num_status == 0" class="col-7">
+              <div v-if="room.tenant.num_status == 0" class="col-12">
                 <q-chip
                   icon="star"
                   label=" bạn chưa xác nhận "
@@ -231,7 +237,7 @@
                   text-color="white"
                 />
               </div>
-              <div v-else class="col-7">
+              <div v-else class="col-12">
                 <q-chip
                   icon="star"
                   label=" đã xác nhận số điện, nước"
@@ -280,12 +286,13 @@
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-12 row items-center">
-              <div class="col-4 text-h6">
+              <div class="col-md-4 col-12 text-h6">
                 <b> Trạng thái hiện tại : </b>
                 <p class="text-negative" style="display: inline">Đang sửa</p>
               </div>
-              <div class="col-4"><b> Tên phòng : </b>{{ room.name }}</div>
-              <div class="col-4">
+              <div class="lt-md col-12"><br></div>
+              <div class="col-md-4 col-6"><b> Tên phòng : </b>{{ room.name }}</div>
+              <div class="col-md-4 col-6">
                 <b> Loại phòng : </b>{{ room.room_type.name }}
               </div>
             </div>
@@ -302,7 +309,7 @@
           </q-card-section>
           <q-card-section class="col-12 row justify-center">
             <q-select
-              class="col-3"
+              class="col-md-3"
               label="trạng thái phòng"
               filled
               v-model="thisStatus"
@@ -321,7 +328,7 @@
               emit-value
               map-options
             />
-            <div class="col-2 row justify-center">
+            <div class="col-md-2 row justify-center">
               <q-btn
                 outline
                 rounded
@@ -398,9 +405,9 @@ export default {
       });
       let statusCode = response.data.statusCode;
       if (statusCode == 0) {
-        noti.showNoti("khong thể đổi thành có người", "warning");
+        noti.showNoti("không thể đổi thành có người", "warning");
       } else if (statusCode == 1) {
-        noti.showNoti(" thành công", "positive");
+        noti.showNoti(" Thành công", "positive");
         const res = await roomApi.getRoom(this.roomId);
         this.room = res.room;
         this.thisStatus = res.room.room_status_id;
@@ -412,7 +419,7 @@ export default {
       this.userFind = response.data.user[0];
       this.isDetailUser = true;
       if (response.data.statusCode == 0) {
-        noti.showNoti("email người dùng không tồn tại");
+        noti.showNoti("Email người dùng không tồn tại");
       }
     },
     async confirmEq() {
@@ -420,7 +427,7 @@ export default {
       const confirm = await roomApi.confirmEq(tenant_id);
       if (confirm.statusCode == 1) {
         this.room.tenant.eq_status = 1;
-        this.showNoti("đã thành công", "positive");
+        this.showNoti(" Đã thành công", "positive");
       }
     },
     async confirmNum() {
@@ -428,7 +435,7 @@ export default {
       const confirm = await roomApi.confirmNum(tenant_id);
       if (confirm.statusCode == 1) {
         this.room.tenant.num_status = 1;
-        this.showNoti("đã thành công", "positive");
+        this.showNoti("Đã thành công", "positive");
       }
     },
   },
