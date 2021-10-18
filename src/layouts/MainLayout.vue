@@ -38,7 +38,7 @@
               icon="home"
               @click="openModal(0)"
             >
-              <div class="gt-sm text-indent"> Phòng</div>
+              <div class="gt-sm text-indent"> Quản lý phòng</div>
             </q-btn>
           </div>
           <div class="col-4 row items-center justify-center">
@@ -48,7 +48,7 @@
               icon="search"
               @click="$router.push('search/searchIndex')"
             >
-              <div class="gt-sm text-indent"> Tìm Trọ</div>
+              <div class="gt-sm text-indent"> Tìm trọ</div>
             </q-btn>
           </div>
           <div v-if="!user" class="col-4 row items-center justify-center">
@@ -58,7 +58,7 @@
               icon="home_work"
               @click="loginModalMotel = true"
             >
-              <div class="gt-sm text-indent"> Trọ</div>
+              <div class="gt-sm text-indent">Quản lý trọ</div>
             </q-btn>
           </div>
           <div
@@ -71,7 +71,7 @@
               icon="home_work"
               @click="openModal(1)"
             >
-              <div class="gt-sm text-indent"> Trọ</div>
+              <div class="gt-sm text-indent">Quản lý trọ</div>
             </q-btn>
           </div>
           <div
@@ -116,8 +116,8 @@
     <q-dialog v-model="loginModal">
       <q-card>
         <q-card-section style="text-align: center">
-          <p>bạn chưa đăng nhập</p>
-          <p style="font-size: 1.3em">đăng nhập hoặc tạo để tiếp tục</p>
+          <p>Bạn chưa đăng nhập</p>
+          <p style="font-size: 1.3em"> Đăng nhập hoặc tạo tài khoản để tiếp tục</p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -126,8 +126,8 @@
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
-            <router-link class="lr lgs" to="/login">d nhập</router-link>
-            <router-link class="lr rg" to="/userRegister">d kí</router-link>
+            <router-link class="lr lgs" to="/login"> Đăng nhập</router-link>
+            <router-link class="lr rg" to="/userRegister"> Đăng ký</router-link>
           </div>
         </q-card-actions>
         <q-card-actions vertical align="center">
@@ -138,8 +138,8 @@
     <q-dialog v-model="loginModalMotel">
       <q-card>
         <q-card-section style="text-align: center">
-          <p>bạn chưa đăng nhập</p>
-          <p style="font-size: 1.3em">đăng nhập hoặc tạo để tiếp tục</p>
+          <p>Bạn chưa đăng nhập</p>
+          <p style="font-size: 1.3em"> Đăng nhập hoặc tạo tài khoản để tiếp tục</p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -148,8 +148,8 @@
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
-            <router-link class="lr lgs" to="/login">d nhập</router-link>
-            <router-link class="lr rg" to="/motelRegister"> tk trọ</router-link>
+            <router-link class="lr lgs" to="/login"> Đăng nhập</router-link>
+            <router-link class="lr rg" to="/motelRegister"> Đăng ký</router-link>
           </div>
         </q-card-actions>
         <q-card-actions vertical align="center">
@@ -161,12 +161,12 @@
       <q-card>
         <q-card-section class="row items-center bg-positive">
           <div class="col-12 text-center text-h6 text-white">
-            bạn chưa có phòng
+            Bạn chưa có phòng
           </div>
         </q-card-section>
         <q-card-section>
           <div class="full-width">
-            bạn cần vào 1 trọ nào đó để sử dụng tính năng này
+            Bạn cần vào 1 trọ nào đó để sử dụng tính năng này.
           </div>
         </q-card-section>
       </q-card>
@@ -180,10 +180,10 @@
             class="col-10"
             v-if="!user"
             icon="account_circle"
-            label=" bạn chưa đăng nhập"
+            label=" Bạn chưa đăng nhập"
           />
           <q-chip
-            class="col-10"
+            class="col-10 g-header-up"
             color="teal"
             text-color="white"
             v-else
@@ -201,7 +201,7 @@
           <div class="col-12"><br /></div>
           <q-btn
             v-if="user"
-            class="col-10"
+            class="col-10 g-header"
             icon="account_circle"
             color="primary"
             label=" Tài khoản"
@@ -217,6 +217,7 @@
         </div>
         <q-btn
           v-if="user"
+          class="g-header"
           style="width: 100%; margin-top: 10px"
           color="primary"
           icon="logout"
@@ -228,6 +229,7 @@
           style="width: 100%; margin-top: 10px"
           color="orange"
           icon="refresh"
+          class="g-header"
           label=" Tải lại "
           @click="reloadPage"
         />
@@ -237,6 +239,7 @@
           color="positive"
           icon="home"
           label=" Trang chủ"
+          class="g-header"
           @click="$router.push('/')"
         />
       </q-footer>

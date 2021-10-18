@@ -14,7 +14,7 @@
         color="orange"
         text-color="white"
         icon="done"
-        label="bạn là chủ trọ"
+        label="Bạn là chủ trọ"
       />
       <q-btn color="primary" class="col-10 g-header" label="Tài khoản" @click="detailAccount" />
     </div>
@@ -61,7 +61,7 @@
         color="orange"
         icon="login"
         class="g-header col-10"
-        label=" đăng xuất "
+        label=" Đăng xuất "
         @click="logout()"
       />
     </div>
@@ -70,7 +70,7 @@
         color="positive"
         icon="home"
         class="g-header col-10"
-        label=" trang chủ"
+        label=" Trang chủ"
         @click="$router.push('/')"
       />
     </div>

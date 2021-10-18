@@ -65,7 +65,7 @@
               {{ `Hóa đơn chưa trả: ${numBill(thisBills, 0)}` }}
             </div>
             <div class="text-positive text-subtitle2">
-              {{ ` Đã trả: ${numBill(thisBills, 1)}` }}
+              {{ `Hóa đơn đã trả: ${numBill(thisBills, 1)}` }}
             </div>
           </q-card-section>
         </q-header>
@@ -183,7 +183,7 @@
                     </div>
                     <div class="col-12"><br /></div>
                     <div class="col-12 text-right">
-                      <b> tổng phải trả:</b>
+                      <b> Tổng phải trả:</b>
                       {{
                         bill.cost +
                         bill.people_cost +

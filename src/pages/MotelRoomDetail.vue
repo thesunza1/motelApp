@@ -135,7 +135,7 @@
               class="col-12 row items-center"
             >
               <div class="col-1 q-pl-sm"> {{++index  }} </div>
-              <div class="col-3">{{ user.user.name }}</div>
+              <div class="col-3 g-header-up">{{ user.user.name }}</div>
               <div class="col-md-4 col-5">{{ user.user.email }}</div>
               <div class="col-2 gt-sm">{{ user.user.phone_number }}</div>
               <div class="col-2 text-center">
@@ -354,15 +354,15 @@
           <div class="col-12 text-center text-h5">chi tiết</div>
         </q-card-section>
         <q-card-section v-if="userFind" class="col-10 row justify-center">
-          <div class="col-4 text-bold">tên :</div>
-          <div class="col-8">{{ userFind.name }}</div>
-          <div class="col-4 text-bold">email:</div>
+          <div class="col-4 text-bold">Tên :</div>
+          <div class="col-8 g-header-up">{{ userFind.name }}</div>
+          <div class="col-4 text-bold">Email:</div>
           <div class="col-8">{{ userFind.email }}</div>
-          <div class="col-4 text-bold">điện thoại:</div>
+          <div class="col-4 text-bold"> Điện thoại:</div>
           <div class="col-8">{{ userFind.phone_number }}</div>
-          <div class="col-4 text-bold">giới tính :</div>
+          <div class="col-4 text-bold">Giới tính :</div>
           <div class="col-8">{{ sex(userFind.sex) }}</div>
-          <div class="col-4 text-bold">nghề nghiệp :</div>
+          <div class="col-4 text-bold">Nghề nghiệp :</div>
           <div class="col-8">{{ userFind.job }}</div>
         </q-card-section>
       </q-card>
