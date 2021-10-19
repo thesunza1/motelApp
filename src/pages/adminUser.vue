@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
     <div v-if="users">
+
       <div class="full-width">
         <q-card-section class="row items-center">
           <div class="col-6 row items-center justify-around">
@@ -12,7 +13,7 @@
               label-color="primary"
             />
             <q-btn
-              color="primary"
+              color="primary g-header"
               icon="search"
               label=" Tìm"
               @click="findUser()"
@@ -24,10 +25,12 @@
             color="warning"
             icon="update"
             label="Cập nhật"
+            class="g-header"
             @click="isUpdate = true"
           />
           <q-btn
             color="negative"
+            class="g-header"
             icon="delete"
             label="Xóa"
             @click="isDelete = true"
@@ -35,17 +38,18 @@
           <q-btn
             color="primary"
             icon="question_answer"
+            class="g-header"
             label="Thông báo"
             @click="isCreate = true"
           />
         </q-card-actions>
-        <q-card-section v-if="thisUser.length == 1">
+        <!-- <q-card-section v-if="thisUser.length == 1">
           <div>
             id : <b>{{ thisUser[0].id }}</b
             >- email: <b>{{ thisUser[0].email }}</b
             >- điện thoại: <b>{{ thisUser[0].phone_number }}</b>
           </div>
-        </q-card-section>
+        </q-card-section> -->
       </div>
       <q-table
         class="my-header-table"
@@ -237,32 +241,30 @@ export default {
       maxPage: 1,
       columns: [
         {
-          name: "id",
-          label: "id",
-          field: "id",
-          align: "center",
-          sortable: true,
+          name: "index",
+          label: "#",
+          field: "index",
         },
         {
           name: "name",
-          label: " tên",
+          label: " Tên",
           field: "name",
-          align: "center",
+          align: "left",
           sortable: true,
         },
-        { name: "email", label: "email", field: "email", align: "center" },
+        { name: "email", label: "Email", field: "email", align: "left" },
         {
           name: "sex",
-          label: " giới tính",
+          label: " Giới tính",
           field: "sex",
-          align: "center",
+          align: "left",
           format: (val) => this.boolNumToString("sex", val),
         },
         {
           name: "have_room",
-          label: " phòng",
+          label: " Phòng",
           field: "have_room",
-          align: "center",
+          align: "left",
           sortable: true,
           format: (val) => this.boolNumToString("have_room", val),
         },
@@ -323,7 +325,7 @@ export default {
 };
 </script>
 
-<style lang="sass" >
+<style lang="sass">
 .mr
   margin-top: 10px
 .my-header-table

@@ -2,7 +2,7 @@
   <div v-if="!user" class="row full-width justify-center">
     <q-btn
       :class="`bg-${link.col1}`"
-      class="col-10 text-white"
+      class="col-10 text-white g-header"
       :label="link.name"
       :icon="link.icon"
       @click="$router.push(link.link)"

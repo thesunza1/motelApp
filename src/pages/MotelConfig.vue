@@ -5,21 +5,93 @@
       hơn
     </div>
     <div v-if="motel" class="gt-xs full-width row justify-center items-center">
+      <q-drawer
+        side="left"
+        v-model="drawerLeft"
+        bordered
+        :width="400"
+        content-class="bg-white"
+      >
+        <br />
+        <q-item >
+          <q-item-section top avatar>
+            <q-avatar
+              color="white"
+              class="g-icon-h1"
+              text-color="black"
+              icon="store"
+            />
+          </q-item-section>
+          <q-item-section @click="goto('publicInfor')">
+            <q-item-label> Chỉnh sửa thông tin chung </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section top avatar>
+            <q-avatar
+              color="white"
+              class="g-icon-h1"
+              text-color="black"
+              icon="store"
+            />
+          </q-item-section>
+          <q-item-section @click="goto('publicMoney')">
+            <q-item-label> Thiết lập chi phí </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-expansion-item
+          expand-separator
+          icon="home"
+          v-model="isOp"
+          header-class="g-icon-h2"
+          label="Cấu hình nội dung trọ"
+          caption=" Hình ảnh và nội dung "
+          :content-inset-level="1"
+        >
+          <div v-for="(motelImg, index) in motelImgs" :key="index">
+            <q-item>
+              <q-item-section @click="goto(`img${index}`)">
+                <q-item-label> {{ motelImg.content }} </q-item-label>
+              </q-item-section>
+            </q-item>
+          </div>
+        </q-expansion-item>
+        <q-expansion-item
+          expand-separator
+          icon="home"
+          v-model="isOp"
+          header-class="g-icon-h2"
+          label=" Cấu hình loại trọ"
+          caption="Danh sách loại trọ"
+          :content-inset-level="1"
+        >
+          <div v-for="(rTImg, index) in roomTypeImgs" :key="index">
+            <q-item>
+              <q-item-section @click="goto(`rt${index}`)">
+                <q-item-label> {{ rTImg.name }} </q-item-label>
+              </q-item-section>
+            </q-item>
+          </div>
+        </q-expansion-item>
+      </q-drawer>
       <div class="col-10">
         <q-card class="my-card full-width">
           <q-form class="q-gutter-md">
-            <q-card class="my-card">
-              <q-card-section class="bg-accent">
-                <div class="text-h6 text-white text-center">thông tin</div>
+            <q-card class="my-card" id="publicInfor">
+              <q-card-section class="g-bg-primary-label">
+                <div class="text-h6 text-white text-center">
+                  Cấu hình thông tin trọ
+                </div>
               </q-card-section>
               <q-card-section class="row items-center">
                 <q-input
                   class="col-7"
                   v-model="motel.name"
                   type="text"
-                  label=" tên trọ"
+                  label=" Tên trọ"
                   :rules="[
-                    (val) => val.length > 0 || ' tên trọ không được để trống',
+                    (val) => val.length > 0 || ' Tên trọ không được để trống',
                   ]"
                 >
                   <template v-slot:prepend>
@@ -35,9 +107,10 @@
                   class="col-4"
                   v-model="motel.phone_number"
                   type="text"
-                  label=" số điện thoại"
+                  label=" Số điện thoại"
                   :rules="[
-                    (val) => val.length > 0 || ' sdt không được để trống',
+                    (val) =>
+                      val.length > 0 || ' Số điện thoại không được để trống',
                   ]"
                 >
                   <template v-slot:prepend>
@@ -52,9 +125,9 @@
                   class="col-12"
                   v-model="motel.address"
                   type="text"
-                  label=" địa chỉ"
+                  label=" Địa chỉ"
                   :rules="[
-                    (val) => val.length > 0 || ' địa chỉ không được để trống',
+                    (val) => val.length > 0 || ' Địa chỉ không được để trống',
                   ]"
                 >
                   <template v-slot:prepend>
@@ -89,94 +162,115 @@
                   </div>
                 </div>
                 <div class="col-12 row items-center justify-around bd">
-                  <q-icon name="room_preferences" class="text-positive" style="font-size:30px;padding-right:10px" />
+                  <q-icon
+                    name="room_preferences"
+                    class="text-positive"
+                    style="font-size: 30px; padding-right: 10px"
+                  />
                   <q-input
                     v-model="motel.open"
                     type="number"
-                    label=" giờ mở"
+                    label=" Giờ mở"
                     suffix="h"
                   />
                   <q-input
                     v-model="motel.closed"
                     type="number"
-                    label=" giờ đóng"
+                    label=" Giờ đóng"
                     suffix="h"
                   />
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-12 row items-center bd">
                   <div class="col-1">
-                    <q-icon name="camera_outdoor" class="text-positive" style="font-size:30px;padding-right:10px" />
+                    <q-icon
+                      name="camera_outdoor"
+                      class="text-positive"
+                      style="font-size: 30px; padding-right: 10px"
+                    />
                   </div>
                   <div class="col-4 row justify-center">
                     <q-radio
                       class="col-6"
                       v-model="motel.camera"
                       val="1"
-                      label=" có cam"
+                      label=" Có cam"
                     />
                     <q-radio
                       class="col-6"
                       v-model="motel.camera"
                       val="0"
-                      label=" không cam"
+                      label=" Không cam"
                     />
                   </div>
                   <q-input
                     class="col-7"
                     v-model="motel.parking"
                     type="text"
-                    label=" chổ để xe"
+                    label=" Chổ để xe"
                   >
                     <template v-slot:prepend>
-                      <q-icon name="camera_roll" class="text-positive"/>
+                      <q-icon name="camera_roll" class="text-positive" />
                     </template>
                   </q-input>
                 </div>
               </q-card-section>
               <q-card-actions align="right">
                 <q-btn
-                  label="cập nhật"
+                  label="Cập nhật"
                   color="positive"
                   @click="updateMotelInfor"
+                  class="g-header"
                 />
               </q-card-actions>
             </q-card>
-            <q-card class="my-card">
+            <q-card class="my-card" id="publicMoney">
               <br />
-              <q-card-section class="bg-accent">
-                <div class="text-h6 text-white text-center">thiết lập giá</div>
+              <q-card-section class="g-bg-primary-label">
+                <div class="text-h6 text-white text-center">Thiết lập giá</div>
               </q-card-section>
               <br />
               <div class="col-12 row items-center justify-around">
                 <q-input
                   v-model="motel.elec_cost"
                   type="number"
-                  label=" tiền điện"
+                  label="Tiền điện"
                   suffix="VND/kwh"
                 >
                   <template v-slot:prepend>
-                    <q-icon name="paid" style="font-size:30px" class="text-positive" />
+                    <q-icon
+                      name="paid"
+                      style="font-size: 30px"
+                      class="text-positive"
+                    />
                   </template>
                 </q-input>
                 <q-input
                   v-model="motel.water_cost"
                   type="number"
-                  label=" tiện nước"
+                  label="Tiện nước"
                   suffix="VND/m3"
                 >
                   <template v-slot:prepend>
-                    <q-icon name="paid" style="font-size:30px" class="text-positive" />
+                    <q-icon
+                      name="paid"
+                      style="font-size: 30px"
+                      class="text-positive"
+                    />
                   </template>
                 </q-input>
                 <q-input
                   v-model="motel.deposit"
                   type="number"
-                  label=" đặt cọc"
-                  suffix="VND/phong"
+                  label=" Đặt cọc"
+                  suffix="VND/phòng"
                 >
                   <template v-slot:prepend>
-                    <q-icon name="paid" style="font-size:30px" class="text-positive" />
+                    <q-icon
+                      name="paid"
+                      style="font-size: 30px"
+                      class="text-positive"
+                    />
                   </template>
                 </q-input>
                 <div class="col-12"><br /></div>
@@ -184,27 +278,31 @@
                   <Tax
                     class="bd"
                     v-model:cost="motel.people_cost"
-                    :name="' phí người'"
+                    :name="' Phụ thu'"
                   ></Tax>
                 </div>
                 <div class="col-12">
                   <q-card-actions align="right">
-                    <q-btn color="positive" label=" cập nhật" />
+                    <q-btn
+                      color="positive"
+                      label=" Cập nhật"
+                      class="g-header"
+                    />
                   </q-card-actions>
                 </div>
               </div>
             </q-card>
             <div v-for="(motelImg, index) in motelImgs" :key="index">
-              <q-card class="my-card full-width">
-                <q-card-section class="bg-accent">
-                  <div class="text-h6 text-white text-center">
+              <q-card class="my-card full-width" :id="`img${index}`">
+                <q-card-section class="g-bg-primary-label">
+                  <div class="text-h6 text-white text-center g-header-up">
                     {{ motelImg.content }}
                   </div>
                 </q-card-section>
                 <q-card-section> </q-card-section>
                 <q-card-section class="row items-center">
                   <div v-if="motelImg.img_type_id == 2" class="col-12 text-red">
-                    *hình ảnh và nội dung sẽ được sử dụng khi đăng bài
+                    *Hình ảnh và nội dung sẽ được sử dụng khi đăng bài
                   </div>
                   <div
                     v-if="motelImg.img_type_id == 2"
@@ -222,7 +320,8 @@
                       <q-btn
                         color="positive"
                         icon="update"
-                        label=" cập nhật"
+                        class="g-header"
+                        label=" Cập nhật"
                         @click="updateMotelImg(motelImg.id, index)"
                       />
                     </div>
@@ -241,8 +340,9 @@
                       <q-card-actions align="right">
                         <q-btn
                           v-if="countImg > 0"
-                          label=" cập nhật"
+                          label=" Cập nhật"
                           color="primary"
+                          class="g-header"
                           @click="uploadImgs(motelImg.id)"
                         />
                       </q-card-actions>
@@ -273,7 +373,8 @@
                       <q-btn
                         color="positive"
                         icon="update"
-                        label=" cập nhật"
+                        label=" Cập nhật"
+                        class="g-header"
                         @click="updateMotelImg(motelImg.id, index)"
                       />
                     </div>
@@ -284,14 +385,15 @@
               <div class="col-12"><br /></div>
             </div>
             <q-card class="my-card col-12">
-              <q-card-section class="bg-positive">
-                <div class="text-h6 text-center text-white">cấu hình phòng</div>
+              <q-card-section class="g-bg-primary-label">
+                <div class="text-h6 text-center text-white">Cấu hình phòng</div>
               </q-card-section>
               <q-card-actions align="right" class="bg-green-1">
                 <q-btn
                   color="primary"
-                  label=" thêm loại phòng"
+                  label=" Thêm loại phòng"
                   icon="add"
+                  class="g-header"
                   @click="isCreate = true"
                 />
               </q-card-actions>
@@ -302,6 +404,7 @@
                   :key="index"
                 >
                   <q-card-section
+                    :id="`rt${index}`"
                     class="row items-center justify-center bg-blue-1"
                   >
                     <div class="col-12 row items-center">
@@ -309,15 +412,16 @@
                         class="col-8"
                         v-model="roomType.name"
                         type="text"
-                        label=" tên loại"
+                        label=" Tên loại"
                         outlined
                       />
                       <div class="col-4 row justify-center items-center">
                         <q-btn
                           color="negative"
                           icon="delete"
-                          label=" xóa vĩnh viễn"
-                          @click="deleteRoomType(roomType.id,index)"
+                          label=" Xóa vĩnh viễn"
+                          class="g-header-up"
+                          @click="deleteRoomType(roomType.id, index)"
                         />
                       </div>
                     </div>
@@ -328,7 +432,7 @@
                           v-model="roomType.area"
                           style="padding-left: 10px"
                           type="number"
-                          label=" diện tích"
+                          label=" Diện tích"
                           outlined
                         />
                       </div>
@@ -337,12 +441,12 @@
                           style="padding-left: 10px"
                           v-model="roomType.content"
                           type="textarea"
-                          label=" đặt điểm"
+                          label="Đặt điểm"
                           outlined
                         />
                       </div>
                       <div class="col-2 text-center">
-                        số phòng {{ motel.room_types[index].rooms.length }}
+                        Số phòng {{ motel.room_types[index].rooms.length }}
                       </div>
                     </div>
                     <div class="col-12">
@@ -350,31 +454,32 @@
                         true-value="1"
                         false-value="0"
                         v-model="roomType.male"
-                        label=" nam"
+                        label=" Nam"
                         color="teal"
                       />
                       <q-checkbox
                         true-value="1"
                         false-value="0"
                         v-model="roomType.female"
-                        label=" nữ"
+                        label="Nữ"
                         color="teal"
                       />
                       <q-checkbox
                         true-value="1"
                         false-value="0"
                         v-model="roomType.everyone"
-                        label=" bất kì "
+                        label=" Bất kì "
                         color="teal"
                       />
                     </div>
                     <div class="col-12">
                       <q-card-actions align="right">
                         <q-btn
-                          label="cập nhật thông tin"
+                          label="Cập nhật thông tin"
                           icon="update"
                           @click="updateRoomTypeContent(index)"
                           color="positive"
+                          class="g-header"
                         />
                       </q-card-actions>
                     </div>
@@ -388,7 +493,8 @@
                       <q-btn
                         color="primary"
                         icon="add"
-                        label=" thêm"
+                        label=" Thêm"
+                        class="g-header"
                         @click="addNumRoom(roomType.id)"
                       />
                     </div>
@@ -407,8 +513,9 @@
                       <q-card-actions align="right">
                         <q-btn
                           v-if="countImg > 0"
-                          label=" cập nhật"
+                          label=" Cập nhật"
                           color="primary"
+                          class="g-header"
                           @click="uploadRoomImgs(roomType.id)"
                         />
                       </q-card-actions>
@@ -427,7 +534,7 @@
     <q-dialog v-model="isCreate">
       <q-card style="min-width: 90%">
         <q-card-section class="row items-center bg-primary">
-          <div class="col-12 text-center text-white">tạo loại phòng</div>
+          <div class="col-12 text-center text-white">Tạo loại phòng</div>
         </q-card-section>
         <q-card-section class="row items-center justify-center">
           <div class="col-12 row items-center">
@@ -435,7 +542,7 @@
               class="col-12"
               v-model="newRoomType.name"
               type="text"
-              label=" tên loại"
+              label=" Tên loại"
               outlined
             />
           </div>
@@ -445,7 +552,7 @@
               class="col-12"
               v-model="newRoomType.cost"
               type="number"
-              label=" giá phòng"
+              label=" Giá phòng"
               outlined
             />
           </div>
@@ -457,7 +564,7 @@
                 v-model="newRoomType.area"
                 style="padding-left: 10px"
                 type="number"
-                label=" diện tích"
+                label=" Diện tích"
                 outlined
               />
             </div>
@@ -466,7 +573,7 @@
                 style="padding-left: 10px"
                 v-model="newRoomType.content"
                 type="textarea"
-                label=" đặt điểm"
+                label="Đặt điểm"
                 outlined
               />
             </div>
@@ -474,7 +581,7 @@
               <q-input
                 v-model="newRoomType.numRoom"
                 type="number"
-                label=" số phòng"
+                label=" Số phòng"
               />
             </div>
           </div>
@@ -483,21 +590,21 @@
               true-value="1"
               false-value="0"
               v-model="newRoomType.male"
-              label=" nam"
+              label=" Nam"
               color="teal"
             />
             <q-checkbox
               true-value="1"
               false-value="0"
               v-model="newRoomType.female"
-              label=" nữ"
+              label=" Nữ"
               color="teal"
             />
             <q-checkbox
               true-value="1"
               false-value="0"
               v-model="newRoomType.everyone"
-              label=" bất kì "
+              label=" Bất kì "
               color="teal"
             />
           </div>
@@ -506,10 +613,10 @@
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label=" hủy" color="primary" v-close-popup />
+          <q-btn flat label=" Hủy" color="primary" v-close-popup />
           <q-btn
             flat
-            label=" tạo"
+            label=" Tạo"
             color="primary"
             v-close-popup
             @click="createRoomType()"
@@ -531,6 +638,8 @@ import { ref } from "vue";
 export default {
   setup() {
     const isCreate = ref(false);
+    const drawerLeft = ref(true);
+    const isOp = ref(true);
     const $q = useQuasar();
     function showNoti(mess, col) {
       $q.notify({
@@ -541,8 +650,10 @@ export default {
     }
 
     return {
+      isOp,
       showNoti,
       isCreate,
+      drawerLeft,
     };
   },
   data() {
@@ -604,6 +715,13 @@ export default {
     MulityImg,
   },
   methods: {
+    goto(refs1) {
+      // console.log(refs1);
+      const eleId = document.getElementById(refs1);
+      var top2 = eleId.offsetTop;
+      // console.log(top2);
+      window.scrollTo(0, top2);
+    },
     async uploadImgs(motelImg) {
       let fd = new FormData();
       fd.append("count", motelImg);
@@ -716,18 +834,18 @@ export default {
         }
       }
     },
-    async deleteRoomType(roomTypeId , index) {
-      const res = await roomType.deleteRoomType(roomTypeId) ;
+    async deleteRoomType(roomTypeId, index) {
+      const res = await roomType.deleteRoomType(roomTypeId);
 
-      if( res.statusCode ==1 ) {
-        this.showNoti('thành công' , 'positive') ;
-        this.roomTypeImgs.splice(index, 1 );
-        console.log(index) ;
+      if (res.statusCode == 1) {
+        this.showNoti("thành công", "positive");
+        this.roomTypeImgs.splice(index, 1);
+        console.log(index);
         // this.updateRoomTypeImg() ;
       } else {
-        this.showNoti(' thất bại' , 'negative') ;
+        this.showNoti(" thất bại", "negative");
       }
-    }
+    },
   },
 };
 </script>

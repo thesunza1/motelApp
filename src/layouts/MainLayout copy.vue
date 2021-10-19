@@ -1,12 +1,12 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header  class="bg-grey-9 " height-hint="98">
+    <q-header  class="bg-teal-2 " height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          <router-link to="/" class="text-white text-h6" style="text-decoration: none">
+          <router-link to="/" class="text-black opc-top" style="text-decoration: none">
             Tmq-motel</router-link
           >
         </q-toolbar-title>
@@ -20,12 +20,12 @@
         >
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
-              rounded
-              class="col-10 pd font-header bg-white text-brown"
+              class="col-10 pd font-header"
+              color="brown"
               icon="home"
               @click="loginModal = true"
             >
-              <div class="gt-sm text-bold text-indent"> Quản lý phòng</div>
+              <div class="gt-sm text-indent"> Phòng</div>
             </q-btn>
           </div>
           <div
@@ -33,32 +33,32 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd font-header text-brown bg-white"
-              rounded
+              class="col-10 pd font-header"
+              color="brown"
               icon="home"
               @click="openModal(0)"
             >
-              <div class="gt-sm text-bold text-indent"> Quản lý phòng</div>
+              <div class="gt-sm text-indent"> Quản lý phòng</div>
             </q-btn>
           </div>
           <div class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd font-header bg-white text-positive text-bold"
-              rounded
+              class="col-10 pd font-header"
+              color="positive"
               icon="search"
               @click="$router.push('search/searchIndex')"
             >
-              <div class="gt-sm text-indent text-bold"> Tìm trọ</div>
+              <div class="gt-sm text-indent"> Tìm trọ</div>
             </q-btn>
           </div>
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd font-header text-primary bg-white"
-              rounded
+              color="primary"
+              class="col-10 pd font-header"
               icon="home_work"
               @click="loginModalMotel = true"
             >
-              <div class="gt-sm text-bold text-indent">Quản lý trọ</div>
+              <div class="gt-sm text-indent">Quản lý trọ</div>
             </q-btn>
           </div>
           <div
@@ -66,12 +66,12 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd font-header bg-white text-primary "
+              color="primary"
+              class="col-10 pd font-header"
               icon="home_work"
-              rounded
               @click="openModal(1)"
             >
-              <div class="gt-sm text-indent text-bold">Quản lý trọ</div>
+              <div class="gt-sm text-indent">Quản lý trọ</div>
             </q-btn>
           </div>
           <div
@@ -79,9 +79,9 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd text-primary bg-white font-header"
+              color="primary"
+              class="col-10 pd font-header"
               icon="admin_panel_settings"
-              rounded
               @click="$router.push('admin/adminUser')"
             >
               <div class="gt-sm text-indent"> Quản lý </div>
@@ -90,12 +90,12 @@
 
           <div v-if="user" class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd font-header bg-white text-accent"
-              rounded
+              color="accent"
+              class="col-10 pd font-header"
               icon="infor"
               @click="$router.push('/userNoti')"
             >
-              <div class="gt-sm text-indent text-bold"> Thông báo</div>
+              <div class="gt-sm text-indent"> Thông báo</div>
               <q-badge
                 color="red"
                 text-color="white"

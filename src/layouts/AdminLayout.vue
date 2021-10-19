@@ -7,7 +7,7 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="admin/adminUser">
-            admin </router-link
+             Quản trị </router-link
           >
         </q-toolbar-title>
 
@@ -15,9 +15,9 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="admin/adminUser" label="người dùng"></q-route-tab>
-        <q-route-tab to="admin/adminMotel" label=" trọ"></q-route-tab>
-        <q-route-tab to="admin/adminNoti" label="thông báo" >
+        <q-route-tab class="g-header" to="admin/adminUser" label="Danh sách người dùng"></q-route-tab>
+        <q-route-tab class="g-header" to="admin/adminMotel" label="Danh sách trọ"></q-route-tab>
+        <q-route-tab class="g-header" to="admin/adminNoti" label="Thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
       </q-tabs>
