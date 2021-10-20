@@ -6,7 +6,8 @@
         <q-btn
           color="primary"
           icon="add"
-          label=" tạo bình luận"
+          class="g-header"
+          label=" Tạo bình luận"
           @click="isCreate = true"
         />
       </div>
@@ -32,10 +33,10 @@
     <q-dialog v-model="isCreate" persistent>
       <q-card style="min-width: 60%">
         <q-card-section class="row items-center bg-primary">
-          <div class="col-12 text-center text-h6 text-white">tạo bình luận</div>
+          <div class="col-12 text-center text-h6 text-white">Tạo bình luận</div>
         </q-card-section>
         <q-card-section class="row items-center justify-center">
-          <div class="col-12">mời bạn nhập bình luận</div>
+          <div class="col-12">Mời bạn nhập bình luận</div>
           <div class="col-12"><br /></div>
           <div class="col-11">
             <q-form @submit="createComment()">
@@ -43,7 +44,8 @@
               <q-card-actions align="right">
                 <q-btn
                   flat
-                  label=" tạo "
+                  label=" Tạo "
+                  class="g-header"
                   color="primary"
                   type="submit"
                   v-close-popup
@@ -60,28 +62,18 @@
 <script>
 import { ref } from "vue";
 import {mapGetters} from 'vuex';
-import {useQuasar} from 'quasar';
+import noti from "../boot/noti/noti";
 export default {
   setup() {
     const pageNum = ref(1);
     const isCreate = ref(false);
-    const $q = useQuasar() ;
     function todate(date) {
       return date.toString().slice(0, 10);
-    }
-    function showNoti(mes, col) {
-      $q.notify({
-        message: mes,
-        color: col,
-        position:"top" ,
-        timeout:3000,
-      });
     }
     return {
       pageNum,
       isCreate,
       todate,
-      showNoti
     };
   },
   watch: {
@@ -121,7 +113,7 @@ export default {
     },
     async createComment() {
       if(!this.user) {
-        this.showNoti('bạn chưa đăng nhập', 'negative');
+        noti.showNoti('bạn chưa đăng nhập', 'negative');
         return ;
       }
       const res = await this.$api.post('createComment',{

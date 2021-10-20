@@ -11,36 +11,7 @@
         :key="index"
       >
         <div v-if="roomType.post != null" class="">
-          <!-- <q-card v-if="roomType.post != null" class="my-card">
-            <q-card-section class="row items-center justify-around">
-              <div>
-                id:<b> {{ roomType.post.id }} </b> |
-              </div>
-              <div>
-                loại phòng: <b> {{ roomType.name }} </b>
-              </div>
-              <div>
-                trạng thái
-                <b> {{ roomType.post.status == 1 ? "mở" : "đóng" }} </b> |
-              </div>
-              <div>
-                <q-card-actions align="center">
-                  <q-btn
-                    flat
-                    icon="refresh"
-                    color="warnign"
-                    @click="changeStatus(roomType.post.id)"
-                  />
-                  <q-btn
-                    flat
-                    icon="visibility"
-                    color="primary"
-                    @click="$router.push('/searchDetail/' + roomType.post.id)"
-                  />
-                </q-card-actions>
-              </div>
-            </q-card-section>
-          </q-card> -->
+
           <motel-post-card :post="roomType" :index="index" @showImgs="showImgs1($event)" @changeSt="changeStatus($event)" @seem="$router.push('/searchDetail/' + $event)"></motel-post-card>
         </div>
         <div><br /></div>
@@ -66,7 +37,7 @@
 
     </div>
     <q-dialog v-model="isImg">
-      <gobal-img-detail v-if="thisImg" :img_details="thisImg"></gobal-img-detail>
+      <gobal-img-detail style="min-width: 90%" v-if="thisImg" :img_details="thisImg"></gobal-img-detail>
     </q-dialog>
   </q-page>
 </template>

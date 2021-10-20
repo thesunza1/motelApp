@@ -12,7 +12,7 @@
             class="text-white"
             style="text-decoration: none"
           >
-            tìm trọ</router-link
+            Tìm trọ</router-link
           >
         </q-toolbar-title>
 
@@ -30,10 +30,10 @@
             class="col-10"
             v-if="!user"
             icon="account_circle"
-            label=" bạn chưa đăng nhập"
+            label=" Bạn chưa đăng nhập"
           />
           <q-chip
-            class="col-10"
+            class="col-10 g-header-up"
             color="teal"
             text-color="white"
             v-else
@@ -48,7 +48,7 @@
             icon="done"
             :label="get_role()"
           />
-          <q-btn color="primary" label=" tài khoảng" @click="detail()" />
+          <q-btn color="primary" label=" tài khoản" class="g-header" @click="detail()" />
           <div class="col-12"><br /></div>
         </div>
       </div>
@@ -59,10 +59,11 @@
           </div>
           <q-btn
             v-if="user"
+            class="g-header"
             style="width: 100%; margin-top: 10px"
             color="primary"
             icon="logout"
-            label=" đăng xuất "
+            label=" Đăng xuất "
             @click="logout"
           />
           <q-btn
@@ -70,14 +71,16 @@
             style="width: 100%; margin-top: 10px"
             color="orange"
             icon="refresh"
-            label=" tải lại "
+            label=" Tải lại "
+            class="g-header"
             @click="reloadPage"
           />
           <q-btn
             v-if="user"
             color="positive"
             icon="home"
-            label=" trang chủ"
+            class="g-header"
+            label=" Trang chủ"
             @click="toHome"
             style="width: 100%; margin-top: 10px"
           />
@@ -174,10 +177,10 @@ export default {
     },
     get_role() {
       if (this.role_id == 1) {
-        return " tài khoảng người dùng ";
+        return " Tài khoảng người dùng ";
       }
       if (this.role_id == 2) {
-        return " tài khoảng trọ ";
+        return " Tài khoảng trọ ";
       }
     },
     reloadPage() {

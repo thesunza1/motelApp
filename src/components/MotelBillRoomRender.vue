@@ -37,7 +37,7 @@
                   }"
                   @click="openDialog(room)"
                 >
-                  <div class="col-12">{{ room.name }}</div>
+                  <div class="col-12 g-header-up">{{ room.name }}</div>
                 </q-card-section>
               </q-card>
             </div>

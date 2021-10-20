@@ -100,7 +100,7 @@
             <q-input
               v-model="password"
               type="text"
-              label=" đổi mật khẩu"
+              label=" Đổi mật khẩu"
               label-color="primary"
             />
           </div>
@@ -115,8 +115,8 @@
               <q-popup-proxy transition-show="scale" transition-hide="scale">
                 <q-date v-model="thisUser[0].birth_date">
                   <div class="row items-center justify-end q-gutter-sm">
-                    <q-btn label="Cancel" color="primary" flat v-close-popup />
-                    <q-btn label="OK" color="primary" flat v-close-popup />
+                    <q-btn label=" Hủy" class="g-header" color="primary" flat v-close-popup />
+                    <q-btn label=" Chọn"  class="g-header" color="primary" flat v-close-popup />
                   </div>
                 </q-date>
               </q-popup-proxy>
@@ -133,7 +133,7 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn label=" Thoát" color="primary" v-close-popup />
+          <q-btn label=" Thoát" class="g-header" color="primary" v-close-popup />
           <q-btn
             label=" Thay đổi"
             color="primary"
@@ -154,11 +154,12 @@
           <div>Bạn có muốn xóa tài khoảng vĩnh viễn ?</div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn label=" Thoát" color="negative" v-close-popup />
+          <q-btn label=" Thoát" class="g-header" color="negative" v-close-popup />
           <q-btn
             label=" Xác nhận"
             color="primary"
             v-close-popup
+            class="g-header"
             @click="deleteUser()"
           />
         </q-card-actions>

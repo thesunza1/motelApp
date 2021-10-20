@@ -2,11 +2,11 @@
   <q-card class="my-card" style="min-width:70%">
     <q-form @submit="send()" class="q-gutter-md">
       <q-card-section class="text-center text-h6 text-white bg-primary">
-        bạn có muốn vào ?
+        Bạn có muốn vào trọ này?
       </q-card-section>
       <q-card-section v-if="postTypeId == 1" class="row items-center">
         <div class="col-12 text-center text-red">
-          *chọn phòng để xin vào (có thể nhiều phòng)
+          *Chọn phòng để xin vào (có thể nhiều phòng)
         </div>
         <div class="col-12"><br /></div>
         <div class="col-12 row items-center justify-center">
@@ -26,11 +26,11 @@
         </div>
       </q-card-section>
       <q-card-section v-else class="row items-center">
-        <div class="col-12">bạn muốn gửi thông báo cho người đăng</div>
+        <div class="col-12">Bạn muốn gửi thông báo cho người đăng</div>
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn label=" gửi" type="submit" color="primary" />
-        <q-btn color="red" label=" đóng" @click="$emit('closePU')" />
+        <q-btn label=" Gửi" class="g-header" type="submit" color="primary" />
+        <q-btn color="red" class="g-header" label="Đóng" @click="$emit('closePU')" />
       </q-card-actions>
     </q-form>
   </q-card>
@@ -39,21 +39,9 @@
 <script>
 import { useQuasar } from "quasar";
 import { mapGetters } from "vuex";
+import noti from "../boot/noti/noti";
 export default {
-  setup() {
-    const $q = useQuasar();
-    function showNoti(mess, col) {
-      $q.notify({
-        message: mess,
-        color: col,
-        position: "top",
-        timeout: 3000,
-      });
-    }
-    return {
-      showNoti,
-    };
-  },
+
   props: {
     postId: {
       type: Number,
@@ -76,7 +64,7 @@ export default {
   methods: {
     async send() {
       if (!this.user) {
-        this.showNoti(" bạn chưa đăng nhập ", "negative");
+        noti.showNoti(" bạn chưa đăng nhập ", "negative");
         return;
       }
       if (this.postTypeId == 1) {
@@ -85,18 +73,18 @@ export default {
           ListRooms: this.Lrooms,
         });
         if (sendRes.data.statusCode == 1) {
-          this.showNoti(" thành công chờ liên lạc", "positive");
+          noti.showNoti(" thành công chờ liên lạc", "positive");
         } else {
-          this.showNoti(" lỗi: không xác định", "negative");
+          noti.showNoti(" lỗi: không xác định", "negative");
         }
       } else {
         const sendRes = await this.$api.post("sendIntoNotiRoom",{
           postId : this.postId,
         });
         if (sendRes.data.statusCode == 1) {
-          this.showNoti(" thành công chờ liên lạc", "positive");
+          noti.showNoti(" thành công chờ liên lạc", "positive");
         } else {
-          this.showNoti(" lỗi: không xác định", "negative");
+          noti.showNoti(" lỗi: không xác định", "negative");
         }
       }
     },

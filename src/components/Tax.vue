@@ -2,7 +2,7 @@
   <div class=" row  items-center">
     <div class="col-1"></div>
     <q-checkbox class="col-5" right-lable v-model="is" :label="name" />
-    <q-input :disable="!is" class="col-5" v-model="cost1" type="number" label=" số tiền" suffix="vnd" />
+    <q-input :disable="!is" class="col-5" v-model="cost1" type="number" label=" Số tiền" suffix="Vnd" />
   </div>
 </template>
 

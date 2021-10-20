@@ -3,7 +3,7 @@
     <q-card class="my-card">
       <q-card-section class="text-subtitle2 text-primary">
         <q-icon name="store" class="size-icon" />
-        - phòng: {{room.name  }}
+        - Thòng: {{room.name  }}
       </q-card-section>
       <q-card-section>
         <q-card
@@ -12,11 +12,11 @@
           :key="index"
         >
           <q-card-section class="row items-center justify-around">
-            <div class=""> <q-icon name="person" class="text-positive size-icon" />- {{user.user.id}}-{{user.user.name}} </div>
+            <div class="g-header-up"> <q-icon name="person" class="text-positive size-icon" />- {{user.user.id}}-{{user.user.name}} </div>
             <div class=""> <q-icon name="drafts" class="text-positive size-icon" />- {{ user.user.email}} </div>
             <div class=""> <q-icon name="phone" class="text-positive size-icon" />- {{ user.user.phone_number}} </div>
             <div>
-              <q-btn falt color="negative" icon="delete" label="Cho ra" @click="$emit('openIsOutRoom',user.user)" />
+              <q-btn falt color="negative" icon="delete" class="g-header" label="Cho ra" @click="$emit('openIsOutRoom',user.user)" />
             </div>
           </q-card-section>
         </q-card>

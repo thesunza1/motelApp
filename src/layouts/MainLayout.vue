@@ -115,8 +115,10 @@
     </q-header>
     <q-dialog v-model="loginModal">
       <q-card>
+        <q-card-section class="text-center text-h6 text-primary">
+          Bạn chưa đăng nhập
+        </q-card-section>
         <q-card-section style="text-align: center">
-          <p>Bạn chưa đăng nhập</p>
           <p style="font-size: 1.3em"> Đăng nhập hoặc tạo tài khoản để tiếp tục</p>
           <q-icon
             name="account_circle"
@@ -137,8 +139,10 @@
     </q-dialog>
     <q-dialog v-model="loginModalMotel">
       <q-card>
+        <q-card-section class="text-center text-h6 text-primary">
+          Bạn chưa đăng nhập
+        </q-card-section>
         <q-card-section style="text-align: center">
-          <p>Bạn chưa đăng nhập</p>
           <p style="font-size: 1.3em"> Đăng nhập hoặc tạo tài khoản để tiếp tục</p>
           <q-icon
             name="account_circle"
@@ -166,7 +170,7 @@
         </q-card-section>
         <q-card-section>
           <div class="full-width">
-            Bạn cần vào 1 trọ nào đó để sử dụng tính năng này.
+            Bạn cần vào một trọ nào đó để sử dụng tính năng này.
           </div>
         </q-card-section>
       </q-card>

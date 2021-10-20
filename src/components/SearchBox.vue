@@ -6,7 +6,7 @@
         v-model="address"
         type="text"
         outlined
-        placeholder=" địa chỉ"
+        placeholder=" Địa chỉ"
       >
         <template v-slot:prepend>
           <q-icon name="room" color="primary" />
@@ -18,7 +18,7 @@
         v-model="search"
         type="text"
         outlined
-        placeholder=" tên trọ"
+        placeholder=" Tên trọ"
       >
         <template v-slot:prepend>
           <q-icon name="search" color="primary" />
@@ -31,11 +31,13 @@
         <q-btn-toggle
           v-model="sex"
           toggle-color="primary"
+          class="g-header"
+          no-caps
           :options="[
-            { label: 'nam', value: 0 },
-            { label: ' nữ', value: 1 },
-            { label: 'nam hoặc nữ', value: 2 },
-            { label: ' bất kì', value: 3 },
+            { label: 'Nam', value: 0 },
+            { label: 'Nữ', value: 1 },
+            { label: 'Nam hoặc nữ', value: 2 },
+            { label: ' Bất kì', value: 3 },
           ]"
         />
       </div>
@@ -43,9 +45,13 @@
         <q-btn-toggle
           v-model="post_type"
           toggle-color="primary"
+          class="my-custom-toggle"
+          no-caps
+          color="white"
+          text-color="primary"
           :options="[
-            { label: ' trọ', value: 1 },
-            { label: ' phòng ghép', value: 2 },
+            { label: ' Trọ', value: 1 },
+            { label: ' Phòng ghép', value: 2 },
           ]"
         />
       </div>
@@ -54,7 +60,7 @@
         <q-expansion-item
           class="full-width"
           icon="perm_identity"
-          label=" lọc thêm"
+          label=" Lọc thêm"
         >
           <div class="col-12 items-center justify-center row">
             <div class="col-12"><br /></div>
@@ -74,8 +80,8 @@
                     :max="2000000"
                     :step="100000"
                     color="green"
-                    :left-label-value="price.min + ' vnd'"
-                    :right-label-value="price.max + ' vnd'"
+                    :left-label-value="price.min + ' Vnd'"
+                    :right-label-value="price.max + ' Vnd'"
                     label-always
                   />
                 </q-item-section>
@@ -95,8 +101,8 @@
                     :max="100"
                     :step="5"
                     color="blue"
-                    :left-label-value="area.min + ' m2'"
-                    :right-label-value="area.max + ' m2'"
+                    :left-label-value="area.min + ' M2'"
+                    :right-label-value="area.max + ' M2'"
                     label-always
                   />
                 </q-item-section>
@@ -105,56 +111,13 @@
           </div>
         </q-expansion-item>
       </div>
-
-      <!-- <div class="col-12 items-center justify-center row">
-        <div class="col-12"><br></div>
-        <div class="col-12 items-center justify-center row">
-          <q-item class="col-11">
-            <q-item-section avatar>
-              <q-avatar color="primary" text-color="white" icon="local_atm" />
-            </q-item-section>
-            <q-item-section>
-              <q-range
-                v-model="price"
-                :min="0"
-                :max="2000000"
-                :step="100000"
-                color="green"
-                :left-label-value="price.min +' vnd'"
-                :right-label-value="price.max +' vnd'"
-                label-always
-              />
-            </q-item-section>
-          </q-item>
-        </div>
-        <div class="col-12"><br></div>
-        <div class="col-12"><br></div>
-        <div class="col-12 items-center justify-center row">
-          <q-item class="col-11">
-            <q-item-section avatar>
-              <q-avatar color="primary" text-color="white" icon="tab" />
-            </q-item-section>
-            <q-item-section>
-              <q-range
-                v-model="area"
-                :min="0"
-                :max="100"
-                :step="5"
-                color="blue"
-                :left-label-value="area.min +' m2'"
-                :right-label-value="area.max +' m2'"
-                label-always
-              />
-            </q-item-section>
-          </q-item>
-        </div>
-      </div> -->
       <div class="col-12"><br /></div>
       <div class="col-11 row items-center justify-end">
         <q-btn
+          class="g-header"
           color="primary"
           icon="search"
-          label=" tìm"
+          label="Tìm"
           @click="searchRoom()"
         />
       </div>
@@ -163,6 +126,7 @@
 </template>
 
 <script>
+import noti from "../boot/noti/noti";
 export default {
   data() {
     return {
@@ -188,6 +152,7 @@ export default {
       });
       if (resSearch.data?.statusCode) {
         this.$emit("update", resSearch.data.post);
+        noti.showNoti("Thành công");
       }
     },
   },

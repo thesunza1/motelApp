@@ -33,14 +33,14 @@
       v-if="userFind"
     >
       <div class="col-5 col-md-4">Họ tên:</div>
-      <div class="col-7 col-md-8">{{ userFind.name }}</div>
-      <div class="col-5 col-md-4">ngày sinh:</div>
+      <div class="col-7 col-md-8 g-header-up">{{ userFind.name }}</div>
+      <div class="col-5 col-md-4">Ngày sinh:</div>
       <div class="col-7 col-md-8">{{ userFind.birth_date }}</div>
-      <div class="col-5 col-md-4">giới tính:</div>
+      <div class="col-5 col-md-4">Giới tính:</div>
       <div class="col-7 col-md-8">{{ sex(userFind.sex) }}</div>
-      <div class="col-5 col-md-4">sdt:</div>
+      <div class="col-5 col-md-4">Sdt:</div>
       <div class="col-7 col-md-8">{{ userFind.phone_number }}</div>
-      <div class="col-5 col-md-4">công việc:</div>
+      <div class="col-5 col-md-4">Công việc:</div>
       <div class="col-7 col-md-8">{{ userFind.job }}</div>
     </q-card-section>
   </div>

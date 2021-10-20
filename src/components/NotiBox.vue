@@ -44,7 +44,7 @@
             <div class="col-12 col-md-4">
               <q-icon name="timelapse"  class="text-primary" style="font-size:30px"/> {{ toDate(noti.created_at) }}
             </div>
-            <div class="col-12 text-subtitle2">
+            <div class="col-12 text-subtitle2 g-header-up">
                <q-icon name="person"  class="text-positive" style="font-size:30px"/>  {{ noti.senderUser.name }}
             </div>
           </q-card-section>
@@ -59,8 +59,8 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">id: {{ nt.senderUser.id }}</div>
-            <div class="col-md-5 col-10 text-left">
+            <div class="col-2 text-bold">Id: {{ nt.senderUser.id }}</div>
+            <div class="col-md-5 col-10 text-left g-header-up">
               {{ nt.senderUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
@@ -69,43 +69,45 @@
           </q-card-section>
           <q-card-section class="row items-center justify-center full-width">
             <div class="col-12 row items-center justify-center">
-              <div class="col-6 text-left">phòng {{ thisRoom.name }}</div>
+              <div class="col-6 text-left">Phòng {{ thisRoom.name }}</div>
               <div class="col-6 text-left">
-                loại: {{ thisRoom.room_type.name }}
+                Loại: {{ thisRoom.room_type.name }}
               </div>
             </div>
             <div class="col-12 row items-center justify-center">
               <div class="col-6 text-left">
-                phòng: {{ thisRoom.room_type.cost }}vnd
+                Phòng: {{ thisRoom.room_type.cost }}Vnd
               </div>
               <div class="col-6 text-left">
-                người: {{ thisRoom.room_type.motel.people_cost }}vnd
+                Người: {{ thisRoom.room_type.motel.people_cost }}Vnd
               </div>
               <div class="col-6 text-left">
-                điện: {{ thisRoom.room_type.motel.elec_cost }}vnd
+                 Điện: {{ thisRoom.room_type.motel.elec_cost }}Vnd
               </div>
               <div class="col-6 text-left">
-                nước: {{ thisRoom.room_type.motel.water_cost }}vnd
+                Nước: {{ thisRoom.room_type.motel.water_cost }}Vnd
               </div>
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 row items-center justify-center">
-              <div class="col-12 text-bold">đặc diểm</div>
+              <div class="col-12 text-bold"> Đặc điểm</div>
               <div class="col-12">{{ thisRoom.room_type.content }}</div>
             </div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="đóng" color="negative" v-close-popup />
+            <q-btn flat label=" Đóng" class="g-header" color="negative" v-close-popup />
             <q-btn
               flat
-              label="trả lời"
+              label="Trả lời"
+              class="g-header"
               color="primary"
               v-close-popup
               @click="reply"
             />
             <q-btn
               flat
-              label="xác nhận vào phòng"
+              label="Xác nhận vào phòng"
+              class="g-header"
               color="primary"
               v-close-popup
               @click="isConfirm = !isConfirm"
@@ -133,9 +135,10 @@
             <div class="br" v-html="nt.content"></div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="đóng" color="negative" v-close-popup />
+            <q-btn flat label="đóng" class="g-header" color="negative" v-close-popup />
             <q-btn
               flat
+              class="g-header"
               label=" trả lời"
               color="primary"
               v-close-popup
@@ -153,10 +156,11 @@
             >
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="negative" v-close-popup />
+            <q-btn flat label=" Thoát" class="g-header" color="negative" v-close-popup />
             <q-btn
               flat
-              label="oke"
+              label=" Đồng ý"
+              class="g-header"
               color="primary"
               @click="intoRoom"
               v-close-popup
@@ -170,20 +174,8 @@
 
 <script>
 import { useQuasar } from "quasar";
+import noti from "../boot/noti/noti";
 export default {
-  setup() {
-    const $q = useQuasar();
-    function showNoti(mess, col) {
-      $q.notify({
-        message: mess,
-        color: col,
-        position: "top",
-      });
-    }
-    return {
-      showNoti,
-    };
-  },
   props: {
     notis: {
       type: Array,
@@ -240,11 +232,11 @@ export default {
         roomId: this.thisRoom.id,
       });
       if (response.data.statusCode == 1) {
-        this.showNoti("đã vào trọ", "positive");
+        noti.showNoti(" Đã vào trọ", "positive");
       } else if (response.data.statusCode == 2) {
-        this.showNoti(" lỗi: phòng đang bị khóa ", "negative");
+        noti.showNoti(" Lỗi: phòng đang sửa chữa", "negative");
       } else {
-        this.showNoti(" lỗi: bạn đã ở trọ khác ", "negative");
+        noti.showNoti(" Lỗi: bạn đã ở trọ khác ", "negative");
       }
     },
   },

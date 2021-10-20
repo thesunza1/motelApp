@@ -8,13 +8,13 @@
             <q-input
               v-model="userId"
               type="number"
-              label=" tìm bằng id người dùng"
+              label=" Tìm bằng id người dùng"
               label-color="primary"
             />
             <q-input
               v-model="motelId"
               type="number"
-              label=" tìm bằng id trọ"
+              label=" Tìm bằng id trọ"
               label-color="primary"
             />
             <q-btn
@@ -31,15 +31,15 @@
               :to="{ name: 'adminThisMotel', params: { motelId: thisMotel[0].id } }"
               style="text-decoration: none; color: white"
             >
-              đi tới
+               Đi tới
             </router-link>
           </q-btn>
         </q-card-actions>
         <q-card-section v-if="thisMotel.length == 1">
           <div>
-            id : <b>{{ thisMotel[0].id }}</b
-            >- email: <b>{{ thisMotel[0].user.email }}</b
-            >- điện thoại: <b>{{ thisMotel[0].user.phone_number }}</b> - tên trọ
+            Id : <b>{{ thisMotel[0].id }}</b
+            >- Email: <b>{{ thisMotel[0].user.email }}</b
+            >- Điện thoại: <b>{{ thisMotel[0].user.phone_number }}</b> - Tên trọ
             : <b> {{ thisMotel[0].name }} </b>
           </div>
         </q-card-section>
@@ -93,7 +93,7 @@
             <q-input
               v-model="password"
               type="text"
-              label=" đổi mật khẩu"
+              label=" Đổi mật khẩu"
               label-color="primary"
             />
           </div>
@@ -108,8 +108,8 @@
               <q-popup-proxy transition-show="scale" transition-hide="scale">
                 <q-date v-model="thisMotel[0].birth_date">
                   <div class="row items-center justify-end q-gutter-sm">
-                    <q-btn label="Cancel" color="primary" flat v-close-popup />
-                    <q-btn label="OK" color="primary" flat v-close-popup />
+                    <q-btn label=" Thoát" class="g-header" color="primary" flat v-close-popup />
+                    <q-btn label=" Chọn" class="g-header" color="primary" flat v-close-popup />
                   </div>
                 </q-date>
               </q-popup-proxy>
@@ -126,8 +126,8 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn label=" Thoát" color="primary" v-close-popup />
-          <q-btn label=" Thay đổi" color="primary" v-close-popup />
+          <q-btn class="g-header" label=" Thoát" color="primary" v-close-popup />
+          <q-btn  class="g-header" label=" Thay đổi" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -142,8 +142,8 @@
           <div>Bạn có muốn xóa tài khoảng vĩnh viễn ?</div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn label=" Thoát" color="negative" v-close-popup />
-          <q-btn label=" Xác nhận" color="primary" v-close-popup />
+          <q-btn label=" Thoát"  class="g-header" color="negative" v-close-popup />
+          <q-btn label=" Xác nhận"  class="g-header" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>

@@ -11,7 +11,7 @@
       <div
         v-for="(room_type, index) in motel.room_types"
         :key="index"
-        class="col-12 row pd roomsbg shadow-up-3"
+        class="col-12 row pd"
       >
         <q-expansion-item
           expand-separator
@@ -19,7 +19,7 @@
           :label="` ${room_type.name}`"
           :caption="` Tổng số: ${lengthArr(room_type.rooms)} --- Trống: ${numRoom(room_type.rooms,1)} --- Không sử dụng: ${numRoom(room_type.rooms,3)} --- Có người: ${numRoom(room_type.rooms,2)}  `"
           header-class="text-primary g-icon-h1 g-header-up"
-          class="col-12"
+          class="col-12 g-border bg-white pd shadow-up-2"
         >
           <motel-room-render :rooms="room_type.rooms"></motel-room-render>
         </q-expansion-item>

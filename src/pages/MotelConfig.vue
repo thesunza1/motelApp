@@ -13,7 +13,7 @@
         content-class="bg-white"
       >
         <br />
-        <q-item >
+        <q-item clickable>
           <q-item-section top avatar>
             <q-avatar
               color="white"
@@ -26,7 +26,7 @@
             <q-item-label> Chỉnh sửa thông tin chung </q-item-label>
           </q-item-section>
         </q-item>
-        <q-item>
+        <q-item clickable>
           <q-item-section top avatar>
             <q-avatar
               color="white"
@@ -50,7 +50,7 @@
           :content-inset-level="1"
         >
           <div v-for="(motelImg, index) in motelImgs" :key="index">
-            <q-item>
+            <q-item clickable>
               <q-item-section @click="goto(`img${index}`)">
                 <q-item-label> {{ motelImg.content }} </q-item-label>
               </q-item-section>
@@ -60,15 +60,16 @@
         <q-expansion-item
           expand-separator
           icon="home"
-          v-model="isOp"
+          v-model="isop"
           header-class="g-icon-h2"
           label=" Cấu hình loại trọ"
           caption="Danh sách loại trọ"
+          @click="goto('roomTypes')"
           :content-inset-level="1"
         >
           <div v-for="(rTImg, index) in roomTypeImgs" :key="index">
-            <q-item>
-              <q-item-section @click="goto(`rt${index}`)">
+            <q-item clickable>
+              <q-item-section @click="goto(`rts${index}`)">
                 <q-item-label> {{ rTImg.name }} </q-item-label>
               </q-item-section>
             </q-item>
@@ -217,7 +218,8 @@
               </q-card-section>
               <q-card-actions align="right">
                 <q-btn
-                  label="Cập nhật"
+                  label="Cập nhật thông tin"
+                  outline
                   color="positive"
                   @click="updateMotelInfor"
                   class="g-header"
@@ -285,7 +287,8 @@
                   <q-card-actions align="right">
                     <q-btn
                       color="positive"
-                      label=" Cập nhật"
+                      outline
+                      label=" Cập nhật phí trọ"
                       class="g-header"
                     />
                   </q-card-actions>
@@ -322,6 +325,7 @@
                         icon="update"
                         class="g-header"
                         label=" Cập nhật"
+                        outline
                         @click="updateMotelImg(motelImg.id, index)"
                       />
                     </div>
@@ -334,7 +338,7 @@
                   <div class="col-12 row justify-center">
                     <!-- <mulity-img v-model:imgs="motelImgs[index].imgs"></mulity-img> -->
                     <div class="col-12 row justify-center">
-                      <mulity-img v-model:imgs="imgs"> </mulity-img>
+                      <mulity-img  v-model:imgs="imgs"> </mulity-img>
                     </div>
                     <div class="col-12">
                       <q-card-actions align="right">
@@ -343,6 +347,7 @@
                           label=" Cập nhật"
                           color="primary"
                           class="g-header"
+                          outline
                           @click="uploadImgs(motelImg.id)"
                         />
                       </q-card-actions>
@@ -352,6 +357,7 @@
                     >
                       <motel-show-imgs
                         class="col-12"
+                        style="height : 200px "
                         :img_details="motelImg.img_details"
                       ></motel-show-imgs>
                     </div>
@@ -373,6 +379,7 @@
                       <q-btn
                         color="positive"
                         icon="update"
+                        outline
                         label=" Cập nhật"
                         class="g-header"
                         @click="updateMotelImg(motelImg.id, index)"
@@ -384,39 +391,45 @@
               </q-card>
               <div class="col-12"><br /></div>
             </div>
-            <q-card class="my-card col-12">
+            <q-card class="my-card col-12" :id="'roomTypes'">
               <q-card-section class="g-bg-primary-label">
-                <div class="text-h6 text-center text-white">Cấu hình phòng</div>
+                <div class="text-h6 text-center text-white">
+                  Cấu hình loại phòng
+                </div>
               </q-card-section>
               <q-card-actions align="right" class="bg-green-1">
                 <q-btn
                   color="primary"
                   label=" Thêm loại phòng"
                   icon="add"
+                  rounded
                   class="g-header"
                   @click="isCreate = true"
                 />
               </q-card-actions>
               <q-card-section v-if="roomTypeImgs">
-                <div
+                <q-card
                   class="full-width"
                   v-for="(roomType, index) in roomTypeImgs"
                   :key="index"
+                  :id="`rts${index}`"
                 >
-                  <q-card-section
-                    :id="`rt${index}`"
-                    class="row items-center justify-center bg-blue-1"
-                  >
+                  <q-card-section class="text-h6 text-primary g-header-up">
+                    Loại: {{ roomType.name }}
+                  </q-card-section>
+                  <q-card-section class="row items-center justify-center">
                     <div class="col-12 row items-center">
                       <q-input
                         class="col-8"
                         v-model="roomType.name"
                         type="text"
+                        label-color="orange"
                         label=" Tên loại"
                         outlined
                       />
                       <div class="col-4 row justify-center items-center">
                         <q-btn
+                          rounded
                           color="negative"
                           icon="delete"
                           label=" Xóa vĩnh viễn"
@@ -431,6 +444,7 @@
                         <q-input
                           v-model="roomType.area"
                           style="padding-left: 10px"
+                          label-color="orange"
                           type="number"
                           label=" Diện tích"
                           outlined
@@ -442,6 +456,7 @@
                           v-model="roomType.content"
                           type="textarea"
                           label="Đặt điểm"
+                          label-color="orange"
                           outlined
                         />
                       </div>
@@ -475,6 +490,7 @@
                     <div class="col-12">
                       <q-card-actions align="right">
                         <q-btn
+                          outline
                           label="Cập nhật thông tin"
                           icon="update"
                           @click="updateRoomTypeContent(index)"
@@ -489,11 +505,13 @@
                         v-model="numRoom"
                         type="number"
                         label=" thêm phòng"
+                        label-color="orange"
                       />
                       <q-btn
                         color="primary"
                         icon="add"
                         label=" Thêm"
+                        flat
                         class="g-header"
                         @click="addNumRoom(roomType.id)"
                       />
@@ -514,6 +532,7 @@
                         <q-btn
                           v-if="countImg > 0"
                           label=" Cập nhật"
+                          outline
                           color="primary"
                           class="g-header"
                           @click="uploadRoomImgs(roomType.id)"
@@ -524,7 +543,7 @@
 
                   <div class="col-12"><br /></div>
                   <div class="col-12"><hr /></div>
-                </div>
+                </q-card>
               </q-card-section>
             </q-card>
           </q-form>
@@ -640,6 +659,7 @@ export default {
     const isCreate = ref(false);
     const drawerLeft = ref(true);
     const isOp = ref(true);
+    const isop = ref(true);
     const $q = useQuasar();
     function showNoti(mess, col) {
       $q.notify({
@@ -651,6 +671,7 @@ export default {
 
     return {
       isOp,
+      isop,
       showNoti,
       isCreate,
       drawerLeft,
@@ -716,11 +737,12 @@ export default {
   },
   methods: {
     goto(refs1) {
-      // console.log(refs1);
+      console.log(refs1);
       const eleId = document.getElementById(refs1);
       var top2 = eleId.offsetTop;
-      // console.log(top2);
-      window.scrollTo(0, top2);
+      console.log(eleId);
+      console.log(top2);
+      window.scrollTo({ top: top2, behavior: "smooth" });
     },
     async uploadImgs(motelImg) {
       let fd = new FormData();

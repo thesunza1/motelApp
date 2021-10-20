@@ -5,14 +5,16 @@
         <q-tabs v-model="tab" class="text-teal">
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
-            label="nhận"
+            label="Nhận"
             icon="all_inbox"
+            no-caps
           />
           <q-route-tab
             :to="toPath()"
             name="movies"
             icon="outbox"
-            label=" gửi"
+            no-caps
+            label="Gửi"
           />
         </q-tabs>
       </div>
@@ -21,13 +23,14 @@
           class="col-4 col-md-2"
           color="primary"
           icon="add"
-          label=" tạo"
+          no-caps
+          label=" Tạo"
           @click="isCreate = !isCreate"
         />
       </div>
       <div class="row col-12 justify-center">
         <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-red-5"> <q-icon name="visibility_off" class="text-negative" style="font-size:30px" />chưa đọc:</div>
+        <div class="col-12 text-h6 text-red-5"> <q-icon name="visibility_off" class="text-negative" style="font-size:30px" /> Chưa đọc:</div>
         <div class="col-12">
           <noti-box
             :notis="notis"
@@ -37,7 +40,7 @@
           ></noti-box>
         </div>
         <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-green"> <q-icon name="visibility" class="text-positive" style="font-size:30px" /> đã đọc:</div>
+        <div class="col-12 text-h6 text-green"> <q-icon name="visibility" class="text-positive" style="font-size:30px" /> Đã đọc:</div>
         <div class="col-12">
           <noti-box
             :notis="notis"

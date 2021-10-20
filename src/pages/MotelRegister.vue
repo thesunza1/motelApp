@@ -491,20 +491,20 @@ export default {
       },
       motel_img: {
         place: "",
-        content: "hinh ảnh chung của trọ",
+        content: " Hình ảnh chung của trọ",
         img_type_id: 1,
         imgs: null,
       },
 
       motel_equip: {
         place: "",
-        content: " thiết bị chửa cháy :",
+        content: "Thiết bị chửa cháy ",
         img_type_id: 2,
         imgs: null,
       },
       motel_equips: {
         place: "",
-        content: " thiết bị sơ cứu",
+        content: " Thiết bị sơ cứu",
         img_type_id: 2,
         imgs: null,
       },

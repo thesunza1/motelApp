@@ -137,7 +137,7 @@ export default {
       const eleId = document.getElementById(refs1);
       var top2 = eleId.offsetTop;
       console.log(top2);
-      window.scrollTo(0, top2);
+      window.scrollTo({top : top2 , behavior: 'smooth'});
     },
     async reload() {
       const resRoom = await roomApi.getRoom(this.roomId);

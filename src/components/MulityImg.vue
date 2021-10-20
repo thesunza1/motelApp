@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-width">
     <q-file
       label=" chọn ảnh"
       v-model="image"

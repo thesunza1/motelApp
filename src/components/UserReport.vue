@@ -2,14 +2,14 @@
   <div>
     <q-card class="my-card">
       <q-card-section class="text-white text-h6 bg-negative text-center">
-        báo cáo admin
+        Báo cáo quản trị viên
       </q-card-section>
       <q-card-section >
-        <div>nhập nội dung bạn muốn báo cáo</div>
-        <q-input v-model="content" type="text" label=" nội dung " />
+        <div>Nhập nội dung bạn muốn báo cáo</div>
+        <q-input v-model="content" type="text" label=" Nội dung " />
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat label="gửi" color="red" @click="sendReport()" />
+        <q-btn flat label="Gửi" color="red" class="g-header" @click="sendReport()" />
       </q-card-actions>
     </q-card>
   </div>
@@ -18,23 +18,8 @@
 <script>
 import noti from "../boot/callApi/noti";
 import { mapGetters } from "vuex";
-import { useQuasar } from "quasar";
 export default {
-  setup() {
-    const $q = useQuasar();
-    function showNoti(mess, col) {
-      $q.notify({
-        message: mess,
-        color: col,
-        position: "top",
-        timeout: 3000,
-      });
-    }
 
-    return {
-      showNoti,
-    };
-  },
   props: {
     type: {
       type: Number,
@@ -68,10 +53,10 @@ export default {
           this.content,
         );
         if (res.statusCode == 1) {
-          this.showNoti("thành công:", "positive");
+          noti.showNoti("thành công:", "positive");
         }
       } else {
-        this.showNoti(" bạn cần phải đăng nhập", "negative");
+        noti.showNoti(" bạn cần phải đăng nhập", "negative");
       }
     },
   },

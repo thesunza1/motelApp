@@ -15,10 +15,10 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="room/roomAll" label="phòng" />
-        <q-route-tab to="room/roomShare" label="trọ" />
-        <q-route-tab to="room/roomBills" label="bills" />
-        <q-route-tab to="room/roomNoti" label="thông báo">
+        <q-route-tab class="g-header" to="room/roomAll" label="Phòng" />
+        <q-route-tab class="g-header"  to="room/roomShare" label="Trọ" />
+        <q-route-tab  class="g-header" to="room/roomBills" label=" Hóa đơn" />
+        <q-route-tab  class="g-header" to="room/roomNoti" label="Thông báo">
           <q-badge floating color="red" text-color="white" :label="notiNum" />
         </q-route-tab>
       </q-tabs>
@@ -39,7 +39,7 @@
             class="col-10"
             v-if="!user"
             icon="account_circle"
-            label=" bạn chưa đăng nhập"
+            label=" Bạn chưa đăng nhập"
           />
           <q-chip
             class="col-10"
@@ -55,9 +55,9 @@
             text-color="white"
             v-if="user"
             icon="done"
-            label="bạn là người trọ"
+            label="Bạn là người trọ"
           />
-          <q-btn color="primary" label=" tài khoảng" @click="detailAccount" />
+          <q-btn color="primary" class="g-header" label=" Tài khoản" @click="detailAccount" />
           <div class="col-12"><br /></div>
         </div>
       </div>
@@ -68,7 +68,8 @@
             style="width: 100%; margin-top: 10px"
             color="primary"
             icon="logout"
-            label=" đăng xuất "
+            class="g-header"
+            label=" Đăng xuất "
             @click="logout"
           />
           <q-btn
@@ -76,14 +77,16 @@
             style="width: 100%; margin-top: 10px"
             color="orange"
             icon="refresh"
-            label=" tải lại "
+            class="g-header"
+            label=" Tải lại "
             @click="reloadPage"
           />
           <q-btn
             style="width: 100%; margin-top: 10px"
             color="positive"
             icon="home"
-            label=" trang chủ"
+            class="g-header"
+            label=" Trang chủ"
             @click="$router.push('/')"
           />
         </div>

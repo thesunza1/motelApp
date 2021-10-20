@@ -2,11 +2,11 @@ import {api} from '../axios';
 
 /**
  *
- * @param {int} userId id user
+ * @param {String} email email user
  * @returns user obj
  */
-async function findUser(userId) {
-  const res = await api.get('findUser/'+userId);
+async function findUser(email) {
+  const res = await api.get('findUser/'+email);
   return res?.data.user;
 }
 

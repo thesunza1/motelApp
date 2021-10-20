@@ -2,17 +2,17 @@
   <q-card class="my-card full-width" style="max-height: 80vh">
     <q-form @submit="sendNoti" @reset="onReset" >
       <q-card-section class="bg-primary text-white text-h6 text-center">
-        tạo thông báo
+        Tạo thông báo mới
       </q-card-section>
       <q-card-section>
         <div class="row full-width items-center">
-          <div class="col-md-5">tìm người nhận:</div>
+          <div class="col-md-5">Tìm người nhận:</div>
           <div class="col-1"></div>
           <q-input
             class="col-5"
-            v-model="noti.receiver_id"
-            type="number"
-            label="nhập id"
+            v-model="noti.email"
+            type="text"
+            label="Nhập email"
           />
           <q-btn
             class="col-1"
@@ -21,29 +21,30 @@
             @click="findUser"
           />
           <q-input
-            class="col-12"
+            class="col-12 q-my-sm"
             v-model="noti.title"
             type="text"
-            label=" tiêu đề"
+            label=" Tiêu đề"
             outlined
           />
+
           <q-input
             class="col-12"
             v-model="noti.content"
             type="textarea"
-            label=" nội dung"
+            label=" Nội dung"
             outlined
           />
         </div>
         <div v-if="userFind" class="row full-width items-center br">
-          <div class="col-3 text-h6">tên:</div>
-          <div class="col-9 text-center">
+          <div class="col-3 text-h6">Tên:</div>
+          <div class="col-9 text-center g-header-up">
             {{ userFind.name }}
           </div>
         </div>
       </q-card-section>
       <q-card-actions horizontal align="right">
-        <q-btn color="secondary" text-color="white" type="submit" label=" gửi" />
+        <q-btn color="secondary" text-color="white" type="submit" class="g-header" label=" Gửi" />
       </q-card-actions>
       <q-card-section class="lt-sm" style="min-height: 50vh"> </q-card-section>
     </q-form>
@@ -52,22 +53,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-import {useQuasar} from 'quasar'
+import noti from "../boot/noti/noti";
+// import notiApi from "../boot/callApi/noti" ;
+import userApi from "../boot/callApi/user" ;
 export default {
-  setup() {
-    const $q = useQuasar();
-    function showNoti(mes,color){
-      $q.notify({
-        message: mes,
-        color: color,
-        position: 'top',
-        timeout:1000,
-      });
-    }
-    return {
-      showNoti,
-    }
-  },
   async created() {},
   components: {},
   computed: {
@@ -77,7 +66,7 @@ export default {
   data() {
     var noti = {
       title: "",
-      receiver_id: "",
+      email: "",
       content: "",
       noti_type_id: 1, //notication type ,
       room_id: "",
@@ -90,16 +79,21 @@ export default {
   },
   methods: {
     async findUser() {
-      const user = await this.$api.get("findUser/" + this.noti.receiver_id);
-      this.userFind = user.data.user;
+      const user = await userApi.findUser(this.noti.email);
+      this.userFind = user[0];
     },
     async sendNoti() {
+      if(this.userFind == null) {
+        noti.showNoti('Bạn nhập email và tìm kiếm mới có thể gửi thông báo', 'negative');
+        return ;
+      }
       const sended = await this.$api.post("sendNoti",{
         noti: this.noti ,
+        receiver_id: this.userFind.id ,
       });
       let statusCode = sended.data.statusCode;
-      if(statusCode ==1 ) this.showNoti('thành công','info');
-      else this.showNoti('thất bại','warning');
+      if(statusCode ==1 ) noti.showNoti('Thành công','positive');
+      else noti.showNoti('Thất bại','negative');
 
     }
   },

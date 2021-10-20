@@ -31,11 +31,11 @@
             <div class="col-12 row items-center">
               <div class="text-green text-subtitle2 col-6 col-md-2">
                 <q-icon name="monetization_on" style="font-size: 30px" />
-                {{ toCost(post.room_type.cost) }}nvnd/th
+                {{ toCost(post.room_type.cost) }} nghìn Vnd/Th
               </div>
               <div class="gt-sm col-md-1 text-center">
                 <q-icon name="crop_square" style="font-size: 30px" />
-                {{ post.room_type.area }}m2
+                {{ post.room_type.area }} M2
               </div>
               <div class="col-6 col-md-3 text-right">
                 <q-icon name="date_range" class="text-positive" style="font-size: 30px" />
@@ -56,18 +56,19 @@
                 color="teal"
                 text-color="white"
                 icon="bookmark"
+                class="g-header-up"
                 :label="post.room_type.motel.user.name"
               />
             </div>
           </q-card-section>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn icon="near_me" color="primary">
+          <q-btn icon="near_me" color="primary" class="g-header">
             <router-link
               :to="{ name: 'searchDetail', params: { post_id: post.id } }"
               style="text-decoration: none; color: white"
             >
-              đi tới
+                Đi tới
             </router-link>
           </q-btn>
         </q-card-actions>
@@ -102,11 +103,11 @@
             <div class="col-12 row items-center">
               <div class="text-green text-subtitle2 col-6 col-md-2">
                 <q-icon name="monetization_on" style="font-size: 30px" />
-                {{ toCost(post.room.room_type.cost) }}nvnd/th
+                {{ toCost(post.room.room_type.cost) }} Nghìn Vnd/th
               </div>
               <div class="col-1 gt-sm text-center">
                 <q-icon name="crop_square" style="font-size: 30px" />
-                {{ post.room.room_type.area }}m2
+                {{ post.room.room_type.area }} M2
               </div>
               <div class="col-6 col-md-3 text-right">
                 <q-icon name="date_range"  class="text-positive" style="font-size: 30px" />
@@ -127,18 +128,19 @@
                 color="teal"
                 text-color="white"
                 icon="bookmark"
+                class="g-header-up"
                 :label="post.room.latest_tenant.tenant_users[0].user.name"
               />
             </div>
           </q-card-section>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn icon="near_me" color="primary">
+          <q-btn icon="near_me" color="primary" class="g-header">
             <router-link
               :to="{ name: 'searchDetail', params: { post_id: post.id } }"
               style="text-decoration: none; color: white"
             >
-              đi tới</router-link
+               Đi tới</router-link
             >
           </q-btn>
         </q-card-actions>

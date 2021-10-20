@@ -44,7 +44,7 @@
 <script>
 import { ref } from "vue";
 import MotelRightBar from "components/MotelRightBar";
-import {api} from 'boot/axios'
+import motelApi from "../boot/callApi/motel";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -68,8 +68,9 @@ export default {
   },
   async created() {
     const user = await this.$api.get("user");
-    const motel = await this.$api.get("getMotelRoomType");
-    this.$store.dispatch("Motel/motel", motel.data.data);
+    // const motel = await this.$api.get("getMotelRoomType");
+    const motel = await motelApi.getMotelRoomType(); 
+    this.$store.dispatch("Motel/motel", motel.data);
     this.$store.dispatch("User/user", user.data.user);
     // this.$store.dispatch("RoomStatuses/roomStatuses");
   },

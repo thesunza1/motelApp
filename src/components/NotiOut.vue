@@ -38,12 +38,12 @@
             style="font-size: 40px; padding-left: 10px"
           />
           <q-card-section class="row col-10 col-md-11 items-center">
-            <div class="col-12 col-md-8 text-h6">tiêu đề: {{ noti.title }}</div>
+            <div class="col-12 col-md-8 text-h6">Tiêu đề: {{ noti.title }}</div>
             <div class="col-12 col-md-4">
-              thời gian: {{ toDate(noti.created_at) }}
+              Thời gian: {{ toDate(noti.created_at) }}
             </div>
-            <div class="col-12 text-subtitle2">
-                người nhận: {{ noti.receiverUser.name }}
+            <div class="col-12 text-subtitle2 g-header-up">
+                Người nhận: {{ noti.receiverUser.name }}
             </div>
           </q-card-section>
         </q-card-section>
@@ -57,8 +57,8 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">id: {{ nt.receiverUser.id }}</div>
-            <div class="col-md-5 col-10 text-left">
+            <div class="col-2 text-bold">Id: {{ nt.receiverUser.id }}</div>
+            <div class="col-md-5 col-10 text-left g-header-up">
               {{ nt.receiverUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
@@ -67,36 +67,37 @@
           </q-card-section>
           <q-card-section class="row items-center justify-center full-width">
             <div class="col-12 row items-center justify-center">
-              <div class="col-6 text-left">phòng {{ thisRoom.name }}</div>
+              <div class="col-6 text-left">Phòng {{ thisRoom.name }}</div>
               <div class="col-6 text-left">
-                loại: {{ thisRoom.room_type.name }}
+                Loại: {{ thisRoom.room_type.name }}
               </div>
             </div>
             <div class="col-12 row items-center justify-center">
               <div class="col-6 text-left">
-                phòng: {{ thisRoom.room_type.cost }}vnd
+                Phòng: {{ thisRoom.room_type.cost }}vnd
               </div>
               <div class="col-6 text-left">
-                người: {{ thisRoom.room_type.motel.people_cost }}vnd
+                Người: {{ thisRoom.room_type.motel.people_cost }}vnd
               </div>
               <div class="col-6 text-left">
-                điện: {{ thisRoom.room_type.motel.elec_cost }}vnd
+               Điện: {{ thisRoom.room_type.motel.elec_cost }}vnd
               </div>
               <div class="col-6 text-left">
-                nước: {{ thisRoom.room_type.motel.water_cost }}vnd
+                Nước: {{ thisRoom.room_type.motel.water_cost }}vnd
               </div>
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 row items-center justify-center">
-              <div class="col-12 text-bold">đặc diểm</div>
+              <div class="col-12 text-bold"> Đặc Điểm</div>
               <div class="col-12">{{ thisRoom.room_type.content }}</div>
             </div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="đóng" color="negative" v-close-popup />
+            <q-btn flat label=" Đóng" class="g-header" color="negative" v-close-popup />
             <q-btn
               flat
-              label=" tạo"
+              class="g-header"
+              label=" Tạo"
               color="primary"
               v-close-popup
               @click="reply"
@@ -111,8 +112,8 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">id: {{ nt.receiverUser.id }}</div>
-            <div class="col-md-5 col-10 text-left">
+            <div class="col-2 text-bold">Id: {{ nt.receiverUser.id }}</div>
+            <div class="col-md-5 col-10 text-left g-header-up">
               {{ nt.receiverUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
@@ -120,14 +121,15 @@
             </div>
           </q-card-section>
           <q-card-section>
-            <div class="text-bold mr">nội dung:</div>
+            <div class="text-bold mr">Nội dung:</div>
             <div class="br" v-html="nt.content"></div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="đóng" color="negative" v-close-popup />
+            <q-btn flat label=" Đóng" class="g-header" color="negative" v-close-popup />
             <q-btn
               flat
-              label=" tạo"
+              class="g-header"
+              label=" Tạo"
               color="primary"
               v-close-popup
               @click="reply"
@@ -140,21 +142,7 @@
 </template>
 
 <script>
-import { useQuasar } from "quasar";
 export default {
-  setup() {
-    const $q = useQuasar();
-    function showNoti(mess, col) {
-      $q.notify({
-        message: mess,
-        color: col,
-        position: "top",
-      });
-    }
-    return {
-      showNoti,
-    };
-  },
   props: {
     notis: {
       type: Array,
