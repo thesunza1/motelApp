@@ -75,12 +75,12 @@ export default {
       const response = await this.$api.get("findUser/" + this.email);
       this.$emit("updateUserFind", response.data.user[0]);
       if (response.data.statusCode == 0) {
-        this.showNoti("id người dùng không tồn tại");
+        this.showNoti("Email người dùng không tồn tại");
       }
     },
     sex(sex) {
-      if (sex == 1) return "nam";
-      else if (sex == 0) return "nữ";
+      if (sex == 1) return "Nam";
+      else if (sex == 0) return "Nữ";
       return "";
     },
     async addUserToRoom() {
@@ -93,12 +93,12 @@ export default {
         });
         let statusCode = response.data.statusCode;
         if (statusCode == 0)
-          this.showNoti("lỗi: người được gửi là chủ trọ", "negative");
+          this.showNoti("Lỗi: người được gửi là chủ trọ", "negative");
         else if (statusCode == 2)
-          this.showNoti("lỗi: do người gửi là quản trị viên", "negative");
-        else this.showNoti("thành công: chờ người dùng xác nhận", "info");
+          this.showNoti("Lỗi: do người gửi là quản trị viên", "negative");
+        else this.showNoti("Thành công: chờ người dùng xác nhận", "info");
       } else {
-        this.showNoti("bạn cần tìm người trọ trước", "negative");
+        this.showNoti("Bạn cần tìm người trọ trước", "negative");
       }
     },
   },

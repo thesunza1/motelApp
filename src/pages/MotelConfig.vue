@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="lt-sm text-h5">
-      * mời bạn truy cập bằng các thiết bị như laptop và pc để trải nghiệm tốt
+      * Mời bạn truy cập bằng các thiết bị như laptop và pc để trải nghiệm tốt
       hơn
     </div>
     <div v-if="motel" class="gt-xs full-width row justify-center items-center">

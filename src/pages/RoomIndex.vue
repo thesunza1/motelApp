@@ -4,45 +4,39 @@
       <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-8">
         <q-card class="my-card full-width br">
           <q-card-section class="row items-center text-primary">
-            <div class="col-12 text-center co-card-header"> <q-icon name="home" /> phòng</div>
+            <div class="col-12 text-center co-card-header">
+              <q-icon name="home" /> Chi tiết phòng
+            </div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
-              phòng : {{ tenant.room.name }}
+              <b>Phòng :</b> {{ tenant.room.name }}
             </div>
             <div class="col-md-3 col-6 text-center">
-              loại : {{ roomTypeUser.name }}
+              <b>Loại :</b> {{ roomTypeUser.name }}
             </div>
             <div class="lt-sm col-12"><br /></div>
             <div class="col-md-3 col-6 text-left">
-              ngày vào : {{ getDate(tenant.in_date) }}
+              <b>Ngày vào :</b> {{ getDate(tenant.in_date) }}
             </div>
             <div class="col-md-3 col-6 text-center">
-              ngày ra : {{ tenant.out_date }}
+              <b>Ngày ra :</b> {{ tenant.out_date }}
             </div>
             <div class="col-12"><br /></div>
           </q-card-section>
-        </q-card>
-        <div><br /></div>
-
-        <q-card class="my-card full-width br">
-          <q-card-section class="row items-center  text-primary">
-
-            <div class="col-12  co-card-header text-center"> <q-icon name="paid" /> chi phí</div>
-          </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
-              phòng: {{ roomTypeUser.cost }}vnd
+              <b>giá phòng:</b> {{ roomTypeUser.cost }} Vnd
             </div>
             <div class="col-md-3 col-6 text-center">
-              người : {{ roomTypeUser.motel.people_cost }}vnd
+              <b>Phụ thu :</b> {{ roomTypeUser.motel.people_cost }} Vnd
             </div>
             <div class="lt-sm col-12"><br /></div>
             <div class="col-md-3 col-6 text-left">
-              điện: {{ roomTypeUser.motel.elec_cost }}vnd
+              <b>Giá điện:</b> {{ roomTypeUser.motel.elec_cost }} Vnd
             </div>
             <div class="col-md-3 col-6 text-center">
-              nước : {{ roomTypeUser.motel.water_cost }}vnd
+              <b>Giá nước :</b> {{ roomTypeUser.motel.water_cost }} Vnd
             </div>
             <div class="col-12"><br /></div>
           </q-card-section>
@@ -52,108 +46,86 @@
         <q-card class="my-card br full-width">
           <q-card-section class="row items-center text-primary">
             <div class="co-card-header col-12 text-center">
-              nhập số điện nước khi vào trọ
+              <q-icon name="view_agenda" /> Tình trạng thiết bị phòng
             </div>
           </q-card-section>
-          <q-card-section v-if="num_status == 0" class="text-left text-red">
-            *chủ trọ chưa xác nhận số liệu
-          </q-card-section>
-          <q-card-section v-else class="text-left text-blue">
-            *chủ trọ đã xác nhận số liệu
-          </q-card-section>
-          <q-card-section class="row items-center justify-center">
-            <div class="col-md-4 col-6 row items-center">
-              <q-input
-                class="col-12"
-                v-model="elec_num"
-                type="text"
-                label=" nhập số điện"
-              />
-            </div>
-            <div class="col-md-4 col-6 row items-center">
-              <q-input
-                class="col-12"
-                v-model="water_num"
-                type="text"
-                label=" nhập số nước "
-              />
-            </div>
-            <div class="lt-md col-12"><br /></div>
-            <div class="col-md-4 col-12 row items-center justify-center">
-              <q-btn
-                color="orange"
-                icon="check"
-                label="xin xác nhận"
-                @click="confirmNum"
-              />
-            </div>
-          </q-card-section>
-        </q-card>
-        <div><br /></div>
-
-        <q-card class="my-card br full-width">
-          <q-card-section class="row items-center text-primary">
-            <div class="co-card-header col-12 text-center">
-              <q-icon name="view_agenda" /> tình trạng thiết bị phòng
-            </div>
-          </q-card-section>
-          <q-card-section class="row items-center">
-            <div class="col-9"></div>
+          <q-card-section class="row items-center justify-end">
             <q-btn
-              class="col-3"
+              outline
+              no-caps
               color="positive"
               icon="add"
+              label="Thêm thiết bị"
               @click="addRowEquip"
             />
           </q-card-section>
           <q-card-section v-if="room_equips_num == 0" class="text-red">
-            *bạn chưa có thiết bị nào
+            *Bạn chưa có thiết bị nào
           </q-card-section>
           <q-card-section v-else class="row items-center justify-center">
-            <div v-if="eq_status == 0" class="col-12 text-red text-left">
-              *chưa xác nhận với chủ trọ
+            <div class="col-12 row items-center justify-center">
+              <div v-if="eq_status == 0" class="col-12 text-red text-left">
+                *Chưa xác nhận với chủ trọ
+              </div>
+              <div v-else class="col-12 text-primary text-left">
+                *Chủ trọ đã xác nhận
+              </div>
+              <div class="col-12"><br /></div>
+              <div class="col-4 text-bold">Tên thiết bị</div>
+              <div class="col-4 text-bold">Trạng thái</div>
+              <div class="col-2 text-bold">Hình</div>
+              <div class="col-2"></div>
+              <div class="col-12">
+                <hr />
+              </div>
+              <div class="col-12"><br /></div>
             </div>
-            <div v-else class="col-12 text-primary text-left">
-              *chủ trọ đã xác nhận
-            </div>
-            <div class="col-12"><br /></div>
-            <div class="col-md-4 col-4 text-bold text-center">tên</div>
-            <div class="col-md-4 col-6 text-center">trạng thái</div>
-            <div class="col-2"></div>
-            <div v-if="room_equips" class="row col-md-11 col-12 items-center">
+            <div v-if="room_equips" class="row col-12 items-center">
               <div
                 v-for="(room_equip, index) in room_equips"
                 :key="index"
                 class="row col-12 items-center"
               >
-                <q-input
-                  class="col-5 text-center bg-purple-1 req"
-                  v-model="room_equip.name"
-                  type="text"
-                />
-                <q-input
-                  class="col-6 text-center bg-purple-1 req"
-                  v-model="room_equip.content"
-                  type="textarea"
-                  outlined
-                />
-                <div class="col-12 row justify-center">
+                <div class="col-4 row items-center justify-start">
+                  <q-input
+                    class="col-11 text-center bg-purple-1"
+                    v-model="room_equip.name"
+                    type="text"
+                    outlined
+                  />
+                </div>
+                <div class="col-4 row items-center justify-start">
+                  <q-input
+                    class="col-11 text-center bg-purple-1"
+                    v-model="room_equip.content"
+                    type="text"
+                    outlined
+                  />
+                </div>
+                <div class="col-2">Hình ảnh</div>
+                <div class="col-2 row justify-end">
                   <q-btn
-                    class="col-8 col-md-2"
+                    rounded
+                    class="col-8"
                     color="negative"
                     icon="delete"
                     @click="deleteEquip(index)"
                   />
                 </div>
+                <div class="col-12"><br></div>
               </div>
             </div>
             <div class="col-12"><br /></div>
+            <div class="col-12">
+              <hr>
+            </div>
             <div class="col-12 row justify-end items-center">
               <q-btn
-                class="col-8 col-md-3"
                 color="orange"
+                no-caps
+                rounded
                 icon="check"
-                label=" xin xác nhận"
+                label="Xin xác nhận"
                 @click="createEquip"
               />
             </div>
@@ -163,12 +135,12 @@
 
         <q-card v-if="tenant_users" class="my-card full-width br">
           <q-card-section class="full-width text-primary">
-            <div class="text-center co-card-header">người ở</div>
+            <div class="text-center co-card-header">Người đang thuê</div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
-            <div class="col-1 text-center text-bold">id</div>
-            <div class="col-6 text-center text-bold">họ tên</div>
-            <div class="col-5 text-center text-bold">điện thoại</div>
+            <div class="col-1 text-bold">Stt</div>
+            <div class="col-6 text-bold">Họ tên</div>
+            <div class="col-5 text-bold">Điện thoại</div>
             <div class="col-12">
               <hr />
             </div>
@@ -178,9 +150,9 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1 text-center">{{ tenant_user.user.id }}</div>
-              <div class="col-6 text-center">{{ tenant_user.user.email }}</div>
-              <div class="col-5 text-center">
+              <div class="col-1">{{ ++index }}</div>
+              <div class="col-6">{{ tenant_user.user.email }}</div>
+              <div class="col-5">
                 {{ tenant_user.user.phone_number }}
               </div>
               <div class="col-12">
@@ -196,10 +168,11 @@
             >
               <div class="col-12"><br /></div>
               <q-btn
-                class="col-10 col-md-7"
                 color="primary"
                 icon="add"
-                label=" đăng bài tìm người"
+                label=" Đăng bài tìm người"
+                no-caps
+                rounded
                 @click="isCreate = true"
               />
             </div>
@@ -209,32 +182,45 @@
 
         <q-card v-if="posts" class="my-card full-width br">
           <q-card-section class="full-width text-primary">
-            <div class="text-center  co-card-header">bài đăng</div>
+            <div class="text-center co-card-header">Danh sách Bài đăng</div>
+          </q-card-section>
+          <q-card-section class="row items-center">
+            <div class="col-1 text-bold">Stt</div>
+            <div class="col-6 text-bold text-center">Trạng thái</div>
+            <div class="col-5 text-bold"></div>
+            <div class="col-12"><hr /></div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
-            <div class="col-12"><br /></div>
             <div
               v-for="(post, index) in posts"
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1 text-center">{{ index + 1 }}</div>
+              <div class="col-1">{{ index + 1 }}</div>
               <div class="col-6 text-center">{{ check(post.status) }}</div>
               <div class="col-5 row justify-around">
                 <q-btn
-                  flat
+                  rounded
+                  outline
                   color="negative"
                   icon="delete"
                   @click="deletePost(post.id, index)"
                 />
                 <q-btn
-                  flat
+                  rounded
+                  outline
                   class="text-black"
                   color="warning"
                   icon="autorenew"
                   @click="changeStatus(post.id, index)"
                 />
-                <q-btn flat color="primary" icon="visibility"  @click="$router.push('/searchDetail/'+post.id)" />
+                <q-btn
+                  rounded
+                  outline
+                  color="primary"
+                  icon="visibility"
+                  @click="$router.push('/searchDetail/' + post.id)"
+                />
               </div>
               <div class="col-12">
                 <hr />
@@ -247,21 +233,21 @@
 
         <q-card v-if="infoShare" class="my-card full-width br">
           <q-card-section class="full-width text-primary">
-            <div class="text-center  co-card-header">chia sẽ thông tin</div>
+            <div class="text-center co-card-header">Chia sẽ thông tin</div>
           </q-card-section>
           <q-card-section class="text-red">
-            * những người trong trọ sẻ thấy các thông tin : tên , số điện thoại
+            * Những người trong trọ sẻ thấy các thông tin : tên , số điện thoại
           </q-card-section>
           <q-card-section class="row full-width items-center">
             <div class="col-12"><br /></div>
             <div class="col-6 text-center">
-              trạng thái :
-              {{ infoShare.infor_share == 0 ? "đang đóng" : "đang mở" }}
+              Trạng thái :
+              {{ infoShare.infor_share == 0 ? " Đang tắt" : " Đang chia sẽ" }}
             </div>
             <div class="col-5 row justify-around">
               <q-btn
-
-                flat
+                outline
+                rounded
                 color="warning"
                 icon="autorenew"
                 @click="changeInfoShare"
@@ -273,10 +259,54 @@
             <div class="col-12"><br /></div>
           </q-card-section>
         </q-card>
+
         <div><br /></div>
+        <q-card class="my-card br full-width">
+          <q-card-section class="row items-center text-primary">
+            <div class="co-card-header col-12 text-center">
+              Nhập số điện nước khi vào trọ
+            </div>
+          </q-card-section>
+          <q-card-section v-if="num_status == 0" class="text-left text-red">
+            *Chủ trọ chưa xác nhận số liệu
+          </q-card-section>
+          <q-card-section v-else class="text-left text-blue">
+            *Chủ trọ đã xác nhận số liệu
+          </q-card-section>
+          <q-card-section class="row items-center justify-center">
+            <div class="col-md-4 col-5 row items-center justify-center">
+              <q-input
+                class="col-11"
+                v-model="elec_num"
+                type="text"
+                label=" Nhập số điện"
+              />
+            </div>
+            <div class="col-md-4 col-5 row items-center justify-center">
+              <q-input
+                class="col-11"
+                v-model="water_num"
+                type="text"
+                label=" Nhập số nước "
+              />
+            </div>
+            <div class="col-md-4 col-2 row items-center justify-center">
+              <q-btn
+                color="orange"
+                icon="check"
+                rounded
+                no-caps
+                @click="confirmNum"
+              >
+                <div class="gt-sm">Xin xác nhận</div>
+              </q-btn>
+            </div>
+          </q-card-section>
+        </q-card>
+        <div><br /></div>
+
         <div class="col-12 row justify-center full-width">
           <q-btn
-            class="col-10"
             color="negative"
             icon="logout"
             label=" rời phòng trọ"
@@ -288,15 +318,15 @@
           <q-card>
             <q-card-section class="row items-center">
               <div class="col-12 text-center text-bold">
-                thiết lập nội dung khi đăng bài
+                Thiết lập nội dung khi đăng bài
               </div>
               <div class="col-12 text-center text-red">
-                *bài đăng sẽ sử dụng các thông tin có sẳng từ trọ và một vài
+                *Bài đăng sẽ sử dụng các thông tin có sẳng từ trọ và một vài
                 thông tin cá nhân
               </div>
             </q-card-section>
             <q-card-section>
-              <div>thiết lập nội dung đăng bài</div>
+              <div>Thiết lập nội dung đăng bài</div>
               <q-input v-model="content" type="textarea" outlined />
             </q-card-section>
             <q-card-actions align="right">
@@ -309,13 +339,13 @@
         <q-dialog v-model="isOut" persistent>
           <q-card>
             <q-card-section class="row items-center bg-warning text-white">
-              <div class="col-12 text-h6 text-center">cảnh báo</div>
+              <div class="col-12 text-h6 text-center">Cảnh báo</div>
             </q-card-section>
             <q-card-section>
-              Bạn chắc là sẽ rời phòng trọ này không
+              Bạn chắc là sẽ rời phòng trọ này không?
             </q-card-section>
             <q-card-actions align="right">
-              <q-btn flat label=" thoát " v-close-popup />
+              <q-btn flat no-caps label=" thoát " v-close-popup />
               <q-btn
                 flat
                 label="Rời trọ"
@@ -375,7 +405,7 @@ export default {
         });
         if (deleteEquip.data.statusCode == 1) {
           this.room_equips.splice(index, 1);
-          this.showNoti("thành công", "negative");
+          this.showNoti("Thành công", "negative");
           this.room_equips_num--;
           this.eq_status = 0;
         }
@@ -388,7 +418,7 @@ export default {
         equip_num: this.room_equips_num,
       });
       if (res.data.statusCode == 1) {
-        this.showNoti("thanh cong ", "positive");
+        this.showNoti(" Thành công", "positive");
         const equips = await this.$api.get("getTenantRoomEquips");
         this.room_equips_num = equips.data.equip_num;
         this.room_equips = equips.data.equips;
@@ -400,7 +430,7 @@ export default {
         elec_num: this.elec_num,
       });
       if (confirmNum.data.statusCode == 1) {
-        this.showNoti("thành công , đợi xác nhận", "positive");
+        this.showNoti("Thành công , đợi xác nhận", "positive");
       }
     },
     async post() {
@@ -409,15 +439,15 @@ export default {
       });
       if (post.data.statusCode == 1) {
         this.isCreate = false;
-        this.showNoti("thành công", "positive");
+        this.showNoti("Thành công", "positive");
         this.posts.push(post.data.posts);
       } else {
-        this.showNoti(" bạn đã có bài đăng rồi !", "negative");
+        this.showNoti(" Bạn đã có bài đăng rồi !", "negative");
       }
     },
     check(status) {
-      if (status == 1) return "đang mở";
-      if (status == 0) return "đang đống";
+      if (status == 1) return " Đang mở";
+      if (status == 0) return " Đang đống";
     },
     async deletePost(post_id, index) {
       const del = await this.$api.post("deleteConpound", {
@@ -425,9 +455,9 @@ export default {
       });
       if (del.data.statusCode == 1) {
         this.posts.splice(index, 1);
-        this.showNoti("xóa thành công ", "postitive");
+        this.showNoti("Xóa thành công ", "postitive");
       } else {
-        this.showNoti("xóa thất bại ", "negative");
+        this.showNoti("Xóa thất bại ", "negative");
       }
     },
     async changeStatus(post_id, index) {
@@ -436,9 +466,9 @@ export default {
       });
       if (del.data.statusCode == 1) {
         this.posts[index].status = this.posts[index].status == 1 ? 0 : 1;
-        this.showNoti("thay đổi thành công ", "postitive");
+        this.showNoti("Thay đổi thành công ", "postitive");
       } else {
-        this.showNoti(" thất bại ", "negative");
+        this.showNoti(" Thất bại ", "negative");
       }
     },
     async changeInfoShare() {
@@ -447,18 +477,18 @@ export default {
       );
       if (change.data.statusCode == 1) {
         this.infoShare.infor_share = this.infoShare.infor_share == 1 ? 0 : 1;
-        this.showNoti("thay đổi thành công ", "postitive");
+        this.showNoti("Thay đổi thành công ", "postitive");
       } else {
-        this.showNoti(" thất bại ", "negative");
+        this.showNoti(" Thất bại ", "negative");
       }
     },
     async outRoom() {
       const out = await this.$api.post("outRoom");
       if (out.data?.statusCode == 1) {
-        this.showNoti("rời trọ thành công ", "positive");
+        this.showNoti("Rời trọ thành công ", "positive");
         this.$router.push("/");
       } else {
-        this.showNoti(" lỗi do còn bill chưa trả  ", "negative");
+        this.showNoti(" Bạn không thể tự rời trọ khi chưa thanh toán toàn bộ hóa đơn!  ", "negative");
       }
     },
   },

@@ -26,14 +26,14 @@
 
           <!-- roomtype post  -->
           <div class="col-12 row items-center">
-            <div class="col-12 text-h6 text-blue" style="padding: 0px 5px">
+            <div class="col-12 g-header-up text-h6 text-blue" style="padding: 0px 5px">
               {{ post.title }}- {{ post.room_type.name }}
             </div>
             <div class="col-12">
               <q-chip icon="room" :label="post.room_type.motel.address" />
             </div>
             <div class="col-12 row items-center">
-              <div class="text-h6 text-green col-5 col-md-3">
+              <div class="text-h6 text-green col-5 col-md-3 g-header-up">
                 {{ post.room_type.name }}
               </div>
               <q-chip
@@ -158,7 +158,7 @@
                   <hr />
                 </div>
                 <div class="col-12 justity-center row items-center">
-                  <div class="col-12 text-subtitle2 text-primary"> Vị trí trọ</div>
+                  <div class="col-12 text-h6 text-primary"> Vị trí trọ</div>
                   <div class="col-12">
                     <search-show-map :center="center"></search-show-map>
                   </div>
@@ -226,14 +226,14 @@
           </div>
           <div class="col-12"><br /></div>
           <div class="col-12 row items-center">
-            <div class="col-12 text-h6 text-blue" style="padding: 0px 5px">
+            <div class="col-12 text-h6 text-blue g-header-up" style="padding: 0px 5px">
               {{ post.title }}- {{ post.room.room_type.name }}
             </div>
             <div class="col-12">
               <q-chip icon="room" :label="post.room.room_type.motel.address" />
             </div>
             <div class="col-12 row items-center">
-              <div class="text-h6 text-green col-5 col-md-3">
+              <div class="text-h6 text-green col-5 col-md-3 g-header-up">
                 {{ post.room.room_type.name }}
               </div>
               <div class="col-6 text-h6 text-red">
@@ -463,6 +463,7 @@
         <q-btn
           color="positive"
           icon="add"
+          no-caps
           label=" Xin vào trọ"
           @click="confirm = true"
         />

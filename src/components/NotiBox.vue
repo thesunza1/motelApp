@@ -54,13 +54,13 @@
     <div class="full-width">
       <q-dialog v-model="isInvite">
         <q-card v-if="thisRoom" style="min-width: 70%">
-          <q-card-section class="row items-center text-white" :class="notiHDer">
+          <q-card-section class="row items-center  text-white" :class="notiHDer">
             <div class="col-12 text-center text-h5">
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">Id: {{ nt.senderUser.id }}</div>
-            <div class="col-md-5 col-10 text-left g-header-up">
+            <div class="col-5 text-bold">Email: {{ nt.senderUser.email }}</div>
+            <div class="col-md-5 col-7 text-left g-header-up">
               {{ nt.senderUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
@@ -122,24 +122,24 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">id: {{ nt.senderUser.id }}</div>
-            <div class="col-md-5 col-10 text-left">
-              {{ nt.senderUser.name }}
+            <div class="col-5 text-bold">Email: {{ nt.senderUser.email }}</div>
+            <div class="col-md-5 col-7 text-left g-header-up">
+              tên: {{ nt.senderUser.name }}
             </div>
-            <div class="col-md-5 col-12 text-right">
-              {{ toDate(nt.created_at) }}
+            <div class="col-md-2 col-12 text-right">
+              Ngày: {{ toDate(nt.created_at) }}
             </div>
           </q-card-section>
           <q-card-section>
-            <div class="text-bold mr">nội dung:</div>
+            <div class="text-bold mr">Nội dung:</div>
             <div class="br" v-html="nt.content"></div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="đóng" class="g-header" color="negative" v-close-popup />
+            <q-btn flat label=" Đóng" class="g-header" color="negative" v-close-popup />
             <q-btn
               flat
               class="g-header"
-              label=" trả lời"
+              label="Trả lời"
               color="primary"
               v-close-popup
               @click="reply"
@@ -149,10 +149,10 @@
       </q-dialog>
       <q-dialog v-model="isConfirm" persistent>
         <q-card>
-          <q-card-section class="row items-center text-white bg-primary">
-            <q-avatar icon="warning" color="primary" text-color="white" />
+          <q-card-section class="row items-center text-primary bg-white">
+            <q-avatar icon="warning" color="primary" text-color="primary" />
             <span class="q-ml-sm">
-              sao khi bạn xác nhận thì sẽ được đưa vào trọ!</span
+              Sao khi bạn xác nhận thì sẽ được đưa vào trọ!</span
             >
           </q-card-section>
           <q-card-actions align="right">
@@ -173,7 +173,6 @@
 </template>
 
 <script>
-import { useQuasar } from "quasar";
 import noti from "../boot/noti/noti";
 export default {
   props: {

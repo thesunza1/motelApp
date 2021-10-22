@@ -2,13 +2,13 @@
   <q-page padding class="row justify-center">
     <div class="col-12 col-md-10 row content-start">
       <div class="col-12">
-        <q-tabs v-model="tab" class="text-teal">
-          <q-route-tab :to="toPath()" icon="all_inbox" label="nhận" />
+        <q-tabs v-model="tab" class="text-teal g-header">
+          <q-route-tab :to="toPath()" icon="all_inbox" label="Nhận" />
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
             name="movies"
             icon="outbox"
-            label=" gửi"
+            label=" Gửi"
           />
         </q-tabs>
       </div>
@@ -17,7 +17,8 @@
           class="col-4 col-md-2"
           color="primary"
           icon="add"
-          label=" tạo"
+          no-caps
+          label=" Tạo thông báo"
           @click="isCreate = !isCreate"
         />
       </div>

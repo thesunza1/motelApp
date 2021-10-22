@@ -1,6 +1,18 @@
 <template>
-  <q-page padding class="row items-center justify-center">
+  <q-page padding class="row items-center justify-center content-start">
     <div v-if="bills" class="col-12 col-md-10">
+      <div class="col-12">
+        <q-card class="my-card">
+          <q-card-section>
+            <div class="text-h6 text-center"> Danh sách hóa đơn phòng</div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-subtitle text-red"> Chưa thanh toán: {{numBill(0)  }} </div>
+            <div class="text-subtitle text-positive"> Đã thanh toán: {{numBill(1)  }} </div>
+          </q-card-section>
+        </q-card>
+        <br>
+      </div>
       <div
         v-for="(bill, index) in bills"
         :key="index"
@@ -12,51 +24,52 @@
             :class="bill.status == 1 ? 'bg-positive' : 'bg-negative'"
           >
             <div class="text-subtitle2">
-              từ: {{ toDate(bill.date_begin) }} đến: {{ toDate(bill.date_end) }}
+              Từ: {{ toDate(bill.date_begin) }} Đến: {{ toDate(bill.date_end) }}
             </div>
           </q-card-section>
           <q-card-section class="row items-center">
-            <div class="col-6">từ: {{ toDate(bill.date_begin) }}</div>
-            <div class="col-6">đến: {{ toDate(bill.date_end) }}</div>
             <div class="col-12"><br /></div>
             <div class="col-md-4 col-12 row justify-center items-center">
               <div class="text-left">
-                điện: {{ bill.elec_begin }} - {{ bill.elec_end }} kwh
+                 <b>Số điện:</b>  {{ bill.elec_begin }} - {{ bill.elec_end }} kwh
               </div>
             </div>
             <div class="col-md-8 col-12 row items-center justify-center">
               <div>
-                tổng: {{ bill.elec_end - bill.elec_begin }} *
+                <b>Tổng:</b>  {{ bill.elec_end - bill.elec_begin }} *
                 {{ bill.elec_cost }}
               </div>
               <div>
-                = {{ (bill.elec_end - bill.elec_begin) * bill.elec_cost }}vnd
+                = {{ (bill.elec_end - bill.elec_begin) * bill.elec_cost }} Vnd
               </div>
             </div>
             <div class="col-12"><br /></div>
             <div class="col-md-4 col-12 row justify-center items-center">
               <div class="text-left">
-                nước: {{ bill.water_begin }} - {{ bill.water_end }} kwh
+
+                <b>Số nước:</b> {{ bill.water_begin }} - {{ bill.water_end }} kwh
               </div>
             </div>
             <div class="col-12 col-md-8 row items-center justify-center">
               <div>
-                tổng: {{ bill.water_end - bill.water_begin }} *
-                {{ bill.water_cost }}vnd
+                <b>Tổng:</b> {{ bill.water_end - bill.water_begin }} *
+                {{ bill.water_cost }}
               </div>
               <div class="text-subtitle2">
-                = {{ (bill.water_end - bill.water_begin) * bill.water_cost }}
+                = {{ (bill.water_end - bill.water_begin) * bill.water_cost }} Vnd
               </div>
+            </div>
+            <div class="col-12">
+              <hr>
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 row justify-end items-center">
-              <div class="gt-sm col-6"></div>
-              <div class="col-md-6 col-10 text-subtitle2">
-                phí người: {{ bill.people_cost }}nvd
+              <div class=" text-subtitle2">
+               Phụ thu: {{ bill.people_cost }} Vnd
               </div>
-              <div class="gt-sm col-6"></div>
-              <div class="col-md-6 col-10 text-subtitle2">
-                tiền trọ: {{ bill.cost }}nvd
+              <div class="col-12"></div>
+              <div class=" text-subtitle2">
+                Tiền trọ: {{ bill.cost }} Vnd
               </div>
               <div class="col-12"><br /></div>
               <div class="gt-sm col-6"></div>
@@ -64,18 +77,18 @@
           </q-card-section>
           <q-card-section class="row items-center justify-end">
             <div class="col-md-4 col-8 bg-accent text-white text-center text-subtitle2" style="padding:5px 0px;border-radius:3px">
-              tổng phải trả:
+              Tổng phải trả:
               {{
                 bill.cost +
                 bill.people_cost +
                 (bill.water_end - bill.water_begin) * bill.water_cost +
                 (bill.elec_end - bill.elec_begin) * bill.elec_cost
-              }}vnd
+              }} Vnd
             </div>
           </q-card-section>
           <q-card-actions v-if="bill.status == 0" align="right">
-            <q-btn color="negetive" flat label=" báo lỗi " @click="openIsError(bill)" />
-            <q-btn color="positive" flat label=" báo đã trả" @click="openIsNoti(bill)"/>
+            <q-btn color="negetive" no-caps flat label=" Báo lỗi " @click="openIsError(bill)" />
+            <q-btn color="positive"  no-caps flat label=" Báo đã trả" @click="openIsNoti(bill)"/>
           </q-card-actions>
         </q-card>
         <div class="col-12"><br></div>
@@ -85,30 +98,30 @@
     <q-dialog v-model="isError" >
       <q-card style="min-width:60%">
         <q-card-section class="row items-center text-white bg-red">
-          <span > gửi báo lỗi </span>
+          <span > Gửi báo lỗi </span>
         </q-card-section>
         <q-card-section class="full-width ">
-          <div class="text-subtitle">nhập nội dung thông báo </div>
+          <div class="text-subtitle">Nhập nội dung thông báo </div>
           <q-input style="width:70%" v-model="content" type="text" outlined />
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label=" hủy" color="negetive" v-close-popup />
-          <q-btn flat label=" gửi" @click="sendError" color="primary" v-close-popup />
+          <q-btn no-caps flat label=" Hủy" color="negetive" v-close-popup />
+          <q-btn  no-caps flat label=" Gửi" @click="sendError" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
     <q-dialog v-model="isNoti" >
       <q-card style="min-width:60%">
         <q-card-section class="row items-center text-white bg-red">
-          <span > thông báo đã trả  </span>
+          <span > Thông báo đã trả  </span>
         </q-card-section>
         <q-card-section class="full-width ">
-          <div class="text-subtitle">nhập nội dung thông báo </div>
+          <div class="text-subtitle">Nhập nội dung thông báo </div>
           <q-input style="width:70%" v-model="content" type="text" outlined />
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label=" hủy" color="negetive" v-close-popup />
-          <q-btn flat label=" gửi" @click="sendNoti" color="primary" v-close-popup />
+          <q-btn no-caps flat label=" Hủy" color="negetive" v-close-popup />
+          <q-btn no-caps flat label=" Gửi" @click="sendNoti" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -118,7 +131,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import {useQuasar} from "quasar"
+import {useQuasar} from "quasar";
+import sp from "../boot/support";
 export default {
   setup() {
     function toDate(date) {
@@ -166,9 +180,9 @@ export default {
         room_id: this.tenant.room_id,
       }) ;
       if(send.data?.statusCode ==1) {
-        this.showNoti('đã gửi thành công' , 'positive');
+        this.showNoti(' Đã gửi thành công' , 'positive');
       } else {
-        this.showNoti('gửi thất bại' , 'red');
+        this.showNoti('Gửi thất bại' , 'red');
       }
     },
     async sendNoti() {
@@ -178,9 +192,9 @@ export default {
         room_id: this.tenant.room_id,
       }) ;
       if(send.data?.statusCode ==1) {
-        this.showNoti('đã gửi thành công' , 'positive');
+        this.showNoti('Đã gửi thành công' , 'positive');
       } else {
-        this.showNoti('gửi thất bại' , 'red');
+        this.showNoti('Gửi thất bại' , 'red');
       }
 
     },
@@ -194,6 +208,9 @@ export default {
     },
     chanceBill(bill) {
       this.thisBill = bill ;
+    },
+    numBill( status) {
+      return sp.numBill(this.bills , status);
     }
   }
 };

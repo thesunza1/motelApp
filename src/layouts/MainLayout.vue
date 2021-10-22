@@ -92,7 +92,7 @@
             <q-btn
               class="col-10 pd font-header bg-white text-accent"
               rounded
-              icon="infor"
+              icon="notifications"
               @click="$router.push('/userNoti')"
             >
               <div class="gt-sm text-indent text-bold"> Thông báo</div>

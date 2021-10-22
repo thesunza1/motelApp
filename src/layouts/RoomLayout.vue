@@ -7,7 +7,7 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="room/roomAll">
-            phòng tôi
+            Phòng tôi
           </router-link>
         </q-toolbar-title>
 

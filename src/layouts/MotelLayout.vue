@@ -57,11 +57,6 @@ export default {
   },
   data(){
     let notiNum = 0 ;
-     this.$api.get("countNoti")
-     .then((res)=> {
-       notiNum = res.data.num ;
-     });
-
     return {
       notiNum,
     }
@@ -69,13 +64,29 @@ export default {
   async created() {
     const user = await this.$api.get("user");
     // const motel = await this.$api.get("getMotelRoomType");
-    const motel = await motelApi.getMotelRoomType(); 
+    const motel = await motelApi.getMotelRoomType();
     this.$store.dispatch("Motel/motel", motel.data);
     this.$store.dispatch("User/user", user.data.user);
     // this.$store.dispatch("RoomStatuses/roomStatuses");
   },
   components: {
     MotelRightBar,
+  },
+  methods: {
+    async updateNotiNum() {
+      var notiNum = await this.$api.get("countNoti");
+      if (notiNum.data.statusCode == 1) {
+        if (this.notiNum != notiNum.data.num) {
+          this.notiNum = notiNum.data.num;
+        }
+      }
+      return;
+    },
+  },
+  mounted: function () {
+    window.setInterval(() => {
+      this.updateNotiNum();
+    }, 5000);
   },
 };
 </script>

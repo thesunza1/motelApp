@@ -3,7 +3,7 @@
     <!-- <q-btn color="primary" icon="check" label="OK" @click="get()" /> -->
     <div class="col-12 row justify-center">
       <q-chip
-        class="col-10"
+        class="col-10 g-header-up"
         color="teal"
         text-color="white"
         icon="account_circle"

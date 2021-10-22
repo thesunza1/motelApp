@@ -1,30 +1,30 @@
 <template>
   <div class="full-width">
-    <q-card v-if="roomTypeUser" class="my-card">
-      <q-card-section class="text-primary">
-        <div class="text-h6 text-center full-width ">chi tiết trọ</div>
+    <q-card v-if="roomTypeUser" class="my-card row">
+      <q-card-section class="text-primary col-12">
+        <div class="text-h6 text-center full-width">Chi tiết trọ</div>
       </q-card-section>
-      <q-card-section class="row justity-center items-center text-center">
-        <div class="col-12 col-md-5"><b>tên trọ</b>: {{roomTypeUser.motel.name}}</div>
-        <div class="col-12 col-md-7"><b> địa chỉ</b>: {{roomTypeUser.motel.address}}</div>
+      <q-card-section class="row items-center col-md-6 col-12 ">
+        <div class="col-12 col-md-5"><b>Tên trọ</b>: {{roomTypeUser.motel.name}}</div>
+        <div class="col-12 col-md-7"><b> Địa chỉ</b>: {{roomTypeUser.motel.address}}</div>
       </q-card-section>
-      <hr>
-      <q-card-section class="row justity-center items-center text-center ">
-        <div class="col-12 col-md-5"> <b> giờ đóng-mở</b>: {{roomTypeUser.motel.open}}h-{{roomTypeUser.motel.closed}}h</div>
-        <div v-if="roomTypeUser.motel.camera ==1" class="col-12 col-md-2"> có camera</div>
-        <div v-else class="col-12 col-md-2">  không camera</div>
+      <br>
+      <q-card-section class="row items-center  col-md-6 col-12  ">
+        <div class="col-12 col-md-5"> <b> Giờ đóng-mở</b>: {{roomTypeUser.motel.open}}h-{{roomTypeUser.motel.closed}}h</div>
+        <div v-if="roomTypeUser.motel.camera ==1" class="col-12 col-md-2"> <b>Camera:</b> Có </div>
+        <div v-else class="col-12 col-md-2">  <b>Camera:</b> Không </div>
       </q-card-section>
-      <hr>
-      <q-card-section class="row justity-center items-center text-center ">
-        <div class="col-6 col-md-3"> <b>điện</b>: {{roomTypeUser.motel.elec_cost}}kwh</div>
-        <div class="col-6 col-md-3"> <b>nước</b>: {{roomTypeUser.motel.water_cost}}kwh</div>
-        <div class="col-12 col-md-6"> <b>người</b>: {{roomTypeUser.motel.people_cost}}</div>
+      <br>
+      <q-card-section class="row items-center  col-md-6 col-12  ">
+        <div class="col-6 col-md-3"> <b> Điện</b>: {{roomTypeUser.motel.elec_cost}} kwh</div>
+        <div class="col-6 col-md-3"> <b>Nước</b>: {{roomTypeUser.motel.water_cost}} kwh</div>
+        <div class="col-12 col-md-6"> <b> Phụ thu</b>: {{roomTypeUser.motel.people_cost}} Vnd</div>
       </q-card-section>
-      <hr>
-      <q-card-section class="row justity-center items-center text-center ">
-        <div class="col-12 text-subtitle2"> chủ trọ </div>
-        <div class="col-12 col-md-5">id: {{roomTypeUser.motel.user_id}}</div>
-        <div class="col-12 col-md-7">sdt: {{roomTypeUser.motel.phone_number}}</div>
+      <br>
+      <q-card-section class="row items-center   col-md-6 col-12 ">
+        <div class="col-12 text-subtitle2"> Chủ trọ </div>
+        <div class="col-12 col-md-5">Id: {{roomTypeUser.motel.user_id}}</div>
+        <div class="col-12 col-md-7">Sdt: {{roomTypeUser.motel.phone_number}}</div>
       </q-card-section>
     </q-card>
     <br>

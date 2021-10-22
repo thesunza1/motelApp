@@ -57,12 +57,12 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">Id: {{ nt.receiverUser.id }}</div>
-            <div class="col-md-5 col-10 text-left g-header-up">
-              {{ nt.receiverUser.name }}
+            <div class="col-5 text-bold">Email: {{ nt.receiverUser.email }}</div>
+            <div class="col-md-5 col-5 text-left g-header-up">
+               Tên:  {{ nt.receiverUser.name }}
             </div>
-            <div class="col-md-5 col-12 text-right">
-              {{ toDate(nt.created_at) }}
+            <div class="col-md-2 col-12 text-right">
+               Ngày: {{ toDate(nt.created_at) }}
             </div>
           </q-card-section>
           <q-card-section class="row items-center justify-center full-width">
@@ -74,16 +74,16 @@
             </div>
             <div class="col-12 row items-center justify-center">
               <div class="col-6 text-left">
-                Phòng: {{ thisRoom.room_type.cost }}vnd
+                Phòng: {{ thisRoom.room_type.cost }} Vnd
               </div>
               <div class="col-6 text-left">
-                Người: {{ thisRoom.room_type.motel.people_cost }}vnd
+                Người: {{ thisRoom.room_type.motel.people_cost }} Vnd
               </div>
               <div class="col-6 text-left">
-               Điện: {{ thisRoom.room_type.motel.elec_cost }}vnd
+               Điện: {{ thisRoom.room_type.motel.elec_cost }} Vnd
               </div>
               <div class="col-6 text-left">
-                Nước: {{ thisRoom.room_type.motel.water_cost }}vnd
+                Nước: {{ thisRoom.room_type.motel.water_cost }} Vnd
               </div>
             </div>
             <div class="col-12"><br /></div>
@@ -106,18 +106,18 @@
         </q-card>
       </q-dialog>
       <q-dialog v-model="isDiff">
-        <q-card>
+        <q-card style="min-width:60%">
           <q-card-section class="row items-center text-white" :class="notiHDer">
             <div class="col-12 text-center text-h5">
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-2 text-bold">Id: {{ nt.receiverUser.id }}</div>
+            <div class="col-2 text-bold">Email: {{ nt.receiverUser.email }}</div>
             <div class="col-md-5 col-10 text-left g-header-up">
-              {{ nt.receiverUser.name }}
+              Tên: {{ nt.receiverUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
-              {{ toDate(nt.created_at) }}
+               Ngày: {{ toDate(nt.created_at) }}
             </div>
           </q-card-section>
           <q-card-section>

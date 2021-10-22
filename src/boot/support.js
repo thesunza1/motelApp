@@ -31,13 +31,12 @@ function numRoom(rooms, status) {
 function numBill(bills, status) {
   var num = 0;
   Array.prototype.forEach.call(bills, (element) => {
-    if (element.status== status) {
+    if (element.status == status) {
       num++;
     }
   });
   return num;
 }
-
 
 function toSex(sex) {
   if (sex == 0) return "nam";
