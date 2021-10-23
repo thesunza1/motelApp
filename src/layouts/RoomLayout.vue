@@ -1,13 +1,13 @@
 <template>
-  <q-layout view="hHr lpR fFf">
-    <q-header elevated class="bg-brown text-white" height-hint="98">
+  <q-layout view="hHh LpR fFf">
+    <q-header elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           <router-link class="link logo" to="room/roomAll">
-            Phòng tôi
+            Quản lý phòng
           </router-link>
         </q-toolbar-title>
 
@@ -48,6 +48,8 @@
             v-else
             icon="account_circle"
             :label="user.name"
+            @click="detailAccount"
+            clickable
           />
           <q-chip
             class="col-10"
@@ -57,7 +59,6 @@
             icon="done"
             label="Bạn là người trọ"
           />
-          <q-btn color="primary" class="g-header" label=" Tài khoản" @click="detailAccount" />
           <div class="col-12"><br /></div>
         </div>
       </div>

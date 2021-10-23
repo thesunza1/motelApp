@@ -15,8 +15,8 @@ async function getAllMotel() {
  * @param {int} userId user id
  * @returns {object} statusCode , motel object
  */
-async function findMotel(motelId, userId) {
-  let data = { motelId : motelId, userId: userId}
+async function findMotel(email) {
+  let data = { email: email }
   const res = await api.post('findMotel', data);
   return res?.data ;
 }

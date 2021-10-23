@@ -28,19 +28,11 @@
                 ? 'person_add'
                 : 'check'
             "
-            :class="
-              noti.noti_type_id == 1
-                ? 'text-purple'
-                : noti.noti_type_id == 2
-                ? 'text-red'
-                : noti.noti_type_id == 3
-                ? 'text-primary'
-                : 'text-warning'
-            "
+
             style="font-size: 40px; padding-left: 10px"
           />
           <q-card-section class="row col-10 col-md-11 items-center">
-            <div class="col-12 col-md-8 text-h6"> <q-icon name="feed" class="text-accent" style="font-size:30px" /> {{ noti.title }}</div>
+            <div class="col-12 col-md-8 text-h6"> <q-icon name="feed"  style="font-size:30px" /> {{ noti.title }}</div>
             <div class="col-12 col-md-4">
               <q-icon name="timelapse"  class="text-primary" style="font-size:30px"/> {{ toDate(noti.created_at) }}
             </div>

@@ -5,17 +5,17 @@
       <div class="full-width">
         <q-card-section class="row items-center">
           <div class="col-6 row items-center justify-around">
-            <div class="text-bold">Tìm User:</div>
+            <div class="text-bold">Tìm người dùng:</div>
             <q-input
-              v-model="userId"
-              type="number"
-              label=" Nhập id User"
+              v-model="email"
+              type="text"
+              label=" Nhập email người dùng"
               label-color="primary"
             />
             <q-btn
               color="primary g-header"
               icon="search"
-              label=" Tìm"
+              label="Tìm"
               @click="findUser()"
             />
           </div>
@@ -274,7 +274,7 @@ export default {
         rowsPerPage: 10,
       },
       password: null,
-      userId: null,
+      email: null,
     };
   },
 
@@ -299,9 +299,9 @@ export default {
       return;
     },
     async findUser() {
-      const res = await user.findUser(this.userId);
-      this.thisUser = res ? [res] : [];
-      this.noti(res ? 1 : 2);
+      const res = await user.findUser(this.email);
+      this.thisUser = res ? res : [];
+      // this.noti(res ? 1 : 2);
     },
     async loadpage(num_page) {
       const res = await this.$api.get("getAllUser?page=" + num_page);

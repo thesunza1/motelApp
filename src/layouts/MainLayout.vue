@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header  class="bg-grey-9 " height-hint="98">
+    <q-header  class="bg-primary " height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
@@ -21,7 +21,7 @@
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
               rounded
-              class="col-10 pd font-header bg-white text-brown"
+              class="col-10 pd font-header bg-white  text-black"
               icon="home"
               @click="loginModal = true"
             >
@@ -33,17 +33,17 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd font-header text-brown bg-white"
+              class="col-10 pd font-header  bg-white text-black"
               rounded
               icon="home"
               @click="openModal(0)"
             >
-              <div class="gt-sm text-bold text-indent"> Quản lý phòng</div>
+              <div class="gt-sm text-indent"> Quản lý phòng</div>
             </q-btn>
           </div>
           <div class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd font-header bg-white text-positive text-bold"
+              class="col-10 pd font-header bg-white  text-bold text-black"
               rounded
               icon="search"
               @click="$router.push('search/searchIndex')"
@@ -53,7 +53,7 @@
           </div>
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd font-header text-primary bg-white"
+              class="col-10 pd font-header bg-white text-black"
               rounded
               icon="home_work"
               @click="loginModalMotel = true"
@@ -66,7 +66,7 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd font-header bg-white text-primary "
+              class="col-10 pd font-header bg-white   text-black"
               icon="home_work"
               rounded
               @click="openModal(1)"
@@ -79,7 +79,7 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd text-primary bg-white font-header"
+              class="col-10 pd bg-white font-header text-black"
               icon="admin_panel_settings"
               rounded
               @click="$router.push('admin/adminUser')"
@@ -90,7 +90,7 @@
 
           <div v-if="user" class="col-4 row items-center justify-center">
             <q-btn
-              class="col-10 pd font-header bg-white text-accent"
+              class="col-10 pd font-header bg-white text-black"
               rounded
               icon="notifications"
               @click="$router.push('/userNoti')"
@@ -101,12 +101,6 @@
                 text-color="white"
                 :label="notiNum"
                 floating
-                style="
-                  margin-right: 40px;
-                  font-size: 20px;
-                  height: auto;
-                  width: auto;
-                "
               />
             </q-btn>
           </div>
@@ -343,10 +337,13 @@ export default {
     },
     get_role() {
       if (this.role_id == 1) {
-        return " tài khoảng người dùng ";
+        return " tài khoản người dùng ";
       }
       if (this.role_id == 2) {
-        return " tài khoảng trọ ";
+        return " tài khoản trọ ";
+      }
+      if( this.role_id ==3 ) {
+        return " Tài khoản quản trị"
       }
     },
     reloadPage() {

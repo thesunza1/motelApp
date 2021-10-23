@@ -3,6 +3,7 @@
     <q-btn
       :class="`bg-${link.col1}`"
       class="col-10 text-white g-header"
+      rounded
       :label="link.name"
       :icon="link.icon"
       @click="$router.push(link.link)"

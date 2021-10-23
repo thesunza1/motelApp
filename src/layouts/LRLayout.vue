@@ -7,7 +7,7 @@
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
           </q-avatar>
-         <router-link to="/" class="text-white">Tmq-motel</router-link>
+         <router-link to="/" class="text-white" style="text-decoration: none"> <div class="text-h6" style="display:inline"> Tmq-motel</div></router-link>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>

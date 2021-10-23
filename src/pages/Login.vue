@@ -18,35 +18,48 @@
     </q-dialog>
     <q-ajax-bar position="top" size="4px" color="red" />
     <div class="row justify-center">
-      <q-form class="q-gutter-md col-12 row justify-center"
-        @submit="login"
-      >
+      <q-form class="q-gutter-md col-12 row justify-center" @submit="login">
         <q-card class="my-card col-12 col-md-8">
           <q-card-section>
-            <h3 class="text-center"> đăng nhập </h3>
+            <h3 class="text-center text-primary">
+              <q-icon name="login" /> Đăng nhập
+            </h3>
           </q-card-section>
           <q-card-section class="row justify-center">
-            <q-input
-              class="col-11"
-              v-model="email"
-              type="text"
-              label="email"
-              :rules="[(val) => val.length > 0 || 'trường không để trống']"
-            />
-            <q-input
-              class="col-11"
-              v-model="password"
-              type="text"
-              label="password"
-              :rules="[(val) => val.length > 0 || ' trường không để trống']"
-            />
+            <div class="col-md-6 col-12 row justify-center items-center">
+              <q-input
+                class="col-11"
+                v-model="email"
+                type="text"
+                label="email"
+                :rules="[(val) => val.length > 0 || 'Trường không để trống']"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="email" />
+                </template>
+              </q-input>
+
+            </div>
+            <div class="col-12"></div>
+            <div class="col-md-6 col-12 row justify-center items-center">
+              <q-input
+                class="col-11"
+                v-model="password"
+                type="password"
+                label=" Mật khẩu"
+                :rules="[(val) => val.length > 0 || ' Trường không để trống']"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="password" />
+                </template>
+              </q-input>
+            </div>
           </q-card-section>
           <q-card-section> </q-card-section>
-          <q-card-actions  align="center">
-            <q-btn label=" đăng nhập" color="primary" type="submit"  />
+          <q-card-actions align="center">
+            <q-btn icon="login" label=" đăng nhập" rounded color="primary" type="submit" />
           </q-card-actions>
         </q-card>
-
       </q-form>
     </div>
     <div class="lt-md" style="height: 100vh"></div>
@@ -54,7 +67,7 @@
 </template>
 
 <script>
-import noti from '../boot/noti/noti' ;
+import noti from "../boot/noti/noti";
 export default {
   data() {
     return {
@@ -80,7 +93,7 @@ export default {
       } else {
         localStorage.setItem("key", response.data.tokenUser);
         this.$store.dispatch("User/user", response.data.user);
-        noti.showNoti(' đăng nhập thành công', 'positive') ;
+        noti.showNoti(" đăng nhập thành công", "positive");
         this.$router.go(-1);
       }
     },
@@ -88,7 +101,7 @@ export default {
 };
 </script>
 
-<style scoped lang='sass'>
+<style scoped lang="sass">
 a
   text-decoration: none
 .my-card

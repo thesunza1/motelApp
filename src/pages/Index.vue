@@ -70,7 +70,7 @@
         </q-card-section>
         <q-card-section vertical>
           <q-card-section class="col-12">
-            <div class="text-h6">Tìm kiếm trọ</div>
+            <div class="text-h6 text-primary">Tìm kiếm trọ</div>
           </q-card-section>
           <q-card-section class="col-12">
             <p>Dễ dàng tìm kiếm các trọ , và phòng ghép,..</p>
@@ -96,7 +96,7 @@
           </q-responsive>
         </q-card-section>
         <q-card-section>
-          <div class="text-h6">Quản lý trọ</div>
+          <div class="text-h6 text-primary">Quản lý trọ</div>
         </q-card-section>
         <q-card-section>
           <p>Giao diện quản lý đơn giản , dễ dùng.</p>
@@ -121,7 +121,7 @@
           </q-responsive>
         </q-card-section>
         <q-card-section>
-          <div class="text-h6">Quản lý phòng</div>
+          <div class="text-h6 text-black">Quản lý phòng</div>
         </q-card-section>
         <q-card-section>
           <p>

@@ -24,8 +24,14 @@
 <script>
 import SearchRenderPost from "../components/SearchRenderPost.vue";
 import SearchBox from "../components/SearchBox.vue"
+import {ref} from 'vue';
 export default {
-  setup() {},
+  setup() {
+    const num_page = ref(1);
+    return {
+      num_page,
+    }
+  },
   data() {
     return {
       posts: null,
@@ -59,7 +65,7 @@ export default {
     updatePost(data) {
       this.posts=data ;
       this.max_page = data.last_page;
-      this.num_page.value = 1 ;
+      this.num_page = 1 ;
     }
   },
   components: {

@@ -1,8 +1,68 @@
 <template>
   <q-page padding>
+    <q-drawer
+      side="left"
+      v-model="drawLeft"
+      bordered
+      :width="400"
+      content-class="bg-grey-3"
+    >
+      <br />
+      <q-item clickable @click="goto('infor')">
+        <q-item-section top avatar>
+          <q-avatar color="primary" text-color="white" icon="home" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label> Chi tiết phòng</q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('eqInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="primary" text-color="white" icon="view_agenda" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label> Tình trạng thiết bị phòng </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('tenantInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="primary" text-color="white" icon="people_alt" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label> Người đang thuê</q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('postsInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="primary" text-color="white" icon="badge" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label> Danh sách bài đăng</q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('shareInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="primary" text-color="white" icon="share" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label> Chia sẽ thông tin</q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('numInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="primary" text-color="white" icon="dialpad" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label> Nhập số điện nước khi vào trọ </q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-drawer>
+    <div class="col-12">
+      <q-btn color="primary" icon="menu" @click="drawLeft = !drawLeft" />
+    </div>
     <div class="row full-width items-center justify-center">
-      <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-8">
-        <q-card class="my-card full-width br">
+      <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-10">
+        <q-card class="my-card full-width br" id="infor">
           <q-card-section class="row items-center text-primary">
             <div class="col-12 text-center co-card-header">
               <q-icon name="home" /> Chi tiết phòng
@@ -26,7 +86,7 @@
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
-              <b>giá phòng:</b> {{ roomTypeUser.cost }} Vnd
+              <b>Giá phòng:</b> {{ roomTypeUser.cost }} Vnd
             </div>
             <div class="col-md-3 col-6 text-center">
               <b>Phụ thu :</b> {{ roomTypeUser.motel.people_cost }} Vnd
@@ -43,7 +103,7 @@
         </q-card>
         <div><br /></div>
 
-        <q-card class="my-card br full-width">
+        <q-card class="my-card br full-width" id="eqInfor">
           <q-card-section class="row items-center text-primary">
             <div class="co-card-header col-12 text-center">
               <q-icon name="view_agenda" /> Tình trạng thiết bị phòng
@@ -106,18 +166,18 @@
                 <div class="col-2 row justify-end">
                   <q-btn
                     rounded
-                    class="col-8"
+                    outline
                     color="negative"
                     icon="delete"
                     @click="deleteEquip(index)"
                   />
                 </div>
-                <div class="col-12"><br></div>
+                <div class="col-12"><br /></div>
               </div>
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12">
-              <hr>
+              <hr />
             </div>
             <div class="col-12 row justify-end items-center">
               <q-btn
@@ -133,9 +193,15 @@
         </q-card>
         <div><br /></div>
 
-        <q-card v-if="tenant_users" class="my-card full-width br">
+        <q-card
+          v-if="tenant_users"
+          class="my-card full-width br"
+          id="tenantInfor"
+        >
           <q-card-section class="full-width text-primary">
-            <div class="text-center co-card-header">Người đang thuê</div>
+            <div class="text-center co-card-header">
+              <q-icon name="people_alt" /> Người đang thuê
+            </div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
             <div class="col-1 text-bold">Stt</div>
@@ -180,9 +246,11 @@
         </q-card>
         <div><br /></div>
 
-        <q-card v-if="posts" class="my-card full-width br">
+        <q-card v-if="posts" class="my-card full-width br" id="postsInfor">
           <q-card-section class="full-width text-primary">
-            <div class="text-center co-card-header">Danh sách Bài đăng</div>
+            <div class="text-center co-card-header">
+              <q-icon name="badge" /> Danh sách Bài đăng
+            </div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-1 text-bold">Stt</div>
@@ -231,9 +299,11 @@
         </q-card>
         <div><br /></div>
 
-        <q-card v-if="infoShare" class="my-card full-width br">
+        <q-card v-if="infoShare" class="my-card full-width br" id="shareInfor">
           <q-card-section class="full-width text-primary">
-            <div class="text-center co-card-header">Chia sẽ thông tin</div>
+            <div class="text-center co-card-header">
+              <q-icon name="share" /> Chia sẽ thông tin
+            </div>
           </q-card-section>
           <q-card-section class="text-red">
             * Những người trong trọ sẻ thấy các thông tin : tên , số điện thoại
@@ -261,10 +331,10 @@
         </q-card>
 
         <div><br /></div>
-        <q-card class="my-card br full-width">
+        <q-card class="my-card br full-width" id="numInfor">
           <q-card-section class="row items-center text-primary">
             <div class="co-card-header col-12 text-center">
-              Nhập số điện nước khi vào trọ
+              <q-icon name="dialpad" /> Nhập số điện nước khi vào trọ
             </div>
           </q-card-section>
           <q-card-section v-if="num_status == 0" class="text-left text-red">
@@ -488,8 +558,16 @@ export default {
         this.showNoti("Rời trọ thành công ", "positive");
         this.$router.push("/");
       } else {
-        this.showNoti(" Bạn không thể tự rời trọ khi chưa thanh toán toàn bộ hóa đơn!  ", "negative");
+        this.showNoti(
+          " Bạn không thể tự rời trọ khi chưa thanh toán toàn bộ hóa đơn!  ",
+          "negative"
+        );
       }
+    },
+    goto(id) {
+      const ele = document.getElementById(id);
+      var top = ele.offsetTop;
+      window.scrollTo({ top: top, behavior: "smooth" });
     },
   },
   data() {
@@ -506,6 +584,7 @@ export default {
       posts: null,
       infoShare: null,
       isOut: false,
+      drawLeft: true,
     };
   },
   async created() {

@@ -17,14 +17,14 @@
       <br>
       <q-card-section class="row items-center  col-md-6 col-12  ">
         <div class="col-6 col-md-3"> <b> Điện</b>: {{roomTypeUser.motel.elec_cost}} kwh</div>
-        <div class="col-6 col-md-3"> <b>Nước</b>: {{roomTypeUser.motel.water_cost}} kwh</div>
+        <div class="col-12 col-md-3"> <b>Nước</b>: {{roomTypeUser.motel.water_cost}} kwh</div>
         <div class="col-12 col-md-6"> <b> Phụ thu</b>: {{roomTypeUser.motel.people_cost}} Vnd</div>
       </q-card-section>
       <br>
       <q-card-section class="row items-center   col-md-6 col-12 ">
-        <div class="col-12 text-subtitle2"> Chủ trọ </div>
-        <div class="col-12 col-md-5">Id: {{roomTypeUser.motel.user_id}}</div>
-        <div class="col-12 col-md-7">Sdt: {{roomTypeUser.motel.phone_number}}</div>
+        <div class="col-12 col-md-4"> <b>Tên chủ:</b> {{roomTypeUser.motel.user.name}}</div>
+        <div class="col-12 col-md-4"> <b>Email:</b> {{roomTypeUser.motel.user.email}}</div>
+        <div class="col-12 col-md-4"> <b>Sdt:</b> {{roomTypeUser.motel.phone_number}}</div>
       </q-card-section>
     </q-card>
     <br>

@@ -6,15 +6,9 @@
           <div class="col-6 row items-center justify-around">
             <div class="text-bold">Tìm trọ:</div>
             <q-input
-              v-model="userId"
-              type="number"
-              label=" Tìm bằng id người dùng"
-              label-color="primary"
-            />
-            <q-input
-              v-model="motelId"
-              type="number"
-              label=" Tìm bằng id trọ"
+              v-model="email"
+              type="text"
+              label="Email chủ trọ"
               label-color="primary"
             />
             <q-btn
@@ -175,7 +169,7 @@ export default {
     }
     function noti(statusCode) {
       if (statusCode == 1) {
-        this.showNoti("thành công", "positive");
+        this.showNoti("thành công", "primary");
       } else if (statusCode == 2) {
         this.showNoti(" Không tìm thấy trọ", "dark");
       } else {
@@ -203,55 +197,42 @@ export default {
       maxPage: 1,
       columns: [
         {
-          name: "id",
-          label: "id trọ",
-          field: "id",
-          align: "center",
-          sortable: true,
-        },
-        {
           name: "name",
-          label: " tên trọ",
+          label: " Tên trọ",
           field: "name",
-          align: "center",
           sortable: true,
+          align: "left",
         },
         {
           name: "address",
-          label: " địa chỉ",
+          label: " Địa chỉ",
           field: "address",
-          align: "center",
+          align: "left",
         },
         {
           name: "created_at",
-          label: " ngày tạo",
+          label: " Ngày tạo",
           field: "created_at",
-          align: "center",
           format: (val) => this.toDate(val),
-        },
-        {
-          name: "id",
-          label: " id user",
-          field: (row) => row.user.id,
-          align: "center",
+          align: "left",
         },
         {
           name: "email",
-          label: "email",
+          label: "Email",
           field: (row) => row.user.email,
-          align: "center",
+          align: "left",
         },
         {
           name: "name",
-          label: " tên chủ",
+          label: " Tên chủ",
           field: (row) => row.user.name,
-          align: "center",
+          align: "left",
         },
       ],
       pagination: {
         rowsPerPage: 10,
       },
-      userId: null,
+      email: null,
       motelId: null,
     };
   },
@@ -266,7 +247,7 @@ export default {
       return;
     },
     async searchMotel() {
-      const res = await adminMotel.findMotel(this.motelId, this.userId);
+      const res = await adminMotel.findMotel(this.email);
       if (res.statusCode == 1) {
         this.thisMotel = [res.motel];
       }
@@ -277,16 +258,7 @@ export default {
     numPage(newVal) {
       this.loadpage(newVal);
     },
-    userId(newVal, oldVal) {
-      if (this.motelId != null) {
-        this.motelId = null;
-      }
-    },
-    motelId(newVal, oldVal) {
-      if (this.userId != null) {
-        this.userId = null;
-      }
-    },
+
   },
   computed: {
     ...mapGetters("User", ["user"]),
