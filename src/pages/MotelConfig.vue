@@ -703,6 +703,7 @@ export default {
         area: null,
       },
       numRoom: 0,
+      motelId: this.$route.params.motelId,
     };
   },
   watch: {
@@ -719,12 +720,9 @@ export default {
     },
   },
   async created() {
-    // const roomTypeImgs = await this.$api.get("getRoomTypeImgs");
-    const roomTypeImgs = await motel.getRoomTypeImgs();
-    // const getMotelImgs = await this.$api.get("getMotelImgs");
-    // const motels = await this.$api.get("getMotelRoomType");
-    const motels = await motel.getMotelRoomType();
-    const getMotelImgs = await motel.getMotelImgs();
+    const roomTypeImgs = await motel.getRoomTypeImgs(this.motelId);
+    const motels = await motel.getMotelRoomType(this.motelId);
+    const getMotelImgs = await motel.getMotelImgs(this.motelId);
     this.roomTypeImgs = roomTypeImgs.roomTypeImg;
     this.motelImgs = getMotelImgs.motelImgs;
     this.motel = motels?.data;
@@ -767,7 +765,7 @@ export default {
       if (res?.statusCode) {
         this.imgs = null;
         this.showNoti("thành công", "positive");
-        const res = await motel.getRoomTypeImgs();
+        const res = await motel.getRoomTypeImgs(this.motelId);
         this.roomTypeImgs = res.roomTypeImg;
       }
     },
@@ -779,12 +777,12 @@ export default {
       fd.append(name + "_num", len);
     },
     async updateImg() {
-      const getMotelImgs = await this.$api.get("getMotelImgs");
+      const getMotelImgs = await this.$api.get("getMotelImgs/" + this.motelId);
       this.motelImgs = getMotelImgs.data.motelImgs;
       return;
     },
     async updateRoomTypeImg() {
-      const getMotelImgs = await motel.getMotelImgs();
+      const getMotelImgs = await motel.getMotelImgs(this.motelId);
       this.roomTypeImgs = getMotelImgs.roomTypeImg;
       return;
     },
@@ -799,10 +797,11 @@ export default {
         open: this.motel.open,
         closed: this.motel.closed,
         parking: this.motel.parking,
+        motelId: this.motelId,
       });
 
       if (res.data?.statusCode) {
-        this.showNoti("thành công ", "positive");
+        this.showNoti("Thành công ", "positive");
       }
     },
     async updateMotelImg(id, index) {
@@ -814,17 +813,17 @@ export default {
       );
       console.log(this.motelImgs[index].content);
       if (res?.statusCode) {
-        this.showNoti("thành công", "primary");
+        this.showNoti("Thành công", "primary");
       } else {
-        this.showNoti("lỗi : không xác định", "negative");
+        this.showNoti("Lỗi : không xác định", "negative");
       }
     },
     async addNumRoom(roomTypeId) {
       const res = await motel.addNumRoom(roomTypeId, this.numRoom);
       if (res?.statusCode) {
-        this.showNoti("thành công", "positive");
+        this.showNoti("Thành công", "positive");
       } else {
-        this.showNoti("lỗi: thất bại", "negative");
+        this.showNoti("Lỗi: thất bại", "negative");
       }
     },
     async updateRoomTypeContent(index) {
@@ -844,13 +843,14 @@ export default {
       fd.append("everyone", this.newRoomType.everyone);
       fd.append("cost", this.newRoomType.cost);
       fd.append("name", this.newRoomType.name);
+      fd.append("motelId", this.motelId);
       this.append(fd, this.newRoomType.imgs, "img");
 
       const res = await motel.createRoomType(fd);
 
       if (res?.statusCode) {
-        this.showNoti("thành công", "positive");
-        const res = await motel.getMotelImgs();
+        this.showNoti("Thành công", "positive");
+        const res = await motel.getMotelImgs(this.motelId);
         if (res?.statusCode) {
           this.motelImgs = res.motelImgs;
         }
@@ -860,12 +860,12 @@ export default {
       const res = await roomType.deleteRoomType(roomTypeId);
 
       if (res.statusCode == 1) {
-        this.showNoti("thành công", "positive");
+        this.showNoti("Thành công", "positive");
         this.roomTypeImgs.splice(index, 1);
         console.log(index);
         // this.updateRoomTypeImg() ;
       } else {
-        this.showNoti(" thất bại", "negative");
+        this.showNoti(" Thất bại", "negative");
       }
     },
   },

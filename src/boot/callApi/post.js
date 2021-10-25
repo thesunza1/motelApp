@@ -15,8 +15,8 @@ async function changeState(postId) {
 /**
  * get roomtypes->posts ;
  */
-async function getMotel() {
-  const res =await api.get('getPostMotel');
+async function getPostMotel(motelId) {
+  const res =await api.get('getPostMotel/'+motelId);
   return res?.data;
 }
 
@@ -24,13 +24,13 @@ async function getMotel() {
  * create post all room_type when don't have post
  * @returns response obj : statusCode
  */
-async function createMotel() {
-  const res =await api.post('createPostMotel') ;
+async function createPostMotel(motelId) {
+  const res =await api.post('createPostMotel',{motelId: motelId}) ;
   return res?.data;
 }
 
 export default {
   changeState,
-  getMotel,
-  createMotel,
+  getPostMotel,
+  createPostMotel,
 }

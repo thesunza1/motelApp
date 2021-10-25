@@ -3,13 +3,13 @@
     <div class="col-12 row items-center rtname">
       <q-tabs align="left">
         <q-route-tab
-          :to="{ name: 'all' }"
+          :to="{ name: 'all' , params: {motelId : motelId} }"
           class="g-header"
           icon="home"
           label="Danh sách loại phòng"
         />
         <q-route-tab
-          :to="{ name: 'bill' }"
+          :to="{ name: 'bill' , params: {motelId : motelId } }"
           class="g-header"
           icon="paid"
           label="Tiền phòng "
@@ -56,6 +56,11 @@ export default {
   },
   computed: {
     ...mapGetters("Motel", ["motel"]),
+  },
+  data() {
+    return {
+      motelId: this.$route.params.motelId,
+    }
   },
   methods: {
     lengthArr(arr) {

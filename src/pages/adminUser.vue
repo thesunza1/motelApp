@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <div v-if="users">
-
       <div class="full-width">
         <q-card-section class="row items-center">
           <div class="col-6 row items-center justify-around">
@@ -9,12 +8,13 @@
             <q-input
               v-model="email"
               type="text"
-              label=" Nhập email người dùng"
+              label=" Nhập email"
               label-color="primary"
             />
             <q-btn
               color="primary g-header"
               icon="search"
+              rounded
               label="Tìm"
               @click="findUser()"
             />
@@ -115,8 +115,20 @@
               <q-popup-proxy transition-show="scale" transition-hide="scale">
                 <q-date v-model="thisUser[0].birth_date">
                   <div class="row items-center justify-end q-gutter-sm">
-                    <q-btn label=" Hủy" class="g-header" color="primary" flat v-close-popup />
-                    <q-btn label=" Chọn"  class="g-header" color="primary" flat v-close-popup />
+                    <q-btn
+                      label=" Hủy"
+                      class="g-header"
+                      color="primary"
+                      flat
+                      v-close-popup
+                    />
+                    <q-btn
+                      label=" Chọn"
+                      class="g-header"
+                      color="primary"
+                      flat
+                      v-close-popup
+                    />
                   </div>
                 </q-date>
               </q-popup-proxy>
@@ -133,7 +145,12 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn label=" Thoát" class="g-header" color="primary" v-close-popup />
+          <q-btn
+            label=" Thoát"
+            class="g-header"
+            color="primary"
+            v-close-popup
+          />
           <q-btn
             label=" Thay đổi"
             color="primary"
@@ -154,7 +171,12 @@
           <div>Bạn có muốn xóa tài khoảng vĩnh viễn ?</div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn label=" Thoát" class="g-header" color="negative" v-close-popup />
+          <q-btn
+            label=" Thoát"
+            class="g-header"
+            color="negative"
+            v-close-popup
+          />
           <q-btn
             label=" Xác nhận"
             color="primary"
@@ -202,10 +224,10 @@ export default {
      */
     function boolNumToString(key, val) {
       if (key == "sex") {
-        return val == 0 ? "nam" : " nữ";
+        return val == 0 ? "Nam" : " Nữ";
       }
       if (key == "have_room") {
-        return val == 0 ? " chưa có" : "đã có";
+        return val == 0 ? " Chưa vào" : " Đã vào";
       }
     }
     function noti(statusCode) {
@@ -214,7 +236,8 @@ export default {
       }
       if (statusCode == 2) {
         this.showNoti(" Không tìm thấy user", "dark");
-      } else {
+      }
+      if(statusCode==0) {
         this.showNoti(" thất bại", "negative");
       }
     }
@@ -251,6 +274,7 @@ export default {
           label: " Tên",
           field: "name",
           align: "left",
+          classes: "g-header-up",
           sortable: true,
         },
         { name: "email", label: "Email", field: "email", align: "left" },
@@ -271,7 +295,7 @@ export default {
         },
       ],
       pagination: {
-        rowsPerPage: 10,
+        rowsPerPage: 11,
       },
       password: null,
       email: null,
@@ -299,8 +323,22 @@ export default {
       return;
     },
     async findUser() {
+      if (this.email == null) {
+        this.email = " ";
+      }
       const res = await user.findUser(this.email);
-      this.thisUser = res ? res : [];
+      if (res) {
+        this.thisUser = res ? res : [];
+        const check = this.users.find((o) => console.log(o.email));
+        console.log(!check);
+        if (!check) {
+          this.users.splice(0,0,res[0]);
+        }
+        this.noti(1) ;
+      }
+      else {
+        this.noti(2) ;
+      }
       // this.noti(res ? 1 : 2);
     },
     async loadpage(num_page) {

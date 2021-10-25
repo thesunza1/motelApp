@@ -300,7 +300,7 @@
 import { mapGetters } from "vuex";
 import noti from "../boot/noti/noti";
 import sp from "../boot/support";
-
+import motelApi from "../boot/callApi/motel";
 export default {
   props: {
     motel_id: {
@@ -331,7 +331,7 @@ export default {
       return room.room_status.name;
     },
     async createAllBill() {
-      const allbill = await this.$api.post("createAllBill");
+      const allbill = await this.$api.post("createAllBill/" + this.motel_id);
       var mes = " ";
       var col = "red";
       if (allbill.data.statusCode == 3) {
@@ -354,9 +354,10 @@ export default {
     },
     async getAllBill() {
       try {
-        const bills = await this.$api.get("getBillAllRoom");
-        if (bills.data.statusCode == 1) {
-          this.allBillRoom = bills.data.allBillRoom;
+        // const bills = await this.$api.get("getBillAllRoom");
+        const bills = await motelApi.getBillAllRoom(this.motel_id);
+        if (bills.statusCode == 1) {
+          this.allBillRoom = bills.allBillRoom;
         }
       } catch (error) {}
     },
@@ -368,6 +369,7 @@ export default {
     async createSomeBill() {
       const create = await this.$api.post("createSomeBill", {
         rooms: this.chooseRoom,
+        motelId: this.motel_id,
       });
       if (create.data.statusCode == 1) {
         noti.showNoti("đã tạo thành công");
@@ -417,10 +419,9 @@ export default {
   },
   async created() {
     try {
-      const bills = await this.$api.get("getBillAllRoom");
-
-      if (bills.data.statusCode == 1) {
-        this.allBillRoom = bills.data.allBillRoom;
+      const bills = await motelApi.getBillAllRoom(this.motel_id);
+      if (bills.statusCode == 1) {
+        this.allBillRoom = bills.allBillRoom;
       }
     } catch (error) {}
   },

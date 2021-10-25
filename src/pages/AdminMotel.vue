@@ -15,6 +15,7 @@
               color="primary"
               icon="search"
               label=" Tìm"
+              rounded
               @click="searchMotel()"
             />
           </div>
@@ -22,21 +23,16 @@
         <q-card-actions v-if="thisMotel.length == 1" align="right">
           <q-btn color="primary" icon="question_answer">
             <router-link
-              :to="{ name: 'adminThisMotel', params: { motelId: thisMotel[0].id } }"
+              :to="{
+                name: 'adminThisMotel',
+                params: { motelId: thisMotel[0].id },
+              }"
               style="text-decoration: none; color: white"
             >
-               Đi tới
+              Đi tới
             </router-link>
           </q-btn>
         </q-card-actions>
-        <q-card-section v-if="thisMotel.length == 1">
-          <div>
-            Id : <b>{{ thisMotel[0].id }}</b
-            >- Email: <b>{{ thisMotel[0].user.email }}</b
-            >- Điện thoại: <b>{{ thisMotel[0].user.phone_number }}</b> - Tên trọ
-            : <b> {{ thisMotel[0].name }} </b>
-          </div>
-        </q-card-section>
       </div>
       <q-table
         class="my-header-table"
@@ -102,8 +98,20 @@
               <q-popup-proxy transition-show="scale" transition-hide="scale">
                 <q-date v-model="thisMotel[0].birth_date">
                   <div class="row items-center justify-end q-gutter-sm">
-                    <q-btn label=" Thoát" class="g-header" color="primary" flat v-close-popup />
-                    <q-btn label=" Chọn" class="g-header" color="primary" flat v-close-popup />
+                    <q-btn
+                      label=" Thoát"
+                      class="g-header"
+                      color="primary"
+                      flat
+                      v-close-popup
+                    />
+                    <q-btn
+                      label=" Chọn"
+                      class="g-header"
+                      color="primary"
+                      flat
+                      v-close-popup
+                    />
                   </div>
                 </q-date>
               </q-popup-proxy>
@@ -120,8 +128,18 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn class="g-header" label=" Thoát" color="primary" v-close-popup />
-          <q-btn  class="g-header" label=" Thay đổi" color="primary" v-close-popup />
+          <q-btn
+            class="g-header"
+            label=" Thoát"
+            color="primary"
+            v-close-popup
+          />
+          <q-btn
+            class="g-header"
+            label=" Thay đổi"
+            color="primary"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -136,8 +154,18 @@
           <div>Bạn có muốn xóa tài khoảng vĩnh viễn ?</div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn label=" Thoát"  class="g-header" color="negative" v-close-popup />
-          <q-btn label=" Xác nhận"  class="g-header" color="primary" v-close-popup />
+          <q-btn
+            label=" Thoát"
+            class="g-header"
+            color="negative"
+            v-close-popup
+          />
+          <q-btn
+            label=" Xác nhận"
+            class="g-header"
+            color="primary"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -173,7 +201,7 @@ export default {
       } else if (statusCode == 2) {
         this.showNoti(" Không tìm thấy trọ", "dark");
       } else {
-        this.showNoti(" thất bại", "negative");
+        this.showNoti(" Không tìm thấy trọ", "negative");
       }
     }
     return {
@@ -200,6 +228,7 @@ export default {
           name: "name",
           label: " Tên trọ",
           field: "name",
+          classes:"g-header-up",
           sortable: true,
           align: "left",
         },
@@ -225,12 +254,13 @@ export default {
         {
           name: "name",
           label: " Tên chủ",
+          classes:"g-header-up",
           field: (row) => row.user.name,
           align: "left",
         },
       ],
       pagination: {
-        rowsPerPage: 10,
+        rowsPerPage: 11,
       },
       email: null,
       motelId: null,
@@ -247,18 +277,21 @@ export default {
       return;
     },
     async searchMotel() {
-      const res = await adminMotel.findMotel(this.email);
-      if (res.statusCode == 1) {
-        this.thisMotel = [res.motel];
+      try {
+        const res = await adminMotel.findMotel(this.email);
+        if (res.statusCode == 1) {
+          this.thisMotel = [res.motel];
+          this.noti(res.statusCode);
+        }
+      } catch (error) {
+        this.noti(0);
       }
-      this.noti(res.statusCode);
     },
   },
   watch: {
     numPage(newVal) {
       this.loadpage(newVal);
     },
-
   },
   computed: {
     ...mapGetters("User", ["user"]),
@@ -266,7 +299,7 @@ export default {
 };
 </script>
 
-<style lang="sass" >
+<style lang="sass">
 .mr
   margin-top: 10px
 .my-header-table

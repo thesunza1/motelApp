@@ -1,25 +1,13 @@
 <template>
-  <div class="full-width">
-    <div v-for="(roomType, index) in roomTypes" :key="index">
-      <q-card class="my-card">
-        <q-card-section class="text-center text-h6 text-white header-color">
+  <div class="full-width ">
+    <div class="bg-green-1" v-for="(roomType, index) in roomTypes" :key="index">
+        <q-card-section class=" text-h6 text-positive">
           <div class="header-opacity">
             <q-icon name="store" style="font-size: 30px" />
-            - {{ roomType.name }}
+             {{ roomType.name }}
           </div>
         </q-card-section>
-        <div class="full-width box-background">
-          <q-card-section class="row items-center">
-            <div class="q-ml-md col-4">
-              <q-icon name="paid" class="size-icon" />-
-              {{ roomType.cost }} vnd/p
-            </div>
-          </q-card-section>
-          <q-card-section class="">
-            <div class="q-ml-lg">
-              <q-icon name="person" class="size-icon" /> đang ở:
-            </div>
-          </q-card-section>
+        <div class="full-width">
           <q-card-section class="">
             <div
               class="full-width text-black"
@@ -34,7 +22,6 @@
             </div>
           </q-card-section>
         </div>
-      </q-card>
       <div class="full-width"><br /></div>
     </div>
   </div>

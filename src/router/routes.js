@@ -18,6 +18,7 @@ import RoomIndex from "pages/RoomIndex.vue";
 import RoomBills from "pages/RoomBills.vue";
 import MotelBill from "pages/MotelBill.vue";
 import MotelConfig from "pages/MotelConfig.vue";
+import ChoseMotel from "pages/ChoseMotel.vue" ;
 import MotelPost from "pages/MotelPost.vue";
 import MotelRoomDetail from "pages/MotelRoomDetail.vue";
 import RoomShare from "pages/RoomShare.vue";
@@ -35,8 +36,9 @@ const routes = [
     component: MainLayout,
     children: [
       { path: "", component: Index },
-      { path: "userNoti", component: Noti },
-      { path: "userOutbox", component: NotiOutbox },
+      { path: "userNoti", name:'userNoti' ,  component: Noti },
+      { path: "userOutbox", name:'userOutbox' , component: NotiOutbox },
+      { path: "choseMotel", name: 'choseMotel' , component: ChoseMotel },
     ],
   },
   {
@@ -52,14 +54,15 @@ const routes = [
   {
     path: "/motel",
     component: MotelLayout,
+    props: true ,
     children: [
-      { path: "/all", name: "all", component: MotelIndex },
-      { path: "/noti", name: "noti", component: Noti },
-      { path: "/bill", name: "bill", component: MotelBill },
-      { path: "/config", name: "config", component: MotelConfig },
+      { path: "/all/:motelId",props:true , name: "all", component: MotelIndex },
+      { path: "/noti/:motelId",props:true , name: "noti", component: Noti },
+      { path: "/bill/:motelId",props:true , name: "bill", component: MotelBill },
+      { path: "/config/:motelId",props:true , name: "config", component: MotelConfig },
       { path: "/detailAccount", name: "detailAccount", component: DetailAccount },
       { path: "/motelOutbox", name: "motelOutbox", component: NotiOutbox },
-      { path: "/motelPost", name: "motelPost", component: MotelPost },
+      { path: "/motelPost/:motelId",props:true, name: "motelPost", component: MotelPost },
     ],
   },
   {

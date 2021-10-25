@@ -54,10 +54,11 @@ export default {
       roomTypes: null,
       thisImg : null,
       isImg: false ,
+      motelId: this.$route.params.motelId,
     };
   },
   async created() {
-    const res = await post.getMotel();
+    const res = await post.getPostMotel(this.motelId);
     this.roomTypes = res?.roomTypes;
   },
   components: {
@@ -71,12 +72,12 @@ export default {
       this.reloadPage();
     },
     async createPost() {
-      const res = await post.createMotel();
+      const res = await post.createPostMotel(this.motelId);
       noti.NotiStatusCode(res.statusCode);
       this.reloadPage();
     },
     async reloadPage() {
-      const res = await post.getMotel();
+      const res = await post.getPostMotel(this.motelId);
       this.roomTypes = res?.roomTypes;
       return;
     },

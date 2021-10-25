@@ -6,8 +6,8 @@
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          <router-link class="link logo" to="motel/all">
-           Quản lý trọ</router-link
+          <router-link class="link logo" v-if="motel" to="motel/all">
+           Quản lý trọ <p style="display:inline" class="g-header-up"> {{motel.name }} </p> </router-link
           >
         </q-toolbar-title>
 
@@ -15,10 +15,10 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="motel/all" class="g-header" label="Trạng thái" />
-        <q-route-tab to="motel/motelPost" class="g-header" label="Bài đăng" />
-        <q-route-tab to="motel/config" class="g-header" label="Cấu hình" />
-        <q-route-tab to="motel/noti" class="g-header" label="Thông báo" >
+        <q-route-tab :to="{name:'all' , params: { motelId: motelId}}" class="g-header" label="Trạng thái" />
+        <q-route-tab :to="{name:'motelPost' , params: { motelId: motelId}}"  class="g-header" label="Bài đăng" />
+        <q-route-tab :to="{name:'config' , params: { motelId: motelId}}"  class="g-header" label="Cấu hình" />
+        <q-route-tab :to="{name:'noti' , params: { motelId: motelId}}" class="g-header" label="Thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
       </q-tabs>
@@ -45,6 +45,7 @@
 import { ref } from "vue";
 import MotelRightBar from "components/MotelRightBar";
 import motelApi from "../boot/callApi/motel";
+import {mapGetters} from "vuex";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -55,16 +56,19 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters('Motel',['motel']),
+  },
   data(){
     let notiNum = 0 ;
     return {
       notiNum,
+      motelId: this.$route.params.motelId,
     }
   },
   async created() {
     const user = await this.$api.get("user");
-    // const motel = await this.$api.get("getMotelRoomType");
-    const motel = await motelApi.getMotelRoomType();
+    const motel = await motelApi.getMotelRoomType(this.motelId);
     this.$store.dispatch("Motel/motel", motel.data);
     this.$store.dispatch("User/user", user.data.user);
     // this.$store.dispatch("RoomStatuses/roomStatuses");

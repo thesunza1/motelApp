@@ -354,7 +354,8 @@ export default {
         if (this.user.have_room == 1) return this.$router.push("room/roomAll");
         else this.isNonRoom = true;
       } else {
-        this.$router.push("motel/all");
+        // this.$router.push("motel/all");
+        this.$router.push({name:'choseMotel'});
       }
     },
     async updateNotiNum() {

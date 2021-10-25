@@ -25,20 +25,20 @@ async function uploadRoomImgs(fd) {
   return res?.data;
 }
 //get roomtype img
-async function getRoomTypeImgs() {
-  const res = await api.get("getRoomTypeImgs");
+async function getRoomTypeImgs(motelId) {
+  const res = await api.get("getRoomTypeImgs/" + motelId);
 
   return res?.data;
 }
 
 //get motel room type
-async function getMotelRoomType() {
-  const res = await api.get("getMotelRoomType");
+async function getMotelRoomType(motelId) {
+  const res = await api.get("getMotelRoomType/"+motelId);
   return res?.data;
 }
 //get motel imgs
-async function getMotelImgs() {
-  const res = await api.get("getMotelImgs");
+async function getMotelImgs(motelId) {
+  const res = await api.get("getMotelImgs/"+ motelId);
   return res?.data;
 }
 // add num room to room
@@ -75,6 +75,20 @@ async function sendAllNotiBill(motelId){
   return res?.data;
 }
 
+/**
+ * get all motel for user
+ * @returns response data
+ */
+async function getMotels() {
+  const res = await api.get('getMotels') ;
+  return res?.data;
+}
+
+async function getBillAllRoom(motelId) {
+  const res = await api.get('getBillAllRoom/'+ motelId) ;
+  return res?.data ;
+}
+
 export default {
   updateMotelImg,
   uploadRoomImgs,
@@ -85,4 +99,7 @@ export default {
   updateRoomTypeContent,
   createRoomType,
   sendAllNotiBill,
+  getMotels,
+  getBillAllRoom,
+
 };

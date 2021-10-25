@@ -1,9 +1,9 @@
 <template>
   <div>
     <q-card class="my-card">
-      <q-card-section class="text-subtitle2 text-primary">
+      <q-card-section class="text-subtitle2 ">
         <q-icon name="store" class="size-icon" />
-        - Thòng: {{room.name  }}
+         Phòng: {{room.name  }}
       </q-card-section>
       <q-card-section>
         <q-card
@@ -16,7 +16,7 @@
             <div class=""> <q-icon name="drafts" class="text-positive size-icon" />- {{ user.user.email}} </div>
             <div class=""> <q-icon name="phone" class="text-positive size-icon" />- {{ user.user.phone_number}} </div>
             <div>
-              <q-btn falt color="negative" icon="delete" class="g-header" label="Cho ra" @click="$emit('openIsOutRoom',user.user)" />
+              <q-btn falt color="negative" icon="delete" class="g-header" rounded label="Cho ra" @click="$emit('openIsOutRoom',user.user)" />
             </div>
           </q-card-section>
         </q-card>
