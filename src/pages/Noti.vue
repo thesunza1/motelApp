@@ -10,7 +10,7 @@
             no-caps
           />
           <q-route-tab
-            :to="toPath()"
+            :to="{name: toPath()}"
             name="movies"
             icon="outbox"
             no-caps
@@ -23,10 +23,12 @@
           class="col-4 col-md-2"
           color="primary"
           icon="add"
+          rounded
           no-caps
-          label=" Tạo"
           @click="isCreate = !isCreate"
-        />
+        >
+          <div class="gt-sm">Tạo thông báo</div>
+        </q-btn>
       </div>
       <div class="row col-12 justify-center">
         <div class="col-12"><br /></div>
@@ -101,6 +103,7 @@ export default {
       console.log(this.$router.currentRoute._rawValue);
     },
     toPath() {
+      this.log();
       let path = this.$router.currentRoute._rawValue.matched[0].path;
       if (path == "/") {
         return "userOutbox";

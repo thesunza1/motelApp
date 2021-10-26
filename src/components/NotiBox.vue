@@ -45,7 +45,7 @@
     </q-intersection>
     <div class="full-width">
       <q-dialog v-model="isInvite">
-        <q-card v-if="thisRoom" style="min-width: 70%">
+        <q-card v-if="thisRoom"  class="g-border" style="min-width: 70%">
           <q-card-section class="row items-center  text-white" :class="notiHDer">
             <div class="col-12 text-center text-h5">
               {{ nt.title }}
@@ -108,7 +108,7 @@
         </q-card>
       </q-dialog>
       <q-dialog v-model="isDiff">
-        <q-card style="min-width: 60%">
+        <q-card class="g-border" style="min-width: 60%">
           <q-card-section class="row items-center text-white" :class="notiHDer">
             <div class="col-12 text-center text-h5">
               {{ nt.title }}
@@ -116,7 +116,7 @@
             <div class="col-12"><br /></div>
             <div class="col-5 text-bold">Email: {{ nt.senderUser.email }}</div>
             <div class="col-md-5 col-7 text-left g-header-up">
-              tên: {{ nt.senderUser.name }}
+              Tên: {{ nt.senderUser.name }}
             </div>
             <div class="col-md-2 col-12 text-right">
               Ngày: {{ toDate(nt.created_at) }}

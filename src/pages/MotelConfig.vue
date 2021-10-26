@@ -77,9 +77,9 @@
         </q-expansion-item>
       </q-drawer>
       <div class="col-10">
-        <q-card class="my-card full-width">
+        <q-card class="my-card full-width g-border">
           <q-form class="q-gutter-md">
-            <q-card class="my-card" id="publicInfor">
+            <q-card class="my-card g-border" id="publicInfor">
               <q-card-section class="g-bg-primary-label">
                 <div class="text-h6 text-white text-center">
                   Cấu hình thông tin trọ
@@ -226,7 +226,7 @@
                 />
               </q-card-actions>
             </q-card>
-            <q-card class="my-card" id="publicMoney">
+            <q-card class="my-card g-border" id="publicMoney">
               <br />
               <q-card-section class="g-bg-primary-label">
                 <div class="text-h6 text-white text-center">Thiết lập giá</div>
@@ -296,7 +296,7 @@
               </div>
             </q-card>
             <div v-for="(motelImg, index) in motelImgs" :key="index">
-              <q-card class="my-card full-width" :id="`img${index}`">
+              <q-card class="my-card g-border full-width" :id="`img${index}`">
                 <q-card-section class="g-bg-primary-label">
                   <div class="text-h6 text-white text-center g-header-up">
                     {{ motelImg.content }}
@@ -391,7 +391,7 @@
               </q-card>
               <div class="col-12"><br /></div>
             </div>
-            <q-card class="my-card col-12" :id="'roomTypes'">
+            <q-card class="my-card g-border col-12" :id="'roomTypes'">
               <q-card-section class="g-bg-primary-label">
                 <div class="text-h6 text-center text-white">
                   Cấu hình loại phòng
@@ -551,7 +551,7 @@
       </div>
     </div>
     <q-dialog v-model="isCreate">
-      <q-card style="min-width: 90%">
+      <q-card class=" g-border" style="min-width: 90%">
         <q-card-section class="row items-center bg-primary">
           <div class="col-12 text-center text-white">Tạo loại phòng</div>
         </q-card-section>

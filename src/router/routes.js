@@ -12,6 +12,7 @@ import Index from "pages/Index.vue";
 import Login from "pages/Login.vue";
 import UserRegister from "pages/UserRegister.vue";
 import MotelRegister from "pages/MotelRegister.vue";
+import MotelRegisterOne from "pages/MotelRegisterOne.vue";
 import MotelIndex from "pages/MotelIndex.vue";
 import Noti from "pages/Noti.vue";
 import RoomIndex from "pages/RoomIndex.vue";
@@ -48,7 +49,8 @@ const routes = [
       { path: "login", component: Login },
       { path: "userRegister", component: UserRegister },
       { path: "motelRegister", component: MotelRegister },
-      { path: "homeDetailAccount", component: DetailAccount },
+      { path: "homeDetailAccount",  component: DetailAccount },
+      { path: "motelRegisterOne", name: "motelRegisterOne", component: MotelRegisterOne },
     ],
   },
   {
@@ -57,7 +59,7 @@ const routes = [
     props: true ,
     children: [
       { path: "/all/:motelId",props:true , name: "all", component: MotelIndex },
-      { path: "/noti/:motelId",props:true , name: "noti", component: Noti },
+      { path: "/noti",props:true , name: "noti", component: Noti },
       { path: "/bill/:motelId",props:true , name: "bill", component: MotelBill },
       { path: "/config/:motelId",props:true , name: "config", component: MotelConfig },
       { path: "/detailAccount", name: "detailAccount", component: DetailAccount },

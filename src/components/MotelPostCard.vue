@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card">
+  <q-card class="my-card g-border">
     <q-img style="height: 200px" :src="`${urlBase}${post.img_details[0]}`" @click="$emit('showImgs' , index)"/>
     <q-card-section>
       <div class="full-width row justify-between items-center">

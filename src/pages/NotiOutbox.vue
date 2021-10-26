@@ -3,7 +3,7 @@
     <div class="col-12 col-md-10 row content-start">
       <div class="col-12">
         <q-tabs v-model="tab" class="text-teal g-header">
-          <q-route-tab :to="toPath()" icon="all_inbox" label="Nhận" />
+          <q-route-tab :to="{name:toPath()}" icon="all_inbox" label="Nhận" />
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
             name="movies"

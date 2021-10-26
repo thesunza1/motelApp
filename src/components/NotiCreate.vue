@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card full-width" style="max-height: 80vh">
+  <q-card class="my-card full-width g-border" style="max-height: 80vh">
     <q-form @submit="sendNoti" @reset="onReset" >
       <q-card-section class="bg-primary text-white text-h6 text-center">
         Tạo thông báo mới
