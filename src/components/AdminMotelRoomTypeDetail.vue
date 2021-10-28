@@ -1,40 +1,64 @@
 <template>
-  <div class="full-width ">
-    <div class="bg-green-1" v-for="(roomType, index) in roomTypes" :key="index">
-        <q-card-section class=" text-h6 text-positive">
-          <div class="header-opacity">
-            <q-icon name="store" style="font-size: 30px" />
-             {{ roomType.name }}
+  <div class="full-width">
+    <div
+      v-for="(roomType, index) in roomTypes"
+      :key="index"
+      class="full-width row items-center"
+    >
+      <q-expansion-item
+        expand-separator
+        icon="home"
+        :label="roomType.name"
+        :caption="` Tổng số: ${lengthArr(roomType.rooms)} --- Trống: ${numRoom(
+          roomType.rooms,
+          1
+        )} --- Không sử dụng: ${numRoom(
+          roomType.rooms,
+          3
+        )} --- Có người: ${numRoom(roomType.rooms, 2)}  `"
+        header-class="g-header-up bg-white q-py-md shadow-up-1 g-border text-primary text-bold"
+        class="col-12 bg-green-1 g-border shadow-up-1 "
+      >
+        <br />
+        <div class="col-12 row content-start">
+          <div
+            v-for="(room, index) in roomType.had_rooms"
+            :key="index"
+            class="col-4 row justify-center items-start content-start"
+          >
+            <admin-room-detail
+              @openIsOutRoom="$emit('openIsOutRoom', $event)"
+              class="q-mr-md"
+              :room="room"
+            ></admin-room-detail>
+            <br />
           </div>
-        </q-card-section>
-        <div class="full-width">
-          <q-card-section class="">
-            <div
-              class="full-width text-black"
-              v-for="(room, index) in roomType.had_rooms"
-              :key="index"
-            >
-              <admin-room-detail
-                @openIsOutRoom="$emit('openIsOutRoom', $event)"
-                class="mr"
-                :room="room"
-              ></admin-room-detail>
-            </div>
-          </q-card-section>
         </div>
-      <div class="full-width"><br /></div>
+      </q-expansion-item>
+      <div class="col-12"><br /></div>
     </div>
   </div>
 </template>
 
 <script>
 import AdminRoomDetail from "./AdminRoomDetail.vue";
+import sp from "../boot/support";
 export default {
   props: {
     roomTypes: {
       type: Array,
       required: true,
     },
+  },
+  methods: {
+    lengthArr(arr) {
+      return sp.length(arr);
+    },
+    numRoom( num, status) {
+      return sp.numRoom(num,status);
+    },
+
+
   },
   components: {
     AdminRoomDetail,

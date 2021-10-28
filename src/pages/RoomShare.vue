@@ -14,7 +14,6 @@
         :label="roomType.name"
         header-class="g-header-up bg-white q-py-md shadow-up-1 g-border"
         class="col-12 bg-white"
-        default-opened
       >
         <br>
         <div class="col-12 row items-center">

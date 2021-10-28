@@ -55,7 +55,7 @@
             <q-btn
               color="primary"
               class="col-10 pd font-header"
-              icon="home_work"
+              icon="apartment"
               @click="loginModalMotel = true"
             >
               <div class="gt-sm text-indent">Quản lý trọ</div>
@@ -68,7 +68,7 @@
             <q-btn
               color="primary"
               class="col-10 pd font-header"
-              icon="home_work"
+              icon="apartment"
               @click="openModal(1)"
             >
               <div class="gt-sm text-indent">Quản lý trọ</div>

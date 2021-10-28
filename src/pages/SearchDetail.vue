@@ -26,7 +26,10 @@
 
           <!-- roomtype post  -->
           <div class="col-12 row items-center">
-            <div class="col-12 g-header-up text-h6 text-blue" style="padding: 0px 5px">
+            <div
+              class="col-12 g-header-up text-h6 text-blue"
+              style="padding: 0px 5px"
+            >
               {{ post.title }}- {{ post.room_type.name }}
             </div>
             <div class="col-12">
@@ -36,10 +39,7 @@
               <div class="text-h6 text-green col-5 col-md-3 g-header-up">
                 {{ post.room_type.name }}
               </div>
-              <q-chip
-                class="col-4 col-md-4"
-                icon="directions"
-              >
+              <q-chip class="" icon="directions">
                 {{ toDate(post.updated_at) }}
               </q-chip>
             </div>
@@ -50,7 +50,7 @@
                 :key="index"
                 style="display: inline-block"
               >
-                <p v-if="room.room_status_id == 1"> {{ room.name + ", " }}</p>
+                <p v-if="room.room_status_id == 1">{{ room.name + ", " }}</p>
               </div>
             </div>
             <div class="col-12"><br /></div>
@@ -157,8 +157,8 @@
                 <div class="col-12">
                   <hr />
                 </div>
+                <div class="col-12 text-h5 text-primary">Vị trí trọ</div>
                 <div class="col-12 justity-center row items-center">
-                  <div class="col-12 text-h6 text-primary"> Vị trí trọ</div>
                   <div class="col-12">
                     <search-show-map :center="center"></search-show-map>
                   </div>
@@ -226,7 +226,10 @@
           </div>
           <div class="col-12"><br /></div>
           <div class="col-12 row items-center">
-            <div class="col-12 text-h6 text-blue g-header-up" style="padding: 0px 5px">
+            <div
+              class="col-12 text-h6 text-blue g-header-up"
+              style="padding: 0px 5px"
+            >
               {{ post.title }}- {{ post.room.room_type.name }}
             </div>
             <div class="col-12">
@@ -240,14 +243,8 @@
                 Phòng đang đăng bài: {{ post.room.name }}
               </div>
               <q-chip
-                class="col-6 col-md-6"
                 icon="directions"
-                :label="toDate(post.updated_at)"
-              />
-              <q-chip
-                class="col-5 col-md-5"
-                icon="directions"
-                :label="`id: ${post.id}`"
+                :label="`Ngày cập nhật: ${toDate(post.updated_at)}`"
               />
             </div>
             <div class="col-12"><br /></div>
@@ -379,7 +376,9 @@
                   <hr />
                 </div>
                 <div class="col-12 justity-center row items-center">
-                  <div class="col-12 text-subtitle2 text-primary"> Vị trí nhà trọ</div>
+                  <div class="col-12 text-subtitle2 text-primary">
+                    Vị trí nhà trọ
+                  </div>
                   <div class="col-12">
                     <search-show-map :center="center"></search-show-map>
                   </div>
@@ -459,8 +458,10 @@
           icon="person"
           label=" Báo cáo"
           @click="isReport = true"
+          rounded
         />
         <q-btn
+          rounded
           color="positive"
           icon="add"
           no-caps
@@ -477,8 +478,12 @@
         @closePU="confirm = false"
       ></search-send-into-room>
     </q-dialog>
-    <q-dialog v-model="isReport" >
-      <user-report style="min-width: 70%" :type="1" :postId="postId"></user-report>
+    <q-dialog v-model="isReport">
+      <user-report
+        style="min-width: 70%"
+        :type="1"
+        :postId="postId"
+      ></user-report>
     </q-dialog>
   </q-page>
 </template>
@@ -519,7 +524,7 @@ export default {
       rooms: null,
       center: {},
       confirm: false,
-      isReport: false ,
+      isReport: false,
     };
   },
   async created() {
@@ -553,7 +558,7 @@ export default {
   methods: {
     toDate(date) {
       return td.toDate(date);
-    }
+    },
   },
   components: {
     MotelShowImgs,

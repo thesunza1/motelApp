@@ -102,10 +102,10 @@ const routes = [
     path: "/admin",
     component: AdminLayout,
     children: [
-      { path: "/adminNoti", component: Noti },
-      { path: "/adminOutBox", component: NotiOutbox },
-      { path: "/adminUser", component: AdminUser },
-      { path: "/adminMotel", component: AdminMotel },
+      { path: "/adminNoti",name: 'adminNoti', component: Noti },
+      { path: "/adminOutBox",name: 'adminOutBox', component: NotiOutbox },
+      { path: "/adminUser",name: 'adminUser', component: AdminUser },
+      { path: "/adminMotel",name: 'adminMotel', component: AdminMotel },
       {
         path: "/adminThisMotel/:motelId",
         name: "adminThisMotel",

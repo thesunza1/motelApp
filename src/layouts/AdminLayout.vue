@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHr lpR fFf">
+  <q-layout view="hHr LpR fFf">
     <q-header elevated class="bg-positive text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
@@ -15,9 +15,9 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab class="g-header" to="admin/adminUser" label="Danh sách người dùng"></q-route-tab>
-        <q-route-tab class="g-header" to="admin/adminMotel" label="Danh sách trọ"></q-route-tab>
-        <q-route-tab class="g-header" to="admin/adminNoti" label="Thông báo" >
+        <q-route-tab class="g-header" :to="{name: 'adminUser'}" label="Danh sách người dùng"></q-route-tab>
+        <q-route-tab class="g-header" :to="{name: 'adminMotel'}" label="Danh sách trọ"></q-route-tab>
+        <q-route-tab class="g-header" :to="{name: 'adminNoti'}"  label="Thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
       </q-tabs>

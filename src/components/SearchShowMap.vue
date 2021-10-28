@@ -1,5 +1,5 @@
 <template>
-  <div class="full-width" style="height: 700px">
+  <div class="full-width g-border shadow-up-3" style="height: 700px">
     <l-map v-model:zoom="zoom" :center="center">
       <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
       </l-tile-layer>

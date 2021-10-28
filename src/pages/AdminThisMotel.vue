@@ -1,12 +1,73 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-10">
+    <q-drawer
+      side="left"
+      v-model="drawerLeft"
+      bordered
+      :width="300"
+      :breakpoint="500"
+      content-class="bg-grey-3"
+    >
+      <br />
+      <q-item clickable @click="goto('motelInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="black" text-color="white" icon="holiday_village" />
+        </q-item-section>
+        <q-item-section>
+          <div>Thông tin trọ</div>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('userInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="black" text-color="white" icon="person" />
+        </q-item-section>
+        <q-item-section>
+          <div>Thông tin chủ</div>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('locationInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="black" text-color="white" icon="room" />
+        </q-item-section>
+        <q-item-section>
+          <div>Vị trí trọ</div>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('roomTypeInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="black" text-color="white" icon="apartment" />
+        </q-item-section>
+        <q-item-section>
+          <div>Danh sách loại phòng</div>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('motelImgsInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="black" text-color="white" icon="camera" />
+        </q-item-section>
+        <q-item-section>
+          <div>Hình ảnh trọ</div>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="goto('roomTypeImgsInfor')">
+        <q-item-section top avatar>
+          <q-avatar color="black" text-color="white" icon="camera" />
+        </q-item-section>
+        <q-item-section>
+          <div>Hình ảnh phòng</div>
+        </q-item-section>
+      </q-item>
+    </q-drawer>
+    <div class="col-11">
+      <q-card-actions align="left">
+        <q-btn rounded icon="menu" @click="drawerLeft = !drawerLeft" />
+      </q-card-actions>
       <div class="full-width" v-if="motel">
-        <q-card class="my-card">
-          <q-card-section class="text-h6 text-center ">
+        <q-card class="my-card g-border" id="motelInfor">
+          <q-card-section class="text-h6">
             <div>
               <q-icon name="holiday_village" style="font-size: 30px" />
-              Trọ
+              Thông tin trọ
             </div>
           </q-card-section>
           <q-card-section
@@ -28,75 +89,81 @@
                 {{ motel.phone_number }}
               </div>
             </div>
-            <div class="col-12"><br></div>
+            <div class="col-12"><br /></div>
             <div class="col-12 row items-center mr">
-              <div class="col-4">
+              <div class="col-4 text-bold">
                 {{ motel.camera == 1 ? "Camera: có" : "Camera: không" }}
               </div>
+              <div class="col-4"><b>Nơi để xe máy:</b> {{ motel.parking }}</div>
               <div class="col-4">
-                 <b>Nơi để xe máy:</b>   {{ motel.parking }}
-              </div>
-              <div class="col-4">
-                 Giờ đóng mở cổng:
-                  {{ motel.open }}h - {{ motel.closed }}h
+                <b>Giờ đóng mở cổng:</b>
+                {{ motel.open }}h - {{ motel.closed }}h
               </div>
             </div>
             <div class="col-12 row items-center mr">
               <div class="col-4">
-                Giá điện:
-                 {{ motel.elec_cost }} Vnd/kwh
+                <b>Giá điện:</b>
+                {{ motel.elec_cost }} Vnd/kwh
               </div>
               <div class="col-4">
-                 Giá Nước: {{ motel.water_cost }} Vnd/m3
+                <b>Giá Nước:</b> {{ motel.water_cost }} Vnd/m3
               </div>
               <div class="col-4">
-                 Phụ thu theo người: {{ motel.people_cost }} Vnd/m3
+                <b>Phụ thu theo người:</b> {{ motel.people_cost }} Vnd/m3
               </div>
             </div>
           </q-card-section>
         </q-card>
         <div><br /></div>
-        <q-card class="my-card">
-          <q-card-section class="text-h6 text-center ">
+        <q-card class="my-card g-border" id="userInfor">
+          <q-card-section class="text-h6">
             <div>
               <q-icon name="person" style="font-size: 30px" />
-              Chủ trọ
+              Thông tin chủ trọ
             </div>
           </q-card-section>
-          <q-card-section
-            class="row items-center contents-start size-word"
-          >
+          <q-card-section class="row items-center contents-start size-word">
             <div class="col-4">
               <div class="col-12">
-                <q-icon name="email" class="text-positive size-icon" />:
-                <b>Email:</b> {{ motel.user.email }}
+                <q-icon name="email" class="text-positive size-icon" />
+                {{ motel.user.email }}
               </div>
             </div>
             <div class="col-4 g-header-up">
-
-                <q-icon name="face" class="text-positive size-icon" />:
-                {{ motel.user.name }}
+              <q-icon name="face" class="text-positive size-icon" />
+              {{ motel.user.name }}
             </div>
             <div class="col-12"></div>
             <div class="col-4 row items-center mr">
               <div>
-                <q-icon name="room" class="text-positive size-icon" />:
+                <q-icon name="room" class="text-positive size-icon" />
                 {{ motel.user.address }}
               </div>
             </div>
             <div class="col-6 row items-center mr">
               <div class="col-4">
-                <q-icon name="phone" class="text-positive size-icon" />:
+                <q-icon name="phone" class="text-positive size-icon" />
                 {{ motel.user.phone_number }}
               </div>
             </div>
           </q-card-section>
         </q-card>
         <div><br /></div>
-        <q-card class="my-card">
-          <q-card-section class="text-h6 text-center ">
+        <q-card class="my-card g-border" id="locationInfor">
+          <q-card-section class="text-h6">
+            <q-icon name="room" style="font-size: 30px" />
+            Vị Trí trọ
+          </q-card-section>
+          <q-card-section>
+            <motel-location></motel-location>
+            <search-show-map :center="center"></search-show-map>
+          </q-card-section>
+        </q-card>
+        <div><br /></div>
+        <q-card class="my-card g-border" id="roomTypeInfor">
+          <q-card-section class="text-h6">
             <q-icon name="maps_home_work" style="font-size: 30px" />
-            Loại phòng
+            Danh sách loại phòng
           </q-card-section>
           <q-card-section>
             <admin-motel-room-type-detail
@@ -105,40 +172,26 @@
             ></admin-motel-room-type-detail>
           </q-card-section>
         </q-card>
-
         <div><br /></div>
-        <q-card class="my-card">
-          <q-card-section class="text-h6 ">
+        <q-card class="my-card g-border" id="motelImgsInfor">
+          <q-card-section class="text-h6">
             <q-icon name="home" style="font-size: 30px" />
-            Trọ
+            Hình ảnh chung trọ
           </q-card-section>
           <q-card-section>
             <admin-public-infor :publicImgs="publicImgs"></admin-public-infor>
           </q-card-section>
         </q-card>
-
         <div><br /></div>
-        <q-card class="my-card">
-          <q-card-section class="text-h6 text-center ">
+        <q-card class="my-card g-border" id="roomTypeImgsInfor">
+          <q-card-section class="text-h6">
             <q-icon name="camera" style="font-size: 30px" />
-            Loại phòng
+            Hình ảnh loại phòng
           </q-card-section>
           <q-card-section>
             <admin-room-type-infor
               :roomTypes="roomTypeImgs"
             ></admin-room-type-infor>
-          </q-card-section>
-        </q-card>
-
-        <div><br /></div>
-        <q-card class="my-card">
-          <q-card-section class="text-h6 ">
-            <q-icon name="room" style="font-size: 30px" />
-            Vị Trí
-          </q-card-section>
-          <q-card-section>
-            <motel-location></motel-location>
-            <search-show-map :center="center"></search-show-map>
           </q-card-section>
         </q-card>
         <div><br /></div>
@@ -152,7 +205,6 @@
               label="Trở về "
               @click="$router.go(-1)"
             />
-
             <q-btn
               no-caps
               rounded
@@ -179,14 +231,14 @@
       <q-dialog v-model="isDelete">
         <q-card>
           <q-card-section class="bg-negative text-white text-h6 text-center">
-            bạn có muốn xóa trọ vĩnh viễn
+            Bạn có muốn xóa trọ vĩnh viễn
           </q-card-section>
           <q-card-section class="text-center">
-            xóa trọ , phòng , bài viết và đưa các user đang ở ra khỏi trọ , khi
+            Xóa trọ , phòng , bài viết và đưa các user đang ở ra khỏi trọ , khi
             đồng ý sẽ không thể quay lại ?
           </q-card-section>
           <q-card-section class="row items-center justify-center">
-            <div>gõ YES để xác nhận :</div>
+            <div>Gõ YES để xác nhận :</div>
             <q-input style="width: 30%" v-model="textDeleteYes" type="text" />
           </q-card-section>
           <q-card-actions align="right">
@@ -194,7 +246,8 @@
             <q-btn
               v-if="isDeleteYes"
               flat
-              label=" xác nhận"
+              label=" Xác nhận"
+              no-caps
               color="primary"
               v-close-popup
               @click="deleteMotel()"
@@ -212,11 +265,11 @@
             <b> {{ thisUser.name }} </b> Ra khỏi trọ không
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label=" thoát" color="primary" v-close-popup />
+            <q-btn no-caps flat label="Thoát" color="primary" v-close-popup />
             <q-btn
               flat
               no-caps
-              label=" Đồng ý "
+              label="Đồng ý "
               color="primary"
               v-close-popup
               @click="outRoom()"
@@ -284,6 +337,7 @@ export default {
   },
   data() {
     return {
+      drawerLeft: true,
       motelId: this.$route.params.motelId,
       motel: null,
       publicImgs: null,
@@ -295,7 +349,7 @@ export default {
       thisUser: null,
       isDeleteYes: false,
       textDeleteYes: "",
-      center: null ,
+      center: null,
     };
   },
   components: {
@@ -304,7 +358,7 @@ export default {
     AdminRoomTypeInfor,
     AdminPublicInfor,
     MotelLocation,
-    SearchShowMap
+    SearchShowMap,
   },
   watch: {
     textDeleteYes(newVal) {
@@ -340,6 +394,12 @@ export default {
         this.roomTypeImgs = res.roomTypeImgs;
       }
       return;
+    },
+    goto(refs1) {
+      console.log(refs1);
+      const eleId = document.getElementById(refs1);
+      var top2 = eleId.offsetTop;
+      window.scrollTo({ top: top2, behavior: "smooth" });
     },
   },
 };

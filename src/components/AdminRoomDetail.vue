@@ -1,9 +1,9 @@
 <template>
   <div>
-    <q-card class="my-card">
-      <q-card-section class="text-subtitle2 ">
+    <q-card class="my-card g-border">
+      <q-card-section class="text-subtitle2">
         <q-icon name="store" class="size-icon" />
-         Phòng: {{room.name  }}
+        Phòng: {{ room.name }}
       </q-card-section>
       <q-card-section>
         <q-card
@@ -11,14 +11,33 @@
           v-for="(user, index) in room.tenant.tenant_users"
           :key="index"
         >
-          <q-card-section class="row items-center justify-around">
-            <div class="g-header-up"> <q-icon name="person" class="text-positive size-icon" />- {{user.user.id}}-{{user.user.name}} </div>
-            <div class=""> <q-icon name="drafts" class="text-positive size-icon" />- {{ user.user.email}} </div>
-            <div class=""> <q-icon name="phone" class="text-positive size-icon" />- {{ user.user.phone_number}} </div>
-            <div>
-              <q-btn falt color="negative" icon="delete" class="g-header" rounded label="Cho ra" @click="$emit('openIsOutRoom',user.user)" />
+          <q-card-section class="row items-center">
+            <div class="col-6 ">
+              <q-icon name="person" class="text-positive size-icon q-pr-sm" />
+              <div class="g-header-up" style="display:inline"> {{
+                user.user.name
+              }}</div>
+            </div>
+            <div class="col-6">
+              <q-icon name="drafts" class="text-positive size-icon" />
+              {{ user.user.email }}
+            </div>
+            <div class="col-6">
+              <q-icon name="phone" class="text-positive size-icon" />
+              {{ user.user.phone_number }}
             </div>
           </q-card-section>
+          <q-card-actions align="right">
+            <q-btn
+              falt
+              color="negative"
+              icon="delete"
+              class="g-header"
+              rounded
+              label="Cho ra"
+              @click="$emit('openIsOutRoom', user.user)"
+            />
+          </q-card-actions>
         </q-card>
       </q-card-section>
     </q-card>

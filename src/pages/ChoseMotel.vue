@@ -83,17 +83,25 @@
         <q-card v-if="thisMotel">
           <q-card-section class="row items-center">
             <q-avatar
-              icon="signal_wifi_off"
-              color="primary"
+              icon="delete"
+              color="black"
               text-color="white"
             />
             <span class="q-ml-sm"
-              >You are currently not connected to any network.</span
+              > Bạn có muốn xóa vĩnh viễn trọ {{thisMotel.name}}</span
             >
           </q-card-section>
+          <q-card-section>
+            <div> Điều kiện xóa trọ: </div>
+            <div> Tất cả các phòng đều không có người ở  </div>
+            <div>khi xóa : tất cả dữ liệu từ trước đến nay đều sẽ bị xóa .</div>
+            <div>Vui lòng gỏ vào ô xác nhận là: </div>
+            <div class="text-negative text-center"> {{thisMotel.name  }} </div>
+            <q-input v-model="checkMotelName" type="text" label=" Nhập vào chuỗi kí tự"/>
+          </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="primary" v-close-popup />
-            <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
+            <q-btn flat label=" Thoát" color="dark" v-close-popup />
+            <q-btn flat label=" Xóa" color="negative" v-if="isBtnDelete" v-close-popup />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -144,7 +152,20 @@ export default {
       isDelete: false,
       thisMotel: null,
       isCreate: false,
+      checkMotelName: '' ,
+      isBtnDelete: false,
     };
+  },
+  watch: {
+    checkMotelName(n_val , o_val) {
+      console.log(n_val);
+      console.log(this.thisMotel.name) ;
+      if(n_val == this.thisMotel.name){
+        this.isBtnDelete = true ;
+      } else {
+        this.isBtnDelete = false ;
+      }
+    }
   },
   async created() {
     const resMotels = await motelApi.getMotels();

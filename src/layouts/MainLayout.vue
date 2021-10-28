@@ -55,7 +55,7 @@
             <q-btn
               class="col-10 pd font-header bg-white text-black"
               rounded
-              icon="home_work"
+              icon="apartment"
               @click="loginModalMotel = true"
             >
               <div class="gt-sm text-bold text-indent">Quản lý trọ</div>
@@ -67,7 +67,7 @@
           >
             <q-btn
               class="col-10 pd font-header bg-white   text-black"
-              icon="home_work"
+              icon="apartment"
               rounded
               @click="openModal(1)"
             >
@@ -122,8 +122,8 @@
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
-            <router-link class="lr lgs" to="/login"> Đăng nhập</router-link>
-            <router-link class="lr rg" to="/userRegister"> Đăng ký</router-link>
+            <router-link class="lr lgs g-border" to="/login"> Đăng nhập</router-link>
+            <router-link class="lr rg g-border" to="/userRegister"> Đăng ký</router-link>
           </div>
         </q-card-actions>
         <q-card-actions vertical align="center">

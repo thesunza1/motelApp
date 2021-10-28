@@ -1,9 +1,11 @@
 <template>
   <div class="full-width">
+    <hr>
     <div class="row full-width items_center justify-center">
-      <div class="col-12 text-h6 text-positive">bình luận</div>
+      <div class="col-12 text-h5">Bình luận:</div>
       <div class="col-12 row justify-end">
         <q-btn
+          rounded
           color="primary"
           icon="add"
           class="g-header"
@@ -14,7 +16,7 @@
       <div class="col-12"><br /></div>
       <div class="col-11 row items-center">
         <div class="col-12" v-for="(comment, index) in comments" :key="index">
-          <q-card class="my-card">
+          <q-card class="my-card g-border">
             <q-card-section class="row items-center">
               <div class="col-12 row justify-end">
                 <q-chip icon="directions" :label="todate(comment.updated_at)" />
@@ -30,17 +32,17 @@
         <q-pagination v-model="pageNum" :max="max_page" color="accent" />
       </div>
     </div>
-    <q-dialog v-model="isCreate" persistent>
-      <q-card style="min-width: 60%">
+    <q-dialog v-model="isCreate" >
+      <q-card style="min-width: 60%" class="g-border">
         <q-card-section class="row items-center bg-primary">
           <div class="col-12 text-center text-h6 text-white">Tạo bình luận</div>
         </q-card-section>
         <q-card-section class="row items-center justify-center">
           <div class="col-12">Mời bạn nhập bình luận</div>
           <div class="col-12"><br /></div>
-          <div class="col-11">
+          <div class="col-11 g-border bg-blue-1 shadow-1">
             <q-form @submit="createComment()">
-              <q-editor v-model="content" min-height="5rem" flat />
+              <q-editor class="bg-blue-1" v-model="content" min-height="5rem" flat />
               <q-card-actions align="right">
                 <q-btn
                   flat

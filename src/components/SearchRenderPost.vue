@@ -23,14 +23,14 @@
           </q-card-section>
 
           <q-card-section style="max-width: 80%" class="row">
-            <div class="col-12 text-blue text-subtitle2">
-              <q-icon name="home" style="font-size: 30px" />
+            <div class="col-12 text-subtitle2">
+              <q-icon name="home" class=" text-blue" style="font-size: 30px" />
               {{ post.room_type.name }} - {{ post.title }} -
               {{ post.room_type.motel.name }}
             </div>
             <div class="col-12 row items-center">
-              <div class="text-green text-subtitle2 col-6 col-md-2">
-                <q-icon name="monetization_on" style="font-size: 30px" />
+              <div class=" text-subtitle2 col-6 col-md-2">
+                <q-icon class="text-green" name="monetization_on" style="font-size: 30px" />
                 {{ toCost(post.room_type.cost) }} nghìn Vnd/Th
               </div>
               <div class="gt-sm col-md-1 text-center">
@@ -53,7 +53,7 @@
             </div>
             <div class="col-12">
               <q-chip
-                color="teal"
+                color="black"
                 text-color="white"
                 icon="bookmark"
                 class="g-header-up"
@@ -63,12 +63,12 @@
           </q-card-section>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn icon="near_me" color="primary" class="g-header">
+          <q-btn icon="arrow_forward" color="primary" no-caps rounded class="g-header">
             <router-link
               :to="{ name: 'searchDetail', params: { post_id: post.id } }"
               style="text-decoration: none; color: white"
             >
-                Đi tới
+               Xem bài
             </router-link>
           </q-btn>
         </q-card-actions>
@@ -95,14 +95,14 @@
           </q-card-section>
 
           <q-card-section style="max-width: 80%" class="row">
-            <div class="col-12 text-blue text-subtitle2">
-              <q-icon name="home" style="font-size: 30px" />
+            <div class="col-12 text-subtitle2">
+              <q-icon name="home" class=" text-blue" style="font-size: 30px" />
               {{ post.room.room_type.name }} - {{ post.title }} -
               {{ post.room.room_type.motel.name }}
             </div>
             <div class="col-12 row items-center">
-              <div class="text-green text-subtitle2 col-6 col-md-2">
-                <q-icon name="monetization_on" style="font-size: 30px" />
+              <div class=" text-subtitle2 col-6 col-md-2">
+                <q-icon  class="text-green" name="monetization_on" style="font-size: 30px" />
                 {{ toCost(post.room.room_type.cost) }} Nghìn Vnd/th
               </div>
               <div class="col-1 gt-sm text-center">
@@ -125,7 +125,7 @@
             </div>
             <div class="col-12">
               <q-chip
-                color="teal"
+                color="black"
                 text-color="white"
                 icon="bookmark"
                 class="g-header-up"
@@ -135,12 +135,12 @@
           </q-card-section>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn icon="near_me" color="primary" class="g-header">
+          <q-btn icon="arrow_forward" color="primary" no-caps rounded class="g-header">
             <router-link
               :to="{ name: 'searchDetail', params: { post_id: post.id } }"
               style="text-decoration: none; color: white"
             >
-               Đi tới</router-link
+               Xem bài</router-link
             >
           </q-btn>
         </q-card-actions>
