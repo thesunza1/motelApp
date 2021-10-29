@@ -121,11 +121,11 @@
                   <div class="col-md-8 col-12 row items-center justify-center">
                     <div>
                       <b> Tổng Điện: </b>{{ bill.elec_end - bill.elec_begin }} *
-                      {{ bill.elec_cost }}
+                      {{ toNum(bill.elec_cost) }}
                     </div>
                     <div>
                       =
-                      {{ (bill.elec_end - bill.elec_begin) * bill.elec_cost }}
+                      {{ toNum((bill.elec_end - bill.elec_begin) * bill.elec_cost) }}
                       Vnd
                     </div>
                   </div>
@@ -160,12 +160,12 @@
                     <div>
                       <b>Tổng nước:</b>
                       {{ bill.water_end - bill.water_begin }} *
-                      {{ bill.water_cost }} Vnd
+                      {{ toNum(bill.water_cost) }} Vnd
                     </div>
                     <div>
                       =
                       {{
-                        (bill.water_end - bill.water_begin) * bill.water_cost
+                         toNum((bill.water_end - bill.water_begin) * bill.water_cost)
                       }}
                     </div>
                   </div>
@@ -175,20 +175,20 @@
                   </div>
                   <div class="col-12 row justify-center items-center">
                     <div class="col-12 text-right">
-                      <b> Phụ thu:</b> {{ bill.people_cost }} Vnd
+                      <b> Phụ thu:</b> {{ toNum(bill.people_cost) }} Vnd
                     </div>
                     <div class="col-12"><br /></div>
                     <div class="col-12 text-right">
-                      <b> Tiền trọ:</b> {{ bill.cost }} Vnd
+                      <b> Tiền trọ:</b> {{ toNum(bill.cost) }} Vnd
                     </div>
                     <div class="col-12"><br /></div>
                     <div class="col-12 text-right">
                       <b> Tổng phải trả:</b>
                       {{
-                        bill.cost +
-                        bill.people_cost +
-                        (bill.water_end - bill.water_begin) * bill.water_cost +
-                        (bill.elec_end - bill.elec_begin) * bill.elec_cost
+                        toNum((bill.cost) +
+                        (bill.people_cost) +
+                        (bill.water_end - bill.water_begin) * (bill.water_cost) +
+                        (bill.elec_end - bill.elec_begin) * (bill.elec_cost))
                       }}
                       Vnd
                     </div>
@@ -278,7 +278,9 @@
         <q-btn
           color="primary"
           icon="add"
-          label=" tạo cả trọ"
+          rounded
+          no-caps
+          label=" Tạo cả trọ"
           @click="createAllBill"
         />
       </div>
@@ -286,7 +288,9 @@
         <q-btn
           color="primary"
           icon="add"
-          label=" tạo theo phòng"
+          rounded
+          no-caps
+          label=" Tạo theo phòng"
           @click="isRoomBill = true"
           style="margin-left: 7px"
         />
@@ -416,6 +420,9 @@ export default {
     numBill(bills, status) {
       return sp.numBill(bills, status);
     },
+    toNum(num) {
+      return sp.toNum(num);
+    }
   },
   async created() {
     try {
@@ -425,6 +432,7 @@ export default {
       }
     } catch (error) {}
   },
+
 };
 </script>
 

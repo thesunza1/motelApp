@@ -34,7 +34,7 @@
           </q-btn>
         </q-card-actions>
       </div>
-      <q-table
+      <!-- <q-table
         class="my-header-table"
         title=" Danh sách trọ"
         :rows="motels"
@@ -43,7 +43,36 @@
         selection="single"
         v-model:selected="thisMotel"
         :pagination="pagination"
-      />
+      >
+
+      </q-table> -->
+      <q-table
+        title=" Danh sách trọ"
+        :rows="motels"
+        :columns="columns"
+        row-key="name"
+        selection="single"
+        v-model:selected="thisMotel"
+      >
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th v-for="col in props.cols" :key="col.name" :props="props">
+              {{ col.label }}
+            </q-th>
+          </q-tr>
+        </template>
+        <template v-slot:body="props">
+          <q-tr
+            class="cursor-pointer"
+            :props="props"
+            @click="props.selected = !props.selected"
+          >
+            <q-td v-for="col in props.cols" :key="col.name" :props="props">
+              {{ col.value }}
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
       <q-footer
         class="q-py-md bg-white row items-center justify-center full-width"
         elevated
@@ -197,7 +226,7 @@ export default {
     }
     function noti(statusCode) {
       if (statusCode == 1) {
-        this.showNoti("thành công", "primary");
+        this.showNoti("Thành công", "primary");
       } else if (statusCode == 2) {
         this.showNoti(" Không tìm thấy trọ", "dark");
       } else {
@@ -228,7 +257,7 @@ export default {
           name: "name",
           label: " Tên trọ",
           field: "name",
-          classes:"g-header-up",
+          classes: "g-header-up",
           sortable: true,
           align: "left",
         },
@@ -254,7 +283,7 @@ export default {
         {
           name: "name",
           label: " Tên chủ",
-          classes:"g-header-up",
+          classes: "g-header-up",
           field: (row) => row.user.name,
           align: "left",
         },
@@ -287,6 +316,9 @@ export default {
         this.noti(0);
       }
     },
+    toDetail(sd) {
+      console.log(sd);
+    }
   },
   watch: {
     numPage(newVal) {

@@ -17,6 +17,7 @@
 
 <script>
 import noti from "../boot/callApi/noti";
+import notiShow from "../boot/noti/noti";
 import { mapGetters } from "vuex";
 export default {
 
@@ -53,10 +54,10 @@ export default {
           this.content,
         );
         if (res.statusCode == 1) {
-          noti.showNoti("thành công:", "positive");
+          notiShow.showNoti("thành công:", "positive");
         }
       } else {
-        noti.showNoti(" bạn cần phải đăng nhập", "negative");
+        notiShow.showNoti(" bạn cần phải đăng nhập", "negative");
       }
     },
   },

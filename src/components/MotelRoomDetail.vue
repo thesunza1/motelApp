@@ -16,9 +16,9 @@
       </q-card-section>
       <br>
       <q-card-section class="row items-center  col-md-6 col-12  ">
-        <div class="col-6 col-md-3"> <b> Điện</b>: {{roomTypeUser.motel.elec_cost}} kwh</div>
-        <div class="col-12 col-md-3"> <b>Nước</b>: {{roomTypeUser.motel.water_cost}} kwh</div>
-        <div class="col-12 col-md-6"> <b> Phụ thu</b>: {{roomTypeUser.motel.people_cost}} Vnd</div>
+        <div class="col-6 col-md-3"> <b> Điện</b>: {{ toNum(roomTypeUser.motel.elec_cost)}} kwh</div>
+        <div class="col-12 col-md-3"> <b>Nước</b>: {{ toNum(roomTypeUser.motel.water_cost)}} kwh</div>
+        <div class="col-12 col-md-6"> <b> Phụ thu</b>: {{ toNum(roomTypeUser.motel.people_cost)}} Vnd</div>
       </q-card-section>
       <br>
       <q-card-section class="row items-center   col-md-6 col-12 ">
@@ -33,6 +33,7 @@
 
 <script>
 import {mapGetters} from  'vuex'
+import sp from '../boot/support';
 export default {
   setup() {
 
@@ -41,6 +42,11 @@ export default {
     ...mapGetters('RoomTypeUser', ['roomTypeUser'])  ,
 
   },
+  methods:{
+    toNum(num){
+      return sp.toNum(num);
+    }
+  }
 
 }
 </script>

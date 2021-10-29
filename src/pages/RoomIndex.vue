@@ -5,6 +5,7 @@
       v-model="drawLeft"
       bordered
       :width="400"
+      :breakpoint="300"
       content-class="bg-grey-3"
     >
       <br />
@@ -58,7 +59,7 @@
       </q-item>
     </q-drawer>
     <div class="col-12">
-      <q-btn color="primary" icon="menu" @click="drawLeft = !drawLeft" />
+      <q-btn color="primary" class="gt-sm" icon="menu" @click="drawLeft = !drawLeft" />
     </div>
     <div class="row full-width items-center justify-center">
       <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-10">
@@ -86,17 +87,17 @@
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
-              <b>Giá phòng:</b> {{ roomTypeUser.cost }} Vnd
+              <b>Giá phòng:</b> {{ toNum(roomTypeUser.cost) }} Vnd
             </div>
             <div class="col-md-3 col-6 text-center">
-              <b>Phụ thu :</b> {{ roomTypeUser.motel.people_cost }} Vnd
+              <b>Phụ thu :</b> {{ toNum(roomTypeUser.motel.people_cost) }} Vnd
             </div>
             <div class="lt-sm col-12"><br /></div>
             <div class="col-md-3 col-6 text-left">
-              <b>Giá điện:</b> {{ roomTypeUser.motel.elec_cost }} Vnd
+              <b>Giá điện:</b> {{ toNum(roomTypeUser.motel.elec_cost) }} Vnd
             </div>
             <div class="col-md-3 col-6 text-center">
-              <b>Giá nước :</b> {{ roomTypeUser.motel.water_cost }} Vnd
+              <b>Giá nước :</b> {{ toNum(roomTypeUser.motel.water_cost) }} Vnd
             </div>
             <div class="col-12"><br /></div>
           </q-card-section>
@@ -434,6 +435,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { useQuasar } from "quasar";
+import sp from '../boot/support';
 export default {
   setup() {
     const $q = useQuasar();
@@ -458,6 +460,9 @@ export default {
   methods: {
     getDate(date) {
       return date.substring(0, 10);
+    },
+    toNum(num) {
+      return sp.toNum(num);
     },
     addRowEquip() {
       this.room_equips.push({ id: "", tenant_id: "", name: "", content: "" });
@@ -584,7 +589,7 @@ export default {
       posts: null,
       infoShare: null,
       isOut: false,
-      drawLeft: true,
+      drawLeft: false,
     };
   },
   async created() {

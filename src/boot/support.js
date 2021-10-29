@@ -43,9 +43,15 @@ function toSex(sex) {
   else if (sex == 1) return "nữ";
   return "";
 }
+
+function toNum(num) {
+  num = Number(num);
+  return num.toLocaleString('it-IT');
+}
 export default {
   length,
   numRoom,
   toSex,
   numBill,
+  toNum,
 };

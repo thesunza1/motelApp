@@ -40,7 +40,7 @@
                 {{ bill.elec_cost }}
               </div>
               <div>
-                = {{ (bill.elec_end - bill.elec_begin) * bill.elec_cost }} Vnd
+                = {{ toNum( (bill.elec_end - bill.elec_begin) * (bill.elec_cost) )}} Vnd
               </div>
             </div>
             <div class="col-12"><br /></div>
@@ -52,11 +52,11 @@
             </div>
             <div class="col-12 col-md-8 row items-center justify-center">
               <div>
-                <b>Tổng:</b> {{ bill.water_end - bill.water_begin }} *
-                {{ bill.water_cost }}
+                <b>Tổng:</b> {{  bill.water_end - bill.water_begin }} *
+                {{ toNum(bill.water_cost )}}
               </div>
               <div class="text-subtitle2">
-                = {{ (bill.water_end - bill.water_begin) * bill.water_cost }} Vnd
+                = {{ toNum( (bill.water_end - bill.water_begin) * bill.water_cost )}} Vnd
               </div>
             </div>
             <div class="col-12">
@@ -65,11 +65,11 @@
             <div class="col-12"><br /></div>
             <div class="col-12 row justify-end items-center">
               <div class=" text-subtitle2">
-               Phụ thu: {{ bill.people_cost }} Vnd
+               Phụ thu: {{ toNum(bill.people_cost) }} Vnd
               </div>
               <div class="col-12"></div>
               <div class=" text-subtitle2">
-                Tiền trọ: {{ bill.cost }} Vnd
+                Tiền trọ: {{ toNum(bill.cost) }} Vnd
               </div>
               <div class="col-12"><br /></div>
               <div class="gt-sm col-6"></div>
@@ -79,10 +79,11 @@
             <div class="col-md-4 col-8 bg-accent text-white text-center text-subtitle2" style="padding:5px 0px;border-radius:3px">
               Tổng phải trả:
               {{
+                toNum(
                 bill.cost +
                 bill.people_cost +
                 (bill.water_end - bill.water_begin) * bill.water_cost +
-                (bill.elec_end - bill.elec_begin) * bill.elec_cost
+                (bill.elec_end - bill.elec_begin) * bill.elec_cost)
               }} Vnd
             </div>
           </q-card-section>
@@ -211,6 +212,9 @@ export default {
     },
     numBill( status) {
       return sp.numBill(this.bills , status);
+    },
+    toNum(num){
+      return sp.toNum(num);
     }
   }
 };

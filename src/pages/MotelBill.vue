@@ -8,7 +8,7 @@
     </div>
     <div class="col-12"><br /></div>
     <div class="col-12">
-      <q-btn class="g-header" outline color="primary" label="Gửi thông báo toàn trọ" @click="isSended = true " />
+      <q-btn class="g-header" rounded  outline color="primary" label="Gửi thông báo toàn trọ" @click="isSended = true " />
     </div>
     <div class="col-12"><br></div>
     <div class="col-12 row fscr">
@@ -34,6 +34,7 @@ import { mapGetters } from "vuex";
 import MotelBillRoomRender from "components/MotelBillRoomRender.vue";
 import motelApi from "../boot/callApi/motel";
 import noti from "../boot/noti/noti";
+import sp from "../boot/support"
 export default {
   components: {
     MotelBillRoomRender,
@@ -53,6 +54,9 @@ export default {
       if(sended.statusCode == 1 ){
         noti.showNoti('thành công','positive');
       }
+    },
+    toNum(num) {
+      return sp.toNum(num) ;
     }
   }
 };

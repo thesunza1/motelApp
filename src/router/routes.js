@@ -91,11 +91,11 @@ const routes = [
     component: RoomLayout,
     children: [
       { path: "/roomAll", component: RoomIndex },
-      { path: "/roomNoti", component: Noti },
+      { path: "/roomNoti", name:'roomNoti', component: Noti },
       { path: "/roomBills", component: RoomBills },
       { path: "/roomShare", component: RoomShare },
       { path: "/roomDetailAccount", component: DetailAccount },
-      { path: "/roomOutbox", component: NotiOutbox },
+      { path: "/roomOutbox" ,name: 'roomOutbox', component: NotiOutbox },
     ],
   },
   {

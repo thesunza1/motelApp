@@ -338,7 +338,7 @@
                   <div class="col-12 row justify-center">
                     <!-- <mulity-img v-model:imgs="motelImgs[index].imgs"></mulity-img> -->
                     <div class="col-12 row justify-center">
-                      <mulity-img  v-model:imgs="imgs"> </mulity-img>
+                      <mulity-img v-model:imgs="imgs"> </mulity-img>
                     </div>
                     <div class="col-12">
                       <q-card-actions align="right">
@@ -357,7 +357,7 @@
                     >
                       <motel-show-imgs
                         class="col-12"
-                        style="height : 200px "
+                        style="height: 200px"
                         :img_details="motelImg.img_details"
                       ></motel-show-imgs>
                     </div>
@@ -434,7 +434,7 @@
                           icon="delete"
                           label=" Xóa vĩnh viễn"
                           class="g-header-up"
-                          @click="deleteRoomType(roomType.id, index)"
+                          @click="deleteRoomTypeDialog(roomType, index)"
                         />
                       </div>
                     </div>
@@ -551,7 +551,7 @@
       </div>
     </div>
     <q-dialog v-model="isCreate">
-      <q-card class=" g-border" style="min-width: 90%">
+      <q-card class="g-border" style="min-width: 90%">
         <q-card-section class="row items-center bg-primary">
           <div class="col-12 text-center text-white">Tạo loại phòng</div>
         </q-card-section>
@@ -643,6 +643,24 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="isDeRoomType" persistent>
+      <q-card style="min-width: 50%"  v-if="thisRoomType">
+        <q-card-section class="row text-primary items-center justify-center">
+          <q-avatar icon="delete" color="black" text-color="white" />
+          <span class="q-ml-sm text-h6 "
+            > Bạn có muốn xóa loại phòng : {{thisRoomType.name}} không?</span
+          >
+        </q-card-section>
+        <q-card-section class="text-center">
+          <div>Điều kiện xóa : tất cả các phòng đều không có người. </div>
+          <div>Các dữ liệu về hình ảnh , và hóa đơn các phòng sẽ điều bị xóa .</div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label=" Thoát" no-caps color="negative" v-close-popup />
+          <q-btn flat label=" Xóa" no-caps color="primary" v-close-popup @click="deleteRoomType()" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -659,7 +677,7 @@ export default {
     const isCreate = ref(false);
     const drawerLeft = ref(true);
     const isOp = ref(true);
-    const isop = ref(true);
+    const isop = ref(false);
     const $q = useQuasar();
     function showNoti(mess, col) {
       $q.notify({
@@ -704,6 +722,9 @@ export default {
       },
       numRoom: 0,
       motelId: this.$route.params.motelId,
+      thisRoomType: null,
+      thisRoomTypeIndex: null,
+      isDeRoomType: false,
     };
   },
   watch: {
@@ -856,18 +877,23 @@ export default {
         }
       }
     },
-    async deleteRoomType(roomTypeId, index) {
-      const res = await roomType.deleteRoomType(roomTypeId);
+    async deleteRoomTypeDialog(roomType, index) {
+      this.thisRoomType = roomType ;
+      this.thisRoomTypeIndex= index;
+      this.isDeRoomType = true ;
+    },
+    async deleteRoomType() {
+      const res = await roomType.deleteRoomType(this.thisRoomType.id);
 
       if (res.statusCode == 1) {
         this.showNoti("Thành công", "positive");
-        this.roomTypeImgs.splice(index, 1);
-        console.log(index);
-        // this.updateRoomTypeImg() ;
+        this.roomTypeImgs.splice(this.thisRoomTypeIndex, 1);
+        console.log(this.thisRoomTypeIndex);
       } else {
-        this.showNoti(" Thất bại", "negative");
+        this.showNoti(" Thất bại do còn phòng còn người ", "negative");
       }
-    },
+
+    }
   },
 };
 </script>
