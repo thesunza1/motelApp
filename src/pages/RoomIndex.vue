@@ -134,8 +134,8 @@
               <div class="col-12"><br /></div>
               <div class="col-4 text-bold">Tên thiết bị</div>
               <div class="col-4 text-bold">Trạng thái</div>
-              <div class="col-2 text-bold">Hình</div>
-              <div class="col-2"></div>
+              <div class="col-2 text-bold">Hình ảnh</div>
+              <div class="col-2 text-bold">Xóa</div>
               <div class="col-12">
                 <hr />
               </div>
@@ -163,7 +163,22 @@
                     outlined
                   />
                 </div>
-                <div class="col-2">Hình ảnh</div>
+                <div class="col-2">
+                  <q-card-actions align="center">
+                    <q-btn flat label="Xem" no-caps />
+                    <q-uploader
+                      :url="`${baseUrlUpload}`"
+                      color="teal"
+                      flat
+                      bordered
+                      batch
+                      multiple
+                      max-files="3"
+                      :form-fields="[{name: 'tenantRoomEquipId' , value: room_equip.id}]"
+                      style="max-width: 300px"
+                    />
+                  </q-card-actions>
+                </div>
                 <div class="col-2 row justify-end">
                   <q-btn
                     rounded
@@ -590,6 +605,7 @@ export default {
       infoShare: null,
       isOut: false,
       drawLeft: false,
+      baseUrlUpload: this.$api.defaults.baseURL+ '/uploadImgTenantRoomEquip/',
     };
   },
   async created() {
