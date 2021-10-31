@@ -16,11 +16,11 @@
         class="col-12 bg-white"
       >
         <br>
-        <div class="col-12 row items-center">
+        <div class="col-12 row items-start">
           <div
             v-for="(room, index) in roomType.rooms"
             :key="index"
-            class="col-4 col-md-3 row justify-center items-center"
+            class="col-4 col-md-3 row justify-center items-start content-start"
           >
             <q-card
               class="my-card col-11"
@@ -86,15 +86,15 @@
         <q-card-section v-if="thisRoom.room_status_id == 1">
           Phòng trống
         </q-card-section>
-        <q-card-section v-if="thisRoom.room_status_id == 2">
+        <q-card-section class="row items-center justify-center content-start" v-if="thisRoom.room_status_id == 2">
           <q-card
             v-for="(user, index) in thisRoom.tenant.infor_tenant_users"
             :key="index"
-            class="my-card"
-            style="margin-bottom: 10px"
+            class="my-card col-12 col-md-5  "
+            style="margin-bottom: 10px ; margin-right: 10px"
           >
-            <q-card-section class="row items-center">
-              <div class="col-12 text-subtitle2">
+            <q-card-section class="  row items-center">
+              <div class="col-12  text-subtitle2">
                 Tên: {{ user.user.name }}
               </div>
               <div class="col-12">Email: {{user.user.email}}</div>

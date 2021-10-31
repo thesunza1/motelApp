@@ -11,7 +11,7 @@
       <br />
       <q-item clickable @click="goto('infor')">
         <q-item-section top avatar>
-          <q-avatar color="primary" text-color="white" icon="home" />
+          <q-avatar color="black" text-color="white" icon="home" />
         </q-item-section>
         <q-item-section>
           <q-item-label> Chi tiết phòng</q-item-label>
@@ -19,7 +19,7 @@
       </q-item>
       <q-item clickable @click="goto('eqInfor')">
         <q-item-section top avatar>
-          <q-avatar color="primary" text-color="white" icon="view_agenda" />
+          <q-avatar color="black" text-color="white" icon="view_agenda" />
         </q-item-section>
         <q-item-section>
           <q-item-label> Tình trạng thiết bị phòng </q-item-label>
@@ -27,7 +27,7 @@
       </q-item>
       <q-item clickable @click="goto('tenantInfor')">
         <q-item-section top avatar>
-          <q-avatar color="primary" text-color="white" icon="people_alt" />
+          <q-avatar color="black" text-color="white" icon="people_alt" />
         </q-item-section>
         <q-item-section>
           <q-item-label> Người đang thuê</q-item-label>
@@ -35,7 +35,7 @@
       </q-item>
       <q-item clickable @click="goto('postsInfor')">
         <q-item-section top avatar>
-          <q-avatar color="primary" text-color="white" icon="badge" />
+          <q-avatar color="black" text-color="white" icon="badge" />
         </q-item-section>
         <q-item-section>
           <q-item-label> Danh sách bài đăng</q-item-label>
@@ -43,7 +43,7 @@
       </q-item>
       <q-item clickable @click="goto('shareInfor')">
         <q-item-section top avatar>
-          <q-avatar color="primary" text-color="white" icon="share" />
+          <q-avatar color="black" text-color="white" icon="share" />
         </q-item-section>
         <q-item-section>
           <q-item-label> Chia sẽ thông tin</q-item-label>
@@ -51,7 +51,7 @@
       </q-item>
       <q-item clickable @click="goto('numInfor')">
         <q-item-section top avatar>
-          <q-avatar color="primary" text-color="white" icon="dialpad" />
+          <q-avatar color="black" text-color="white" icon="dialpad" />
         </q-item-section>
         <q-item-section>
           <q-item-label> Nhập số điện nước khi vào trọ </q-item-label>
@@ -59,11 +59,16 @@
       </q-item>
     </q-drawer>
     <div class="col-12">
-      <q-btn color="primary" class="gt-sm" icon="menu" @click="drawLeft = !drawLeft" />
+      <q-btn
+        color="primary"
+        class="gt-sm"
+        icon="menu"
+        @click="drawLeft = !drawLeft"
+      />
     </div>
     <div class="row full-width items-center justify-center">
       <div v-if="user && tenant && roomTypeUser" class="col-12 col-md-10">
-        <q-card class="my-card full-width br" id="infor">
+        <q-card class="my-card g-border full-width br" id="infor">
           <q-card-section class="row items-center text-primary">
             <div class="col-12 text-center co-card-header">
               <q-icon name="home" /> Chi tiết phòng
@@ -104,7 +109,7 @@
         </q-card>
         <div><br /></div>
 
-        <q-card class="my-card br full-width" id="eqInfor">
+        <q-card class="my-card g-border br full-width" id="eqInfor">
           <q-card-section class="row items-center text-primary">
             <div class="co-card-header col-12 text-center">
               <q-icon name="view_agenda" /> Tình trạng thiết bị phòng
@@ -112,9 +117,9 @@
           </q-card-section>
           <q-card-section class="row items-center justify-end">
             <q-btn
-              outline
+              rounded
               no-caps
-              color="positive"
+              color="black"
               icon="add"
               label="Thêm thiết bị"
               @click="addRowEquip"
@@ -132,10 +137,12 @@
                 *Chủ trọ đã xác nhận
               </div>
               <div class="col-12"><br /></div>
-              <div class="col-4 text-bold">Tên thiết bị</div>
-              <div class="col-4 text-bold">Trạng thái</div>
-              <div class="col-2 text-bold">Hình ảnh</div>
-              <div class="col-2 text-bold">Xóa</div>
+              <div class="col-6 col-md-8 row">
+                <div class="col-12 col-md-6 text-bold">Tên thiết bị</div>
+                <div class="col-12 col-md-6 text-bold">Trạng thái</div>
+              </div>
+              <div class="col-3 text-bold">Hình ảnh</div>
+              <div class="col-3 col-md-1 text-bold text-right">Xóa</div>
               <div class="col-12">
                 <hr />
               </div>
@@ -147,26 +154,48 @@
                 :key="index"
                 class="row col-12 items-center"
               >
-                <div class="col-4 row items-center justify-start">
-                  <q-input
-                    class="col-11 text-center bg-purple-1"
-                    v-model="room_equip.name"
-                    type="text"
-                    outlined
-                  />
+                <div class="col-5 col-md-6 row">
+                  <div class="col-12 col-md-6 row items-center justify-start">
+                    <q-input
+                      bg-color="teal-1"
+                      rounded
+                      outlined
+                      class="col-11"
+                      v-model="room_equip.name"
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 lt-md"><br /></div>
+                  <div class="col-12 col-md-6 row items-center justify-start">
+                    <q-input
+                      bg-color="teal-1"
+                      rounded
+                      outlined
+                      class="col-11 text-center"
+                      style="overflow: hidden"
+                      v-model="room_equip.content"
+                      type="text"
+                    />
+                  </div>
                 </div>
-                <div class="col-4 row items-center justify-start">
-                  <q-input
-                    class="col-11 text-center bg-purple-1"
-                    v-model="room_equip.content"
-                    type="text"
-                    outlined
-                  />
-                </div>
-                <div class="col-2">
-                  <q-card-actions align="center">
-                    <q-btn flat label="Xem" no-caps />
+                <div class="col-5">
+                  <q-card-actions
+                    v-if="room_equip.id != -1"
+                    class="row"
+                    align="center"
+                  >
+                    <q-btn
+                      v-if="toLength(room_equip.img_details) > 0"
+                      class="col-10 col-md-5"
+                      rounded
+                      :label="`${toLength(room_equip.img_details)} ảnh`"
+                      no-caps
+                      @click="seeImgs(room_equip.img_details)"
+                    />
+                    <div class="col-10" v-else>Chưa có ảnh</div>
+                    <div class="gt-ms col-12"></div>
                     <q-uploader
+                      class="q-mt-md"
                       :url="`${baseUrlUpload}`"
                       color="teal"
                       flat
@@ -174,12 +203,14 @@
                       batch
                       multiple
                       max-files="3"
-                      :form-fields="[{name: 'tenantRoomEquipId' , value: room_equip.id}]"
+                      :form-fields="[
+                        { name: 'tenantRoomEquipId', value: room_equip.id },
+                      ]"
                       style="max-width: 300px"
                     />
                   </q-card-actions>
                 </div>
-                <div class="col-2 row justify-end">
+                <div class="col-md-1 col-2 row justify-end">
                   <q-btn
                     rounded
                     outline
@@ -191,10 +222,14 @@
                 <div class="col-12"><br /></div>
               </div>
             </div>
+            <div class="col-12 text-red">
+              *Vui lòng tạo nội dung trước khi đăng ảnh lên
+            </div>
             <div class="col-12"><br /></div>
             <div class="col-12">
               <hr />
             </div>
+
             <div class="col-12 row justify-end items-center">
               <q-btn
                 color="orange"
@@ -211,7 +246,7 @@
 
         <q-card
           v-if="tenant_users"
-          class="my-card full-width br"
+          class="my-card g-border full-width br"
           id="tenantInfor"
         >
           <q-card-section class="full-width text-primary">
@@ -273,8 +308,6 @@
             <div class="col-6 text-bold text-center">Trạng thái</div>
             <div class="col-5 text-bold"></div>
             <div class="col-12"><hr /></div>
-          </q-card-section>
-          <q-card-section class="row full-width items-center">
             <div
               v-for="(post, index) in posts"
               :key="index"
@@ -315,7 +348,11 @@
         </q-card>
         <div><br /></div>
 
-        <q-card v-if="infoShare" class="my-card full-width br" id="shareInfor">
+        <q-card
+          v-if="infoShare"
+          class="my-card full-width br g-border"
+          id="shareInfor"
+        >
           <q-card-section class="full-width text-primary">
             <div class="text-center co-card-header">
               <q-icon name="share" /> Chia sẽ thông tin
@@ -347,7 +384,7 @@
         </q-card>
 
         <div><br /></div>
-        <q-card class="my-card br full-width" id="numInfor">
+        <q-card class="my-card g-border br full-width" id="numInfor">
           <q-card-section class="row items-center text-primary">
             <div class="co-card-header col-12 text-center">
               <q-icon name="dialpad" /> Nhập số điện nước khi vào trọ
@@ -401,7 +438,7 @@
         </div>
         <div><br /></div>
         <q-dialog v-model="isCreate">
-          <q-card>
+          <q-card class="g-border">
             <q-card-section class="row items-center">
               <div class="col-12 text-center text-bold">
                 Thiết lập nội dung khi đăng bài
@@ -423,7 +460,7 @@
           </q-card>
         </q-dialog>
         <q-dialog v-model="isOut" persistent>
-          <q-card>
+          <q-card class="g-border">
             <q-card-section class="row items-center bg-warning text-white">
               <div class="col-12 text-h6 text-center">Cảnh báo</div>
             </q-card-section>
@@ -442,6 +479,13 @@
             </q-card-actions>
           </q-card>
         </q-dialog>
+        <q-dialog v-model="isSeeImgs">
+          <gobal-img-detail
+            style="min-width: 90%"
+            v-if="thisImgs"
+            :img_details="thisImgs"
+          ></gobal-img-detail>
+        </q-dialog>
       </div>
     </div>
   </q-page>
@@ -450,7 +494,8 @@
 <script>
 import { mapGetters } from "vuex";
 import { useQuasar } from "quasar";
-import sp from '../boot/support';
+import GobalImgDetail from "../components/GobalImgDetail.vue";
+import sp from "../boot/support";
 export default {
   setup() {
     const $q = useQuasar();
@@ -472,6 +517,9 @@ export default {
     ...mapGetters("Tenant", ["tenant"]),
     ...mapGetters("RoomTypeUser", ["roomTypeUser"]),
   },
+  components: {
+    GobalImgDetail,
+  },
   methods: {
     getDate(date) {
       return date.substring(0, 10);
@@ -479,8 +527,16 @@ export default {
     toNum(num) {
       return sp.toNum(num);
     },
+    toLength(arr) {
+      return sp.length(arr);
+    },
+    seeImgs(img_details) {
+      this.thisImgs = img_details;
+      this.isSeeImgs = true;
+      console.log(img_details);
+    },
     addRowEquip() {
-      this.room_equips.push({ id: "", tenant_id: "", name: "", content: "" });
+      this.room_equips.push({ id: -1, tenant_id: "", name: "", content: "" });
       this.room_equips_num += 1;
     },
     async deleteEquip(index) {
@@ -605,7 +661,9 @@ export default {
       infoShare: null,
       isOut: false,
       drawLeft: false,
-      baseUrlUpload: this.$api.defaults.baseURL+ '/uploadImgTenantRoomEquip/',
+      baseUrlUpload: this.$api.defaults.baseURL + "/uploadImgTenantRoomEquip/",
+      thisImgs: null,
+      isSeeImgs: false,
     };
   },
   async created() {

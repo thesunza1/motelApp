@@ -1,6 +1,6 @@
 <template>
   <div class="full-width">
-    <q-card v-if="roomTypeUser" class="my-card row">
+    <q-card v-if="roomTypeUser" class="my-card row g-border">
       <q-card-section class="text-primary col-12">
         <div class="text-h6 text-center full-width">Chi tiết trọ</div>
       </q-card-section>

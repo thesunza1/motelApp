@@ -14,8 +14,10 @@
                 <b> Trạng thái hiện tại : </b>
                 <p class="text-positive" style="display: inline">Trống</p>
               </div>
-              <div class="lt-md col-12"><br></div>
-              <div class="col-md-4 col-6"><b> Tên phòng : </b>{{ room.name }}</div>
+              <div class="lt-md col-12"><br /></div>
+              <div class="col-md-4 col-6">
+                <b> Tên phòng : </b>{{ room.name }}
+              </div>
               <div class="col-md-4 col-6">
                 <b> Loại phòng : </b>{{ room.room_type.name }}
               </div>
@@ -98,7 +100,7 @@
                 <b> Trạng thái hiện tại : </b>
                 <p class="text-positive" style="display: inline">Có người</p>
               </div>
-              <div class="lt-md col-12"><br></div>
+              <div class="lt-md col-12"><br /></div>
               <div class="col-md-4 col-6">
                 <b class="q-pl-sm"> Tên phòng : </b>{{ room.name }}
               </div>
@@ -106,7 +108,6 @@
                 <b> Loại phòng : </b>{{ room.room_type.name }}
               </div>
             </div>
-
           </q-card-section>
         </q-card>
         <br />
@@ -121,7 +122,7 @@
             <div class="col-12 text-center subtitle2"><br /></div>
             <div class="col-12"><hr /></div>
             <div class="col-12 row items-center">
-              <div class="col-1 text-bold q-pl-sm"> Stt</div>
+              <div class="col-1 text-bold q-pl-sm">Stt</div>
               <div class="col-3 text-bold">Tên</div>
               <div class="col-md-4 col-5 text-bold">Email</div>
               <div class="col-2 gt-sm text-bold">Sdt</div>
@@ -134,7 +135,7 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1 q-pl-sm"> {{++index  }} </div>
+              <div class="col-1 q-pl-sm">{{ ++index }}</div>
               <div class="col-3 g-header-up">{{ user.user.name }}</div>
               <div class="col-md-4 col-5">{{ user.user.email }}</div>
               <div class="col-2 gt-sm">{{ user.user.phone_number }}</div>
@@ -160,9 +161,10 @@
           </q-card-section>
           <q-card-section class="col-12 row justify-center">
             <div class="col-12 row items-center">
-              <div class="col-1 text-bold q-pl-sm"> Stt</div>
+              <div class="col-1 text-bold q-pl-sm">Stt</div>
               <div class="col-4 text-bold">Tên thiết bị</div>
               <div class="col-4 text-bold">Trạng Thái</div>
+              <div class="col-3 text-bold">Hình ảnh</div>
               <div class="col-12 text-bold"><hr /></div>
               <div class="col-12"><br /></div>
             </div>
@@ -171,9 +173,22 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1 q-pl-sm"> {{++index  }} </div>
+              <div class="col-1 q-pl-sm">{{ ++index }}</div>
               <div class="col-4">{{ equip.name }}</div>
               <div class="col-4">{{ equip.content }}</div>
+              <div class="col-3">
+                <q-card-actions class="row" align="center">
+                  <q-btn
+                    v-if="toLength(equip.img_details) > 0"
+                    class="q-px-md col-5"
+                    rounded
+                    :label="`${toLength(equip.img_details)} ảnh`"
+                    no-caps
+                    @click="seeImgs(equip.img_details)"
+                  />
+                  <div v-else>Chưa có ảnh</div>
+                </q-card-actions>
+              </div>
               <div class="col-12"><br /></div>
             </div>
             <div class="col-12"><br /></div>
@@ -220,7 +235,7 @@
           </q-card-section>
           <q-card-section class="col-12 row justify-center">
             <div class="col-12 row items-center g-text-roomType">
-              <div class="col-6 text-center ">
+              <div class="col-6 text-center">
                 <b>Số điện: </b> {{ room.tenant.elec_num }}
               </div>
               <div class="col-6 text-center">
@@ -290,8 +305,10 @@
                 <b> Trạng thái hiện tại : </b>
                 <p class="text-negative" style="display: inline">Đang sửa</p>
               </div>
-              <div class="lt-md col-12"><br></div>
-              <div class="col-md-4 col-6"><b> Tên phòng : </b>{{ room.name }}</div>
+              <div class="lt-md col-12"><br /></div>
+              <div class="col-md-4 col-6">
+                <b> Tên phòng : </b>{{ room.name }}
+              </div>
               <div class="col-md-4 col-6">
                 <b> Loại phòng : </b>{{ room.room_type.name }}
               </div>
@@ -346,11 +363,12 @@
       </div>
     </div>
 
+    <q-dialog v-model="isSeeImgs">
+      <gobal-img-detail style="min-width:90%" :img_details="thisImgs"></gobal-img-detail>
+    </q-dialog>
     <q-dialog v-model="isDetailUser">
       <q-card class="row justify-center modalb fs br" style="max-height: 80vh">
-        <q-card-section
-          class="row pd col-12 text-primary"
-        >
+        <q-card-section class="row pd col-12 text-primary">
           <div class="col-12 text-center text-h5">chi tiết</div>
         </q-card-section>
         <q-card-section v-if="userFind" class="col-10 row justify-center">
@@ -358,7 +376,7 @@
           <div class="col-8 g-header-up">{{ userFind.name }}</div>
           <div class="col-4 text-bold">Email:</div>
           <div class="col-8">{{ userFind.email }}</div>
-          <div class="col-4 text-bold"> Điện thoại:</div>
+          <div class="col-4 text-bold">Điện thoại:</div>
           <div class="col-8">{{ userFind.phone_number }}</div>
           <div class="col-4 text-bold">Giới tính :</div>
           <div class="col-8">{{ sex(userFind.sex) }}</div>
@@ -373,6 +391,7 @@
 <script>
 import roomApi from "../boot/callApi/room";
 import FindUser from "../components/FindUser.vue";
+import GobalImgDetail from "../components/GobalImgDetail.vue"
 import noti from "../boot/noti/noti";
 import sp from "../boot/support";
 export default {
@@ -388,11 +407,18 @@ export default {
       thisStatus: null,
       userFind: null,
       isDetailUser: false,
+      isSeeImgs: false,
+      thisImgs: null,
     };
   },
   methods: {
-    sex(sex){
+    sex(sex) {
       return sp.toSex(sex);
+    },
+    seeImgs(img_details) {
+      this.thisImgs = img_details;
+      this.isSeeImgs = true;
+      console.log(img_details);
     },
     updateUserFind(data) {
       this.userFind = data;
@@ -438,10 +464,14 @@ export default {
         this.showNoti("Đã thành công", "positive");
       }
     },
+    toLength(arr) {
+      return sp.length(arr);
+    },
   },
 
   components: {
     FindUser,
+    GobalImgDetail,
   },
 };
 </script>

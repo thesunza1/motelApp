@@ -51,8 +51,8 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-5 text-bold">Email: {{ nt.senderUser.email }}</div>
-            <div class="col-md-5 col-7 text-left g-header-up">
+            <div class="col-12 col-md-5 text-bold">Email: {{ nt.senderUser.email }}</div>
+            <div class="col-md-5 col-12 text-left g-header-up">
               {{ nt.senderUser.name }}
             </div>
             <div class="col-md-5 col-12 text-right">
@@ -114,8 +114,8 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-5 text-bold">Email: {{ nt.senderUser.email }}</div>
-            <div class="col-md-5 col-7 text-left g-header-up">
+            <div class="col-12 col-md-5 text-bold">Email: {{ nt.senderUser.email }}</div>
+            <div class="col-md-5 col-12 text-left g-header-up">
               Tên: {{ nt.senderUser.name }}
             </div>
             <div class="col-md-2 col-12 text-right">
@@ -208,12 +208,12 @@ export default {
       }
       this.notiHDer =
         type_id == 1
-          ? "bg-accent"
+          ? "bg-blue-6"
           : type_id == 2
           ? "bg-negative"
           : type_id == 3
           ? "bg-primary"
-          : "bg-warning";
+          : "bg-amber-14";
     },
     reply() {
       this.$emit("openCreate");

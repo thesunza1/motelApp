@@ -60,7 +60,27 @@
         selection="single"
         v-model:selected="thisUser"
         :pagination="pagination"
-      />
+      >
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th v-for="col in props.cols" :key="col.name" :props="props">
+              {{ col.label }}
+            </q-th>
+          </q-tr>
+        </template>
+        <template v-slot:body="props">
+          <q-tr
+            class="cursor-pointer"
+            :props="props"
+            @click="props.selected = !props.selected"
+          >
+            <q-td v-for="col in props.cols" :key="col.name" :props="props">
+              {{ col.value }}
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
+
       <q-footer
         class="q-py-md bg-white row items-center justify-center full-width"
         elevated
@@ -237,7 +257,7 @@ export default {
       if (statusCode == 2) {
         this.showNoti(" Không tìm thấy user", "dark");
       }
-      if(statusCode==0) {
+      if (statusCode == 0) {
         this.showNoti(" thất bại", "negative");
       }
     }
@@ -332,12 +352,11 @@ export default {
         const check = this.users.find((o) => console.log(o.email));
         console.log(!check);
         if (!check) {
-          this.users.splice(0,0,res[0]);
+          this.users.splice(0, 0, res[0]);
         }
-        this.noti(1) ;
-      }
-      else {
-        this.noti(2) ;
+        this.noti(1);
+      } else {
+        this.noti(2);
       }
       // this.noti(res ? 1 : 2);
     },
