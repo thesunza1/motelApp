@@ -3,20 +3,31 @@
     <div v-if="motels">
       <div class="full-width">
         <q-card-section class="row items-center">
-          <div class="col-6 row items-center justify-around">
-            <div class="text-bold">Tìm trọ:</div>
+          <div class="col-6 row items-center">
             <q-input
               v-model="email"
+              outlined
               type="text"
+              class="q-mr-md"
               label="Email chủ trọ"
               label-color="primary"
             />
             <q-btn
-              color="primary"
+              color="black"
               icon="search"
               label=" Tìm"
+              class="q-mr-md"
               rounded
+              no-caps
               @click="searchMotel()"
+            />
+            <q-btn
+              no-caps
+              rounded
+              color="black"
+              icon="refresh"
+              label=" Làm mới"
+              @click="reloadPage"
             />
           </div>
         </q-card-section>
@@ -76,7 +87,6 @@
         </div>
       </q-footer>
     </div>
-
   </q-page>
 </template>
 
@@ -172,6 +182,13 @@ export default {
     };
   },
   methods: {
+    async reloadPage() {
+      const res = await adminMotel.getAllMotel();
+      if (res?.statusCode) {
+        this.maxPage = res.motels.last_page;
+        this.motels = res.motels.data;
+      }
+    },
     async loadpage(num_page) {
       const res = await this.$api.get("getAllMotel?page=" + num_page);
       if (res.data?.statusCode == 1) {
@@ -184,7 +201,8 @@ export default {
       try {
         const res = await adminMotel.findMotel(this.email);
         if (res.statusCode == 1) {
-          this.thisMotel = [res.motel];
+          // this.thisMotel = [res.motel];
+          this.motels = res.motel;
           this.noti(res.statusCode);
         }
       } catch (error) {
@@ -193,15 +211,18 @@ export default {
     },
     toDetail(sd) {
       console.log(sd);
-    }
+    },
   },
   watch: {
     numPage(newVal) {
       this.loadpage(newVal);
     },
     thisMotel(newVal) {
-      this.$router.push({ name: 'adminThisMotel' , params: {motelId:newVal[0].id} });
-    }
+      this.$router.push({
+        name: "adminThisMotel",
+        params: { motelId: newVal[0].id },
+      });
+    },
   },
   computed: {
     ...mapGetters("User", ["user"]),

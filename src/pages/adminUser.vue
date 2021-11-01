@@ -24,12 +24,14 @@
           <q-btn
             color="warning"
             icon="update"
+            rounded
             label="Cập nhật"
             class="g-header"
             @click="isUpdate = true"
           />
           <q-btn
             color="negative"
+            rounded
             class="g-header"
             icon="delete"
             label="Xóa"
@@ -38,18 +40,12 @@
           <q-btn
             color="primary"
             icon="question_answer"
+            rounded
             class="g-header"
             label="Thông báo"
             @click="isCreate = true"
           />
         </q-card-actions>
-        <!-- <q-card-section v-if="thisUser.length == 1">
-          <div>
-            id : <b>{{ thisUser[0].id }}</b
-            >- email: <b>{{ thisUser[0].email }}</b
-            >- điện thoại: <b>{{ thisUser[0].phone_number }}</b>
-          </div>
-        </q-card-section> -->
       </div>
       <q-table
         class="my-header-table"
