@@ -1,7 +1,7 @@
 <template>
   <div class="full-width">
     <div v-for="(post, index) in posts" :key="index" class="full-width">
-      <q-card class="my-card" v-if="post.post_type_id == 1">
+      <q-card class="my-card g-border" v-if="post.post_type_id == 1">
         <q-card-section horizontal>
           <q-card-section
             class="row items-center"
@@ -73,7 +73,7 @@
           </q-btn>
         </q-card-actions>
       </q-card>
-      <q-card class="my-card" v-else>
+      <q-card class="my-card g-border" v-else>
         <q-card-section horizontal>
           <q-card-section
             class="row items-center"

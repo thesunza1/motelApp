@@ -11,11 +11,13 @@ import {
   LPolyline,
   LPolygon,
   LRectangle,
+  LFeatureGroup,
 } from "@vue-leaflet/vue-leaflet";
 import "leaflet/dist/leaflet.css";
 
 export default boot(async ({ app }) => {
   app.component("l-map", LMap);
+  app.component("l-Feature-group", LFeatureGroup);
   app.component("l-tile-layer", LTileLayer);
   app.component("l-marker", LMarker);
   app.component("l-icon", LIcon);

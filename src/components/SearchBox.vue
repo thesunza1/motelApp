@@ -4,7 +4,8 @@
       expand-separator
       icon="search"
       label=" Tìm trọ"
-      class="col-12 "
+      class="col-12  "
+      label-class="g-border"
       caption=" Tìm trọ với địa chỉ và vị trí"
     >
       <div class="col-12 row items-center">
