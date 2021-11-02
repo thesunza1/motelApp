@@ -1,21 +1,42 @@
 <template>
   <q-page padding>
     <q-drawer
+
       side="left"
       v-model="isOp"
       bordered
       :width="500"
-      content-class="bg-grey-3"
+      content-class="bg-grey-3 gt-sm"
     >
       <l-map
         v-if="motels"
         style="height: 100%"
         v-model:zoom="map.zoom"
-        :center="map.center"
+        v-model:center="map.center"
       >
         <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ></l-tile-layer>
+        <l-control position="bottomleft">
+          <q-card-actions  align="center">
+            <q-btn
+              color="black"
+              rounded
+              no-caps
+              icon="room"
+              label=" Vị trí"
+              @click="getLocation()"
+            />
+            <q-btn
+              color="black"
+              no-caps
+              rounded
+              icon="refresh"
+              label=" Vị trí cũ"
+              @click="refreshCenter()"
+            />
+          </q-card-actions>
+        </l-control>
         <l-marker
           v-for="(motel, index) in motels"
           :key="index"
@@ -35,12 +56,23 @@
               </div>
             </q-card-section>
           </l-popup>
+          <l-tooltip>
+              <div class="text-subtitle2">
+                <q-icon name="apartment"/> {{ motel.name }}
+              </div>
+          </l-tooltip>
         </l-marker>
       </l-map>
     </q-drawer>
     <div class="row justify-center">
       <div class="col-12 col-md-12">
         <search-box @update="updatePost($event)"></search-box>
+      </div>
+      <div class="col-12"><br /></div>
+      <div class="col-12">
+        <q-card-actions  align="right">
+          <q-btn rounded icon="refresh" no-caps color="black" label=" Tải lại bài đăng" @click="reloadPage()" />
+        </q-card-actions>
       </div>
       <div class="col-12"><br /></div>
       <div v-if="posts" class="col-12 col-md-12">
@@ -86,6 +118,7 @@ export default {
         zoom: 14,
         center: [10.010999053186, 105.76151916074],
         caller: null,
+        demoCenter: [10.010999053186, 105.76151916074],
       },
       motels: null,
     };
@@ -106,6 +139,27 @@ export default {
     this.motels = getMotels.data.motels;
   },
   methods: {
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+      }
+    },
+    refreshCenter() {
+      this.map.center = this.map.demoCenter;
+    },
+    showPosition(position) {
+      this.map.center = [position.coords.latitude, position.coords.longitude];
+      console.log(this.map.center);
+      console.table(position.coords);
+    },
+    async reloadPage() {
+      const getPost = await this.$api.get("getPost");
+      if (getPost.data?.statusCode == 1) {
+        this.posts = getPost.data?.posts;
+        this.post_types = getPost.data?.post_type;
+        this.max_page = getPost.data.posts.last_page;
+      }
+    },
     async loadpage(num_page) {
       const res = await this.$api.get("getPost?page=" + num_page);
       if (res.data?.statusCode == 1) {

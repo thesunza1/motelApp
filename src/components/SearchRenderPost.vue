@@ -23,14 +23,15 @@
           </q-card-section>
 
           <q-card-section style="max-width: 80%" class="row">
-            <div class="col-12 text-subtitle2">
-              <q-icon name="home" class=" text-blue" style="font-size: 30px" />
-              {{ post.room_type.name }} - {{ post.title }} -
+            <div class="col-12 text-h6 text-primary">
+              <q-icon name="home" class=" q-pr-sm" style="font-size: 30px" />
+              <p class="g-header-up " style="display: inline"> {{ post.room_type.name }}</p> -
+              <!-- {{ post.title }} - -->
               {{ post.room_type.motel.name }}
             </div>
             <div class="col-12 row items-center">
               <div class=" text-subtitle2 col-6 col-md-2">
-                <q-icon class="text-green" name="monetization_on" style="font-size: 30px" />
+                <q-icon class="text-black" name="monetization_on" style="font-size: 30px" />
                 {{ toCost(post.room_type.cost) }} nghìn Vnd/Th
               </div>
               <div class="gt-sm col-md-1 text-center">
@@ -38,17 +39,17 @@
                 {{ post.room_type.area }} M2
               </div>
               <div class="col-6 col-md-3 text-right">
-                <q-icon name="date_range" class="text-positive" style="font-size: 30px" />
+                <q-icon name="date_range" class="text-black" style="font-size: 30px" />
                 {{ toDate(post.updated_at) }}
               </div>
               <div class="col-12 lt-md"><br /></div>
               <div class="col-12 col-md-6 text-center">
-                <q-icon name="room" class="text-warning" style="font-size: 30px" />
+                <q-icon name="room" class="text-black" style="font-size: 30px" />
                 {{ post.room_type.motel.address }}
               </div>
             </div>
             <div class="gt-sm col-12">
-              <q-icon name="list_alt" class="text-accent" style="font-size: 30px" />
+              <q-icon name="list_alt" class="text-black" style="font-size: 30px" />
               {{ post.room_type.content }}
             </div>
             <div class="col-12">
@@ -63,7 +64,7 @@
           </q-card-section>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn icon="arrow_forward" color="primary" no-caps rounded class="g-header">
+          <q-btn v-if="post.status ==1" icon="arrow_forward" color="primary" no-caps rounded class="g-header">
             <router-link
               :to="{ name: 'searchDetail', params: { post_id: post.id } }"
               style="text-decoration: none; color: white"
@@ -71,6 +72,7 @@
                Xem bài
             </router-link>
           </q-btn>
+          <q-btn v-else color="black" no-caps rounded label=" Hết phòng"  />
         </q-card-actions>
       </q-card>
       <q-card class="my-card g-border" v-else>
@@ -95,9 +97,10 @@
           </q-card-section>
 
           <q-card-section style="max-width: 80%" class="row">
-            <div class="col-12 text-subtitle2">
-              <q-icon name="home" class=" text-blue" style="font-size: 30px" />
-              {{ post.room.room_type.name }} - {{ post.title }} -
+            <div class="col-12 text-h6  text-primary">
+              <q-icon name="home" class="q-mr-sm " style="font-size: 30px" />
+              <p class="g-header-up" style="display:inline"> {{ post.room.room_type.name }}</p>  -
+              {{ post.title }} -
               {{ post.room.room_type.motel.name }}
             </div>
             <div class="col-12 row items-center">
@@ -110,17 +113,17 @@
                 {{ post.room.room_type.area }} M2
               </div>
               <div class="col-6 col-md-3 text-right">
-                <q-icon name="date_range"  class="text-positive" style="font-size: 30px" />
+                <q-icon name="date_range"  class="text-black" style="font-size: 30px" />
                 {{ toDate(post.updated_at) }}
               </div>
               <div class="col-12 lt-md"><br /></div>
               <div class="col-12 col-md-6 text-center">
-                <q-icon name="room" class="text-warning" style="font-size: 30px" />
+                <q-icon name="room" class="text-black" style="font-size: 30px" />
                 {{ post.room.room_type.motel.address }}
               </div>
             </div>
             <div class="gt-sm col-12">
-              <q-icon name="list_alt" class="text-accent" style="font-size: 30px" />
+              <q-icon name="list_alt" class="text-black" style="font-size: 30px" />
               {{ post.conpound_content }}-{{ post.room.room_type.content }}
             </div>
             <div class="col-12">
