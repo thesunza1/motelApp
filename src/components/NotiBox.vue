@@ -28,16 +28,23 @@
                 ? 'person_add'
                 : 'check'
             "
-
             style="font-size: 40px; padding-left: 10px"
           />
           <q-card-section class="row col-10 col-md-11 items-center">
-            <div class="col-12 col-md-8 text-h6"> <q-icon name="feed"  style="font-size:30px" /> {{ noti.title }}</div>
-            <div class="col-12 col-md-4">
-              <q-icon name="timelapse"  class="text-primary" style="font-size:30px"/> {{ toDate(noti.created_at) }}
+            <div class="col-12 col-md-6 text-h6">Tiêu Đề: {{ noti.title }}</div>
+            <div class="col-12 col-md-4 text-subtitle2 g-header-up">
+              <b>Người gửi:</b> {{ noti.senderUser.name }}
             </div>
-            <div class="col-12 text-subtitle2 g-header-up">
-               <q-icon name="person"  class="text-positive" style="font-size:30px"/>  {{ noti.senderUser.name }}
+            <div class="col-12 col-md-2">
+              <b>Thời gian:</b> {{ toDate(noti.created_at) }}
+            </div>
+            <div class="col-12"><br /></div>
+            <div class="col-12" v-if="noti.noti_type_id != 3">
+              <b> Nội dung:</b>
+              <div v-html="noti.content"></div>
+            </div>
+            <div class="col-12">
+              <div>Nhấn để xem thêm</div>
             </div>
           </q-card-section>
         </q-card-section>
@@ -45,13 +52,15 @@
     </q-intersection>
     <div class="full-width">
       <q-dialog v-model="isInvite">
-        <q-card v-if="thisRoom"  class="g-border" style="min-width: 70%">
-          <q-card-section class="row items-center  text-white" :class="notiHDer">
+        <q-card v-if="thisRoom" class="g-border" style="min-width: 70%">
+          <q-card-section class="row items-center text-white" :class="notiHDer">
             <div class="col-12 text-center text-h5">
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-12 col-md-5 text-bold">Email: {{ nt.senderUser.email }}</div>
+            <div class="col-12 col-md-5 text-bold">
+              Email: {{ nt.senderUser.email }}
+            </div>
             <div class="col-md-5 col-12 text-left g-header-up">
               {{ nt.senderUser.name }}
             </div>
@@ -74,7 +83,7 @@
                 Người: {{ thisRoom.room_type.motel.people_cost }}Vnd
               </div>
               <div class="col-6 text-left">
-                 Điện: {{ thisRoom.room_type.motel.elec_cost }}Vnd
+                Điện: {{ thisRoom.room_type.motel.elec_cost }}Vnd
               </div>
               <div class="col-6 text-left">
                 Nước: {{ thisRoom.room_type.motel.water_cost }}Vnd
@@ -82,12 +91,18 @@
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 row items-center justify-center">
-              <div class="col-12 text-bold"> Đặc điểm</div>
+              <div class="col-12 text-bold">Đặc điểm</div>
               <div class="col-12">{{ thisRoom.room_type.content }}</div>
             </div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label=" Đóng" class="g-header" color="negative" v-close-popup />
+            <q-btn
+              flat
+              label=" Đóng"
+              class="g-header"
+              color="negative"
+              v-close-popup
+            />
             <q-btn
               flat
               label="Trả lời"
@@ -114,7 +129,9 @@
               {{ nt.title }}
             </div>
             <div class="col-12"><br /></div>
-            <div class="col-12 col-md-5 text-bold">Email: {{ nt.senderUser.email }}</div>
+            <div class="col-12 col-md-5 text-bold">
+              Email: {{ nt.senderUser.email }}
+            </div>
             <div class="col-md-5 col-12 text-left g-header-up">
               Tên: {{ nt.senderUser.name }}
             </div>
@@ -127,7 +144,13 @@
             <div class="br" v-html="nt.content"></div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label=" Đóng" class="g-header" color="negative" v-close-popup />
+            <q-btn
+              flat
+              label=" Đóng"
+              class="g-header"
+              color="negative"
+              v-close-popup
+            />
             <q-btn
               flat
               class="g-header"
@@ -148,7 +171,13 @@
             >
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label=" Thoát" class="g-header" color="negative" v-close-popup />
+            <q-btn
+              flat
+              label=" Thoát"
+              class="g-header"
+              color="negative"
+              v-close-popup
+            />
             <q-btn
               flat
               label=" Đồng ý"

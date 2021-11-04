@@ -8,7 +8,7 @@
             <!-- <img :src="'/icons/favicon-96x96.png'" /> -->
           </q-avatar>
           <router-link
-            :to="{name: 'searchIndex'}"
+            :to="{ name: 'searchIndex' }"
             class="text-white"
             style="text-decoration: none"
           >
@@ -48,7 +48,12 @@
             icon="done"
             :label="get_role()"
           />
-          <q-btn color="primary" label=" tài khoản" class="g-header" @click="detail()" />
+          <q-btn
+            color="primary"
+            label=" tài khoản"
+            class="g-header"
+            @click="detail()"
+          />
           <div class="col-12"><br /></div>
         </div>
       </div>
@@ -138,24 +143,28 @@ export default {
     return {
       links: {
         id1: {
-          name: " đăng nhập",
+          name: " Đăng nhập",
           col1: "primary",
           link: "/login",
+          icon: "login",
         },
         id2: {
-          name: " đăng kí ",
+          name: " Đăng ký ",
           col1: "accent",
           link: "/userRegister",
+          icon: "assignment",
         },
         id3: {
-          name: " đăng kí trọ",
+          name: " Đăng ký trọ",
           col1: "positive",
           link: "/motelRegister",
+          icon: "receipt",
         },
         id4: {
-          name: " về trang chủ",
+          name: " Trang chủ",
           col1: "positive",
           link: "/",
+          icon: "home",
         },
       },
       email: "",

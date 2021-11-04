@@ -4,7 +4,7 @@
       expand-separator
       icon="search"
       label=" Tìm trọ"
-      class="col-12  "
+      class="col-12"
       label-class="g-border"
       caption=" Tìm trọ với địa chỉ và vị trí"
     >
@@ -36,7 +36,8 @@
       </div>
       <div class="col-12"><br /></div>
       <div class="col-12 row items-center">
-        <div class="col-12 col-md-6 row items-center justify-center">
+        <div class="col-12 col-md-4 row items-center ">
+          <div class="text-h6 q-pr-sm">Loại phòng: </div>
           <q-btn-toggle
             v-model="sex"
             toggle-color="primary"
@@ -50,8 +51,10 @@
             ]"
           />
         </div>
+        <div class="gt-sm col-1"></div>
         <div class="col-12 lt-md"><br /></div>
-        <div class="col-12 col-md-6 row items-center justify-center">
+        <div class="col-12 col-md-7 row items-center">
+          <div class="text-h6 q-pr-sm"> Loại bài đăng: </div>
           <q-btn-toggle
             v-model="post_type"
             toggle-color="primary"
@@ -69,19 +72,15 @@
         <div class="col-12">
           <q-expansion-item
             class="full-width"
-            icon="apartment"
-            label=" Lọc thêm"
+            icon="add"
+            label="Lọc thêm"
           >
             <div class="col-12 items-center justify-center row">
               <div class="col-12"><br /></div>
               <div class="col-12 items-center justify-center row">
                 <q-item class="col-11">
-                  <q-item-section avatar>
-                    <q-avatar
-                      color="primary"
-                      text-color="white"
-                      icon="local_atm"
-                    />
+                  <q-item-section class="text-h6" avatar>
+                    Tiền Phòng:
                   </q-item-section>
                   <q-item-section>
                     <q-range
@@ -101,8 +100,8 @@
               <div class="col-12"><br /></div>
               <div class="col-12 items-center justify-center row">
                 <q-item class="col-11">
-                  <q-item-section avatar>
-                    <q-avatar color="primary" text-color="white" icon="tab" />
+                  <q-item-section class="text-h6 q-mr-md" avatar>
+                    Diện tích:
                   </q-item-section>
                   <q-item-section>
                     <q-range
@@ -122,12 +121,13 @@
           </q-expansion-item>
         </div>
         <div class="col-12"><br /></div>
-        <div class="col-11 row items-center justify-end">
+        <div class="col-12 row items-center justify-end">
           <q-btn
             class="g-header"
             color="primary"
             icon="search"
             label="Tìm"
+            rounded
             @click="searchRoom()"
           />
         </div>

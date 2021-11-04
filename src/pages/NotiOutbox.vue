@@ -18,6 +18,7 @@
           color="primary"
           icon="add"
           no-caps
+          rounded
           label=" Tạo thông báo"
           @click="isCreate = !isCreate"
         />
