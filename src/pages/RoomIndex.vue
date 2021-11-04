@@ -300,7 +300,7 @@
         <q-card v-if="posts" class="my-card full-width br" id="postsInfor">
           <q-card-section class="full-width text-primary">
             <div class="text-center co-card-header">
-              <q-icon name="badge" /> Danh sách Bài đăng
+              <q-icon name="badge" /> Danh sách bài đăng
             </div>
           </q-card-section>
           <q-card-section class="row items-center">

@@ -97,17 +97,17 @@
                     v-if="index == 0 && bill.status == 0"
                     class="col-md-4 col-12 row items-center"
                   >
-                    <div class="text-left">
+                    <div class="text-left col-5">
                       <b> Số điện: </b>{{ bill.elec_begin }} -
                     </div>
                     <q-input
                       outlined
-                      class="q-px-md"
+                      class="q-px-md col-7"
                       v-model="bill.elec_end"
                       dense
+                      suffix="Kwh"
                       type="number"
                     />
-                    <div class="">kwh</div>
                   </div>
                   <div
                     v-else
@@ -134,18 +134,18 @@
                     v-if="index == 0 && bill.status == 0"
                     class="col-md-4 col-12 row items-center"
                   >
-                    <div class="text-left">
+                    <div class="text-left col-5">
                       <b>Số nước: </b>{{ bill.water_begin }} -
                     </div>
                     <q-input
                       outlined
                       bg-color="white"
                       dense
-                      class="q-px-md"
+                      suffix="M3"
+                      class="q-px-md col-7"
                       v-model="bill.water_end"
                       type="number"
                     />
-                    <div class="">M3</div>
                   </div>
                   <div
                     v-else

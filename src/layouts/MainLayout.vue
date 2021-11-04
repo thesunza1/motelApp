@@ -41,7 +41,7 @@
               <div class="gt-sm text-indent"> Quản lý phòng</div>
             </q-btn>
           </div>
-          <div class="col-4 row items-center justify-center">
+          <div class="col-4 row items-center gt-sm justify-center">
             <q-btn
               class="col-10 pd font-header bg-white  text-bold text-black"
               rounded

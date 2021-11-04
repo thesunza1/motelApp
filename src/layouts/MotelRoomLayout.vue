@@ -4,6 +4,7 @@
       <q-toolbar>
         <q-toolbar-title>
           <q-btn
+            class=" gt-sm"
             dense
             flat
             round
@@ -123,7 +124,7 @@ export default {
     return {
       roomId: this.$route.params.roomId,
       room: null,
-      drawerLeft: true,
+      drawerLeft: false,
     };
   },
   async created() {

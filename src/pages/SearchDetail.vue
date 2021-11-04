@@ -85,7 +85,7 @@
               <div class="col-12"><br /></div>
               <div class="col-11 row items-center justify-center">
                 <div class="col-12 row items-center">
-                  <div class="col-8 text-h6 text-red">
+                  <div class="col-8 text-subtitle2">
                     Cho phép: {{ toNamNu(post.room_type) }}
                   </div>
                 </div>
@@ -388,7 +388,7 @@
                   <hr />
                 </div>
                 <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white text-center">
+                  <div class="col-12 text-subtitle2 text-white ">
                     <q-icon
                       name="photo_camera"
                       class="text-positive"
@@ -404,7 +404,7 @@
                       post.room.room_type.motel.motel_imgs[1].img_details
                     "
                   ></motel-show-imgs>
-                  <div class="col-12 text-subtitle2 text-white text-center">
+                  <div class="col-12 text-subtitle2 text-white ">
                     Nơi để: {{ post.room.room_type.motel.motel_imgs[1].place }}
                   </div>
                 </div>
@@ -413,7 +413,7 @@
                   <hr />
                 </div>
                 <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white text-center">
+                  <div class="col-12 text-subtitle2 text-white ">
                     <q-icon
                       name="photo_camera"
                       class="text-positive"
@@ -429,7 +429,7 @@
                       post.room.room_type.motel.motel_imgs[2].img_details
                     "
                   ></motel-show-imgs>
-                  <div class="col-12 text-subtitle2 text-white text-center">
+                  <div class="col-12 text-subtitle2 text-white ">
                     Nơi để: {{ post.room.room_type.motel.motel_imgs[2].place }}
                   </div>
                 </div>

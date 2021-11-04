@@ -32,7 +32,7 @@
               color="white"
               class="g-icon-h1"
               text-color="black"
-              icon="store"
+              icon="paid"
             />
           </q-item-section>
           <q-item-section @click="goto('publicMoney')">

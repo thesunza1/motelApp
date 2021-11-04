@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <q-drawer
-
       side="left"
       v-model="isOp"
       bordered
@@ -41,7 +40,7 @@
           v-for="(motel, index) in motels"
           :key="index"
           :lat-lng="[motel.latitude, motel.longitude]"
-          @click="getPostMotels(motel.id)"
+          @click="getPostMotels(motel.id, motel)"
         >
           <l-popup>
             <q-card-section>
@@ -74,9 +73,12 @@
           <q-btn rounded icon="refresh" no-caps color="black" label=" Tải lại bài đăng" @click="reloadPage()" />
         </q-card-actions>
       </div>
+      <div class="col-12" v-if="thisMotel">
+        <search-show-motel-box :motel="thisMotel"></search-show-motel-box>
+      </div>
       <div class="col-12"><br /></div>
       <div v-if="posts" class="col-12 col-md-12">
-        <search-render-post :posts="posts.data"></search-render-post>
+        <search-render-post :thisMotel="thisMotel" :posts="posts.data"></search-render-post>
       </div>
 
       <q-footer class="bg-white">
@@ -98,6 +100,7 @@
 <script>
 import SearchRenderPost from "../components/SearchRenderPost.vue";
 import SearchBox from "../components/SearchBox.vue";
+import SearchShowMotelBox from "../components/SearchShowMotelBox.vue";
 import { ref } from "vue";
 export default {
   setup() {
@@ -121,6 +124,7 @@ export default {
         demoCenter: [10.010999053186, 105.76151916074],
       },
       motels: null,
+      thisMotel: null,
     };
   },
   watch: {
@@ -159,6 +163,7 @@ export default {
         this.post_types = getPost.data?.post_type;
         this.max_page = getPost.data.posts.last_page;
       }
+      this.thisMotel = null;
     },
     async loadpage(num_page) {
       const res = await this.$api.get("getPost?page=" + num_page);
@@ -172,18 +177,20 @@ export default {
       this.max_page = data.last_page;
       this.num_page = 1;
     },
-    async getPostMotels(motelId) {
+    async getPostMotels(motelId , motel) {
       const res = await this.$api.post("getPostMotels", {
         motelId: motelId,
       });
       if (res.data.statusCode == 1) {
         this.posts = res.data?.posts;
       }
+      this.thisMotel = motel ;
     },
   },
   components: {
     SearchRenderPost,
     SearchBox,
+    SearchShowMotelBox,
   },
 };
 </script>
