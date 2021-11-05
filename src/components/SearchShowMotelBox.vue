@@ -2,10 +2,10 @@
  <q-card class="my-card">
    <q-card-section class="row items-center justify-start " style="font-size:22px">
      <div class="col-5">
-       <q-icon name="apartment" /> <p style="display: inline" class="g-header-up"> {{motel.name}}</p>
+       <b >Tên trọ: </b> <p style="display: inline" class="g-header-up"> {{motel.name}}</p>
      </div>
      <div class="col-5">
-       <q-icon name="room" /> <p style="display: inline"> {{motel.address}}</p>
+       <b>Địa chỉ: </b> <p style="display: inline"> {{motel.address}}</p>
      </div>
      <div class="col-12"><br></div>
      <div class="col-5">

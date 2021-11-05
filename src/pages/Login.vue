@@ -18,49 +18,100 @@
     </q-dialog>
     <q-ajax-bar position="top" size="4px" color="red" />
     <div class="row justify-center">
-      <q-form class="q-gutter-md col-12 row justify-center" @submit="login">
-        <q-card class="my-card col-12 col-md-8">
-          <q-card-section>
-            <h3 class="text-center text-primary">
-              <q-icon name="login" /> Đăng nhập
-            </h3>
-          </q-card-section>
-          <q-card-section class="row justify-center">
-            <div class="col-md-6 col-12 row justify-center items-center">
-              <q-input
-                class="col-11"
-                v-model="email"
-                type="text"
-                label="email"
-                :rules="[(val) => val.length > 0 || 'Trường không để trống']"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="email" />
-                </template>
-              </q-input>
-
+      <q-card class="my-card">
+        <q-card-section horizontal>
+          <q-card-section class="row items-center content-center">
+            <div class="col-12">
+              <q-img
+                style="max-width: 13%"
+                src="/icons/favicon-96x96.png"
+                :ratio="1"
+                spinner-color="primary"
+                class="q-mb-sm"
+              />
             </div>
-            <div class="col-12"></div>
-            <div class="col-md-6 col-12 row justify-center items-center">
-              <q-input
-                class="col-11"
-                v-model="password"
-                type="password"
-                label=" Mật khẩu"
-                :rules="[(val) => val.length > 0 || ' Trường không để trống']"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="password" />
-                </template>
-              </q-input>
+            <div class="col-12 text-h4 text-bold">Đăng nhập</div>
+            <div class="col-12 text-subtitle">
+              Để thấy nhiều hơn sự tiện lợi của chúng tôi!
+            </div>
+            <div class="col-12"><br /></div>
+            <div class="col-12">
+              <q-form @submit="login" class="q-gutter-md">
+                <q-card-section class="row items-center justify-center">
+                  <div class="col-11">
+                    <div class="text-h6">Email*</div>
+                    <q-input
+                      v-model="email"
+                      rounded
+                      outlined
+                      type="text"
+                      placeholder="mail@gmail.com"
+                      :rules="[
+                        (val) => val.length > 0 || ' Trường không để trống',
+                      ]"
+                    />
+                  </div>
+                  <div class="col-12"><br /></div>
+                  <div class="col-11">
+                    <div class="text-h6">Mật khẩu*</div>
+                    <q-input
+                      v-model="password"
+                      rounded
+                      outlined
+                      type="password"
+                      placeholder=" Nhỏ nhất 8 ký tự"
+                      :rules="[
+                        (val) => val.length > 0 || ' Trường không để trống',
+                      ]"
+                    />
+                  </div>
+                </q-card-section>
+                <q-card-section class="row items-center justify-center">
+                  <q-btn
+                    class="col-11 no-shadow q-py-sm"
+                    no-caps
+                    rounded
+                    color="primary"
+                    type="submit"
+                    label="Đăng nhập"
+                  />
+                </q-card-section>
+              </q-form>
+              <div class="col-12">
+                <div class="">
+                  <div style="display: inline" class="text-bold">
+                    Bạn quên mật khẩu?
+                  </div>
+                  <q-btn
+                    no-caps
+                    color="primary"
+                    flat
+                    label=" Quên mật khẩu"
+                    @click="trong()"
+                  />
+                </div>
+                <div style="display: inline" class="text-bold">
+                  Bạn muốn tạo tài khoản?
+                </div>
+                <q-btn
+                  style="display: inline"
+                  color="primary"
+                  no-caps
+                  flat
+                  label=" Tạo tài khoản"
+                  @click="onClick"
+                />
+              </div>
             </div>
           </q-card-section>
-          <q-card-section> </q-card-section>
-          <q-card-actions align="center">
-            <q-btn icon="login" label=" đăng nhập" rounded color="primary" type="submit" />
-          </q-card-actions>
-        </q-card>
-      </q-form>
+          <q-img
+            src="/images/loginMotel.jpg"
+            class="col-6"
+            spinner-color="primary"
+            spinner-size="82px"
+          />
+        </q-card-section>
+      </q-card>
     </div>
     <div class="lt-md" style="height: 100vh"></div>
   </q-page>

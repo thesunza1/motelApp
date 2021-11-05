@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="row items-center justify-center content-start">
-    <div v-if="bills" class="col-12 col-md-10">
+    <div v-if="bills" class="col-12 col-md-10 row items-center">
       <div class="col-12">
         <q-card class="my-card">
           <q-card-section>
@@ -16,9 +16,9 @@
       <div
         v-for="(bill, index) in bills"
         :key="index"
-        class="col-12 items-center row"
+        class="col-12  items-center row"
       >
-        <q-card class="my-card col-12">
+        <q-card class="my-card col-12 ">
           <q-card-section
             class="text-white"
             :class="bill.status == 1 ? 'bg-positive' : 'bg-negative'"
@@ -90,6 +90,9 @@
           <q-card-actions v-if="bill.status == 0" align="right">
             <q-btn color="negetive" no-caps flat label=" Báo lỗi " @click="openIsError(bill)" />
             <q-btn color="positive"  no-caps flat label=" Báo đã trả" @click="openIsNoti(bill)"/>
+          </q-card-actions>
+          <q-card-actions v-else align="right">
+            <div class="q-pb-md"> Bạn đã thanh toán.</div>
           </q-card-actions>
         </q-card>
         <div class="col-12"><br></div>

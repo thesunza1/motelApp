@@ -300,13 +300,14 @@
         <q-card v-if="posts" class="my-card full-width br" id="postsInfor">
           <q-card-section class="full-width text-primary">
             <div class="text-center co-card-header">
-              <q-icon name="badge" /> Danh sách bài đăng
+              <q-icon name="badge" /> Bài đăng
             </div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-1 text-bold">Stt</div>
-            <div class="col-6 text-bold text-center">Trạng thái</div>
-            <div class="col-5 text-bold"></div>
+            <div class="col-6 col-md-3 text-bold text-center">Trạng thái</div>
+            <div class="col-6 gt-sm col-md-3 text-bold">Ngày đăng</div>
+            <div class="col-5 col-md-4 text-bold"></div>
             <div class="col-12"><hr /></div>
             <div
               v-for="(post, index) in posts"
@@ -314,19 +315,21 @@
               class="col-12 row items-center"
             >
               <div class="col-1">{{ index + 1 }}</div>
-              <div class="col-6 text-center">{{ check(post.status) }}</div>
-              <div class="col-5 row justify-around">
+              <div class="col-6 col-md-3 text-center">{{ check(post.status) }}</div>
+              <div class="col-5 gt-sm col-md-3 text-bold">{{getDate(post.created_at)}}</div>
+              <div class="col-5 col-md-4 row justify-end">
                 <q-btn
                   rounded
                   outline
                   color="negative"
                   icon="delete"
+                  class="q-mr-sm"
                   @click="deletePost(post.id, index)"
                 />
                 <q-btn
                   rounded
                   outline
-                  class="text-black"
+                  class="text-black q-mr-sm"
                   color="warning"
                   icon="autorenew"
                   @click="changeStatus(post.id, index)"
@@ -413,7 +416,7 @@
                 label=" Nhập số nước "
               />
             </div>
-            <div class="col-md-4 col-2 row items-center justify-center">
+            <div class="col-md-4 col-2 row items-center justify-end">
               <q-btn
                 color="orange"
                 icon="check"
@@ -432,7 +435,9 @@
           <q-btn
             color="negative"
             icon="logout"
-            label=" rời phòng trọ"
+            label=" Rời phòng trọ"
+            no-caps
+            rounded
             @click="isOut = true"
           />
         </div>
@@ -472,6 +477,8 @@
               <q-btn
                 flat
                 label="Rời trọ"
+                no-caps
+                rounded
                 color="negative"
                 @click="outRoom()"
                 v-close-popup

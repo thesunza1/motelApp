@@ -1,62 +1,131 @@
 <template>
-  <q-page padding>
-    <div class="full-width">
-      <motel-room-detail></motel-room-detail>
-    </div>
-    <div
-      v-for="(roomType, index) in inforShareRoom"
-      :key="index"
-      class="full-width row items-center"
-    >
-      <q-expansion-item
-        expand-separator
-        icon="perm_identity"
-        :label="roomType.name"
-        header-class="g-header-up bg-white q-py-md shadow-up-1 g-border"
-        class="col-12 bg-white"
+  <q-page padding class="row justify-center">
+    <div class="col-12 col-md-10">
+      <div class="full-width">
+        <motel-room-detail></motel-room-detail>
+      </div>
+      <div
+        v-for="(roomType, index) in inforShareRoom"
+        :key="index"
+        class="full-width row items-center"
       >
-        <br>
-        <div class="col-12 row items-start">
-          <div
-            v-for="(room, index) in roomType.rooms"
-            :key="index"
-            class="col-4 col-md-3 row justify-center items-start content-start"
-          >
-            <q-card
-              class="my-card col-11"
-              :class="
-                room.room_status_id != 2 ? bgCard(room.room_status_id) : ''
+        <q-expansion-item
+          expand-separator
+          icon="perm_identity"
+          :label="roomType.name"
+          header-class="g-header-up bg-white q-py-md shadow-up-1 g-border"
+          class="col-12 bg-white"
+        >
+          <br />
+          <div class="col-12 row items-start">
+            <div
+              v-for="(room, index) in roomType.rooms"
+              :key="index"
+              class="
+                col-4 col-md-2
+                row
+                justify-center
+                items-start
+                content-start
               "
-              style="min-height: 100px"
             >
-              <q-card-section
-                class="
-                  text-white text-center
-                  rooms
-                  row
-                  justify-center
-                  items-center
+              <q-card
+                class="my-card col-11"
+                :class="
+                  room.room_status_id != 2 ? bgCard(room.room_status_id) : ''
                 "
-                :class="bgCard(room.room_status_id)"
-                @click="openDialog(room)"
+                style="min-height: 100px"
               >
-                <div class="col-12">Phòng : {{ room.name }}</div>
-              </q-card-section>
-              <q-card-section v-if="room.room_status_id == 2">
-                <div
-                  v-for="(user, index) in room.tenant.infor_tenant_users"
-                  :key="index"
-                  class="g-header-up"
+                <q-card-section
+                  class="
+                    text-white text-center
+                    rooms
+                    row
+                    justify-center
+                    items-center
+                  "
+                  :class="bgCard(room.room_status_id)"
+                  @click="openDialog(room)"
                 >
-                  Tên: {{ user.user?.name }}
+                  <div class="col-12">Phòng : {{ room.name }}</div>
+                </q-card-section>
+                <q-card-section v-if="room.room_status_id == 2">
+                  <div
+                    v-for="(user, index) in room.tenant.infor_tenant_users"
+                    :key="index"
+                    class="g-header-up"
+                  >
+                    Tên: {{ user.user?.name }}
+                  </div>
+                </q-card-section>
+              </q-card>
+              <div class="col-12"><br /></div>
+            </div>
+          </div>
+        </q-expansion-item>
+        <div class="col-12"><br /></div>
+      </div>
+      <div class="col-12"><br /></div>
+      <q-card class="col-12 row">
+        <q-card-section class="col-12">
+          <div class="text-h5">
+            Hình ảnh Thiết bị thiết yếu
+          </div>
+        </q-card-section>
+        <div v-if="roomTypeUser" class="col-12 row items-center justify-around">
+          <q-card class="my-card col-12 col-md-5">
+            <q-card-section horizontal>
+              <q-card-section class="col-9">
+                <div class="">
+                  <div class="text-h6" style="display: inline">
+                    Thiết bị chữa cháy
+                  </div>
+                </div>
+                <div class="">
+                  <b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[1].place }}
                 </div>
               </q-card-section>
-            </q-card>
-            <div class="col-12"  ><br /></div>
-          </div>
+              <q-card-section class="col-3 row content-end justify-end">
+                <q-btn
+                  rounded
+                  no-caps
+                  color="black"
+                  label=" Xem ảnh"
+                  @click="seeImg(roomTypeUser.motel.motel_imgs[1].img_details)"
+                />
+              </q-card-section>
+            </q-card-section>
+          </q-card>
+          <!-- <div class="col-2 gt-sm"></div> -->
+          <div class="col-12 lt-md"><br /></div>
+          <q-card class="my-card col-12 col-md-6">
+            <q-card-section horizontal>
+              <q-card-section class="col-10">
+                <div class="">
+                  <div class="text-h6" style="display: inline">
+                    Thiết bị sơ cứu
+                  </div>
+                </div>
+                <div class="">
+                  <b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[2].place }}
+                </div>
+              </q-card-section>
+              <q-card-section class="col-2 row content-end justify-end">
+                <q-btn
+                  rounded
+                  no-caps
+                  color="black"
+                  label=" Xem ảnh"
+                  @click="seeImg(roomTypeUser.motel.motel_imgs[2].img_details)"
+                />
+              </q-card-section>
+            </q-card-section>
+
+          </q-card>
         </div>
-      </q-expansion-item>
-      <div class="col-12 " ><br /></div>
+        <q-card-section>
+        </q-card-section>
+      </q-card>
     </div>
     <q-footer
       class="col-12 row justify-center items-center bg-blue-2 pd"
@@ -67,7 +136,8 @@
           no-caps
           color="negative"
           icon="person"
-          label=" Báo cáo"
+          rounded
+          label="Báo cáo"
           @click="isReport = true"
         />
       </q-card-actions>
@@ -86,21 +156,21 @@
         <q-card-section v-if="thisRoom.room_status_id == 1">
           Phòng trống
         </q-card-section>
-        <q-card-section class="row items-center justify-center content-start" v-if="thisRoom.room_status_id == 2">
+        <q-card-section
+          class="row items-center justify-center content-start"
+          v-if="thisRoom.room_status_id == 2"
+        >
           <q-card
             v-for="(user, index) in thisRoom.tenant.infor_tenant_users"
             :key="index"
-            class="my-card col-12 col-md-5  "
-            style="margin-bottom: 10px ; margin-right: 10px"
+            class="my-card col-12 col-md-5"
+            style="margin-bottom: 10px; margin-right: 10px"
           >
-            <q-card-section class="  row items-center">
-              <div class="col-12  text-subtitle2">
-                Tên: {{ user.user.name }}
-              </div>
-              <div class="col-12">Email: {{user.user.email}}</div>
+            <q-card-section class="row items-center">
+              <div class="col-12 text-subtitle2">Tên: {{ user.user.name }}</div>
+              <div class="col-12">Email: {{ user.user.email }}</div>
               <div class="col-12">Sdt: {{ user.user.phone_number }}</div>
               <div class="col-12">Ngành nghề: {{ user.user.job }}</div>
-
             </q-card-section>
           </q-card>
           <div><br /></div>
@@ -120,6 +190,9 @@
         :motelId="roomTypeUser.motel.id"
       ></user-report>
     </q-dialog>
+    <q-dialog v-model="seeImgs" >
+      <gobal-img-detail style="min-width: 90%" v-if="thisImg" :img_details="thisImg"></gobal-img-detail>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -128,10 +201,12 @@ import { mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import MotelRoomDetail from "../components/MotelRoomDetail.vue";
 import UserReport from "../components/UserReport.vue";
+import GobalImgDetail from "../components/GobalImgDetail.vue"
 export default {
   components: {
     MotelRoomDetail,
     UserReport,
+    GobalImgDetail,
   },
   setup() {
     const $q = useQuasar();
@@ -157,6 +232,8 @@ export default {
         ? "bg-blue-5"
         : "bg-red-4";
     }
+
+
     return {
       showNoti,
       toDate,
@@ -173,6 +250,8 @@ export default {
       thisRoom: null,
       isOpen: false,
       isReport: false,
+      seeImgs: false ,
+      thisImg: null,
     };
   },
   methods: {
@@ -180,6 +259,11 @@ export default {
       this.thisRoom = room;
       this.isOpen = true;
     },
+    seeImg(imgs) {
+      this.seeImgs = true ;
+      this.thisImg = imgs;
+      console.log(this.thisImg);
+    }
   },
 };
 </script>
