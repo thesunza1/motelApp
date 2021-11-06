@@ -1,5 +1,8 @@
 <template>
   <div class="full-width">
+    <div class="text-primary bg-white text-h4 text-bold q-py-md q-pl-md g-border" v-if="thisMotel== null">
+      Danh sách bài mới nhất
+    </div>
     <div v-for="(post, index) in posts" :key="index" class="full-width">
       <q-card class="my-card g-border" v-if="post.post_type_id == 1">
         <q-card-section horizontal>

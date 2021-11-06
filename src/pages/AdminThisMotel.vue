@@ -123,15 +123,15 @@
             </div>
           </q-card-section>
           <q-card-section class="row items-center contents-start size-word">
+            <div class="col-4 g-header-up">
+              <q-icon name="face" class="text-positive size-icon" />
+              {{ motel.user.name }}
+            </div>
             <div class="col-4">
               <div class="col-12">
                 <q-icon name="email" class="text-positive size-icon" />
                 {{ motel.user.email }}
               </div>
-            </div>
-            <div class="col-4 g-header-up">
-              <q-icon name="face" class="text-positive size-icon" />
-              {{ motel.user.name }}
             </div>
             <div class="col-12"></div>
             <div class="col-4 row items-center mr">

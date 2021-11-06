@@ -11,10 +11,10 @@
      <div class="col-5">
        <b>Chủ trọ: </b><p style="display:inline" class="g-header-up"> {{motel.user.name}}</p>
      </div>
-     <div class="col-5">
+     <div class="col-4">
        <b>Email: </b> <p style="display:inline"> {{motel.user.email}}</p>
      </div>
-     <div class="col-2">
+     <div class="col-3">
        <b>Điện thoại: </b> <p style="display: inline"> {{motel.phone_number}}</p>
      </div>
      <div class="col-12"><br></div>
@@ -22,10 +22,10 @@
        <div class="col-5">
          <b>Giá điện :</b> {{toPrice(motel.elec_cost) }} Vnd
        </div>
-       <div class="col-5">
+       <div class="col-4">
          <b>Giá nước :</b> {{toPrice(motel.water_cost) }} Vnd
        </div>
-       <div class="col-2">
+       <div class="col-3">
          <b>Đặt cọc :</b> {{toPrice(motel.deposit) }} Vnd
        </div>
      </div>

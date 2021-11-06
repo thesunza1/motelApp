@@ -38,7 +38,7 @@
           <q-avatar color="black" text-color="white" icon="badge" />
         </q-item-section>
         <q-item-section>
-          <q-item-label> Danh sách bài đăng</q-item-label>
+          <q-item-label> Bài đăng</q-item-label>
         </q-item-section>
       </q-item>
       <q-item clickable @click="goto('shareInfor')">
@@ -256,8 +256,10 @@
           </q-card-section>
           <q-card-section class="row full-width items-center">
             <div class="col-1 text-bold">Stt</div>
-            <div class="col-6 text-bold">Họ tên</div>
-            <div class="col-5 text-bold">Điện thoại</div>
+            <div class="col-6 col-md-3 text-bold">Họ tên</div>
+            <div class="gt-sm col-md-3 text-bold">Email</div>
+            <div class="gt-sm col-md-3 text-bold"> Nghề nghiệp</div>
+            <div class="col-5 col-md-2 text-bold">Điện thoại</div>
             <div class="col-12">
               <hr />
             </div>
@@ -268,8 +270,10 @@
               class="col-12 row items-center"
             >
               <div class="col-1">{{ ++index }}</div>
-              <div class="col-6">{{ tenant_user.user.email }}</div>
-              <div class="col-5">
+              <div class="col-6 col-md-3 g-header-up">{{ tenant_user.user.name }}</div>
+              <div class="gt-sm col-md-3 ">{{ tenant_user.user.email }}</div>
+              <div class="gt-sm col-md-3 ">{{ tenant_user.user.job }}</div>
+              <div class="col-5 col-md-2">
                 {{ tenant_user.user.phone_number }}
               </div>
               <div class="col-12">
@@ -316,7 +320,7 @@
             >
               <div class="col-1">{{ index + 1 }}</div>
               <div class="col-6 col-md-3 text-center">{{ check(post.status) }}</div>
-              <div class="col-5 gt-sm col-md-3 text-bold">{{getDate(post.created_at)}}</div>
+              <div class="col-5 gt-sm col-md-3">{{getDate(post.created_at)}}</div>
               <div class="col-5 col-md-4 row justify-end">
                 <q-btn
                   rounded

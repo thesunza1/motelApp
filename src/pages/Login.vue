@@ -106,7 +106,7 @@
           </q-card-section>
           <q-img
             src="/images/loginMotel.jpg"
-            class="col-6"
+            class="col-6 gt-sm"
             spinner-color="primary"
             spinner-size="82px"
           />

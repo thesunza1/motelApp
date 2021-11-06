@@ -164,7 +164,7 @@
               <div class="col-1 text-bold q-pl-sm">Stt</div>
               <div class="col-4 text-bold">Tên thiết bị</div>
               <div class="col-4 text-bold">Trạng Thái</div>
-              <div class="col-3 text-bold">Hình ảnh</div>
+              <div class="col-3  text-center text-bold">Hình ảnh</div>
               <div class="col-12 text-bold"><hr /></div>
               <div class="col-12"><br /></div>
             </div>

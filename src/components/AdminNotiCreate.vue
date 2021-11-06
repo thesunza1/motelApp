@@ -1,49 +1,57 @@
 <template>
   <q-card class="my-card full-width g-border" style="max-height: 80vh">
-    <q-form @submit="sendNoti" @reset="onReset" >
+    <q-form @submit="sendNoti" @reset="onReset">
       <q-card-section class="bg-primary text-white text-h6 text-center">
         Tạo thông báo
       </q-card-section>
       <q-card-section>
         <div class="row full-width items-center">
-          <div class="col-12 row items-center justify-center">
+          <div class="col-12 row q-pb-sm items-center">
+            <div class="text-h6">Chọn loại thông báo: &nbsp;</div>
             <q-btn-toggle
               v-model="noti.noti_type_id"
               toggle-color="primary"
               class="g-header"
               no-caps
               :options="[
-                {label: ' Thông báo', value: 1},
-                {label: ' Cảnh báo', value: 2},
-                {label: ' Xác nhận', value: 4}
+                { label: ' Thông báo', value: 1 },
+                { label: ' Cảnh báo', value: 2 },
+                { label: ' Xác nhận', value: 4 },
               ]"
             />
           </div>
-          <div class="col-md-5">Tìm người nhận:</div>
-          <div class="col-1"></div>
-          <q-input
-            class="col-5"
-            v-model="noti.email"
-            type="text"
-            label="Nhập email"
-          />
-          <q-btn
-            class="col-1"
-            color="primary"
-            icon="search"
-            @click="findUser"
-          />
+          <div class="col-12 q-mb-sm row items-center">
+            <div class="">Tìm người nhận: &nbsp;</div>
+            <q-input
+              class="col-5 q-mr-md"
+              v-model="noti.email"
+              type="text"
+              rounded
+              dense
+              outlined
+              label="Nhập email"
+            />
+            <q-btn
+              class="col-1"
+              color="primary"
+              label="Tìm"
+              no-caps
+              @click="findUser"
+            />
+          </div>
           <q-input
             class="col-12"
             v-model="noti.title"
             type="text"
             label=" Tiêu đề"
             outlined
+            label-color="primary"
           />
           <q-input
             class="col-12"
             v-model="noti.content"
             type="textarea"
+            label-color="primary"
             label=" Nội dung"
             outlined
           />
@@ -56,7 +64,13 @@
         </div>
       </q-card-section>
       <q-card-actions horizontal align="right">
-        <q-btn color="secondary" text-color="white" type="submit" class="g-header" label=" Gửi" />
+        <q-btn
+          color="black"
+          text-color="white"
+          type="submit"
+          no-caps
+          label=" Gửi"
+        />
       </q-card-actions>
       <q-card-section class="lt-sm" style="min-height: 50vh"> </q-card-section>
     </q-form>
@@ -65,9 +79,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import {useQuasar} from 'quasar'
-import userApi from '../boot/callApi/user';
-import noti from '../boot/noti/noti';
+import { useQuasar } from "quasar";
+import userApi from "../boot/callApi/user";
+import noti from "../boot/noti/noti";
 export default {
   async created() {},
   components: {},
@@ -97,19 +111,21 @@ export default {
       this.userFind = user[0];
     },
     async sendNoti() {
-      if(this.userFind == null) {
-        noti.showNoti('Bạn nhập email và tìm kiếm mới có thể gửi thông báo', 'negative');
-        return ;
+      if (this.userFind == null) {
+        noti.showNoti(
+          "Bạn nhập email và tìm kiếm mới có thể gửi thông báo",
+          "negative"
+        );
+        return;
       }
-      const sended = await this.$api.post("sendNoti",{
-        noti: this.noti ,
-        receiver_id: this.userFind.id ,
+      const sended = await this.$api.post("sendNoti", {
+        noti: this.noti,
+        receiver_id: this.userFind.id,
       });
       let statusCode = sended.data.statusCode;
-      if(statusCode ==1 ) noti.showNoti('thành công','info');
-      else noti.showNoti('thất bại','warning');
-
-    }
+      if (statusCode == 1) noti.showNoti("thành công", "info");
+      else noti.showNoti("thất bại", "warning");
+    },
   },
 };
 </script>

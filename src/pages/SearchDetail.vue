@@ -27,24 +27,26 @@
           <!-- roomtype post  -->
           <div class="col-12 row items-center">
             <div
-              class="col-12 g-header-up text-h6 text-blue"
+              class="col-4 g-header-up q-pb-md text-h5"
               style="padding: 0px 5px"
             >
-              {{ post.title }}- {{ post.room_type.name }}
+              <b>Tên trọ:</b>
+              <p class="text-black" style="display: inline">
+                {{ post.room_type.motel.name }}
+              </p>
             </div>
-            <div class="col-12">
-              <q-chip icon="room" :label="post.room_type.motel.address" />
-            </div>
-            <div class="col-12 row items-center">
-              <div class="text-h6 text-green col-5 col-md-3 g-header-up">
+            <div class="col-6 text-h5">
+              <b>Loại phòng:</b>
+              <p class="text-black g-header-up" style="display: inline">
                 {{ post.room_type.name }}
-              </div>
-              <q-chip class="" icon="directions">
-                {{ toDate(post.updated_at) }}
-              </q-chip>
+              </p>
             </div>
-            <div class="col-12 text-subtitle2 text-accent">
-              Phòng trống còn :
+            <div class="col-4 text-orange text-h6">
+              <b class="text-black"> Giá phòng: </b
+              >{{ toNum(post.room_type.cost) }} Vnd
+            </div>
+            <div class="col-6 q-pt-md text-subtitle2 text-accent">
+              <b class="text-black">Phòng trống còn :</b>
               <div
                 v-for="(room, index) in rooms"
                 :key="index"
@@ -53,30 +55,38 @@
                 <p v-if="room.room_status_id == 1">{{ room.name + ", " }}</p>
               </div>
             </div>
+
+            <div class="col-12 row items-center">
+              <div class="col-4">
+                <q-chip icon="room" :label="post.room_type.motel.address" />
+              </div>
+              <q-chip class="" icon="directions">
+                {{ toDate(post.updated_at) }}
+              </q-chip>
+            </div>
             <div class="col-12"><br /></div>
             <div class="col-12">
               <hr />
             </div>
-
             <!-- infor room -->
             <div class="col-12 justify-center row items-center">
               <div class="col-12 text-h6">Thông tin loại phòng</div>
               <div class="col-11 row items-center">
-                <div class="col-6 text-positive">
-                  <b> Giá phòng: </b>{{ post.room_type.cost }} Vnd
+                <div class="col-6">
+                  <b> Phí điện: </b
+                  >{{ toNum(post.room_type.motel.elec_cost) }} Vnd/kwh
                 </div>
                 <div class="col-6">
-                  <b> Phí điện: </b>{{ post.room_type.motel.elec_cost }} Vnd/kwh
+                  <b> Phí nước: </b
+                  >{{ toNum(post.room_type.motel.water_cost) }} Vnd/M3
                 </div>
                 <div class="col-6">
-                  <b> Phí nước: </b>{{ post.room_type.motel.water_cost }} Vnd/M3
-                </div>
-                <div class="col-6">
-                  <b> Phụ thu: </b>{{ post.room_type.motel.people_cost }} Vnd
+                  <b> Phụ thu: </b
+                  >{{ toNum(post.room_type.motel.people_cost) }} Vnd
                 </div>
                 <div class="col-6">
                   <b> Đặt cọc: </b
-                  >{{ post.room_type.motel.people_cost }} Vnd/Phòng
+                  >{{ toNum(post.room_type.motel.deposit) }} Vnd/Phòng
                 </div>
                 <div class="col-6">
                   <b> Diện tích: </b>{{ post.room_type.area }} M2
@@ -86,13 +96,15 @@
               <div class="col-11 row items-center justify-center">
                 <div class="col-12 row items-center">
                   <div class="col-8 text-subtitle2">
-                    Cho phép: {{ toNamNu(post.room_type) }}
+                    <b>Cho phép:</b> {{ toNamNu(post.room_type) }}
                   </div>
                 </div>
                 <div class="col-12 text-subtitle2">
                   <b>Mô tả loại phòng: </b>
                 </div>
-                <div class="col-12">{{ post.room_type.content }}</div>
+                <div class="col-12 g-text-indent">
+                  {{ post.room_type.content }}
+                </div>
               </div>
               <div class="col-12"><br /></div>
               <div class="col-12">
@@ -116,7 +128,9 @@
                   ></motel-show-imgs>
                 </div>
                 <div class="col-12"><br /></div>
-                <div class="col-11 row items-center justify-center">
+                <div
+                  class="col-11 g-text-indent row items-center justify-center"
+                >
                   <div
                     class="
                       col-12
@@ -127,11 +141,11 @@
                   >
                     Tên trọ: {{ post.room_type.motel.name }}
                   </div>
-                  <div class="col-12">
+                  <div class="col-6">
                     <b> Địa chỉ: </b>{{ post.room_type.motel.address }}
                   </div>
-                  <div class="col-12">
-                    <b> Giờ: mở</b>
+                  <div class="col-6">
+                    <b> Giờ:</b> mở
                     {{
                       post.room_type.motel.open +
                       "- đóng" +
@@ -150,14 +164,20 @@
                   <div class="col-6">
                     <b>Chổ để xe :</b> {{ post.room_type.motel.parking }}
                   </div>
-                  <div class="col-12 text-subtitle2 text-accent">Mô tả</div>
-                  <div class="col-12">{{ post.room_type.motel.content }}</div>
+                  <div class="col-12">
+                    <b>Mô tả:</b>
+                    <div class="g-text-indent">
+                      &nbsp; {{ post.room_type.motel.content }}
+                    </div>
+                  </div>
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-12">
                   <hr />
                 </div>
-                <div class="col-12 text-h5 text-primary">Vị trí trọ</div>
+                <div class="col-12 text-h5 q-pb-md">
+                  Vị trí trọ
+                </div>
                 <div class="col-12 justity-center row items-center">
                   <div class="col-12">
                     <search-show-map :center="center"></search-show-map>
@@ -168,8 +188,11 @@
                   <hr />
                 </div>
                 <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white text-center">
+                  <div class="col-12 text-subtitle2 text-white g-text-indent">
                     Hình ảnh {{ post.room_type.motel.motel_imgs[1].content }}
+                  </div>
+                  <div class="col-12 text-subtitle2 text-white g-text-indent">
+                    Nơi để: {{ post.room_type.motel.motel_imgs[1].place }}
                   </div>
                   <div class="col-12"><br /></div>
                   <motel-show-imgs
@@ -178,17 +201,17 @@
                       post.room_type.motel.motel_imgs[1].img_details
                     "
                   ></motel-show-imgs>
-                  <div class="col-12 text-subtitle2 text-white text-center">
-                    Nơi để: {{ post.room_type.motel.motel_imgs[1].place }}
-                  </div>
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-12">
                   <hr />
                 </div>
                 <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white text-center">
+                  <div class="col-12 text-subtitle2 text-white g-text-indent">
                     Hình ảnh {{ post.room_type.motel.motel_imgs[2].content }}
+                  </div>
+                  <div class="col-12 text-subtitle2 text-white g-text-indent">
+                    Nơi để: {{ post.room_type.motel.motel_imgs[2].place }}
                   </div>
                   <div class="col-12"><br /></div>
                   <motel-show-imgs
@@ -197,9 +220,6 @@
                       post.room_type.motel.motel_imgs[2].img_details
                     "
                   ></motel-show-imgs>
-                  <div class="col-12 text-subtitle2 text-white text-center">
-                    Nơi để: {{ post.room_type.motel.motel_imgs[2].place }}
-                  </div>
                 </div>
               </div>
             </div>
@@ -388,7 +408,7 @@
                   <hr />
                 </div>
                 <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white ">
+                  <div class="col-12 text-subtitle2 text-white">
                     <q-icon
                       name="photo_camera"
                       class="text-positive"
@@ -404,7 +424,7 @@
                       post.room.room_type.motel.motel_imgs[1].img_details
                     "
                   ></motel-show-imgs>
-                  <div class="col-12 text-subtitle2 text-white ">
+                  <div class="col-12 text-subtitle2 text-white">
                     Nơi để: {{ post.room.room_type.motel.motel_imgs[1].place }}
                   </div>
                 </div>
@@ -413,7 +433,7 @@
                   <hr />
                 </div>
                 <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white ">
+                  <div class="col-12 text-subtitle2 text-white">
                     <q-icon
                       name="photo_camera"
                       class="text-positive"
@@ -429,7 +449,7 @@
                       post.room.room_type.motel.motel_imgs[2].img_details
                     "
                   ></motel-show-imgs>
-                  <div class="col-12 text-subtitle2 text-white ">
+                  <div class="col-12 text-subtitle2 text-white">
                     Nơi để: {{ post.room.room_type.motel.motel_imgs[2].place }}
                   </div>
                 </div>
@@ -494,7 +514,7 @@ import SearchShowMap from "../components/SearchShowMap.vue";
 import SearchSendIntoRoom from "../components/SearchSendIntoRoom.vue";
 import SearchCommentRender from "../components/SearchCommentRender.vue";
 import UserReport from "../components/UserReport.vue";
-
+import sp from "../boot/support";
 import td from "../boot/noti/date";
 export default {
   setup() {
@@ -558,6 +578,9 @@ export default {
   methods: {
     toDate(date) {
       return td.toDate(date);
+    },
+    toNum(num) {
+      return sp.toNum(num);
     },
   },
   components: {

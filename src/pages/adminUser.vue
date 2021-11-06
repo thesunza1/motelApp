@@ -3,16 +3,17 @@
     <div v-if="users">
       <div class="full-width">
         <q-card-section class="row items-center">
-          <div class="col-6 row items-center justify-around">
-            <div class="text-bold">Tìm người dùng:</div>
+          <div class="col-6 row items-center ">
             <q-input
               v-model="email"
+              outlined
               type="text"
               label=" Nhập email"
               label-color="primary"
+              class="q-mr-lg"
             />
             <q-btn
-              color="primary g-header"
+              color="black g-header"
               icon="search"
               rounded
               label="Tìm"
@@ -22,7 +23,7 @@
         </q-card-section>
         <q-card-actions v-if="thisUser.length == 1" align="right">
           <q-btn
-            color="warning"
+            color="black"
             icon="update"
             rounded
             label="Cập nhật"
@@ -30,7 +31,7 @@
             @click="isUpdate = true"
           />
           <q-btn
-            color="negative"
+            color="black"
             rounded
             class="g-header"
             icon="delete"
@@ -38,7 +39,7 @@
             @click="isDelete = true"
           />
           <q-btn
-            color="primary"
+            color="black"
             icon="question_answer"
             rounded
             class="g-header"

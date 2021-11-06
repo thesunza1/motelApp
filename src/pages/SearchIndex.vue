@@ -176,6 +176,7 @@ export default {
       this.posts = data;
       this.max_page = data.last_page;
       this.num_page = 1;
+      this.thisMotel = null;
     },
     async getPostMotels(motelId , motel) {
       const res = await this.$api.post("getPostMotels", {

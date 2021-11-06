@@ -6,18 +6,21 @@
       </q-card-section>
       <q-card-section>
         <div class="row full-width items-center">
-          <div class="col-md-5">Tìm người nhận:</div>
-          <div class="col-1"></div>
+          <div class="">Tìm người nhận: &nbsp;</div>
           <q-input
-            class="col-5"
+            class="col-5 q-mr-md"
             v-model="noti.email"
             type="text"
+            outlined
+            label-color="primary"
+            dense
             label="Nhập email"
           />
           <q-btn
             class="col-1"
-            color="primary"
-            icon="search"
+            color="black"
+            no-caps
+            label="Tìm"
             @click="findUser"
           />
           <q-input
@@ -44,7 +47,7 @@
         </div>
       </q-card-section>
       <q-card-actions horizontal align="right">
-        <q-btn color="secondary" text-color="white" type="submit" class="g-header" label=" Gửi" />
+        <q-btn color="black" text-color="white" type="submit" class="g-header" label=" Gửi" />
       </q-card-actions>
       <q-card-section class="lt-sm" style="min-height: 50vh"> </q-card-section>
     </q-form>
