@@ -1,8 +1,15 @@
 <template>
-  <div class=" row  items-center">
-    <div class="col-1"></div>
-    <q-checkbox class="col-5" right-lable v-model="is" :label="name" />
-    <q-input :disable="!is" class="col-5" v-model="cost1" type="number" label=" Số tiền" suffix="Vnd" />
+  <div class="row items-center">
+    <q-checkbox class="col-1" right-lable v-model="is" :label="name" />
+    <q-input
+      :disable="!is"
+      class="col-5"
+      v-model="cost1"
+      label-color="positive"
+      type="number"
+      label=" Số tiền"
+      suffix="Vnd"
+    />
   </div>
 </template>
 
@@ -36,5 +43,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

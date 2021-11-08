@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding class="row content-center items-center justify-center">
     <div class="row justify-center">
       <q-dialog v-model="isError" persistent>
         <q-card>
@@ -8,7 +8,7 @@
               icon="warning"
               color="negative"
               text-color="white"
-              class="q-mr-20"
+              class="q-mr-md"
             />
             <span class="q-ml-sm"> {{ errorMes }} </span>
           </q-card-section>
@@ -17,24 +17,22 @@
           </q-card-actions>
         </q-card>
       </q-dialog>
-      <q-card class="my-card col-12 col-md-8">
+      <q-card class="my-card g-border shadow-up-3  col-12 col-md-8">
         <form method="post">
           <q-card-section>
-            <div class="text-h3 text-center">register as user</div>
+            <div class="text-h4 text-center">Tạo tài khoản người dùng</div>
           </q-card-section>
           <q-card-section class="row">
             <q-input
               class="col-11 col-md-6"
+              label-color="primary"
               clearable
               v-model="email"
               type="email"
-              :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
-              label="email"
+              :rules="[(val) => val.length >= 1 || ' Không bỏ trống ']"
+              label="Email"
               suffix="@gmail.com"
             >
-              <template v-slot:before>
-                <q-icon name="mail" />
-              </template>
             </q-input>
             <div class="gt-sm col-md-1"></div>
             <q-input
@@ -42,96 +40,108 @@
               clearable
               v-model="password"
               type="password"
-              label="password"
+              label-color="primary"
+              label=" Mật khẩu"
             >
-              <template v-slot:before>
-                <q-icon name="password" />
-              </template>
             </q-input>
             <q-input
-              class="col-12"
+              class="col-12 col-md-6"
               v-model="names"
               type="text"
-              label=" họ tên "
+              label-color="primary"
+              label=" Họ tên "
             >
-              <template v-slot:before>
-                <q-icon name="portrait" />
-              </template>
             </q-input>
-            <div
-              class="col-12"
-              style="margin-top: 30px; font-size: 1.3em; color: gray"
-            >
-              <div class="row items-center">
-                <div class="col-2" style="margin-left: 5px; font-size: 1.1em">
-                  <q-icon name="face" />
-                  giới tính:
-                </div>
-                <div class="col-1">
-                  <input type="radio" id="name" value="1" v-model="sex" />
-                  <label for="name"> nam</label>
-                </div>
-                <div class="col-1">
-                  <input type="radio" id="nu" value="0" v-model="sex" />
-                  <label for="nu"> nữ </label>
-                </div>
-                <div class="col-1"></div>
-                <q-input
-                  class="col"
-                  v-model="phone_number"
-                  type="text"
-                  label="phone number"
-                />
+            <div class="col-1"></div>
+            <div class="col-12 col-md-5 q-py-md row items-center">
+              <div class="" style="margin-left: 5px; font-size: 1.1em">
+                <q-icon name="face" />
+                &nbsp;Giới tính: &nbsp;
               </div>
+              <div class="">
+                <input type="radio" id="name" value="1" v-model="sex" />
+                <label for="name"> Nam</label>
+              </div>
+              <div class="">
+                <input type="radio" id="nu" value="0" v-model="sex" />
+                <label for="nu"> Nữ </label>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <div class="col-12 row q-py-sm items-center">
+              <q-input
+                class="col-12 col-md-6"
+                v-model="date"
+              label-color="primary"
+                mask="date"
+                label=" Ngày sinh"
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy ref="qDateProxy" transition-show="scale">
+                      <q-date v-model="date" landscape minimal>
+                        <div class="row items-center justify-center">
+                          <q-btn
+                            v-close-popup
+                            color="primary"
+                            label="close"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+              <div class="col-1"></div>
+              <q-input
+                class="col"
+                v-model="phone_number"
+              label-color="primary"
+                type="text"
+                label=" Số điện thoại"
+              />
             </div>
             <q-input
-              class="col-12 col-md-12"
-              v-model="date"
-              mask="date"
-              label="birth date"
-            >
-              <template v-slot:append>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy ref="qDateProxy" transition-show="scale">
-                    <q-date v-model="date" landscape minimal>
-                      <div class="row items-center justify-center">
-                        <q-btn
-                          v-close-popup
-                          color="primary"
-                          label="close"
-                          flat
-                        />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
-            <q-input
-              class="col-12"
+              class="col-6"
               v-model="address"
               type="text"
-              label=" địa chỉ nhà "
+              label-color="primary"
+              label="Địa chỉ nhà "
             />
-
+            <div class="col-1"></div>
             <q-input
-              class="col-12"
+              class="col-5"
               v-model="job"
+              label-color="primary"
               type="text"
               label="công việc, nghề nghiệp "
             />
           </q-card-section>
-          <div class="row justify-center items-center">
+          <q-card-actions align="center">
             <q-btn
               type="submit"
-              color="primary"
+              color="black"
+              no-caps
+              rounded
               icon="login"
-              label=" đăng ký "
+              label="Đăng ký "
               @click.prevent="register()"
             />
-          </div>
+          </q-card-actions>
           <br />
         </form>
+        <q-card-section>
+          <div class="text-bold" style="display:inline">
+            Bạn đã có tài khoản? &nbsp;
+          </div>
+          <div class="text-primary"  style="display:inline"> Đăng nhập </div>
+          <br>
+          <div class="text-bold" style="display:inline" >
+            Bạn quên mật khẩu? &nbsp;
+          </div>
+          <div class="text-primary" style="display:inline"> Quên mật khẩu </div>
+        </q-card-section>
       </q-card>
     </div>
     <div class="lt-md" style="height: 100vh"></div>
@@ -139,7 +149,7 @@
 </template>
 
 <script>
-import noti from '../boot/noti/noti';
+import noti from "../boot/noti/noti";
 export default {
   data() {
     return {
@@ -171,13 +181,12 @@ export default {
         this.errorMes = "email đã tồn tại ";
         this.isError = true;
       } else {
-        noti.showNoti('tạo tk thành công', 'positive');
-        this.$router.push("/login");
+        noti.showNoti(" Tạo tài khoản thành công", "positive");
+        this.$router.push("/");
       }
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -3,10 +3,11 @@
     <div v-if="users">
       <div class="full-width">
         <q-card-section class="row items-center">
-          <div class="col-6 row items-center ">
+          <div class="col-6 row items-center">
             <q-input
               v-model="email"
               outlined
+              dense
               type="text"
               label=" Nhập email"
               label-color="primary"
@@ -100,35 +101,43 @@
           <div>Cập nhật người dùng</div>
         </q-card-section>
         <q-card-section class="row justify-center items-center">
-          <q-input
-            class="col-8"
-            v-model="thisUser[0].name"
-            type="text"
-            label=" Họ Tên"
-            label-color="primary"
-          />
-          <div class="col-12 row justify-around items-center mr">
+          <div class="col-12 row">
+            <q-input
+              class="col-6"
+              v-model="thisUser[0].name"
+              type="text"
+              label=" Họ Tên"
+              label-color="primary"
+            />
+            <div class="col-1"></div>
             <q-input
               v-model="thisUser[0].email"
               type="text"
+              class="col-5"
               label=" Email"
               label-color="primary"
             />
+          </div>
+          <div class="col-12 row items-center ">
             <q-input
               v-model="password"
+              class="col-6"
               type="text"
               label=" Đổi mật khẩu"
               label-color="primary"
             />
-          </div>
-          <div class="col-12 row justify-around items-center mr">
+            <div class="col-1"></div>
             <q-input
               v-model="thisUser[0].phone_number"
               type="text"
+              class="col-5"
               label-color="primary"
               label=" Điện thoại"
             />
-            <q-input v-model="thisUser[0].birth_date" color="primary">
+          </div>
+          <div class="col-12 row items-center">
+
+            <!-- <q-input v-model="thisUser[0].birth_date" label="Ngày sinh" color="primary">
               <q-popup-proxy transition-show="scale" transition-hide="scale">
                 <q-date v-model="thisUser[0].birth_date">
                   <div class="row items-center justify-end q-gutter-sm">
@@ -149,9 +158,9 @@
                   </div>
                 </q-date>
               </q-popup-proxy>
-            </q-input>
+            </q-input> -->
           </div>
-          <div class="col-12 row justify-around items-center mr">
+          <div class="col-12 row">
             <q-input
               v-model="thisUser[0].job"
               type="text"
@@ -163,14 +172,15 @@
 
         <q-card-actions align="right">
           <q-btn
-            label=" Thoát"
+            label="Thoát"
             class="g-header"
-            color="primary"
+            color="black"
             v-close-popup
           />
           <q-btn
-            label=" Thay đổi"
-            color="primary"
+            label="Thay đổi"
+            color="black"
+            no-caps
             v-close-popup
             @click="updateUser()"
           />
@@ -178,7 +188,7 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="isDelete" persistent>
-      <q-card style="min-width: 80%">
+      <q-card style="min-width: 50%">
         <q-card-section
           class="row items-center justify-center text-white text-h6 bg-negative"
         >
@@ -186,17 +196,18 @@
         </q-card-section>
         <q-card-section>
           <div>Bạn có muốn xóa tài khoảng vĩnh viễn ?</div>
+          <div>Mọi thông tin, và trọ hiện tại sẽ bị xóa.</div>
         </q-card-section>
         <q-card-actions align="right">
           <q-btn
             label=" Thoát"
             class="g-header"
-            color="negative"
+            color="black"
             v-close-popup
           />
           <q-btn
             label=" Xác nhận"
-            color="primary"
+            color="black"
             v-close-popup
             class="g-header"
             @click="deleteUser()"
@@ -217,6 +228,7 @@ import user from "../boot/callApi/user";
 import { ref } from "vue";
 import { mapGetters } from "vuex";
 import AdminNotiCreate from "../components/AdminNotiCreate.vue";
+import dt from "../boot/noti/date";
 export default {
   setup() {
     const $q = useQuasar();
@@ -282,11 +294,6 @@ export default {
       maxPage: 1,
       columns: [
         {
-          name: "index",
-          label: "#",
-          field: "index",
-        },
-        {
           name: "name",
           label: " Tên",
           field: "name",
@@ -294,7 +301,26 @@ export default {
           classes: "g-header-up",
           sortable: true,
         },
-        { name: "email", label: "Email", field: "email", align: "left" },
+        {
+          name: "email",
+          label: "Email",
+          field: "email",
+          align: "left",
+          sortable: true,
+        },
+        {
+          name: "phone_number",
+          label: "Số Điện thoại",
+          field: "phone_number",
+          align: "left",
+        },
+        {
+          name: "birth_date",
+          label: " Ngày sinh",
+          field: "birth_date",
+          align: "left",
+          format: (val) => this.toDate(val),
+        },
         {
           name: "sex",
           label: " Giới tính",
@@ -324,6 +350,9 @@ export default {
       const res = await userApi.updateUser(this.thisUser[0], this.password);
       this.noti(res?.statusCode);
       this.updateUsers();
+    },
+    toDate(date) {
+      return dt.toDate(date);
     },
     async deleteUser() {
       const res = await userApi.deleteUser(this.thisUser[0].id);

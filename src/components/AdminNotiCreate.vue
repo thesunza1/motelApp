@@ -32,8 +32,9 @@
               label="Nhập email"
             />
             <q-btn
-              class="col-1"
-              color="primary"
+              class=""
+              icon="search"
+              color="black"
               label="Tìm"
               no-caps
               @click="findUser"

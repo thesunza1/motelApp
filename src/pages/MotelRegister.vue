@@ -22,7 +22,7 @@
           <q-card-section>
             <div class="text-h3 text-center">register as motel</div>
           </q-card-section>
-          <q-card-section class="row">
+          <!-- <q-card-section class="row">
             <q-input
               class="col-11 col-md-6"
               clearable
@@ -124,19 +124,116 @@
               :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
               label="công việc, nghề nghiệp "
             />
+          </q-card-section> -->
+          <q-card-section class="row">
+            <q-input
+              class="col-11 col-md-6"
+              label-color="primary"
+              clearable
+              v-model="user.email"
+              type="email"
+              :rules="[(val) => val.length >= 1 || ' Không bỏ trống ']"
+              label="Email"
+              suffix="@gmail.com"
+            >
+            </q-input>
+            <div class="gt-sm col-md-1"></div>
+            <q-input
+              class="col-11 col-md-5"
+              clearable
+              v-model="user.password"
+              type="password"
+              label-color="primary"
+              label=" Mật khẩu"
+            >
+            </q-input>
+            <q-input
+              class="col-12 col-md-6"
+              v-model="user.names"
+              type="text"
+              label-color="primary"
+              label=" Họ tên "
+            >
+            </q-input>
+            <div class="col-1"></div>
+            <div class="col-12 col-md-5 q-py-md row items-center">
+              <div class="" style="margin-left: 5px; font-size: 1.1em">
+                <q-icon name="face" />
+                &nbsp;Giới tính: &nbsp;
+              </div>
+              <div class="">
+                <input type="radio" id="name" value="1" v-model="user.sex" />
+                <label for="name"> Nam</label>
+              </div>
+              <div class="">
+                <input type="radio" id="nu" value="0" v-model="user.sex" />
+                <label for="nu"> Nữ </label>
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <div class="col-12 row q-py-sm items-center">
+              <q-input
+                class="col-12 col-md-6"
+                v-model="user.date"
+                label-color="primary"
+                mask="date"
+                label=" Ngày sinh"
+              >
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy ref="qDateProxy" transition-show="scale">
+                      <q-date v-model="user.date" landscape minimal>
+                        <div class="row items-center justify-center">
+                          <q-btn
+                            v-close-popup
+                            color="primary"
+                            label="close"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+              <div class="col-1"></div>
+              <q-input
+                class="col"
+                v-model="user.phone_number"
+                label-color="primary"
+                type="text"
+                label=" Số điện thoại"
+              />
+            </div>
+            <q-input
+              class="col-6"
+              v-model="user.address"
+              type="text"
+              label-color="primary"
+              label="Địa chỉ nhà "
+            />
+            <div class="col-1"></div>
+            <q-input
+              class="col-5"
+              v-model="user.job"
+              label-color="primary"
+              type="text"
+              label="Công việc, nghề nghiệp "
+            />
           </q-card-section>
           <hr />
           <q-card class="my-card">
             <q-card-section class="row justify-center">
               <div class="col-12 row items-center border-card">
-                <div class="col-12 text-center text-h3">cấu hình trọ</div>
+                <div class="col-12 text-center text-h3">Cấu hình trọ</div>
                 <q-input
                   class="col-7"
                   v-model="motel.names"
                   type="text"
-                  label=" tên trọ"
+                  label=" Tên trọ"
+                  label-color="primary"
                   :rules="[
-                    (val) => val.length > 0 || ' tên trọ không được để trống',
+                    (val) => val.length > 0 || 'Tên trọ không được để trống',
                   ]"
                 />
                 <div class="col-1"></div>
@@ -144,27 +241,19 @@
                   class="col-4"
                   v-model="motel.phone_number"
                   type="text"
-                  label=" số điện thoại"
-                  :rules="[
-                    (val) => val.length > 0 || ' sdt không được để trống',
-                  ]"
+                  label="Số điện thoại"
+                  :rules="[(val) => val.length > 0 || 'Không được để trống']"
                 />
                 <q-input
                   class="col-12"
                   v-model="motel.address"
                   type="text"
-                  label=" địa chỉ"
+                  label=" Địa chỉ"
                   :rules="[
-                    (val) => val.length > 0 || ' địa chỉ không được để trống',
+                    (val) => val.length > 0 || ' Địa chỉ không được để trống',
                   ]"
                 />
                 <div class="col-12 row items-center">
-                  <q-btn
-                    color="primary"
-                    icon="check"
-                    label=" định vị "
-                    @click="getLocation()"
-                  />
                   <div class="col-12"><br /></div>
                   <div class="col-12" style="height: 700px">
                     <l-map v-model:zoom="zoom" :center="center">
@@ -172,6 +261,18 @@
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       ></l-tile-layer>
                       <l-control-layers />
+                      <l-control position="bottomleft">
+                        <q-card-actions align="center">
+                          <q-btn
+                            color="black"
+                            rounded
+                            no-caps
+                            icon="room"
+                            label=" Lấy vị trí"
+                            @click="getLocation()"
+                          />
+                        </q-card-actions>
+                      </l-control>
                       <l-marker
                         v-model:lat-lng="center"
                         draggable
@@ -185,20 +286,20 @@
                   <q-checkbox
                     left-label
                     v-model="isOpen"
-                    label=" đống mở cổng "
+                    label=" Đóng mở cổng "
                   />
                   <q-input
                     :disable="!isOpen"
                     v-model="motel.open"
                     type="number"
-                    label=" giờ mở"
+                    label=" Giờ mở"
                     suffix="h"
                   />
                   <q-input
                     :disable="!isOpen"
                     v-model="motel.closed"
                     type="number"
-                    label=" giờ đóng"
+                    label=" Giờ đóng"
                     suffix="h"
                   />
                 </div>
@@ -208,36 +309,36 @@
                     class="col-5"
                     right-label
                     v-model="motel.camera"
-                    label=" có camera "
+                    label=" Có camera "
                   />
                   <q-input
                     v-model="motel.parking"
                     type="text"
-                    label=" chổ để xe"
+                    label=" Chổ để xe"
                   />
                 </div>
               </div>
               <div class="col-12"><br /></div>
               <div class="col-12 row items-center border-card">
-                <div class="col-12 text-h5 text-center">thiết lập giá</div>
+                <div class="col-12 text-h5 text-center">Thiết lập giá</div>
                 <div class="col-12 row items-center justify-around">
                   <q-input
                     v-model="motel.elec_cost"
                     type="number"
-                    label=" tiền điện"
+                    label=" Tiền điện"
                     suffix="VND/kwh"
                   />
                   <q-input
                     v-model="motel.water_cost"
                     type="number"
-                    label=" tiện nước"
+                    label=" Tiện nước"
                     suffix="VND/m3"
                   />
                   <q-input
                     v-model="motel.deposit"
                     type="number"
-                    label=" đặt cọc"
-                    suffix="VND/phong"
+                    label=" Đặt cọc"
+                    suffix="VND/phòng"
                   />
                   <div class="col-12"><br /></div>
                   <div class="col-12">
@@ -250,13 +351,12 @@
                 </div>
               </div>
               <div class="col-12"><br /></div>
-
               <div class="col-12 row items-center border-card">
                 <div class="col-12 text-h5 text-center">
                   {{ motel_img.content }}
                 </div>
                 <div class="col-12 text-red" style="padding-left: 10px">
-                  * hình ảnh và nội dung sẽ được sử dụng khi đăng bài
+                  *Hình ảnh và nội dung sẽ được sử dụng khi đăng bài
                 </div>
                 <div class="col-12">
                   <mulity-img v-model:imgs="motel_img.imgs"></mulity-img>
@@ -267,7 +367,7 @@
                     outlined
                     v-model="motel.content"
                     type="textarea"
-                    label=" giới thiệu về trọ"
+                    label="Giới thiệu về trọ"
                   />
                 </div>
               </div>
@@ -278,10 +378,10 @@
                 <q-input
                   class="col-12"
                   v-model="motel_equip.place"
-                  :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
+                  :rules="[(val) => val.length >= 1 || ' Không bỏ trống ']"
                   type="text"
                   filled
-                  label=" nơi để"
+                  label=" Nơi để"
                 />
                 <div class="col-12">
                   <br />
@@ -295,10 +395,10 @@
                 <q-input
                   class="col-12"
                   v-model="motel_equips.place"
-                  :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
+                  :rules="[(val) => val.length >= 1 || ' Không bỏ trống']"
                   type="text"
                   filled
-                  label=" nơi để"
+                  label=" Nơi để"
                 />
                 <div class="col-12">
                   <br />
@@ -307,13 +407,13 @@
               </div>
               <div class="col-12 row items-center">
                 <div class="col-12 text-center text-h5">
-                  cấu hình loại phòng
+                  Cấu hình loại phòng
                 </div>
                 <div class="col-12 text-right">
                   <q-btn
                     color="primary"
                     icon="add"
-                    label=" thêm loại "
+                    label="Thêm loại "
                     @click="addTypeRoom"
                   />
                 </div>
@@ -327,17 +427,19 @@
                     <q-input
                       class="col-6"
                       v-model="room.names"
-                      :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
+                      :rules="[(val) => val.length >= 1 || 'Không bỏ trống ']"
                       type="text"
-                      label=" tên loại "
+                      label=" Tên loại "
                     />
-                    <q-btn
-                      class="col-3"
-                      color="negative"
-                      icon="delete"
-                      label=" xóa "
-                      @click="delTypeRoom(index)"
-                    />
+                    <q-card-actions class="col-3" align="right">
+                      <q-btn
+                        color="negative"
+                        icon="delete"
+                        no-caps
+                        label=" Xóa "
+                        @click="delTypeRoom(index)"
+                      />
+                    </q-card-actions>
                   </div>
                   <div class="col-12"><br /></div>
                   <div class="col-12 row">
@@ -345,8 +447,8 @@
                       class="col-3"
                       v-model="room.const"
                       type="number"
-                      label=" giá phòng "
-                      :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
+                      label=" Giá phòng "
+                      :rules="[(val) => val.length >= 1 || 'Không bỏ trống ']"
                       standout="bg-teal text-white"
                       outline
                     />
@@ -355,10 +457,10 @@
                     <q-input
                       standout="bg-teal text-white"
                       class="col-3"
-                      :rules="[(val) => val.length >= 1 || 'dung bo trong ']"
+                      :rules="[(val) => val.length >= 1 || 'Không bỏ trống ']"
                       v-model="room.area"
                       type="number"
-                      label=" diện tích"
+                      label=" Diện tích"
                       suffix="m2"
                     />
                     <q-input
@@ -366,14 +468,14 @@
                       class="col-4"
                       v-model="room.content"
                       type="textarea"
-                      label=" đặt điểm"
+                      label=" Đặt điểm"
                     />
                     <q-input
                       standout="bg-teal text-white"
                       class="col-3"
                       v-model="room.room_num"
                       type="number"
-                      label=" số phòng "
+                      label=" Số phòng "
                     />
                   </div>
                   <div class="col-12"><br /></div>
@@ -381,17 +483,17 @@
                     <q-checkbox
                       left-label
                       v-model="room.male"
-                      label=" cho nam"
+                      label=" Cho nam"
                     />
                     <q-checkbox
                       left-label
                       v-model="room.female"
-                      label=" cho nữ "
+                      label=" Cho nữ "
                     />
                     <q-checkbox
                       left-label
                       v-model="room.everyone"
-                      label=" bất kì "
+                      label=" Bất kì "
                     />
                   </div>
                   <div class="col-12"><br /></div>
@@ -407,11 +509,11 @@
                     <q-checkbox
                       right-label
                       v-model="motel.auto_post"
-                      label=" tự động đăng bài khi có phòng trống "
+                      label=" Tự động đăng bài khi có phòng trống "
                     />
                   </div>
                   <div class="col-12 text-red">
-                    *sử dụng các hình ảnh về loại phòng ,hình ảnh trọ, các thông
+                    *Sử dụng các hình ảnh về loại phòng ,hình ảnh trọ, các thông
                     tin có sẳn để tạo bài đăng
                   </div>
                 </div>
@@ -437,7 +539,7 @@
 <script>
 import Tax from "../components/Tax.vue";
 import MulityImg from "../components/MulityImg.vue";
-import noti from '../boot/noti/noti';
+import noti from "../boot/noti/noti";
 export default {
   components: {
     Tax,
@@ -459,7 +561,7 @@ export default {
 
       iconHeight: 40,
       user: {
-        names: "sdfs",
+        names: "",
         email: "",
         password: "",
         address: "",
@@ -485,7 +587,7 @@ export default {
         elec_cost: 0,
         water_cost: 0,
         people_cost: 0,
-        people_name: " thuế người ",
+        people_name: " Phụ thu",
         content: "",
         auto_post: true,
       },
@@ -543,9 +645,8 @@ export default {
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition);
-      }
-      else {
-        console.log('khong ho tro');
+      } else {
+        console.log(" Thiết bị không hỗ trợ");
         // alert('khong ho tro');
       }
     },
@@ -558,7 +659,7 @@ export default {
     log(e) {
       this.motel.latitude = this.center.lat;
       this.motel.longitude = this.center.lng;
-      console.log(this.motel.latitude + ' ' + this.motel.longitude);
+      console.log(this.motel.latitude + " " + this.motel.longitude);
     },
     async onsubmit() {
       let fd = new FormData();
@@ -585,10 +686,10 @@ export default {
       let errorCode = response.statusCode;
       if (errorCode == 0) {
         this.isError = true;
-        this.errorMes = "email đã tồn tại ";
+        this.errorMes = "Email đã tồn tại ";
       } else {
-        noti.showNoti('tạo tài khoảng thành công' , 'positive') ;
-        this.$router.push("/login");
+        noti.showNoti("Tạo tài khoảng thành công", "positive");
+        this.$router.push("/");
       }
     },
     append(fd, imgs, name) {

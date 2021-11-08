@@ -10,6 +10,7 @@
               type="text"
               class="q-mr-md"
               label="Email chủ trọ"
+              dense
               label-color="primary"
             />
             <q-btn
