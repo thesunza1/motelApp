@@ -20,7 +20,7 @@
       <q-card class="my-card col-12 col-md-8">
         <q-form @reset="onReset" class="q-gutter-md" @submit="onsubmit">
           <q-card-section>
-            <div class="text-h3 text-center">register as motel</div>
+            <div class="text-h3 text-center"> Tạo tài khoản trọ</div>
           </q-card-section>
           <!-- <q-card-section class="row">
             <q-input

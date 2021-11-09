@@ -156,6 +156,7 @@
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       ></l-tile-layer>
                       <l-control-layers />
+
                       <l-marker
                         v-model:lat-lng="center"
                         draggable
@@ -290,7 +291,7 @@
                     </template>
                   </q-input>
                 </div>
-                <div>
+                <div class="q-px-md">
                   <q-input
                     v-model="motel.deposit"
                     type="number"
@@ -307,14 +308,13 @@
                     </template>
                   </q-input>
                 </div>
-                <div class="col-12"><br /></div>
-                <div class="col-12">
+                <div class="col-3">
                   <Tax
-                    class="bd"
                     v-model:cost="motel.people_cost"
                     :name="' Phụ thu'"
                   ></Tax>
                 </div>
+                <div class="col-12"><br /></div>
                 <div class="col-12">
                   <q-card-actions align="right">
                     <q-btn

@@ -1,13 +1,13 @@
 <template>
   <div class="row items-center">
-    <q-checkbox class="col-1" right-lable v-model="is" :label="name" />
+    <q-checkbox class="col-5" right-lable v-model="is" :label="name" />
     <q-input
       :disable="!is"
-      class="col-5"
+      class="col-7"
       v-model="cost1"
       label-color="positive"
       type="number"
-      label=" Số tiền"
+      label="Số tiền"
       suffix="Vnd"
     />
   </div>

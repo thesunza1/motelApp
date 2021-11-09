@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
-    <!-- <div class="full-width text-h6 text-center text-primary">
+    <div class="full-width text-h3 text-center text-primary">
      Danh sách trọ
-   </div> -->
+   </div>
     <div class="row full-width justify-center" v-if="motels">
       <div
         v-for="(motel, index) in motels"
@@ -112,7 +112,6 @@
               Bạn có muốn tạo một trọ mới?
             </div>
           </q-card-section>
-          <q-card-section> </q-card-section>
           <q-card-actions align="right">
             <q-btn flat no-caps label=" Không" color="black" v-close-popup />
             <q-btn
