@@ -6,7 +6,7 @@
     <div v-for="(post, index) in posts" :key="index" class="full-width">
       <q-card class="my-card g-border" v-if="post.post_type_id == 1">
         <q-card-section horizontal>
-          <q-card-section class="row items-center" style="min-width: 20%">
+          <q-card-section class="row items-center" style="min-width: 17%">
             <q-img
               :src="urlBase + post.room_type?.first_img_detail[0].img"
               :ratio="1"
@@ -15,7 +15,7 @@
             />
           </q-card-section>
 
-          <q-card-section style="min-width: 80%" class="row">
+          <q-card-section style="min-width: 83%" class="row">
             <div class="col-12 row items-center">
               <div class="col-12 text-h6 text-blue-10">
                 <p class="g-header-up" style="display: inline">

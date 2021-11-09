@@ -76,8 +76,11 @@
       <div class="col-12" v-if="thisMotel">
         <search-show-motel-box :motel="thisMotel"></search-show-motel-box>
       </div>
+      <div v-if="isIndex && thisMotel ==null " class="col-12">
+        <search-all-motel :posts="motelPosts" :motels="motels"></search-all-motel>
+      </div>
       <div class="col-12"><br /></div>
-      <div v-if="posts" class="col-12 col-md-12">
+      <div v-if="isSearch || thisMotel" class="col-12 col-md-12">
         <search-render-post :thisMotel="thisMotel" :posts="posts.data"></search-render-post>
       </div>
 
@@ -101,6 +104,7 @@
 import SearchRenderPost from "../components/SearchRenderPost.vue";
 import SearchBox from "../components/SearchBox.vue";
 import SearchShowMotelBox from "../components/SearchShowMotelBox.vue";
+import SearchAllMotel from "../components/SearchAllMotel.vue";
 import { ref } from "vue";
 export default {
   setup() {
@@ -124,7 +128,10 @@ export default {
         demoCenter: [10.010999053186, 105.76151916074],
       },
       motels: null,
+      motelPosts:null,
       thisMotel: null,
+      isSearch:false ,
+      isIndex: true ,
     };
   },
   watch: {
@@ -164,6 +171,8 @@ export default {
         this.max_page = getPost.data.posts.last_page;
       }
       this.thisMotel = null;
+      this.isSearch= false ;
+      this.isIndex = true ;
     },
     async loadpage(num_page) {
       const res = await this.$api.get("getPost?page=" + num_page);
@@ -173,10 +182,15 @@ export default {
       return 1;
     },
     updatePost(data) {
+      this.thisMotel = null;
+      this.isSearch = true ;
+      this.isIndex = false ;
+      this.upPost(data);
+    },
+    upPost(data){
       this.posts = data;
       this.max_page = data.last_page;
       this.num_page = 1;
-      this.thisMotel = null;
     },
     async getPostMotels(motelId , motel) {
       const res = await this.$api.post("getPostMotels", {
@@ -192,6 +206,7 @@ export default {
     SearchRenderPost,
     SearchBox,
     SearchShowMotelBox,
+    SearchAllMotel,
   },
 };
 </script>
