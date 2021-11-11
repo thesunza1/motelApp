@@ -28,15 +28,14 @@
           <div class="col-12 row items-center">
             <div
               class="col-4 g-header-up q-pb-md text-h5"
-              style="padding: 0px 5px"
             >
-              <b>Tên trọ:</b>
+              <b>Tên trọ: </b>
               <p class="text-black" style="display: inline">
                 {{ post.room_type.motel.name }}
               </p>
             </div>
             <div class="col-6 text-h5">
-              <b>Loại phòng:</b>
+              <b>Loại phòng: </b>
               <p class="text-black g-header-up" style="display: inline">
                 {{ post.room_type.name }}
               </p>
@@ -45,8 +44,8 @@
               <b class="text-black"> Giá phòng: </b
               >{{ toNum(post.room_type.cost) }} Vnd
             </div>
-            <div class="col-6 q-pt-md text-subtitle2 text-accent">
-              <b class="text-black">Phòng trống còn :</b>
+            <div class="col-6 q-pt-md text-h6 text-accent">
+              <b class="text-black">Phòng còn trống: </b>
               <div
                 v-for="(room, index) in rooms"
                 :key="index"

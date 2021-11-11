@@ -1,10 +1,12 @@
 <template>
   <div>
-    <!-- <div class="text-h6 text-primary">Danh sách trọ:</div> -->
+    <div class="text-primary bg-white text-h4 text-bold q-py-md q-pl-md g-border">
+      Danh sách trọ
+    </div>
     <div v-if="motels">
       <q-expansion-item
         group="haha"
-        class="bg-white q-my-lg g-border shadow-1"
+        class="bg-white q-mb-lg g-border shadow-1"
         v-for="(motel, index) in motels"
         @click="loadMotelPosts(motel.id)"
         :key="index"
@@ -65,14 +67,17 @@
             </q-card-section>
           </div>
         </template>
-        <div class="text-primary text-h6 g-text-indent">
+        <div style="float: right ; width: 90%" class="text-h6 text-white bg-primary g-border g-text-indent q-py-sm">
           Danh sách loại phòng
         </div>
-        <div v-if="posts">
+        <div style="float: right ; width: 90%" v-if="posts">
           <search-render-post
             :thisMotel="'co tro'"
             :posts="posts.data"
           ></search-render-post>
+        </div>
+        <div style="float: right ; width: 90%" class="text-h6 text-white bg-primary g-text-indent q-py-sm">
+          <br>
         </div>
       </q-expansion-item>
     </div>

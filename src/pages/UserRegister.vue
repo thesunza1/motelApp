@@ -17,10 +17,10 @@
           </q-card-actions>
         </q-card>
       </q-dialog>
-      <q-card class="my-card g-border shadow-up-3  col-12 col-md-8">
+      <q-card class="my-card g-border shadow-up-3 col-12 col-md-8">
         <form method="post">
           <q-card-section>
-            <div class="text-h4 text-center">Tạo tài khoản người dùng</div>
+            <div class="text-h4 text-center">Tạo tài khoản</div>
           </q-card-section>
           <q-card-section class="row">
             <q-input
@@ -58,11 +58,11 @@
                 <q-icon name="face" />
                 &nbsp;Giới tính: &nbsp;
               </div>
-              <div class="">
+              <div class="q-pr-md">
                 <input type="radio" id="name" value="1" v-model="sex" />
                 <label for="name"> Nam</label>
               </div>
-              <div class="">
+              <div class="q-pr-md">
                 <input type="radio" id="nu" value="0" v-model="sex" />
                 <label for="nu"> Nữ </label>
               </div>
@@ -72,7 +72,7 @@
               <q-input
                 class="col-12 col-md-6"
                 v-model="date"
-              label-color="primary"
+                label-color="primary"
                 mask="date"
                 label=" Ngày sinh"
               >
@@ -93,29 +93,31 @@
                   </q-icon>
                 </template>
               </q-input>
-              <div class="col-1"></div>
-              <q-input
-                class="col"
-                v-model="phone_number"
-              label-color="primary"
-                type="text"
-                label=" Số điện thoại"
-              />
+              <div class="gt-sm col-1"></div>
+              <div class="col-12 col-md">
+                <q-input
+                  class="col-12 "
+                  v-model="phone_number"
+                  label-color="primary"
+                  type="text"
+                  label=" Số điện thoại"
+                />
+              </div>
             </div>
             <q-input
-              class="col-6"
+              class="col-12 col-md-6"
               v-model="address"
               type="text"
               label-color="primary"
               label="Địa chỉ nhà "
             />
-            <div class="col-1"></div>
+            <div class="gt-sm col-1"></div>
             <q-input
-              class="col-5"
+              class="col-12 col-md-5"
               v-model="job"
               label-color="primary"
               type="text"
-              label="công việc, nghề nghiệp "
+              label="Công việc, nghề nghiệp "
             />
           </q-card-section>
           <q-card-actions align="center">
@@ -132,15 +134,15 @@
           <br />
         </form>
         <q-card-section>
-          <div class="text-bold" style="display:inline">
+          <div class="text-bold" style="display: inline">
             Bạn đã có tài khoản? &nbsp;
           </div>
-          <div class="text-primary"  style="display:inline"> Đăng nhập </div>
-          <br>
-          <div class="text-bold" style="display:inline" >
+          <div class="text-primary" style="display: inline">Đăng nhập</div>
+          <br />
+          <div class="text-bold" style="display: inline">
             Bạn quên mật khẩu? &nbsp;
           </div>
-          <div class="text-primary" style="display:inline"> Quên mật khẩu </div>
+          <div class="text-primary" style="display: inline">Quên mật khẩu</div>
         </q-card-section>
       </q-card>
     </div>

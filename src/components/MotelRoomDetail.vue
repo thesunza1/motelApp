@@ -5,7 +5,7 @@
         <div class="text-h6 text-center full-width">Chi tiết trọ</div>
       </q-card-section>
       <q-card-section class="row items-center col-md-6 col-12 ">
-        <div class="col-12 col-md-5"><b>Tên trọ</b>: {{roomTypeUser.motel.name}}</div>
+        <div class="col-12 col-md-5"><b>Tên trọ</b>: <div class="g-header-up" style="display:inline">{{roomTypeUser.motel.name}}</div></div>
         <div class="col-12 col-md-7"><b> Địa chỉ</b>: {{roomTypeUser.motel.address}}</div>
       </q-card-section>
       <br>
@@ -22,7 +22,7 @@
       </q-card-section>
       <br>
       <q-card-section class="row items-center   col-md-6 col-12 ">
-        <div class="col-12 col-md-4"> <b>Tên chủ:</b> {{roomTypeUser.motel.user.name}}</div>
+        <div class="col-12 col-md-4"> <b>Tên chủ:</b>  <div class="g-header-up" style="display:inline">{{roomTypeUser.motel.user.name}}</div></div>
         <div class="col-12 col-md-4"> <b>Email:</b> {{roomTypeUser.motel.user.email}}</div>
         <div class="col-12 col-md-4"> <b>Sdt:</b> {{roomTypeUser.motel.phone_number}}</div>
       </q-card-section>

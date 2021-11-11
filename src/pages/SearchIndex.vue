@@ -4,7 +4,7 @@
       side="left"
       v-model="isOp"
       bordered
-      :width="500"
+      :width="600"
       content-class="bg-grey-3 gt-sm"
     >
       <l-map
@@ -31,7 +31,7 @@
               no-caps
               rounded
               icon="refresh"
-              label=" Vị trí cũ"
+              label="Vị trí cũ"
               @click="refreshCenter()"
             />
           </q-card-actions>
@@ -70,7 +70,7 @@
       <div class="col-12"><br /></div>
       <div class="col-12">
         <q-card-actions  align="right">
-          <q-btn rounded icon="refresh" no-caps color="black" label=" Tải lại bài đăng" @click="reloadPage()" />
+          <q-btn rounded icon="refresh" no-caps color="black" label="Tải lại bài đăng" @click="reloadPage()" />
         </q-card-actions>
       </div>
       <div class="col-12" v-if="thisMotel">
@@ -84,7 +84,7 @@
         <search-render-post :thisMotel="thisMotel" :posts="posts.data"></search-render-post>
       </div>
 
-      <q-footer class="bg-white">
+      <q-footer v-show="isSearch" class="bg-white">
         <div class="col-12 flex q-py-sm flex-center">
           <q-pagination
             v-model="current_page"

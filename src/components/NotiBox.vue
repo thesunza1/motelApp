@@ -32,8 +32,8 @@
           />
           <q-card-section class="row col-10 col-md-11 items-center">
             <div class="col-12 col-md-6 text-h6">Tiêu Đề: {{ noti.title }}</div>
-            <div class="col-12 col-md-4 text-subtitle2 g-header-up">
-              <b>Người gửi:</b> {{ noti.senderUser.name }}
+            <div class="col-12 col-md-4 text-subtitle2 ">
+              <b>Email:</b> {{ noti.senderUser.email }}
             </div>
             <div class="col-12 col-md-2">
               <b>Thời gian:</b> {{ toDate(noti.created_at) }}

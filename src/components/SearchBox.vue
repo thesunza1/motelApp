@@ -89,8 +89,8 @@
                       :max="2000000"
                       :step="100000"
                       color="green"
-                      :left-label-value="price.min + ' Vnd'"
-                      :right-label-value="price.max + ' Vnd'"
+                      :left-label-value="toPrice(price.min) + ' Vnd'"
+                      :right-label-value="toPrice(price.max) + ' Vnd'"
                       label-always
                     />
                   </q-item-section>
@@ -138,6 +138,7 @@
 
 <script>
 import noti from "../boot/noti/noti";
+import sp from "../boot/support";
 export default {
   data() {
     return {
@@ -168,6 +169,9 @@ export default {
         noti.showNoti("Thành công");
       }
     },
+    toPrice(val) {
+      return sp.toNum(val) ;
+    }
   },
 };
 </script>

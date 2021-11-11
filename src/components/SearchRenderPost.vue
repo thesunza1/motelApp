@@ -1,7 +1,7 @@
 <template>
   <div class="full-width">
     <div class="text-primary bg-white text-h4 text-bold q-py-md q-pl-md g-border" v-if="thisMotel== null">
-      Danh sách bài mới nhất
+      Kết quả tìm kiếm
     </div>
     <div v-for="(post, index) in posts" :key="index" class="full-width">
       <q-card class="my-card g-border" v-if="post.post_type_id == 1">
@@ -34,7 +34,7 @@
                   <b>Diện tích: </b> {{ post.room_type.area }}m2
                 </div>
                 <div class="col-3">
-                  <b>ngày đăng: </b>{{ toDate(post.updated_at) }}
+                  <b>Ngày đăng: </b>{{ toDate(post.updated_at) }}
                 </div>
                 <div class="" v-if="thisMotel ==null">
                   <b> Người Đăng: </b>

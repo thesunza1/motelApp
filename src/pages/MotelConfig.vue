@@ -589,7 +589,7 @@
     <q-dialog v-model="isCreate">
       <q-card class="g-border" style="min-width: 90%">
         <q-card-section class="row items-center bg-primary">
-          <div class="col-12 text-center text-white">Tạo loại phòng</div>
+          <div class="col-12 text-h6 text-center text-white">Tạo loại phòng</div>
         </q-card-section>
         <q-card-section class="row items-center justify-center">
           <div class="col-12 row items-center">
@@ -767,9 +767,9 @@ export default {
         motelId: null,
         content: null,
         numRoom: null,
-        male: 0,
-        female: 0,
-        everyone: 0,
+        male: 1,
+        female: 1,
+        everyone: 1,
         name: null,
         cost: null,
         imgs: null,
