@@ -126,7 +126,7 @@
                     <div>
                       =
                       {{ toNum((bill.elec_end - bill.elec_begin) * bill.elec_cost) }}
-                      Vnd
+                      VNĐ
                     </div>
                   </div>
                   <div class="col-12"><br /></div>
@@ -160,7 +160,7 @@
                     <div>
                       <b>Tổng nước:</b>
                       {{ bill.water_end - bill.water_begin }} *
-                      {{ toNum(bill.water_cost) }} Vnd
+                      {{ toNum(bill.water_cost) }} VNĐ
                     </div>
                     <div>
                       =
@@ -175,11 +175,11 @@
                   </div>
                   <div class="col-12 row justify-center items-center">
                     <div class="col-12 text-right">
-                      <b> Phụ thu:</b> {{ toNum(bill.people_cost) }} Vnd
+                      <b> Phụ thu:</b> {{ toNum(bill.people_cost) }} VNĐ
                     </div>
                     <div class="col-12"><br /></div>
                     <div class="col-12 text-right">
-                      <b> Tiền trọ:</b> {{ toNum(bill.cost) }} Vnd
+                      <b> Tiền trọ:</b> {{ toNum(bill.cost) }} VNĐ
                     </div>
                     <div class="col-12"><br /></div>
                     <div class="col-12 text-right">
@@ -190,7 +190,7 @@
                         (bill.water_end - bill.water_begin) * (bill.water_cost) +
                         (bill.elec_end - bill.elec_begin) * (bill.elec_cost))
                       }}
-                      Vnd
+                      VNĐ
                     </div>
                   </div>
                   <div class="col-12"><br /></div>

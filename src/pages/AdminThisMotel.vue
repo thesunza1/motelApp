@@ -103,13 +103,13 @@
             <div class="col-12 row items-center mr">
               <div class="col-4">
                 <b>Giá điện:</b>
-                {{ motel.elec_cost }} Vnd/kwh
+                {{ motel.elec_cost }} VNĐ/kwh
               </div>
               <div class="col-4">
-                <b>Giá Nước:</b> {{ motel.water_cost }} Vnd/m3
+                <b>Giá Nước:</b> {{ motel.water_cost }} VNĐ/m3
               </div>
               <div class="col-4">
-                <b>Phụ thu theo người:</b> {{ motel.people_cost }} Vnd/m3
+                <b>Phụ thu theo người:</b> {{ motel.people_cost }} VNĐ/m3
               </div>
             </div>
           </q-card-section>

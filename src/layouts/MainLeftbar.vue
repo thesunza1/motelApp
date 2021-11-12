@@ -1,8 +1,9 @@
 <template>
   <div v-if="!user" class="row full-width justify-center">
     <q-btn
-      :class="`bg-${link.col1}`"
-      class="col-10 text-white g-header"
+      class="col-10 text-black text-bold"
+      no-caps
+      color="white"
       rounded
       :label="link.name"
       :icon="link.icon"

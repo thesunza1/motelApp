@@ -81,16 +81,16 @@
             </div>
             <div class="col-12 row items-center justify-center">
               <div class="col-6 text-left">
-                Phòng: {{ thisRoom.room_type.cost }} Vnd
+                Phòng: {{ thisRoom.room_type.cost }} VNĐ
               </div>
               <div class="col-6 text-left">
-                Người: {{ thisRoom.room_type.motel.people_cost }} Vnd
+                Người: {{ thisRoom.room_type.motel.people_cost }} VNĐ
               </div>
               <div class="col-6 text-left">
-                Điện: {{ thisRoom.room_type.motel.elec_cost }} Vnd
+                Điện: {{ thisRoom.room_type.motel.elec_cost }} VNĐ
               </div>
               <div class="col-6 text-left">
-                Nước: {{ thisRoom.room_type.motel.water_cost }} Vnd
+                Nước: {{ thisRoom.room_type.motel.water_cost }} VNĐ
               </div>
             </div>
             <div class="col-12"><br /></div>

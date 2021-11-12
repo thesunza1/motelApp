@@ -326,19 +326,19 @@
                     v-model="motel.elec_cost"
                     type="number"
                     label=" Tiền điện"
-                    suffix="VND/kwh"
+                    suffix="VNĐ/kwh"
                   />
                   <q-input
                     v-model="motel.water_cost"
                     type="number"
                     label=" Tiện nước"
-                    suffix="VND/m3"
+                    suffix="VNĐ/m3"
                   />
                   <q-input
                     v-model="motel.deposit"
                     type="number"
                     label=" Đặt cọc"
-                    suffix="VND/phòng"
+                    suffix="VNĐ/phòng"
                   />
                   <div class="col-12"><br /></div>
                   <div class="col-12">
@@ -688,7 +688,7 @@ export default {
         this.isError = true;
         this.errorMes = "Email đã tồn tại ";
       } else {
-        noti.showNoti("Tạo tài khoảng thành công", "positive");
+        noti.showNoti("Tạo tài khoản thành công", "positive");
         this.$router.push("/");
       }
     },

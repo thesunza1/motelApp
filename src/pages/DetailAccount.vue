@@ -85,7 +85,7 @@
           <q-btn
             class="bg-primary text-white g-header"
             rounded
-            label=" Thay đổi tài khoảng"
+            label=" Thay đổi tài khoản"
             @click="updateUP"
           />
         </q-card-actions>

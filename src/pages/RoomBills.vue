@@ -40,7 +40,7 @@
                 {{ bill.elec_cost }}
               </div>
               <div>
-                = {{ toNum( (bill.elec_end - bill.elec_begin) * (bill.elec_cost) )}} Vnd
+                = {{ toNum( (bill.elec_end - bill.elec_begin) * (bill.elec_cost) )}} VNĐ
               </div>
             </div>
             <div class="col-12"><br /></div>
@@ -56,7 +56,7 @@
                 {{ toNum(bill.water_cost )}}
               </div>
               <div class="text-subtitle2">
-                = {{ toNum( (bill.water_end - bill.water_begin) * bill.water_cost )}} Vnd
+                = {{ toNum( (bill.water_end - bill.water_begin) * bill.water_cost )}} VNĐ
               </div>
             </div>
             <div class="col-12">
@@ -65,11 +65,11 @@
             <div class="col-12"><br /></div>
             <div class="col-12 row justify-end items-center">
               <div class=" text-subtitle2">
-               Phụ thu: {{ toNum(bill.people_cost) }} Vnd
+               Phụ thu: {{ toNum(bill.people_cost) }} VNĐ
               </div>
               <div class="col-12"></div>
               <div class=" text-subtitle2">
-                Tiền trọ: {{ toNum(bill.cost) }} Vnd
+                Tiền trọ: {{ toNum(bill.cost) }} VNĐ
               </div>
               <div class="col-12"><br /></div>
               <div class="gt-sm col-6"></div>
@@ -84,7 +84,7 @@
                 bill.people_cost +
                 (bill.water_end - bill.water_begin) * bill.water_cost +
                 (bill.elec_end - bill.elec_begin) * bill.elec_cost)
-              }} Vnd
+              }} VNĐ
             </div>
           </q-card-section>
           <q-card-actions v-if="bill.status == 0" align="right">

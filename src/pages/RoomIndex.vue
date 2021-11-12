@@ -92,17 +92,17 @@
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
-              <b>Giá phòng:</b> {{ toNum(roomTypeUser.cost) }} Vnd
+              <b>Giá phòng:</b> {{ toNum(roomTypeUser.cost) }} VNĐ
             </div>
             <div class="col-md-3 col-6 text-center">
-              <b>Phụ thu :</b> {{ toNum(roomTypeUser.motel.people_cost) }} Vnd
+              <b>Phụ thu :</b> {{ toNum(roomTypeUser.motel.people_cost) }} VNĐ
             </div>
             <div class="lt-sm col-12"><br /></div>
             <div class="col-md-3 col-6 text-left">
-              <b>Giá điện:</b> {{ toNum(roomTypeUser.motel.elec_cost) }} Vnd
+              <b>Giá điện:</b> {{ toNum(roomTypeUser.motel.elec_cost) }} VNĐ
             </div>
             <div class="col-md-3 col-6 text-center">
-              <b>Giá nước :</b> {{ toNum(roomTypeUser.motel.water_cost) }} Vnd
+              <b>Giá nước :</b> {{ toNum(roomTypeUser.motel.water_cost) }} VNĐ
             </div>
             <div class="col-12"><br /></div>
           </q-card-section>

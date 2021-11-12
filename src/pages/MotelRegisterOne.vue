@@ -143,21 +143,21 @@
                     type="number"
                     label=" Tiền điện"
                     label-color="primary"
-                    suffix="VND/kwh"
+                    suffix="VNĐ/kwh"
                   />
                   <q-input
                     v-model="motel.water_cost"
                     type="number"
                     label=" Tiện nước"
                     label-color="primary"
-                    suffix="VND/m3"
+                    suffix="VNĐ/m3"
                   />
                   <q-input
                     v-model="motel.deposit"
                     type="number"
                     label-color="primary"
                     label=" Đặt cọc"
-                    suffix="VND/phong"
+                    suffix="VNĐ/phong"
                   />
                   <div class="col-12"><br /></div>
                   <div class="col-12">

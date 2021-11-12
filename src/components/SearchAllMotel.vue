@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="text-primary bg-white text-h4 text-bold q-py-md q-pl-md g-border">
+    <div
+      class="text-primary bg-white text-h4 text-bold q-py-md q-pl-md g-border"
+    >
       Danh sách trọ
     </div>
     <div v-if="motels">
@@ -27,57 +29,71 @@
                 style="font-size: 14px"
               >
                 <div class="col-5">
-                  <b>Tên trọ: </b>
+                  <q-icon name="apartment" class="g-icon-h1 text-primary" />
+                  <b> Tên trọ: </b>
                   <p style="display: inline" class="g-header-up">
                     {{ motel.name }}
                   </p>
                 </div>
                 <div class="col-7">
-                  <b>Địa chỉ: </b>
+                  <q-icon name="room" class="g-icon-h1 text-primary" />
+                  <b> Địa chỉ: </b>
                   <p style="display: inline">{{ motel.address }}</p>
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-5">
-                  <b>Chủ trọ: </b>
+                  <q-icon name="person" class="g-icon-h1 text-primary" />
+                  <b> Chủ trọ: </b>
                   <p style="display: inline" class="g-header-up">
                     {{ motel.user.name }}
                   </p>
                 </div>
                 <div class="col-4">
-                  <b>Email: </b>
+                  <q-icon name="email" class="g-icon-h1 text-primary" />
+                  <b> Email: </b>
                   <p style="display: inline">{{ motel.user.email }}</p>
                 </div>
                 <div class="col-3">
-                  <b>Điện thoại: </b>
+                  <q-icon name="phone" class="g-icon-h1 text-primary" />
+                  <b> Điện thoại: </b>
                   <p style="display: inline">{{ motel.phone_number }}</p>
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-12 row items-center">
                   <div class="col-5">
-                    <b>Giá điện :</b> {{ toPrice(motel.elec_cost) }} Vnd
+                    <q-icon name="bolt" class="g-icon-h1 text-primary" />
+                    <b> Giá điện :</b> {{ toPrice(motel.elec_cost) }} VNĐ
                   </div>
                   <div class="col-4">
-                    <b>Giá nước :</b> {{ toPrice(motel.water_cost) }} Vnd
+                    <q-icon name="water_drop" class="text-primary g-icon-h1" />
+                    <b>Giá nước :</b> {{ toPrice(motel.water_cost) }} VNĐ
                   </div>
                   <div class="col-3">
-                    <b>Đặt cọc :</b> {{ toPrice(motel.deposit) }} Vnd
+                    <q-icon name="paid" class="g-icon-h1 text-primary" />
+                    <b>&nbsp;Đặt cọc :</b> {{ toPrice(motel.deposit) }} VNĐ
                   </div>
                 </div>
               </q-card-section>
             </q-card-section>
           </div>
         </template>
-        <div style="float: right ; width: 90%" class="text-h6 text-white bg-primary g-border g-text-indent q-py-sm">
+        <div
+          style="float: right; width: 90%"
+          class="text-h6 text-white bg-primary g-border g-text-indent q-py-sm"
+        >
           Danh sách loại phòng
         </div>
-        <div style="float: right ; width: 90%" v-if="posts">
+        <div style="float: right; width: 90%" v-if="posts">
           <search-render-post
             :thisMotel="'co tro'"
             :posts="posts.data"
           ></search-render-post>
         </div>
-        <div style="float: right ; width: 90%" class="text-h6 text-white bg-primary g-text-indent q-py-sm">
-          <br>
+        <div
+          style="float: right; width: 90%"
+          class="text-h6 text-white bg-primary g-text-indent q-py-sm"
+        >
+          <br />
         </div>
       </q-expansion-item>
     </div>

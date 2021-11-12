@@ -1,12 +1,16 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header  class="bg-primary " height-hint="98">
+    <q-header class="bg-primary" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          <router-link to="/" class="text-white text-h6" style="text-decoration: none">
+          <router-link
+            to="/"
+            class="text-white text-h6"
+            style="text-decoration: none"
+          >
             Tmq-motel</router-link
           >
         </q-toolbar-title>
@@ -21,11 +25,11 @@
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
               rounded
-              class="col-10 pd font-header bg-white  text-black"
+              class="col-10 pd font-header bg-white text-black"
               icon="home"
               @click="loginModal = true"
             >
-              <div class="gt-sm text-bold text-indent"> Quản lý phòng</div>
+              <div class="gt-sm text-bold text-indent">Quản lý phòng</div>
             </q-btn>
           </div>
           <div
@@ -33,22 +37,22 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd font-header  bg-white text-black"
+              class="col-10 pd font-header bg-white text-black"
               rounded
               icon="home"
               @click="openModal(0)"
             >
-              <div class="gt-sm text-indent"> Quản lý phòng</div>
+              <div class="gt-sm text-indent">Quản lý phòng</div>
             </q-btn>
           </div>
           <div class="col-4 row items-center gt-sm justify-center">
             <q-btn
-              class="col-10 pd font-header bg-white  text-bold text-black"
+              class="col-10 pd font-header bg-white text-bold text-black"
               rounded
               icon="search"
               @click="$router.push('search/searchIndex')"
             >
-              <div class="gt-sm text-indent text-bold"> Tìm trọ</div>
+              <div class="gt-sm text-indent text-bold">Tìm trọ</div>
             </q-btn>
           </div>
           <div v-if="!user" class="col-4 row items-center justify-center">
@@ -66,7 +70,7 @@
             class="col-4 row items-center justify-center"
           >
             <q-btn
-              class="col-10 pd font-header bg-white   text-black"
+              class="col-10 pd font-header bg-white text-black"
               icon="apartment"
               rounded
               @click="openModal(1)"
@@ -84,7 +88,7 @@
               rounded
               @click="$router.push('admin/adminUser')"
             >
-              <div class="gt-sm text-indent"> Quản lý </div>
+              <div class="gt-sm text-indent">Quản lý</div>
             </q-btn>
           </div>
 
@@ -95,7 +99,7 @@
               icon="notifications"
               @click="$router.push('/userNoti')"
             >
-              <div class="gt-sm text-indent text-bold"> Thông báo</div>
+              <div class="gt-sm text-indent text-bold">Thông báo</div>
               <q-badge
                 color="red"
                 text-color="white"
@@ -113,7 +117,9 @@
           Bạn chưa đăng nhập
         </q-card-section>
         <q-card-section style="text-align: center">
-          <p style="font-size: 1.3em"> Đăng nhập hoặc tạo tài khoản để tiếp tục</p>
+          <p style="font-size: 1.3em">
+            Đăng nhập hoặc tạo tài khoản để tiếp tục
+          </p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -122,8 +128,12 @@
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
-            <router-link class="lr lgs g-border" to="/login"> Đăng nhập</router-link>
-            <router-link class="lr rg g-border" to="/userRegister"> Đăng ký</router-link>
+            <router-link class="lr lgs g-border" to="/login">
+              Đăng nhập</router-link
+            >
+            <router-link class="lr rg g-border" to="/userRegister">
+              Đăng ký</router-link
+            >
           </div>
         </q-card-actions>
         <q-card-actions vertical align="center">
@@ -137,7 +147,9 @@
           Bạn chưa đăng nhập
         </q-card-section>
         <q-card-section style="text-align: center">
-          <p style="font-size: 1.3em"> Đăng nhập hoặc tạo tài khoản để tiếp tục</p>
+          <p style="font-size: 1.3em">
+            Đăng nhập hoặc tạo tài khoản để tiếp tục
+          </p>
           <q-icon
             name="account_circle"
             class="text-blue"
@@ -147,7 +159,9 @@
         <q-card-actions horizontal align="right">
           <div>
             <router-link class="lr lgs" to="/login"> Đăng nhập</router-link>
-            <router-link class="lr rg" to="/motelRegister"> Đăng ký</router-link>
+            <router-link class="lr rg" to="/motelRegister">
+              Đăng ký</router-link
+            >
           </div>
         </q-card-actions>
         <q-card-actions vertical align="center">
@@ -186,7 +200,7 @@
             text-color="white"
             v-else
             icon="account_circle"
-            :label="` ${user.id}-${user.name} `"
+            :label="` ${user.name}`"
           />
           <q-chip
             class="col-10"
@@ -213,33 +227,41 @@
         <div v-for="(link, index) in links" :key="index">
           <main-leftbar :link="link"></main-leftbar>
         </div>
-        <q-btn
-          v-if="user"
-          class="g-header"
-          style="width: 100%; margin-top: 10px"
-          color="primary"
-          icon="logout"
-          label=" Đăng xuất "
-          @click="logout"
-        />
-        <q-btn
-          v-if="user"
-          style="width: 100%; margin-top: 10px"
-          color="orange"
-          icon="refresh"
-          class="g-header"
-          label=" Tải lại "
-          @click="reloadPage"
-        />
-        <q-btn
-          v-if="userd"
-          style="width: 100%; margin-top: 10px"
-          color="positive"
-          icon="home"
-          label=" Trang chủ"
-          class="g-header"
-          @click="$router.push('/')"
-        />
+        <q-card-actions vertical align="center">
+          <q-btn
+            v-if="user"
+            class="text-black text-bold"
+            style="width: 100%; margin-top: 10px"
+            color="white"
+            icon="logout"
+            rounded
+            label=" Đăng xuất "
+            no-caps
+            @click="logout"
+          />
+          <q-btn
+            v-if="user"
+            style="width: 100%; margin-top: 10px"
+            color="white"
+            rounded
+            icon="refresh"
+            class="text-black text-bold"
+            no-caps
+            label=" Tải lại "
+            @click="reloadPage"
+          />
+          <q-btn
+            v-if="user"
+            style="width: 100%; margin-top: 10px"
+            color="white"
+            icon="home"
+            rounded
+            label=" Trang chủ"
+            no-caps
+            class="text-black text-bold"
+            @click="$router.push('/')"
+          />
+        </q-card-actions>
       </q-footer>
     </q-drawer>
 
@@ -282,8 +304,8 @@ export default {
       const user = this.$store.state.User.user;
       this.role_id = user.role_id;
     } catch (error) {
-      if(this.user?.id > 0 ){
-        this.$router.go() ;
+      if (this.user?.id > 0) {
+        this.$router.go();
       }
     }
   },
@@ -342,8 +364,8 @@ export default {
       if (this.role_id == 2) {
         return " tài khoản trọ ";
       }
-      if( this.role_id ==3 ) {
-        return " Tài khoản quản trị"
+      if (this.role_id == 3) {
+        return " Tài khoản quản trị";
       }
     },
     reloadPage() {
@@ -355,7 +377,7 @@ export default {
         else this.isNonRoom = true;
       } else {
         // this.$router.push("motel/all");
-        this.$router.push({name:'choseMotel'});
+        this.$router.push({ name: "choseMotel" });
       }
     },
     async updateNotiNum() {
@@ -426,5 +448,4 @@ export default {
 .text-indent
   text-indent: 10px
   text-transform: none
-
 </style>

@@ -22,17 +22,17 @@
           </q-card-section>
           <q-card-section>
             <div class="row full-width">
-              <div class="col-6"><b>Đặt cọc:</b> {{ toNum(motel.deposit)  }} Vnd</div>
+              <div class="col-6"><b>Đặt cọc:</b> {{ toNum(motel.deposit)  }} VNĐ</div>
               <div class="col-6">
-                <b>Phụ thu:</b> {{ toNum(motel.people_cost) }} Vnd
+                <b>Phụ thu:</b> {{ toNum(motel.people_cost) }} VNĐ
               </div>
             </div>
             <div class="row full-width">
               <div class="col-6">
-                <b>Giá Điện:</b> {{ toNum(motel.elec_cost) }} Vnd/Kwh
+                <b>Giá Điện:</b> {{ toNum(motel.elec_cost) }} VNĐ/Kwh
               </div>
               <div class="col-6">
-                <b>Giá nước:</b> {{ toNum(motel.water_cost) }} Vnd/M3
+                <b>Giá nước:</b> {{ toNum(motel.water_cost) }} VNĐ/M3
               </div>
             </div>
           </q-card-section>
@@ -52,7 +52,7 @@
             >
               <div class="col-2">{{ ++index }}</div>
               <div class="col-5 g-header-up">{{ roomType.name }}</div>
-              <div class="col-3 g-header-up">{{ toNum(roomType.cost)}} Vnd</div>
+              <div class="col-3 g-header-up">{{ toNum(roomType.cost)}} VNĐ</div>
               <div class="text-right col-1">
                 {{ countRoom(roomType.rooms) }}
               </div>

@@ -186,10 +186,10 @@ export default {
     },
     get_role() {
       if (this.role_id == 1) {
-        return " Tài khoảng người dùng ";
+        return " Tài khoản người dùng ";
       }
       if (this.role_id == 2) {
-        return " Tài khoảng trọ ";
+        return " Tài khoản trọ ";
       }
     },
     reloadPage() {

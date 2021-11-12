@@ -89,8 +89,8 @@
                       :max="2000000"
                       :step="100000"
                       color="green"
-                      :left-label-value="toPrice(price.min) + ' Vnd'"
-                      :right-label-value="toPrice(price.max) + ' Vnd'"
+                      :left-label-value="toPrice(price.min) + ' VNĐ'"
+                      :right-label-value="toPrice(price.max) + ' VNĐ'"
                       label-always
                     />
                   </q-item-section>

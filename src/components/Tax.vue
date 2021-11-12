@@ -8,7 +8,7 @@
       label-color="positive"
       type="number"
       label="Số tiền"
-      suffix="Vnd"
+      suffix="VNĐ"
     />
   </div>
 </template>

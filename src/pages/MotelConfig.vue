@@ -262,7 +262,7 @@
                     v-model="motel.elec_cost"
                     type="number"
                     label="Tiền điện"
-                    suffix="VND/kwh"
+                    suffix="VNĐ/kwh"
                     label-color="positive"
                   >
                     <template v-slot:prepend>
@@ -280,7 +280,7 @@
                     type="number"
                     label="Tiện nước"
                     label-color="positive"
-                    suffix="VND/m3"
+                    suffix="VNĐ/m3"
                   >
                     <template v-slot:prepend>
                       <q-icon
@@ -296,7 +296,7 @@
                     v-model="motel.deposit"
                     type="number"
                     label=" Đặt cọc"
-                    suffix="VND/phòng"
+                    suffix="VNĐ/phòng"
                     label-color="positive"
                   >
                     <template v-slot:prepend>

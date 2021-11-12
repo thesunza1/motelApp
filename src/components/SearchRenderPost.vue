@@ -66,7 +66,7 @@
               <div class="col-4">
                 <q-card-actions class="full-width" vertical align="right">
                   <div class="text-h6 text-orange col-12">
-                    {{ toCost(post.room_type.cost) }} Vnd/Tháng
+                    {{ toCost(post.room_type.cost) }} VNĐ/Tháng
                   </div>
                   <q-btn
                     v-if="post.status == 1"
@@ -160,7 +160,7 @@
               <div class="col-4">
                 <q-card-actions class="full-width" vertical align="right">
                   <div class="text-h6 text-orange col-12">
-                    {{ toCost(post.room.room_type.cost) }} Vnd/Tháng
+                    {{ toCost(post.room.room_type.cost) }} VNĐ/Tháng
                   </div>
                   <q-btn
                     v-if="post.status == 1"

@@ -195,7 +195,7 @@
           <div>Xóa người dùng</div>
         </q-card-section>
         <q-card-section>
-          <div>Bạn có muốn xóa tài khoảng vĩnh viễn ?</div>
+          <div>Bạn có muốn xóa tài khoản vĩnh viễn ?</div>
           <div>Mọi thông tin, và trọ hiện tại sẽ bị xóa.</div>
         </q-card-section>
         <q-card-actions align="right">

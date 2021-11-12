@@ -18,7 +18,7 @@
       <q-card-section class="row items-center  col-md-6 col-12  ">
         <div class="col-6 col-md-3"> <b> Điện</b>: {{ toNum(roomTypeUser.motel.elec_cost)}} kwh</div>
         <div class="col-12 col-md-3"> <b>Nước</b>: {{ toNum(roomTypeUser.motel.water_cost)}} kwh</div>
-        <div class="col-12 col-md-6"> <b> Phụ thu</b>: {{ toNum(roomTypeUser.motel.people_cost)}} Vnd</div>
+        <div class="col-12 col-md-6"> <b> Phụ thu</b>: {{ toNum(roomTypeUser.motel.people_cost)}} VNĐ</div>
       </q-card-section>
       <br>
       <q-card-section class="row items-center   col-md-6 col-12 ">

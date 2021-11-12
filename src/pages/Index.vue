@@ -1,8 +1,10 @@
 <template>
-  <q-page>
+  <q-page class="g-size">
     <div class="row justify-center">
       <div class="text-h4 title col-12">
-        <p class="padding-header"> Chào mừng bạn đến quản lý và Tìm trọ Tmq-motel</p>
+        <p class="padding-header">
+          Chào mừng bạn đến quản lý và Tìm trọ Tmq-motel
+        </p>
       </div>
 
       <q-carousel
@@ -18,7 +20,7 @@
         padding
         arrows
         height="300px"
-        class="col-12 col-md-8 text-primary shadow-1 rounded-borders"
+        class="col-12 col-md-8 text-primary shadow-1 g-border"
       >
         <q-carousel-slide name="style" class="column no-wrap flex-center">
           <q-icon name="search" size="56px" />
@@ -32,10 +34,10 @@
           </div>
         </q-carousel-slide>
         <q-carousel-slide name="tv" class="column no-wrap flex-center">
-          <q-icon name="home" size="56px" />
+          <q-icon name="apartment" size="56px" />
           <div class="q-mt-md text-center">
             <p>Giao diện quản lý đơn giản , dễ dùng</p>
-            <p> Đảm bảo các chức năng: trạng thái phòng , tiền phòng , ...</p>
+            <p>Đảm bảo các chức năng: trạng thái phòng , tiền phòng , ...</p>
             <p>
               Chức năng hữu ít : tạo bill nhanh cho tất cả phòng , thông báo
               user , xác nhận trạng thái thiết bị
@@ -57,62 +59,97 @@
           </div>
         </q-carousel-slide>
       </q-carousel>
-      <q-card class="my-cards col-12 col-md-8">
-         <q-card-section style="min-height:10%" class="row justify-center bg-dark" >
-          <q-responsive :ratio="16/9" style="min-width:70%; bg-dark ">
-            <q-carousel animated v-model="slide1" thumbnails swipeable control-color="red">
+      <q-card class="my-cards col-12 col-md-8 g-border">
+        <q-card-section style="min-height: 10%" class="row justify-center">
+          <q-responsive :ratio="16 / 9" style="min-width:90%;">
+            <q-carousel
+              animated
+              v-model="slide1"
+              thumbnails
+              swipeable
+              control-color="red"
+            >
               <q-carousel-slide :name="1" :img-src="'/images/searchIndex.png'">
               </q-carousel-slide>
-              <q-carousel-slide :name="2" :img-src="'/images/searchDetail1.png'" />
-              <q-carousel-slide :name="3" :img-src="'/images/searchDetail2.png'" />
+              <q-carousel-slide
+                :name="2"
+                :img-src="'/images/searchDetail1.png'"
+              />
+              <q-carousel-slide
+                :name="3"
+                :img-src="'/images/searchDetail2.png'"
+              />
             </q-carousel>
           </q-responsive>
         </q-card-section>
         <q-card-section vertical>
-          <q-card-section class="col-12">
-            <div class="text-h6 text-primary">Tìm kiếm trọ</div>
+          <q-card-section class="text-center text-primary">
+            <q-icon name="search" style="font-size: 56px" />
           </q-card-section>
           <q-card-section class="col-12">
+            <div class="text-h5 text-primary text-center">Tìm kiếm trọ</div>
+          </q-card-section>
+          <q-card-section class="col-12 text-center">
             <p>Dễ dàng tìm kiếm các trọ , và phòng ghép,..</p>
             <p>
               Xem được tất cả thông tin về trọ một cách nhanh chống: giá phòng ,
               điện nước , thuế , chổ để xe , giờ đống mở cửa.
             </p>
             <p>Xem được tất cả thông tin về người đăng tin ở ghép.</p>
-            <p> Đăng ký vào phòng nhanh.</p>
+            <p>Đăng ký vào phòng nhanh.</p>
           </q-card-section>
         </q-card-section>
       </q-card>
 
-      <q-card class="my-cards col-12 col-md-8">
-        <q-card-section style="height: auto;" class="row justify-center bg-dark" >
-          <q-responsive :ratio="16/9" style="min-width:70%; bg-dark ">
-            <q-carousel animated v-model="slide1" thumbnails swipeable control-color="red">
+      <q-card class="my-cards col-12 col-md-8 g-border">
+        <q-card-section style="height: auto" class="row justify-center ">
+          <q-responsive :ratio="16 / 9" style="min-width:90%;">
+            <q-carousel
+              animated
+              v-model="slide1"
+              thumbnails
+              swipeable
+              control-color="red"
+            >
               <q-carousel-slide :name="1" :img-src="'/images/motelAll.png'">
               </q-carousel-slide>
               <q-carousel-slide :name="2" :img-src="'/images/motelBill.png'" />
-              <q-carousel-slide :name="3" :img-src="'/images/motelConfig.png'" />
+              <q-carousel-slide
+                :name="3"
+                :img-src="'/images/motelConfig.png'"
+              />
             </q-carousel>
           </q-responsive>
         </q-card-section>
-        <q-card-section>
-          <div class="text-h6 text-primary">Quản lý trọ</div>
-        </q-card-section>
-        <q-card-section>
-          <p>Giao diện quản lý đơn giản , dễ dùng.</p>
-          <p> Đảm bảo các chức năng: trạng thái phòng , tiền phòng , ...</p>
-          <p>
-            Chức năng hữu ít: tạo bill nhanh cho tất cả phòng , thông báo user
-            ,xác nhận trạng thái thiết bị.
-          </p>
-          <p>Tính thuế các thiết bị tiêu thụ nhiều điện , nước.</p>
+        <q-card-section class="text-center">
+          <q-card-section class="text-center text-primary">
+            <q-icon name="apartment" style="font-size: 56px" />
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h5 text-primary">Quản lý trọ</div>
+          </q-card-section>
+          <q-card-section>
+            <p>Giao diện quản lý đơn giản , dễ dùng.</p>
+            <p>Đảm bảo các chức năng: trạng thái phòng , tiền phòng , ...</p>
+            <p>
+              Chức năng hữu ít: tạo bill nhanh cho tất cả phòng , thông báo user
+              ,xác nhận trạng thái thiết bị.
+            </p>
+            <p>Tính thuế các thiết bị tiêu thụ nhiều điện , nước.</p>
+          </q-card-section>
         </q-card-section>
       </q-card>
 
-      <q-card class="my-cards col-12 col-md-8">
-        <q-card-section style="height: auto;" class="row justify-center bg-dark" >
-          <q-responsive :ratio="9/16" style="width:70%; bg-dark ">
-            <q-carousel animated v-model="slide1" thumbnails swipeable control-color="red">
+      <q-card class="my-cards col-12 col-md-8 g-border">
+        <q-card-section style="height: auto" class="row justify-center ">
+          <q-responsive :ratio="9 / 16" style="width:90%;  ">
+            <q-carousel
+              animated
+              v-model="slide1"
+              thumbnails
+              swipeable
+              control-color="red"
+            >
               <q-carousel-slide :name="1" :img-src="'/images/roomIndex.png'">
               </q-carousel-slide>
               <q-carousel-slide :name="2" :img-src="'/images/roomBill.png'" />
@@ -120,19 +157,24 @@
             </q-carousel>
           </q-responsive>
         </q-card-section>
-        <q-card-section>
-          <div class="text-h6 text-black">Quản lý phòng</div>
-        </q-card-section>
-        <q-card-section>
-          <p>
-            xem các thông tin phòng: trạng thái bill , tiền phòng , điện , nước,
-            thiết bị sử dụng , trạng thái thiết bị phòng.
-          </p>
-          <p>
-            Cho phép điều chỉnh các thiết bị , cũng như báo cáo các thiết bị và
-            xác nhận với chủ trọ.
-          </p>
-          <p>Có thể tạo bài đăng để tìm bạn ở ghép với vài bước đơn giản.</p>
+        <q-card-section class="text-center">
+          <q-card-section class="text-center text-primary">
+            <q-icon name="tv" style="font-size: 56px" />
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h5 text-black">Quản lý phòng</div>
+          </q-card-section>
+          <q-card-section>
+            <p>
+              Xem các thông tin phòng: trạng thái bill , tiền phòng , điện ,
+              nước, thiết bị sử dụng , trạng thái thiết bị phòng.
+            </p>
+            <p>
+              Cho phép điều chỉnh các thiết bị , cũng như báo cáo các thiết bị
+              và xác nhận với chủ trọ.
+            </p>
+            <p>Có thể tạo bài đăng để tìm bạn ở ghép với vài bước đơn giản.</p>
+          </q-card-section>
         </q-card-section>
       </q-card>
     </div>
