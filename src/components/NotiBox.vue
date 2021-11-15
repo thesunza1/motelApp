@@ -33,18 +33,21 @@
           <q-card-section class="row col-10 col-md-11 items-center">
             <div class="col-12 col-md-6 text-h6">Tiêu Đề: {{ noti.title }}</div>
             <div class="col-12 col-md-4 text-subtitle2 ">
-              <b>Email:</b> {{ noti.senderUser.email }}
+              <q-icon name="email" class="g-icon-h2 text-primary" />
+              <b> Email:</b> {{ noti.senderUser.email }}
             </div>
             <div class="col-12 col-md-2">
-              <b>Thời gian:</b> {{ toDate(noti.created_at) }}
+              <q-icon name="schedule" class="g-icon-h2 text-primary" />
+              <b> Ngày gửi:</b> {{ toDate(noti.created_at) }}
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12" v-if="noti.noti_type_id != 3">
+              <q-icon name="description" class="g-icon-h2 text-primary" />
               <b> Nội dung:</b>
-              <div v-html="noti.content"></div>
+              <div class="g-text-indent" v-html="noti.content"></div>
             </div>
             <div class="col-12">
-              <div>Nhấn để xem thêm</div>
+              <div class="g-text-indent">Nhấn để xem thêm</div>
             </div>
           </q-card-section>
         </q-card-section>

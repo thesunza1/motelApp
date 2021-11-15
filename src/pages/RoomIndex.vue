@@ -112,7 +112,7 @@
         <q-card class="my-card g-border br full-width" id="eqInfor">
           <q-card-section class="row items-center text-primary">
             <div class="co-card-header col-12 text-center">
-              <q-icon name="view_agenda" /> Tình trạng thiết bị phòng
+              <q-icon name="view_agenda" /> Tình trạng phòng
             </div>
           </q-card-section>
           <q-card-section class="row items-center justify-end">
@@ -121,7 +121,7 @@
               no-caps
               color="black"
               icon="add"
-              label="Thêm thiết bị"
+              label=" Thêm phản ánh"
               @click="addRowEquip"
             />
           </q-card-section>
@@ -138,8 +138,8 @@
               </div>
               <div class="col-12"><br /></div>
               <div class="col-6 col-md-8 row">
-                <div class="col-12 col-md-6 text-bold">Tên thiết bị</div>
-                <div class="col-12 col-md-6 text-bold">Trạng thái</div>
+                <div class="col-12 col-md-6 text-bold">Tiêu đề</div>
+                <div class="col-12 col-md-6 text-bold">Nội dung</div>
               </div>
               <div class="col-3 text-bold">Hình ảnh</div>
               <div class="col-3 col-md-1 text-bold text-right">Xóa</div>
@@ -154,72 +154,146 @@
                 :key="index"
                 class="row col-12 items-center"
               >
-                <div class="col-5 col-md-6 row">
-                  <div class="col-12 col-md-6 row items-center justify-start">
-                    <q-input
-                      bg-color="teal-1"
-                      rounded
-                      outlined
-                      class="col-11"
-                      v-model="room_equip.name"
-                      type="text"
-                    />
+                <div
+                  class="col-12 row items-center"
+                  v-if="room_equips_num == index + 1"
+                >
+                  <div class="col-5 col-md-6 row">
+                    <div class="col-12 col-md-6 row items-center justify-start">
+                      <q-input
+                        class="col-11"
+                        v-model="room_equip.name"
+                        type="text"
+                        label=" Tiêu đề"
+                        label-color="primary"
+                      />
+                    </div>
+                    <div class="col-12 lt-md"><br /></div>
+                    <div class="col-12 col-md-6 row items-center justify-start">
+                      <q-input
+                        label="Nội dung"
+                        class="col-11"
+                        v-model="room_equip.content"
+                        type="text"
+                        label-color="primary"
+                      />
+                    </div>
                   </div>
-                  <div class="col-12 lt-md"><br /></div>
-                  <div class="col-12 col-md-6 row items-center justify-start">
-                    <q-input
-                      bg-color="teal-1"
-                      rounded
-                      outlined
-                      class="col-11 text-center"
-                      style="overflow: hidden"
-                      v-model="room_equip.content"
-                      type="text"
-                    />
+                  <div class="col-5">
+                    <q-card-actions
+                      v-if="room_equip.id != -1 && eq_status == 0"
+                      class="row"
+                      align="center"
+                    >
+                      <!-- <q-btn
+                        v-if="toLength(room_equip.img_details) > 0"
+                        class="col-10 col-md-5"
+                        rounded
+                        :label="`${toLength(room_equip.img_details)} ảnh`"
+                        no-caps
+                        @click="seeImgs(room_equip.img_details)"
+                      /> -->
+                      <div
+                        class="col-10"
+                        v-if="toLength(room_equip.img_details) > 0"
+                      >
+                        <q-img
+                          :src="baseUrlImg + room_equip.img_details[0]"
+                          :ratio="16 / 9"
+                          spinner-color="primary"
+                          spinner-size="82px"
+                          @click="seeImgs(room_equip.img_details)"
+                        >
+                          <div
+                            class="absolute-bottom text-subtitle1 text-center"
+                          >
+                            {{ toLength(room_equip.img_details) }} ảnh
+                          </div>
+                        </q-img>
+                      </div>
+                      <div class="col-10" v-else>Chưa có ảnh</div>
+
+                      <div class="gt-ms col-12"></div>
+                      <q-btn
+                        color="black"
+                        flat
+                        icon="check"
+                        label=" Đổi ảnh"
+                        @click="isHide = !isHide"
+                      />
+                      <q-uploader
+                        class="q-mt-md"
+                        v-if="isHide"
+                        :url="`${baseUrlUpload}`"
+                        color="teal"
+                        flat
+                        bordered
+                        batch
+                        multiple
+                        max-files="3"
+                        :form-fields="[
+                          { name: 'tenantRoomEquipId', value: room_equip.id },
+                        ]"
+                        style="max-width: 300px"
+                      />
+                    </q-card-actions>
                   </div>
-                </div>
-                <div class="col-5">
-                  <q-card-actions
-                    v-if="room_equip.id != -1"
-                    class="row"
-                    align="center"
-                  >
+                  <div class="col-md-1 col-2 row justify-end">
                     <q-btn
-                      v-if="toLength(room_equip.img_details) > 0"
-                      class="col-10 col-md-5"
                       rounded
-                      :label="`${toLength(room_equip.img_details)} ảnh`"
-                      no-caps
-                      @click="seeImgs(room_equip.img_details)"
+                      outline
+                      color="negative"
+                      icon="delete"
+                      @click="deleteEquip(index)"
                     />
-                    <div class="col-10" v-else>Chưa có ảnh</div>
-                    <div class="gt-ms col-12"></div>
-                    <q-uploader
-                      class="q-mt-md"
-                      :url="`${baseUrlUpload}`"
-                      color="teal"
-                      flat
-                      bordered
-                      batch
-                      multiple
-                      max-files="3"
-                      :form-fields="[
-                        { name: 'tenantRoomEquipId', value: room_equip.id },
-                      ]"
-                      style="max-width: 300px"
-                    />
-                  </q-card-actions>
+                  </div>
+                  <div class="col-12"><br /></div>
                 </div>
-                <div class="col-md-1 col-2 row justify-end">
-                  <q-btn
-                    rounded
-                    outline
-                    color="negative"
-                    icon="delete"
-                    @click="deleteEquip(index)"
-                  />
+                <div class="col-12 row items-ceneter" v-else>
+                  <div class="col-5 col-md-6 row">
+                    <div class="col-12 col-md-6 row items-center justify-start">
+                      {{ room_equip.name }}
+                    </div>
+                    <div class="col-12 lt-md"><br /></div>
+                    <div class="col-12 col-md-6 row items-center justify-start">
+                      {{ room_equip.content }}
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <q-card-actions
+                      v-if="room_equip.id != -1"
+                      class="row"
+                      align="center"
+                    >
+                      <div
+                        class="col-10"
+                        v-if="toLength(room_equip.img_details) > 0"
+                      >
+                        <q-img
+                          :src="baseUrlImg + room_equip.img_details[0]"
+                          :ratio="16 / 9"
+                          spinner-color="primary"
+                          spinner-size="82px"
+                          @click="seeImgs(room_equip.img_details)"
+                        >
+                          <div
+                            class="absolute-bottom text-subtitle1 text-center"
+                          >
+                            {{ toLength(room_equip.img_details) }} ảnh
+                          </div>
+                        </q-img>
+                      </div>
+                      <div class="col-10" v-else>Chưa có ảnh</div>
+
+                      <div class="gt-ms col-12"></div>
+                    </q-card-actions>
+                  </div>
+                  <div class="col-md-1 col-2 row justify-end"></div>
+                  <div class="col-12"><br /></div>
+                  <div class="col-12">
+                    <hr />
+                  </div>
                 </div>
-                <div class="col-12"><br /></div>
               </div>
             </div>
             <div class="col-12 text-red">
@@ -232,7 +306,7 @@
 
             <div class="col-12 row justify-end items-center">
               <q-btn
-                color="orange"
+                color="grey-10"
                 no-caps
                 rounded
                 icon="check"
@@ -255,10 +329,10 @@
             </div>
           </q-card-section>
           <q-card-section class="row full-width items-center">
-            <div class="col-1 text-bold">Stt</div>
+            <div class="col-1 text-bold">STT</div>
             <div class="col-6 col-md-3 text-bold">Họ tên</div>
             <div class="gt-sm col-md-3 text-bold">Email</div>
-            <div class="gt-sm col-md-3 text-bold"> Nghề nghiệp</div>
+            <div class="gt-sm col-md-3 text-bold">Nghề nghiệp</div>
             <div class="col-5 col-md-2 text-bold">Điện thoại</div>
             <div class="col-12">
               <hr />
@@ -270,9 +344,11 @@
               class="col-12 row items-center"
             >
               <div class="col-1">{{ ++index }}</div>
-              <div class="col-6 col-md-3 g-header-up">{{ tenant_user.user.name }}</div>
-              <div class="gt-sm col-md-3 ">{{ tenant_user.user.email }}</div>
-              <div class="gt-sm col-md-3 ">{{ tenant_user.user.job }}</div>
+              <div class="col-6 col-md-3 g-header-up">
+                {{ tenant_user.user.name }}
+              </div>
+              <div class="gt-sm col-md-3">{{ tenant_user.user.email }}</div>
+              <div class="gt-sm col-md-3">{{ tenant_user.user.job }}</div>
               <div class="col-5 col-md-2">
                 {{ tenant_user.user.phone_number }}
               </div>
@@ -282,21 +358,6 @@
               <div class="col-12"><br /></div>
             </div>
             <div class="col-12"><br /></div>
-
-            <div
-              class="col-12 row items-center justify-end"
-              style="margin-top: 30px"
-            >
-              <div class="col-12"><br /></div>
-              <q-btn
-                color="primary"
-                icon="add"
-                label=" Đăng bài tìm người"
-                no-caps
-                rounded
-                @click="isCreate = true"
-              />
-            </div>
           </q-card-section>
         </q-card>
         <div><br /></div>
@@ -307,6 +368,16 @@
               <q-icon name="badge" /> Bài đăng
             </div>
           </q-card-section>
+          <q-card-actions align="right">
+            <q-btn
+              color="grey-10"
+              icon="add"
+              label=" Đăng bài tìm người"
+              no-caps
+              rounded
+              @click="isCreate = true"
+            />
+          </q-card-actions>
           <q-card-section class="row items-center">
             <div class="col-1 text-bold">Stt</div>
             <div class="col-6 col-md-3 text-bold text-center">Trạng thái</div>
@@ -319,8 +390,12 @@
               class="col-12 row items-center"
             >
               <div class="col-1">{{ index + 1 }}</div>
-              <div class="col-6 col-md-3 text-center">{{ check(post.status) }}</div>
-              <div class="col-5 gt-sm col-md-3">{{getDate(post.created_at)}}</div>
+              <div class="col-6 col-md-3 text-center">
+                {{ check(post.status) }}
+              </div>
+              <div class="col-5 gt-sm col-md-3">
+                {{ getDate(post.created_at) }}
+              </div>
               <div class="col-5 col-md-4 row justify-end">
                 <q-btn
                   rounded
@@ -397,14 +472,8 @@
               <q-icon name="dialpad" /> Nhập số điện nước khi vào trọ
             </div>
           </q-card-section>
-          <q-card-section v-if="num_status == 0" class="text-left text-red">
-            *Chủ trọ chưa xác nhận số liệu
-          </q-card-section>
-          <q-card-section v-else class="text-left text-blue">
-            *Chủ trọ đã xác nhận số liệu
-          </q-card-section>
           <q-card-section class="row items-center justify-center">
-            <div class="col-md-4 col-5 row items-center justify-center">
+            <!-- <div class="col-md-4 col-5 row items-center justify-center">
               <q-input
                 class="col-11"
                 v-model="elec_num"
@@ -422,7 +491,7 @@
             </div>
             <div class="col-md-4 col-2 row items-center justify-end">
               <q-btn
-                color="orange"
+                color="grey-10"
                 icon="check"
                 rounded
                 no-caps
@@ -430,7 +499,41 @@
               >
                 <div class="gt-sm">Xin xác nhận</div>
               </q-btn>
+            </div> -->
+            <div class="col-12">
+              <p class="text-red">
+                *khi xác nhận: bạn đã đồng ý số liệu mà chủ trọ nhập vào.
+              </p>
+              <p class="text-red">
+                và sẽ được sử dụng khi tạo hóa đơn đầu tiên khi bạn vào trọ.
+              </p>
             </div>
+            <div class="col-12 row items-cneter">
+              <div class="col-4">
+                <q-icon name="bolt" class="g-icon-h2 text-primary" />
+                <b> Số điện: &nbsp; </b>
+                {{ elec_num }}
+              </div>
+              <div class="col-4">
+                <q-icon name="water_drop" class="g-icon-h2 text-primary" />
+                <b> Số nước: &nbsp; </b>
+                {{ elec_num }}
+              </div>
+              <div class="col-4" v-if="num_status == 0">
+                <q-btn
+                  color="black"
+                  no-caps
+                  icon="check"
+                  rounded
+                  label=" Xác nhận"
+                  @click="confirmNum"
+                />
+              </div>
+              <div class="col-4" v-else>
+                <p class="text-primary">Bạn đã xác nhận</p>
+              </div>
+            </div>
+            <div class="col-12"><br /></div>
           </q-card-section>
         </q-card>
         <div><br /></div>
@@ -507,6 +610,7 @@ import { mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import GobalImgDetail from "../components/GobalImgDetail.vue";
 import sp from "../boot/support";
+import roomApi from "../boot/callApi/room";
 export default {
   setup() {
     const $q = useQuasar();
@@ -581,13 +685,21 @@ export default {
         this.room_equips = equips.data.equips;
       }
     },
+    // async confirmNum() {
+    //   const confirmNum = await this.$api.post("updateNumRoom", {
+    //     water_num: this.water_num,
+    //     elec_num: this.elec_num,
+    //   });
+    //   if (confirmNum.data.statusCode == 1) {
+    //     this.showNoti("Thành công , đợi xác nhận", "positive");
+    //   }
+    // },
     async confirmNum() {
-      const confirmNum = await this.$api.post("updateNumRoom", {
-        water_num: this.water_num,
-        elec_num: this.elec_num,
-      });
-      if (confirmNum.data.statusCode == 1) {
-        this.showNoti("Thành công , đợi xác nhận", "positive");
+      let tenant_id = this.tenant.id;
+      const confirm = await roomApi.confirmNum(tenant_id);
+      if (confirm.statusCode == 1) {
+        this.num_status = 1;
+        this.showNoti("Đã thành công", "black");
       }
     },
     async post() {
@@ -659,6 +771,7 @@ export default {
   },
   data() {
     return {
+      isHide: false,
       elec_num: null,
       water_num: null,
       num_status: null,
@@ -673,6 +786,7 @@ export default {
       isOut: false,
       drawLeft: false,
       baseUrlUpload: this.$api.defaults.baseURL + "/uploadImgTenantRoomEquip/",
+      baseUrlImg: this.$api.defaults.baseURL + "/image/",
       thisImgs: null,
       isSeeImgs: false,
     };

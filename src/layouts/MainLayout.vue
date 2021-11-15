@@ -15,7 +15,18 @@
           >
         </q-toolbar-title>
 
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+        <q-space />
+
+        <home-search-rightbar class="gt-sm"></home-search-rightbar>
+
+        <q-btn
+          class="lt-md"
+          dense
+          flat
+          round
+          icon="menu"
+          @click="toggleRightDrawer"
+        />
       </q-toolbar>
       <div class="row justify-center">
         <div
@@ -193,6 +204,8 @@
             v-if="!user"
             icon="account_circle"
             label=" Bạn chưa đăng nhập"
+            clickable
+            @click="detail()"
           />
           <q-chip
             class="col-10 g-header-up"
@@ -211,25 +224,12 @@
             :label="get_role()"
           />
           <div class="col-12"><br /></div>
-          <q-btn
-            v-if="user"
-            class="col-10 g-header"
-            icon="account_circle"
-            color="primary"
-            label=" Tài khoản"
-            @click="detail()"
-          />
-          <div class="col-12"><br /></div>
         </div>
       </div>
 
       <q-footer class="bg-white q-py-sm q-px-md">
-        <div v-for="(link, index) in links" :key="index">
-          <main-leftbar :link="link"></main-leftbar>
-        </div>
-        <q-card-actions vertical align="center">
+        <q-card-actions v-if="user" vertical align="center">
           <q-btn
-            v-if="user"
             class="text-black text-bold"
             style="width: 100%; margin-top: 10px"
             color="white"
@@ -240,7 +240,6 @@
             @click="logout"
           />
           <q-btn
-            v-if="user"
             style="width: 100%; margin-top: 10px"
             color="white"
             rounded
@@ -251,7 +250,6 @@
             @click="reloadPage"
           />
           <q-btn
-            v-if="user"
             style="width: 100%; margin-top: 10px"
             color="white"
             icon="home"
@@ -262,6 +260,11 @@
             @click="$router.push('/')"
           />
         </q-card-actions>
+        <div v-else>
+          <div v-for="(link, index) in links" :key="index">
+            <main-leftbar :link="link"></main-leftbar>
+          </div>
+        </div>
       </q-footer>
     </q-drawer>
 
@@ -275,6 +278,7 @@
 import { ref } from "vue";
 import MainLeftbar from "./MainLeftbar.vue";
 import { mapGetters } from "vuex";
+import HomeSearchRightbar from "../components/HomeSearchRightbar.vue";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -311,6 +315,7 @@ export default {
   },
   components: {
     MainLeftbar,
+    HomeSearchRightbar,
   },
   data() {
     return {

@@ -127,19 +127,19 @@
               <!-- infor motel  -->
               <div class="col-12 row items-center">
                 <div class="col-12 text-h6">
-                  <q-icon name="subtitles" class="g-icon-h2 text-primary" />
+                  <q-icon name="subtitles" class="g-icon-h1 text-primary" />
                   Thông tin trọ
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="q-pl-lg col-12 row items-center justify-end">
                   <div class="col-12 q-pb-md">
-                    <q-icon name="subtitles" class="g-icon-h2 text-black" />
+                    <q-icon name="remove" class="g-icon-h2 text-black" />
                     <b> Mô tả trọ:</b>
                     <div class="g-text-indent">
                       &nbsp; {{ post.room_type.motel.content }}
                     </div>
                   </div>
-                  <div class="col-12 q-pl-lg row items-center content-start">
+                  <div class="col-12 row items-center content-start">
                     <div class="col-4">
                       <q-icon name="remove" class="g-icon-h2" />
                       <b> Cổng:</b> mở

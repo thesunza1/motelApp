@@ -28,48 +28,48 @@
                 class="row items-center justify-start"
                 style="font-size: 14px"
               >
-                <div class="col-5">
+                <div class="col-12 q-pb-md text-h6">
                   <q-icon name="apartment" class="g-icon-h1 text-primary" />
-                  <b> Tên trọ: </b>
-                  <p style="display: inline" class="g-header-up">
+                  <b class="text-primary"> Tên trọ: </b>
+                  <p style="display: inline" class="text-primary g-header-up">
                     {{ motel.name }}
                   </p>
                 </div>
-                <div class="col-7">
+                <div class="col-12">
                   <q-icon name="room" class="g-icon-h1 text-primary" />
                   <b> Địa chỉ: </b>
                   <p style="display: inline">{{ motel.address }}</p>
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-5">
-                  <q-icon name="person" class="g-icon-h1 text-primary" />
+                  <q-icon name="person" class="g-icon-h1 " />
                   <b> Chủ trọ: </b>
                   <p style="display: inline" class="g-header-up">
                     {{ motel.user.name }}
                   </p>
                 </div>
                 <div class="col-4">
-                  <q-icon name="email" class="g-icon-h1 text-primary" />
+                  <q-icon name="email" class="g-icon-h1" />
                   <b> Email: </b>
                   <p style="display: inline">{{ motel.user.email }}</p>
                 </div>
                 <div class="col-3">
-                  <q-icon name="phone" class="g-icon-h1 text-primary" />
+                  <q-icon name="phone" class="g-icon-h1" />
                   <b> Điện thoại: </b>
                   <p style="display: inline">{{ motel.phone_number }}</p>
                 </div>
                 <div class="col-12"><br /></div>
                 <div class="col-12 row items-center">
                   <div class="col-5">
-                    <q-icon name="bolt" class="g-icon-h1 text-primary" />
+                    <q-icon name="bolt" class="g-icon-h1 " />
                     <b> Giá điện :</b> {{ toPrice(motel.elec_cost) }} VNĐ
                   </div>
                   <div class="col-4">
-                    <q-icon name="water_drop" class="text-primary g-icon-h1" />
+                    <q-icon name="water_drop" class=" g-icon-h1" />
                     <b>Giá nước :</b> {{ toPrice(motel.water_cost) }} VNĐ
                   </div>
                   <div class="col-3">
-                    <q-icon name="paid" class="g-icon-h1 text-primary" />
+                    <q-icon name="paid" class="g-icon-h1 " />
                     <b>&nbsp;Đặt cọc :</b> {{ toPrice(motel.deposit) }} VNĐ
                   </div>
                 </div>

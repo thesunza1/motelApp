@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!user" class="row full-width justify-center">
+  <div class="row full-width justify-center">
     <q-btn
       class="col-10 text-black text-bold"
       no-caps
@@ -15,12 +15,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   setup() {},
-  computed: {
-    ...mapGetters("User", ["user"]),
-  },
   props: {
     link: {
       type: Object,

@@ -10,15 +10,17 @@
             Quản lý phòng
           </router-link>
         </q-toolbar-title>
+        <q-space />
 
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+        <home-search-rightbar class="gt-sm"></home-search-rightbar>
+        <q-btn dense flat round icon="menu" class="lt-md" @click="toggleRightDrawer" />
       </q-toolbar>
 
       <q-tabs align="left">
         <q-route-tab class="g-header" to="room/roomAll" label="Phòng" />
-        <q-route-tab class="g-header"  to="room/roomShare" label="Trọ" />
-        <q-route-tab  class="g-header" to="room/roomBills" label=" Hóa đơn" />
-        <q-route-tab  class="g-header" to="room/roomNoti" label="Thông báo">
+        <q-route-tab class="g-header" to="room/roomShare" label="Trọ" />
+        <q-route-tab class="g-header" to="room/roomBills" label=" Hóa đơn" />
+        <q-route-tab class="g-header" to="room/roomNoti" label="Thông báo">
           <q-badge floating color="red" text-color="white" :label="notiNum" />
         </q-route-tab>
       </q-tabs>
@@ -31,7 +33,6 @@
       behavior="mobile"
       elevated
     >
-      <!-- drawer content -->
       <div class="row">
         <div class="col-12 row justify-center">
           <div class="col-12"><br /></div>
@@ -67,7 +68,7 @@
           <q-btn
             v-if="user"
             style="width: 100%; margin-top: 10px"
-            color="primary"
+            color="grey-10"
             icon="logout"
             class="g-header"
             label=" Đăng xuất "
@@ -76,7 +77,7 @@
           <q-btn
             v-if="user"
             style="width: 100%; margin-top: 10px"
-            color="orange"
+            color="grey-10"
             icon="refresh"
             class="g-header"
             label=" Tải lại "
@@ -84,7 +85,7 @@
           />
           <q-btn
             style="width: 100%; margin-top: 10px"
-            color="positive"
+            color="grey-10"
             icon="home"
             class="g-header"
             label=" Trang chủ"
@@ -103,6 +104,7 @@
 <script>
 import { ref } from "vue";
 import { mapGetters } from "vuex";
+import HomeSearchRightbar from "../components/HomeSearchRightbar.vue";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -113,9 +115,12 @@ export default {
       },
     };
   },
+  components: {
+    HomeSearchRightbar,
+  },
   data() {
     return {
-      notiNum : 0 ,
+      notiNum: 0,
     };
   },
   async created() {
@@ -163,7 +168,6 @@ export default {
       this.updateNotiNum();
     }, 5000);
   },
-
 };
 </script>
 

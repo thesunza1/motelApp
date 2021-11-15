@@ -56,7 +56,7 @@
       <div class="full-width">
         <div>
           <q-item clickable dense v-ripple @click="goto('roomInfor')">
-            <q-icon color="positive" name="store" class="g-icon-h2" />
+            <q-icon color="primary" name="store" class="g-icon-h2" />
             <q-item-section class="q-ml-sm">Thông tin phòng</q-item-section>
           </q-item>
           <hr />
@@ -85,15 +85,7 @@
         <div v-if="room.room_status_id == 2">
           <q-item clickable dense v-ripple @click="goto('roomNum')">
             <q-icon color="primary" name="bolt" class="g-icon-h2" />
-            <q-icon color="primary" name="water_drop" class="g-icon-h2" />
             <q-item-section> Số điện, nước lúc vào trọ</q-item-section>
-          </q-item>
-          <hr />
-        </div>
-        <div v-if="room.room_status_id != 3">
-          <q-item clickable dense v-ripple @click="goto('roomAddUser')">
-            <q-icon color="primary" name="person_add" class="g-icon-h2" />
-            <q-item-section class="q-ml-sm"> Thêm người Thuê</q-item-section>
           </q-item>
           <hr />
         </div>

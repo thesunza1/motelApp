@@ -15,8 +15,8 @@
             Tìm trọ</router-link
           >
         </q-toolbar-title>
-
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+        <q-space />
+        <home-search-rightbar></home-search-rightbar>
       </q-toolbar>
       <div class="row justify-center full-width"></div>
     </q-header>
@@ -30,7 +30,7 @@
             class="col-10"
             v-if="!user"
             icon="account_circle"
-            label=" Bạn chưa đăng nhập"
+            label="Bạn chưa đăng nhập"
           />
           <q-chip
             class="col-10 g-header-up"
@@ -38,7 +38,7 @@
             text-color="white"
             v-else
             icon="account_circle"
-            :label="` ${user.id}-${user.name} `"
+            :label="` ${user.name} `"
           />
           <q-chip
             class="col-10"
@@ -50,7 +50,7 @@
           />
           <q-btn
             color="primary"
-            label=" tài khoản"
+            label="Tài khoản"
             class="g-header"
             @click="detail()"
           />
@@ -102,7 +102,9 @@
 <script>
 import { ref } from "vue";
 import MainLeftbar from "./MainLeftbar.vue";
+import HomeSearchRightbar from "../components/HomeSearchRightbar.vue";
 import { mapGetters } from "vuex";
+import sp from "../boot/support";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -132,41 +134,15 @@ export default {
       }
     }
     const user = this.$store.state.User.user;
-
     this.role_id = user.role_id;
   },
 
   components: {
-    MainLeftbar,
+    // MainLeftbar,
+    HomeSearchRightbar,
   },
   data() {
     return {
-      links: {
-        id1: {
-          name: " Đăng nhập",
-          col1: "primary",
-          link: "/login",
-          icon: "login",
-        },
-        id2: {
-          name: " Đăng ký ",
-          col1: "accent",
-          link: "/userRegister",
-          icon: "assignment",
-        },
-        id3: {
-          name: " Đăng ký trọ",
-          col1: "positive",
-          link: "/motelRegister",
-          icon: "receipt",
-        },
-        id4: {
-          name: " Trang chủ",
-          col1: "positive",
-          link: "/",
-          icon: "home",
-        },
-      },
       email: "",
       password: "",
       role_id: null,
@@ -185,12 +161,7 @@ export default {
       location.reload();
     },
     get_role() {
-      if (this.role_id == 1) {
-        return " Tài khoản người dùng ";
-      }
-      if (this.role_id == 2) {
-        return " Tài khoản trọ ";
-      }
+      return sp.getRole(this.role_id);
     },
     reloadPage() {
       this.$router.go();

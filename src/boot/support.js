@@ -46,7 +46,23 @@ function toSex(sex) {
 
 function toNum(num) {
   num = Number(num);
-  return num.toLocaleString('it-IT');
+  return num.toLocaleString("it-IT");
+}
+/**
+ *
+ * @param {Integer} role_id
+ * @returns {String}
+ */
+function getRole(role_id) {
+  if (role_id == 1) {
+    return "Người dùng ";
+  }
+  if (role_id == 2) {
+    return "Chủ trọ ";
+  }
+  if (role_id == 3) {
+    return "Quản trị ";
+  }
 }
 export default {
   length,
@@ -54,4 +70,5 @@ export default {
   toSex,
   numBill,
   toNum,
+  getRole,
 };
