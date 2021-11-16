@@ -31,7 +31,7 @@
               </div>
               <div class="col-12 row items-center">
                 <div class="col-3">
-                  <b>Diện tích: </b> {{ post.room_type.area }}m2
+                  <b>Diện tích: </b> {{ post.room_type.area }}M<sup>2</sup>
                 </div>
                 <div class="col-3">
                   <b>Ngày đăng: </b>{{ toDate(post.updated_at) }}
@@ -125,7 +125,7 @@
               </div>
               <div class="col-12 row items-center">
                 <div class="col-3">
-                  <b>Diện tích: </b> {{ post.room.room_type.area }}m2
+                  <b>Diện tích: </b> {{ post.room.room_type.area }}M<sup>3</sup>
                 </div>
                 <div class="col-3">
                   <b>ngày đăng: </b>{{ toDate(post.updated_at) }}

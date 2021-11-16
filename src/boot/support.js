@@ -4,7 +4,11 @@
  * @returns length
  */
 function length(arr) {
-  return `${arr.length}`;
+  try {
+    return `${arr.length}`;
+  } catch (error) {
+    return 0; 
+  }
 }
 
 /**

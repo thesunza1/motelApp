@@ -1,15 +1,13 @@
 <template>
   <q-page padding>
-    <div class="full-width text-h3 text-center text-primary">
-     Danh sách trọ
-   </div>
+    <div class="full-width text-h3 text-center text-primary">Danh sách trọ</div>
     <div class="row full-width justify-center" v-if="motels">
       <div
         v-for="(motel, index) in motels"
         :key="index"
-        class="col-md-8 col-12 row justify-center items-center g-mx-md "
+        class="col-md-8 col-12 row justify-center items-center g-mx-md"
       >
-        <div class="col-12"><br></div>
+        <div class="col-12"><br /></div>
         <q-card class="my-card col-11 g-border">
           <q-card-section>
             <div class="text-h6 text-center text-primary g-header-up g-icon-h2">
@@ -17,22 +15,29 @@
               {{ motel.name }}
             </div>
             <div class="text-subtitle2">
-              <b>Địa chỉ:</b> {{ motel.address }}
+              <q-icon name="room" class="g-icon-h2" />
+              <b> Địa chỉ:</b> {{ motel.address }}
             </div>
           </q-card-section>
           <q-card-section>
             <div class="row full-width">
-              <div class="col-6"><b>Đặt cọc:</b> {{ toNum(motel.deposit)  }} VNĐ</div>
               <div class="col-6">
-                <b>Phụ thu:</b> {{ toNum(motel.people_cost) }} VNĐ
+                <q-icon name="payments" class="g-icon-h2" />
+                <b> Đặt cọc:</b> {{ toNum(motel.deposit) }} VNĐ
+              </div>
+              <div class="col-6">
+                <q-icon name="paid" class="g-icon-h2" />
+                <b> Phụ thu:</b> {{ toNum(motel.people_cost) }} VNĐ
               </div>
             </div>
             <div class="row full-width">
               <div class="col-6">
-                <b>Giá Điện:</b> {{ toNum(motel.elec_cost) }} VNĐ/Kwh
+                <q-icon name="bolt" class="g-icon-h2" />
+                <b> Giá Điện:</b> {{ toNum(motel.elec_cost) }} VNĐ/Kwh
               </div>
               <div class="col-6">
-                <b>Giá nước:</b> {{ toNum(motel.water_cost) }} VNĐ/M3
+                <q-icon name="water_drop" class="g-icon-h2" />
+                <b> Giá nước:</b> {{ toNum(motel.water_cost) }} VNĐ/M<sup>3</sup>
               </div>
             </div>
           </q-card-section>
@@ -52,21 +57,15 @@
             >
               <div class="col-2">{{ ++index }}</div>
               <div class="col-5 g-header-up">{{ roomType.name }}</div>
-              <div class="col-3 g-header-up">{{ toNum(roomType.cost)}} VNĐ</div>
+              <div class="col-3 g-header-up">
+                {{ toNum(roomType.cost) }} VNĐ
+              </div>
               <div class="text-right col-1">
                 {{ countRoom(roomType.rooms) }}
               </div>
             </div>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn
-              color="negative"
-              rounded
-              no-caps
-              icon="delete"
-              label=" Xóa trọ"
-              @click="deMotel(motel)"
-            />
             <q-btn
               color="primary"
               rounded
@@ -82,26 +81,32 @@
       <q-dialog v-model="isDelete">
         <q-card v-if="thisMotel">
           <q-card-section class="row items-center">
-            <q-avatar
-              icon="delete"
-              color="black"
-              text-color="white"
-            />
-            <span class="q-ml-sm"
-              > Bạn có muốn xóa vĩnh viễn trọ {{thisMotel.name}}</span
+            <q-avatar icon="delete" color="black" text-color="white" />
+            <span class="q-ml-sm">
+              Bạn có muốn xóa vĩnh viễn trọ {{ thisMotel.name }}</span
             >
           </q-card-section>
           <q-card-section>
-            <div> Điều kiện xóa trọ: </div>
-            <div> Tất cả các phòng đều không có người ở  </div>
+            <div>Điều kiện xóa trọ:</div>
+            <div>Tất cả các phòng đều không có người ở</div>
             <div>khi xóa : tất cả dữ liệu từ trước đến nay đều sẽ bị xóa .</div>
-            <div>Vui lòng gỏ vào ô xác nhận là: </div>
-            <div class="text-negative text-center"> {{thisMotel.name  }} </div>
-            <q-input v-model="checkMotelName" type="text" label=" Nhập vào chuỗi kí tự"/>
+            <div>Vui lòng gỏ vào ô xác nhận là:</div>
+            <div class="text-negative text-center">{{ thisMotel.name }}</div>
+            <q-input
+              v-model="checkMotelName"
+              type="text"
+              label=" Nhập vào chuỗi kí tự"
+            />
           </q-card-section>
           <q-card-actions align="right">
             <q-btn flat label=" Thoát" color="dark" v-close-popup />
-            <q-btn flat label=" Xóa" color="negative" v-if="isBtnDelete" v-close-popup />
+            <q-btn
+              flat
+              label=" Xóa"
+              color="negative"
+              v-if="isBtnDelete"
+              v-close-popup
+            />
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -151,20 +156,20 @@ export default {
       isDelete: false,
       thisMotel: null,
       isCreate: false,
-      checkMotelName: '' ,
+      checkMotelName: "",
       isBtnDelete: false,
     };
   },
   watch: {
-    checkMotelName(n_val , o_val) {
+    checkMotelName(n_val, o_val) {
       console.log(n_val);
-      console.log(this.thisMotel.name) ;
-      if(n_val == this.thisMotel.name){
-        this.isBtnDelete = true ;
+      console.log(this.thisMotel.name);
+      if (n_val == this.thisMotel.name) {
+        this.isBtnDelete = true;
       } else {
-        this.isBtnDelete = false ;
+        this.isBtnDelete = false;
       }
-    }
+    },
   },
   async created() {
     const resMotels = await motelApi.getMotels();
@@ -182,8 +187,8 @@ export default {
       this.isDelete = true;
     },
     toNum(num) {
-      return sp.toNum(num) ;
-    }
+      return sp.toNum(num);
+    },
   },
 };
 </script>

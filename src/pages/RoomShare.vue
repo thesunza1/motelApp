@@ -4,7 +4,7 @@
       <div class="full-width">
         <motel-room-detail></motel-room-detail>
       </div>
-      <div
+      <!-- <div
         v-for="(roomType, index) in inforShareRoom"
         :key="index"
         class="full-width row items-center"
@@ -64,67 +64,81 @@
           </div>
         </q-expansion-item>
         <div class="col-12"><br /></div>
-      </div>
+      </div> -->
       <div class="col-12"><br /></div>
-      <q-card class="col-12 row">
+      <q-card class="col-12 g-border row">
         <q-card-section class="col-12">
-          <div class="text-h5">
-            Hình ảnh Thiết bị thiết yếu
-          </div>
+          <div class="text-h5">Hình ảnh thiết bị trọ</div>
         </q-card-section>
         <div v-if="roomTypeUser" class="col-12 row items-center justify-around">
           <q-card class="my-card col-12 col-md-5">
-            <q-card-section horizontal>
+            <q-card-section>
               <q-card-section class="col-9">
                 <div class="">
                   <div class="text-h6" style="display: inline">
-                    Thiết bị chữa cháy
+                    <q-icon name="fire_extinguisher" class="q-pb-sm g-icon-h1" />
+                    Chữa cháy
                   </div>
                 </div>
                 <div class="">
-                  <b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[1].place }}
+                  <q-icon name="room" class="g-icon-h2" />
+                  &nbsp; <b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[1].place }}
                 </div>
               </q-card-section>
-              <q-card-section class="col-3 row content-end justify-end">
-                <q-btn
-                  rounded
-                  no-caps
-                  color="black"
-                  label=" Xem ảnh"
+              <q-card-section class="row content-end justify-end">
+                <q-img
+                  style="height: 500px"
+                  :src="
+                    baseUrlImg + roomTypeUser.motel.motel_imgs[1].img_details[0]
+                  "
                   @click="seeImg(roomTypeUser.motel.motel_imgs[1].img_details)"
-                />
+                  spinner-color="primary"
+                  spinner-size="82px"
+                >
+                  <div class="absolute-bottom text-subtitle1 text-center">
+                    {{ toLength(roomTypeUser.motel.motel_imgs[1].img_details) }}
+                    ảnh
+                  </div>
+                </q-img>
               </q-card-section>
             </q-card-section>
           </q-card>
           <!-- <div class="col-2 gt-sm"></div> -->
           <div class="col-12 lt-md"><br /></div>
-          <q-card class="my-card col-12 col-md-6">
-            <q-card-section horizontal>
-              <q-card-section class="col-10">
+          <q-card class="my-card col-12 col-md-5">
+            <q-card-section>
+              <q-card-section class="col-9">
                 <div class="">
                   <div class="text-h6" style="display: inline">
-                    Thiết bị sơ cứu
+                    <q-icon name="home_repair_service" class="g-icon-h2" />
+                    Sơ cứu
                   </div>
                 </div>
                 <div class="">
-                  <b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[2].place }}
+                  <q-icon name="room" class="g-icon-h2" />
+                  &nbsp;<b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[2].place }}
                 </div>
               </q-card-section>
-              <q-card-section class="col-2 row content-end justify-end">
-                <q-btn
-                  rounded
-                  no-caps
-                  color="black"
-                  label=" Xem ảnh"
+              <q-card-section class="row content-end justify-end">
+                <q-img
+                  style="height: 500px"
+                  :src="
+                    baseUrlImg + roomTypeUser.motel.motel_imgs[2].img_details[0]
+                  "
                   @click="seeImg(roomTypeUser.motel.motel_imgs[2].img_details)"
-                />
+                  spinner-color="primary"
+                  spinner-size="82px"
+                >
+                  <div class="absolute-bottom text-subtitle1 text-center">
+                    {{ toLength(roomTypeUser.motel.motel_imgs[2].img_details) }}
+                    ảnh
+                  </div>
+                </q-img>
               </q-card-section>
             </q-card-section>
-
           </q-card>
         </div>
-        <q-card-section>
-        </q-card-section>
+        <q-card-section> </q-card-section>
       </q-card>
     </div>
     <q-footer
@@ -137,7 +151,7 @@
           color="negative"
           icon="person"
           rounded
-          label="Báo cáo"
+          label="Báo cáo quản trị viên"
           @click="isReport = true"
         />
       </q-card-actions>
@@ -190,8 +204,12 @@
         :motelId="roomTypeUser.motel.id"
       ></user-report>
     </q-dialog>
-    <q-dialog v-model="seeImgs" >
-      <gobal-img-detail style="min-width: 90%" v-if="thisImg" :img_details="thisImg"></gobal-img-detail>
+    <q-dialog v-model="seeImgs">
+      <gobal-img-detail
+        style="min-width: 90%"
+        v-if="thisImg"
+        :img_details="thisImg"
+      ></gobal-img-detail>
     </q-dialog>
   </q-page>
 </template>
@@ -201,7 +219,8 @@ import { mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import MotelRoomDetail from "../components/MotelRoomDetail.vue";
 import UserReport from "../components/UserReport.vue";
-import GobalImgDetail from "../components/GobalImgDetail.vue"
+import GobalImgDetail from "../components/GobalImgDetail.vue";
+import sp from "../boot/support";
 export default {
   components: {
     MotelRoomDetail,
@@ -233,7 +252,6 @@ export default {
         : "bg-red-4";
     }
 
-
     return {
       showNoti,
       toDate,
@@ -250,7 +268,8 @@ export default {
       thisRoom: null,
       isOpen: false,
       isReport: false,
-      seeImgs: false ,
+      seeImgs: false,
+      baseUrlImg: this.$api.defaults.baseURL + "/image/",
       thisImg: null,
     };
   },
@@ -260,10 +279,13 @@ export default {
       this.isOpen = true;
     },
     seeImg(imgs) {
-      this.seeImgs = true ;
+      this.seeImgs = true;
       this.thisImg = imgs;
       console.log(this.thisImg);
-    }
+    },
+    toLength(length) {
+      return sp.length(length);
+    },
   },
 };
 </script>

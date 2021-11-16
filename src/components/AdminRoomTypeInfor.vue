@@ -13,7 +13,7 @@
           <div style="display:inline" class="g-icon-h2 g-header-up"> {{ imgs.name }}</div>
         </div>
         <div class="col-12 row  text-white ">
-          <div class="q-pl-lg"><b>Diện tích phòng: </b>  {{ imgs.area }} m2 </div>
+          <div class="q-pl-lg"><b>Diện tích phòng: </b>  {{ imgs.area }} M<sup>2</sup> </div>
         </div>
         <div class="col-12 row  text-white ">
           <div class="q-pl-lg"> <b> Đặc điển phòng:</b> {{ imgs.content }}  </div>

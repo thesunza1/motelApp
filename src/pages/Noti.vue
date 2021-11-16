@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="row justify-center">
     <div class="col-12 col-md-10 row content-start">
-      <div class="col-12" >
+      <div class="col-12">
         <q-tabs v-model="tab" class="text-teal">
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
@@ -10,7 +10,7 @@
             no-caps
           />
           <q-route-tab
-            :to="{name: toPath()}"
+            :to="{ name: toPath() }"
             name="movies"
             icon="outbox"
             no-caps
@@ -18,7 +18,7 @@
           />
         </q-tabs>
       </div>
-      <div class="row justify-end col-12" >
+      <div class="row justify-end col-12">
         <q-btn
           class="col-4 col-md-2"
           color="primary"
@@ -32,7 +32,15 @@
       </div>
       <div class="row col-12 justify-center">
         <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-red-5"> <q-icon name="visibility_off" class="text-negative" style="font-size:30px" /> Chưa đọc:</div>
+        <div class="col-12 text-h6 text-red-5">
+          <q-icon
+            name="visibility_off"
+            class="text-negative"
+            style="font-size: 30px"
+          />
+          Chưa đọc:
+          <p class="text-black " style="display:inline">{{ notiNum }}</p>
+        </div>
         <div class="col-12">
           <noti-box
             :notis="notis"
@@ -42,7 +50,14 @@
           ></noti-box>
         </div>
         <div class="col-12"><br /></div>
-        <div class="col-12 text-h6 text-green"> <q-icon name="visibility" class="text-positive" style="font-size:30px" /> Đã đọc:</div>
+        <div class="col-12 text-h6 text-green">
+          <q-icon
+            name="visibility"
+            class="text-positive"
+            style="font-size: 30px"
+          />
+          Đã đọc:
+        </div>
         <div class="col-12">
           <noti-box
             :notis="notis"
@@ -53,7 +68,7 @@
       </div>
       <div class="row col-12">
         <q-dialog v-model="isCreate">
-          <admin-noti-create v-if=" user?.role_id == 3"></admin-noti-create>
+          <admin-noti-create v-if="user?.role_id == 3"></admin-noti-create>
           <noti-create v-else></noti-create>
         </q-dialog>
       </div>
@@ -65,7 +80,7 @@
 import NotiCreate from "components/NotiCreate.vue";
 import AdminNotiCreate from "components/AdminNotiCreate.vue";
 import NotiBox from "components/NotiBox.vue";
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   components: {
     NotiCreate,
@@ -90,10 +105,11 @@ export default {
     return {
       isCreate: false,
       notis: null,
+      notiNum: 0,
     };
   },
   computed: {
-    ...mapGetters('User',['user']),
+    ...mapGetters("User", ["user"]),
   },
   methods: {
     updateStatus(index) {
@@ -115,19 +131,29 @@ export default {
         return "adminOutBox";
       }
     },
+    async updateNotiNum() {
+      var notiNum = await this.$api.get("countNoti");
+      if (notiNum.data.statusCode == 1) {
+        if (this.notiNum != notiNum.data.num) {
+          this.notiNum = notiNum.data.num;
+        }
+      }
+      return;
+    },
     async updateNotis() {
       const noti = await this.$api.get("getAllNoti");
-      if(this.notis[0].id != noti.data.notis[0].id){
-        this.notis = noti.data.notis ;
+      if (this.notis[0].id != noti.data.notis[0].id) {
+        this.notis = noti.data.notis;
       }
-      return ;
-    }
+      return;
+    },
   },
   mounted: function () {
     window.setInterval(() => {
-      this.updateNotis() ;
-    } , 5000);
-  }
+      this.updateNotis();
+      this.updateNotiNum();
+    }, 5000);
+  },
 };
 </script>
 

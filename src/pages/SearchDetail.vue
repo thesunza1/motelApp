@@ -101,7 +101,7 @@
                 </div>
                 <div class="col-4">
                   <q-icon name="remove" class="g-icon-h2" />
-                  <b> Diện tích: </b>{{ post.room_type.area }} M2
+                  <b> Diện tích: </b>{{ post.room_type.area }} M<sup>2</sup>
                 </div>
                 <div class="col-4 text-subtitle2">
                   <q-icon name="remove" class="g-icon-h2" />
@@ -303,7 +303,7 @@
                   >{{ post.room.room_type.motel.people_cost }} VNĐ/phòng
                 </div>
                 <div class="col-6">
-                  <b> Diện tích: </b>{{ post.room.room_type.area }} M2
+                  <b> Diện tích: </b>{{ post.room.room_type.area }} M<sup>3</sup>
                 </div>
               </div>
               <div class="col-12"><br /></div>
@@ -565,7 +565,7 @@
                 </div>
                 <div class="col-4">
                   <q-icon name="remove" class="g-icon-h2" />
-                  <b> Diện tích: </b>{{ post.room.room_type.area }} M2
+                  <b> Diện tích: </b>{{ post.room.room_type.area }} M<sup>3</sup>
                 </div>
                 <div class="col-4 text-subtitle2">
                   <q-icon name="remove" class="g-icon-h2" />
