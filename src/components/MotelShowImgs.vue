@@ -1,7 +1,8 @@
 <template>
   <!-- <div class="full-width" style="max-height: 400px"> -->
-  <div class="" style="max-width:800px">
-    <q-responsive :ratio="16 / 9">
+  <div class="" style="max-width:100%">
+    <!-- <q-responsive :ratio="16 / 9"> -->
+    <q-responsive :ratio="23 / 9">
       <q-carousel
         v-if="img_details"
         swipeable

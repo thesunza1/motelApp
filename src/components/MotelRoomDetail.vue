@@ -2,7 +2,7 @@
   <div class="full-width">
     <q-card v-if="roomTypeUser" class="my-card row g-border">
       <q-card-section class="text-primary col-12">
-        <div class="text-h6 text-center full-width">Chi tiết trọ</div>
+        <div class="text-h5 text-center full-width">Chi tiết trọ</div>
       </q-card-section>
       <q-card-section class="row items-center col-md-12 col-12">
         <div class="col-12 col-md-4">

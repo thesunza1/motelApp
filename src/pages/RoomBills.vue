@@ -100,13 +100,13 @@
 
     </div>
     <q-dialog v-model="isError" >
-      <q-card style="min-width:60%">
+      <q-card style="min-width:40%">
         <q-card-section class="row items-center text-white bg-red">
           <span > Gửi báo lỗi </span>
         </q-card-section>
         <q-card-section class="full-width ">
           <div class="text-subtitle">Nhập nội dung thông báo </div>
-          <q-input style="width:70%" v-model="content" type="text" outlined />
+          <q-input style="width:100%" v-model="content" type="text" outlined />
         </q-card-section>
         <q-card-actions align="right">
           <q-btn no-caps flat label=" Hủy" color="negetive" v-close-popup />
@@ -115,13 +115,13 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="isNoti" >
-      <q-card style="min-width:60%">
+      <q-card style="min-width:40%">
         <q-card-section class="row items-center text-white bg-red">
           <span > Thông báo đã trả  </span>
         </q-card-section>
         <q-card-section class="full-width ">
           <div class="text-subtitle">Nhập nội dung thông báo </div>
-          <q-input style="width:70%" v-model="content" type="text" outlined />
+          <q-input style="width:100%" v-model="content" type="text" outlined />
         </q-card-section>
         <q-card-actions align="right">
           <q-btn no-caps flat label=" Hủy" color="negetive" v-close-popup />

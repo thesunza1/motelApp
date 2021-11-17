@@ -9,6 +9,7 @@
         <q-input v-model="content" type="text" label=" Nội dung " />
       </q-card-section>
       <q-card-actions align="right">
+        <q-btn flat label=" Đóng" color="black" class="g-header" v-close-popup />
         <q-btn flat label="Gửi" color="red" class="g-header" @click="sendReport()" />
       </q-card-actions>
     </q-card>

@@ -68,7 +68,10 @@
       <div class="col-12"><br /></div>
       <q-card class="col-12 g-border row">
         <q-card-section class="col-12">
-          <div class="text-h5">Hình ảnh thiết bị trọ</div>
+          <div class="text-h5">
+            <q-icon name="camera" />
+            &nbsp; Hình ảnh thiết bị trọ
+          </div>
         </q-card-section>
         <div v-if="roomTypeUser" class="col-12 row items-center justify-around">
           <q-card class="my-card col-12 col-md-5">
@@ -76,13 +79,17 @@
               <q-card-section class="col-9">
                 <div class="">
                   <div class="text-h6" style="display: inline">
-                    <q-icon name="fire_extinguisher" class="q-pb-sm g-icon-h1" />
+                    <q-icon
+                      name="fire_extinguisher"
+                      class="q-pb-sm g-icon-h1"
+                    />
                     Chữa cháy
                   </div>
                 </div>
                 <div class="">
                   <q-icon name="room" class="g-icon-h2" />
-                  &nbsp; <b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[1].place }}
+                  &nbsp; <b>Nơi Để:</b>
+                  {{ roomTypeUser.motel.motel_imgs[1].place }}
                 </div>
               </q-card-section>
               <q-card-section class="row content-end justify-end">
@@ -116,7 +123,8 @@
                 </div>
                 <div class="">
                   <q-icon name="room" class="g-icon-h2" />
-                  &nbsp;<b>Nơi Để:</b> {{ roomTypeUser.motel.motel_imgs[2].place }}
+                  &nbsp;<b>Nơi Để:</b>
+                  {{ roomTypeUser.motel.motel_imgs[2].place }}
                 </div>
               </q-card-section>
               <q-card-section class="row content-end justify-end">
@@ -203,7 +211,9 @@
         :type="2"
         :motelId="roomTypeUser.motel.id"
       ></user-report>
+
     </q-dialog>
+
     <q-dialog v-model="seeImgs">
       <gobal-img-detail
         style="min-width: 90%"
