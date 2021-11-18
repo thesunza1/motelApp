@@ -1,5 +1,6 @@
 <template>
   <q-card-actions align="right">
+    <q-btn color="white" flat no-caps icon="west" @click="$router.go(-1)" />
     <q-btn color="white" flat no-caps icon="home" @click="toHome()" />
     <q-btn color="white" flat no-caps icon="refresh" @click="reloadPage" />
     <q-btn

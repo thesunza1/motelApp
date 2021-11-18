@@ -11,7 +11,9 @@
           >
         </q-toolbar-title>
 
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+        <q-space />
+        <home-search-rightbar class="gt-sm"></home-search-rightbar>
+        <q-btn dense flat round class="lt-md" icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
 
       <q-tabs align="left">
@@ -43,6 +45,7 @@
 <script>
 import { ref } from "vue";
 import MotelRightBar from "components/MotelRightBar";
+import HomeSearchRightbar from "../components/HomeSearchRightbar.vue";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -70,6 +73,7 @@ export default {
   },
   components: {
     MotelRightBar,
+    HomeSearchRightbar,
   },
 };
 </script>

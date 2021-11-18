@@ -7,7 +7,9 @@
         color="teal"
         text-color="white"
         icon="account_circle"
-        :label="`${user.id}-${user.name} `"
+        :label="`${user.name} `"
+        @click="detailAccount"
+        clickable
       />
       <q-chip
         class="col-10"
@@ -16,11 +18,10 @@
         icon="done"
         label="Bạn là chủ trọ"
       />
-      <q-btn color="primary" class="col-10 g-header" label="Tài khoản" @click="detailAccount" />
     </div>
     <div class="col-12 row items-center justify-center">
       <div class="col-12"><br /></div>
-      <q-card class="my-card col-10 items-center pad">
+      <q-card v-if="user.role_id == 2" class="my-card col-10 items-center pad">
         <div class="row items-center">
           <b class="col-6">Tên trọ</b>
           <div class="col-6">{{ motel.name }}</div>
@@ -46,35 +47,38 @@
       </q-card>
     </div>
 
-  <q-footer class="bg-white q-py-md" >
-    <div class="full-width row justify-center pad ">
-      <q-btn
-        color="primary"
-        class="g-header col-10"
-        icon="refresh"
-        label="Tải lại"
-        @click="$router.go()"
-      />
-    </div>
-    <div class="row justify-center full-width pad">
-      <q-btn
-        color="orange"
-        icon="login"
-        class="g-header col-10"
-        label=" Đăng xuất "
-        @click="logout()"
-      />
-    </div>
-    <div class="row justify-center full-width pad">
-      <q-btn
-        color="positive"
-        icon="home"
-        class="g-header col-10"
-        label=" Trang chủ"
-        @click="$router.push('/')"
-      />
-    </div>
-  </q-footer>
+    <q-footer class="bg-white q-py-md">
+      <div class="full-width row justify-center pad">
+        <q-btn
+          color="black"
+          class="g-header col-10"
+          icon="refresh"
+          label="Tải lại"
+          rounded
+          @click="$router.go()"
+        />
+      </div>
+      <div class="row justify-center full-width pad">
+        <q-btn
+          color="black"
+          icon="login"
+          class="g-header col-10"
+          label=" Đăng xuất "
+          rounded
+          @click="logout()"
+        />
+      </div>
+      <div class="row justify-center full-width pad">
+        <q-btn
+          color="black"
+          icon="home"
+          class="g-header col-10"
+          label=" Trang chủ"
+          rounded
+          @click="$router.push('/')"
+        />
+      </div>
+    </q-footer>
   </div>
 </template>
 
@@ -84,7 +88,14 @@ import { mapGetters } from "vuex";
 export default {
   methods: {
     detailAccount() {
-      this.$router.push("motel/detailAccount");
+      const role_id = this.user.role_id;
+      if (role_id == 1) {
+        this.$router.push( {name:'roomDetailAccount'});
+      } else if(role_id ==2 ){
+        this.$router.push({name: 'detailAccount'});
+      } else {
+        this.$router.push({name: 'adminDetailAccount'});
+      }
     },
     logout() {
       localStorage.removeItem("key");
@@ -99,7 +110,7 @@ export default {
 };
 </script>
 
-<style scoped lang='sass'>
+<style scoped lang="sass">
 .pad
   padding: 10px 0px 0px 10px
 </style>

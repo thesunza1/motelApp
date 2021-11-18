@@ -92,9 +92,9 @@ const routes = [
     children: [
       { path: "/roomAll", component: RoomIndex },
       { path: "/roomNoti", name:'roomNoti', component: Noti },
-      { path: "/roomBills", component: RoomBills },
-      { path: "/roomShare", component: RoomShare },
-      { path: "/roomDetailAccount", component: DetailAccount },
+      { path: "/roomBills", name:'roomBills', component: RoomBills },
+      { path: "/roomShare",  name:'roomShare',component: RoomShare },
+      { path: "/roomDetailAccount",  name:'roomDetailAccount', component: DetailAccount },
       { path: "/roomOutbox" ,name: 'roomOutbox', component: NotiOutbox },
     ],
   },
@@ -106,6 +106,7 @@ const routes = [
       { path: "/adminOutBox",name: 'adminOutBox', component: NotiOutbox },
       { path: "/adminUser",name: 'adminUser', component: AdminUser },
       { path: "/adminMotel",name: 'adminMotel', component: AdminMotel },
+      { path: "/adminDetailAccount",  name:'adminDetailAccount', component: DetailAccount },
       {
         path: "/adminThisMotel/:motelId",
         name: "adminThisMotel",
