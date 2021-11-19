@@ -21,33 +21,35 @@
           </q-card-section>
           <q-card-section>
             <div class="row full-width">
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <q-icon name="payments" class="g-icon-h2" />
                 <b> Đặt cọc:</b> {{ toNum(motel.deposit) }} VNĐ
               </div>
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <q-icon name="paid" class="g-icon-h2" />
                 <b> Phụ thu:</b> {{ toNum(motel.people_cost) }} VNĐ
               </div>
             </div>
-            <div class="row full-width">
-              <div class="col-6">
+            <div class="row full-width ">
+              <div class="col-md-6 col-12">
                 <q-icon name="bolt" class="g-icon-h2" />
                 <b> Giá Điện:</b> {{ toNum(motel.elec_cost) }} VNĐ/Kwh
               </div>
-              <div class="col-6">
+              <div class="col-md-6 col-12">
                 <q-icon name="water_drop" class="g-icon-h2" />
                 <b> Giá nước:</b> {{ toNum(motel.water_cost) }} VNĐ/M<sup>3</sup>
               </div>
             </div>
           </q-card-section>
           <q-card-section>
-            <div class="text-subtitle2 text-primary">Danh sách loại Phòng</div>
+            <div class="text-subtitle2 text-primary">
+              <q-icon name="list" style="font-size:30px"/>
+              Danh sách loại Phòng</div>
             <div class="row items-center q-pt-sm">
               <div class="col-2 text-bold">Stt</div>
-              <div class="col-5 text-bold">Tên loại</div>
-              <div class="col-3 text-bold">Giá phòng</div>
-              <div class="col-2 text-bold">Tổng số phòng</div>
+              <div class="col-4 col-md-5 text-bold">Tên loại</div>
+              <div class="col-4 col-md-3 text-bold">Giá phòng (VNĐ) </div>
+              <div class="col-2 text-bold">Tổng <p class="gt-sm" style="display:inline"> số phòng</p></div>
               <div class="col-12"><hr /></div>
             </div>
             <div
@@ -56,9 +58,9 @@
               class="row items-center"
             >
               <div class="col-2">{{ ++index }}</div>
-              <div class="col-5 g-header-up">{{ roomType.name }}</div>
-              <div class="col-3 g-header-up">
-                {{ toNum(roomType.cost) }} VNĐ
+              <div class="col-4 col-md-5 g-header-up">{{ roomType.name }}</div>
+              <div class="col-4 col-md-3  g-header-up">
+                <div class="q-pl-lg">{{ toNum(roomType.cost) }}</div>
               </div>
               <div class="text-right col-1">
                 {{ countRoom(roomType.rooms) }}

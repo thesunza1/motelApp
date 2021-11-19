@@ -118,8 +118,8 @@
             <div class="col-12 text-center subtitle2"><br /></div>
             <div class="col-12"><hr /></div>
             <div class="col-12 row items-center">
-              <div class="col-1 text-bold q-pl-sm">Stt</div>
-              <div class="col-3 text-bold">Tên</div>
+              <div class="col-1 gt-sm text-bold q-pl-sm">Stt</div>
+              <div class="col-4 col-md-3 text-bold">Tên</div>
               <div class="col-md-4 col-5 text-bold">Email</div>
               <div class="col-2 gt-sm text-bold">Sdt</div>
               <div class="col-2 text-bold text-center">Xem</div>
@@ -131,19 +131,21 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1 q-pl-sm">{{ ++index }}</div>
-              <div class="col-3 g-header-up">{{ user.user.name }}</div>
-              <div class="col-md-4 col-5">{{ user.user.email }}</div>
+              <div class="col-1 gt-sm q-pl-sm">{{ ++index }}</div>
+              <div class="col-4 col-md-3 g-header-up">{{ user.user.name }}</div>
+              <div class="col-md-4 col-5"> <p class="lt-md" style="display:inline">&nbsp;</p>{{ user.user.email }}</div>
               <div class="col-2 gt-sm">{{ user.user.phone_number }}</div>
               <div class="col-2 text-center">
                 <q-btn
                   rounded
                   style="margin: 0px 7px"
                   color="grey-10"
-                  label="Chi tiết"
+                  icon="info"
                   no-caps
                   @click="findUser(user.user.email)"
-                />
+                >
+                  <div class="gt-sm">&nbsp;Chi tiết</div>
+                </q-btn>
               </div>
               <div class="col-12"><br /></div>
             </div>

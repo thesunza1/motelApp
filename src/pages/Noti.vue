@@ -18,7 +18,7 @@
           />
         </q-tabs>
       </div>
-      <div class="row justify-end col-12">
+      <div class="q-pt-sm row justify-end col-12">
         <q-btn
           class="col-4 col-md-2"
           color="primary"

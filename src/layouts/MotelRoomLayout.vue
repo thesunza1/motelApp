@@ -18,7 +18,7 @@
             Chi tiết phòng {{ `${room.name}` }}
           </router-link>
         </q-toolbar-title>
-        <q-space />
+        <!-- <q-space /> -->
         <home-search-rightbar class="gt-sm"></home-search-rightbar>
         <q-btn
           dense
@@ -30,7 +30,7 @@
         />
       </q-toolbar>
 
-      <!-- <q-card-actions align="left">
+      <q-card-actions class="lt-md" align="left">
         <q-btn
           rounded
           color="white"
@@ -39,7 +39,7 @@
           label=" Trở về trọ "
           @click="$router.go(-1)"
         />
-      </q-card-actions> -->
+      </q-card-actions>
     </q-header>
 
     <q-drawer

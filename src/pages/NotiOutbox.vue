@@ -12,16 +12,18 @@
           />
         </q-tabs>
       </div>
-      <div class="row justify-end col-12">
+      <div class="q-pt-sm row justify-end col-12">
         <q-btn
           class="col-4 col-md-2"
           color="primary"
           icon="add"
           no-caps
           rounded
-          label=" Tạo thông báo"
           @click="isCreate = !isCreate"
-        />
+        >
+
+         <div class="gt-sm">Tạo thông báo</div>
+        </q-btn>
       </div>
       <div class="row full-width justify-center col-12">
         <div class="col-12"><br /></div>

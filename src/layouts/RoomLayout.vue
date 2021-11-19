@@ -10,7 +10,7 @@
             Quản lý phòng
           </router-link>
         </q-toolbar-title>
-        <q-space />
+        <!-- <q-space /> -->
 
         <home-search-rightbar class="gt-sm"></home-search-rightbar>
         <q-btn dense flat round icon="menu" class="lt-md" @click="toggleRightDrawer" />

@@ -15,7 +15,7 @@
           >
         </q-toolbar-title>
 
-        <q-space />
+        <!-- <q-space /> -->
 
         <home-search-rightbar class="gt-sm"></home-search-rightbar>
 
