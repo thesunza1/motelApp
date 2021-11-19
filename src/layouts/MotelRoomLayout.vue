@@ -4,12 +4,12 @@
       <q-toolbar>
         <q-toolbar-title>
           <q-btn
-            class=" gt-sm"
+            class="gt-sm"
             dense
             flat
             round
             icon="menu"
-            @click="drawerLeft = !drawerLeft"
+            @click="isDesk = !isDesk"
           />
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
@@ -18,11 +18,19 @@
             Chi tiết phòng {{ `${room.name}` }}
           </router-link>
         </q-toolbar-title>
-
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+        <q-space />
+        <home-search-rightbar class="gt-sm"></home-search-rightbar>
+        <q-btn
+          dense
+          flat
+          round
+          icon="menu"
+          class="lt-md"
+          @click="toggleRightDrawer"
+        />
       </q-toolbar>
 
-      <q-card-actions align="left">
+      <!-- <q-card-actions align="left">
         <q-btn
           rounded
           color="white"
@@ -31,7 +39,7 @@
           label=" Trở về trọ "
           @click="$router.go(-1)"
         />
-      </q-card-actions>
+      </q-card-actions> -->
     </q-header>
 
     <q-drawer
@@ -48,46 +56,45 @@
     <q-drawer
       v-if="room"
       side="left"
-      v-model="drawerLeft"
+      v-model="isDesk"
       :width="300"
       content-class="bg-grey-3"
     >
       <br />
-      <div class="full-width">
-        <div>
+      <div  class="full-width">
+        <div class="q-py-sm">
           <q-item clickable dense v-ripple @click="goto('roomInfor')">
             <q-icon color="primary" name="store" class="g-icon-h2" />
             <q-item-section class="q-ml-sm">Thông tin phòng</q-item-section>
           </q-item>
-          <hr />
         </div>
-        <div v-if="room.room_status_id != 2">
+        <div class="q-py-sm" v-if="room.room_status_id != 2">
           <q-item clickable dense v-ripple @click="goto('roomChangeStatus')">
             <q-icon color="primary" name="update" class="g-icon-h2" />
             <q-item-section class="q-ml-sm">Thay đổi trạng thái</q-item-section>
           </q-item>
-          <hr />
         </div>
-        <div v-if="room.room_status_id == 2">
+        <div class="q-py-sm" v-if="room.room_status_id == 2">
           <q-item clickable dense v-ripple @click="goto('roomTenants')">
             <q-icon color="primary" name="person" class="g-icon-h2" />
-            <q-item-section class="q-ml-sm">Danh sách người thuê</q-item-section>
+            <q-item-section class="q-ml-sm"
+              >Danh sách người thuê</q-item-section
+            >
           </q-item>
-          <hr />
         </div>
-        <div v-if="room.room_status_id == 2">
+        <div class="q-py-sm" v-if="room.room_status_id == 2">
           <q-item clickable dense v-ripple @click="goto('roomEquips')">
             <q-icon color="primary" name="work" class="g-icon-h2" />
-            <q-item-section class="q-ml-sm">  Tình trạng thiết bị</q-item-section>
+            <q-item-section class="q-ml-sm">
+              Tình trạng phòng</q-item-section
+            >
           </q-item>
-          <hr />
         </div>
-        <div v-if="room.room_status_id == 2">
+        <div class="q-py-sm" v-if="room.room_status_id == 2">
           <q-item clickable dense v-ripple @click="goto('roomNum')">
             <q-icon color="primary" name="bolt" class="g-icon-h2" />
             <q-item-section> Số điện, nước lúc vào trọ</q-item-section>
           </q-item>
-          <hr />
         </div>
       </div>
     </q-drawer>
@@ -102,14 +109,20 @@
 import { ref } from "vue";
 import roomApi from "../boot/callApi/room";
 import MotelRightBar from "components/MotelRightBar";
+import { useQuasar } from "quasar";
+import HomeSearchRightbar from "../components/HomeSearchRightbar.vue";
+
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
+    const $q = useQuasar();
+    const isDesk = ref($q.screen.gt.sm);
     return {
       rightDrawerOpen,
       toggleRightDrawer() {
         rightDrawerOpen.value = !rightDrawerOpen.value;
       },
+      isDesk,
     };
   },
   data() {
@@ -130,7 +143,7 @@ export default {
       const eleId = document.getElementById(refs1);
       var top2 = eleId.offsetTop;
       console.log(top2);
-      window.scrollTo({top : top2 , behavior: 'smooth'});
+      window.scrollTo({ top: top2, behavior: "smooth" });
     },
     async reload() {
       const resRoom = await roomApi.getRoom(this.roomId);
@@ -139,6 +152,7 @@ export default {
   },
   components: {
     MotelRightBar,
+    HomeSearchRightbar,
   },
 };
 </script>

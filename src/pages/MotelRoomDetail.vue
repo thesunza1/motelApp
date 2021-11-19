@@ -2,7 +2,7 @@
   <q-page padding class="row justify-center">
     <div v-if="room" class="col-12 col-md-11">
       <div v-if="room.room_status_id == 1">
-        <q-card class="my-card" id="roomInfor">
+        <q-card class="my-card g-border" id="roomInfor">
           <q-card-section>
             <div class="text-h6 text-positive">
               <q-icon name="store" class="g-icon-h2" /> Thông tin phòng
@@ -27,7 +27,7 @@
         </q-card>
         <br />
         <br />
-        <q-card class="my-card" id="roomChangeStatus">
+        <q-card class="my-card g-border" id="roomChangeStatus">
           <q-card-section>
             <div class="text-primary text-h6">
               <q-icon name="update" class="g-icon-h2" /> Thay đổi trạng thái
@@ -70,7 +70,7 @@
           </q-card-section>
         </q-card>
         <br />
-        <q-card class="my-card" id="roomAddUser">
+        <q-card class="my-card g-border" id="roomAddUser">
           <q-card-section>
             <div class="text-primary text-h6">
               <q-icon name="person_add" class="g-icon-h2" /> Thêm người Thuê vào
@@ -89,7 +89,7 @@
         </q-card>
       </div>
       <div v-if="room.room_status_id == 2">
-        <q-card class="my-card" id="roomInfor">
+        <q-card class="my-card g-border" id="roomInfor">
           <q-card-section>
             <div class="text-h6 text-primary">
               <q-icon name="store" class="g-icon-h2" /> Thông tin phòng
@@ -108,8 +108,7 @@
           </q-card-section>
         </q-card>
         <br />
-        <br />
-        <q-card class="my-card" id="roomTenants">
+        <q-card class="my-card g-border" id="roomTenants">
           <q-card-section>
             <div class="text-h6 text-primary">
               <q-icon name="person" class="g-icon-h2" /> Danh sách người thuê
@@ -166,7 +165,7 @@
           </q-card-section>
         </q-card>
         <br />
-        <q-card class="my-card" id="roomEquips">
+        <q-card class="my-card g-border" id="roomEquips">
           <q-card-section>
             <div class="text-h6 text-primary">
               <q-icon name="work" class="g-icon-h2" />
@@ -251,7 +250,7 @@
           </q-card-actions>
         </q-card>
         <br />
-        <q-card class="my-card" id="roomNum">
+        <q-card class="my-card g-border" id="roomNum">
           <q-card-section>
             <div class="text-h6 text-primary">
               <q-icon name="bolt" class="g-icon-h1" /><q-icon
@@ -416,19 +415,26 @@
     <q-dialog v-model="isDetailUser">
       <q-card class="row justify-center modalb fs br" style="max-height: 80vh">
         <q-card-section class="row pd col-12 text-primary">
-          <div class="col-12 text-center text-h5">chi tiết</div>
+          <div class="col-11 text-center text-h5">
+            <q-icon name="info" class="g-icon-h1" />
+            Chi tiết</div>
         </q-card-section>
-        <q-card-section v-if="userFind" class="col-10 row justify-center">
-          <div class="col-4 text-bold">Tên :</div>
-          <div class="col-8 g-header-up">{{ userFind.name }}</div>
-          <div class="col-4 text-bold">Email:</div>
-          <div class="col-8">{{ userFind.email }}</div>
-          <div class="col-4 text-bold">Điện thoại:</div>
-          <div class="col-8">{{ userFind.phone_number }}</div>
-          <div class="col-4 text-bold">Giới tính :</div>
-          <div class="col-8">{{ sex(userFind.sex) }}</div>
-          <div class="col-4 text-bold">Nghề nghiệp :</div>
-          <div class="col-8">{{ userFind.job }}</div>
+        <q-card-section v-if="userFindPop" class="col-10 row justify-center">
+          <div class="col-4 text-bold  text-right">Tên :</div>
+          <div class="col-1"></div>
+          <div class="col-7 g-header-up">{{ userFindPop.name }}</div>
+          <div class="col-4 text-bold text-right">Email:</div>
+          <div class="col-1"></div>
+          <div class="col-7">{{ userFindPop.email }}</div>
+          <div class="col-4 text-bold text-right">Điện thoại:</div>
+          <div class="col-1"></div>
+          <div class="col-7">{{ userFindPop.phone_number }}</div>
+          <div class="col-4 text-bold text-right">Giới tính :</div>
+          <div class="col-1"></div>
+          <div class="col-7">{{ sex(userFindPop.sex) }}</div>
+          <div class="col-4 text-bold text-right">Nghề nghiệp :</div>
+          <div class="col-1"></div>
+          <div class="col-7">{{ userFindPop.job }}</div>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -442,6 +448,7 @@ import GobalImgDetail from "../components/GobalImgDetail.vue";
 import noti from "../boot/noti/noti";
 import sp from "../boot/support";
 export default {
+
   async created() {
     const resRoom = await roomApi.getRoom(this.roomId);
     this.room = resRoom.room;
@@ -454,6 +461,7 @@ export default {
       room: null,
       thisStatus: null,
       userFind: null,
+      userFindPop: null,
       isDetailUser: false,
       isSeeImgs: false,
       thisImgs: null,
@@ -500,7 +508,7 @@ export default {
     },
     async findUser(email) {
       const response = await this.$api.get("findUser/" + email);
-      this.userFind = response.data.user[0];
+      this.userFindPop = response.data.user[0];
       this.isDetailUser = true;
       if (response.data.statusCode == 0) {
         noti.showNoti("Email người dùng không tồn tại");

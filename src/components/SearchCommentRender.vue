@@ -1,6 +1,5 @@
 <template>
   <div class="full-width">
-    <hr>
     <div class="row full-width items_center justify-center">
       <div class="col-12 text-h5">Bình luận:</div>
       <div class="col-12 row justify-end">

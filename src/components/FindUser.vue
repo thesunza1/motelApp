@@ -8,7 +8,7 @@
       label=" Nhập email người muốn thuê"
     />
     <div class="col-md-1"></div>
-    <div class="lt-md col-12"><br></div>
+    <div class="lt-md col-12"><br /></div>
     <q-btn
       class="col-md-2 col-5 g-header-up"
       outline
@@ -29,25 +29,54 @@
       @click="addUserToRoom()"
     />
     <q-card-section
-      class="row full-width justify-center items-center br bd mr"
+      class="full-width row items-center justify-center"
       v-if="userFind"
     >
+      <!-- <table style="width: 70%">
+        <tr>
+          <td>Họ tên:</td>
+          <td>{{ userFind.name }}</td>
+        </tr>
+        <tr>
+          <td>Ngày sinh:</td>
+          <td>{{ toDate(userFind.birth_date) }}</td>
+        </tr>
+        <tr>
+          <td>Giới tính:</td>
+          <td>{{ sex(userFind.sex) }}</td>
+        </tr>
+        <tr>
+          <td>Sdt:</td>
+          <td>{{ userFind.phone_number }}</td>
+        </tr>
+        <tr>
+          <td>Công việc:</td>
+          <td>{{ userFind.job }}</td>
+        </tr>
+      </table> -->
+      <div class="col-12 col-md-9"><hr /></div>
       <div class="col-5 col-md-4">Họ tên:</div>
-      <div class="col-7 col-md-8 g-header-up">{{ userFind.name }}</div>
+      <div class="col-7 col-md-4 g-header-up">{{ userFind.name }}</div>
+      <div class="col-12 col-md-9"><hr /></div>
       <div class="col-5 col-md-4">Ngày sinh:</div>
-      <div class="col-7 col-md-8">{{ userFind.birth_date }}</div>
+      <div class="col-7 col-md-4">{{ toDate(userFind.birth_date) }}</div>
+      <div class="col-12 col-md-9"><hr /></div>
       <div class="col-5 col-md-4">Giới tính:</div>
-      <div class="col-7 col-md-8">{{ sex(userFind.sex) }}</div>
+      <div class="col-7 col-md-4">{{ sex(userFind.sex) }}</div>
+      <div class="col-12 col-md-9"><hr /></div>
       <div class="col-5 col-md-4">Sdt:</div>
-      <div class="col-7 col-md-8">{{ userFind.phone_number }}</div>
+      <div class="col-7 col-md-4">{{ userFind.phone_number }}</div>
+      <div class="col-12 col-md-9"><hr /></div>
       <div class="col-5 col-md-4">Công việc:</div>
-      <div class="col-7 col-md-8">{{ userFind.job }}</div>
+      <div class="col-7 col-md-4">{{ userFind.job }}</div>
+      <div class="col-12 col-md-9"><hr /></div>
     </q-card-section>
   </div>
 </template>
 
 <script>
 import { useQuasar } from "quasar";
+import dates from "../boot/noti/date";
 export default {
   setup() {
     const $q = useQuasar();
@@ -66,9 +95,9 @@ export default {
     userFind: {
       type: Object,
     },
-    roomId : {
+    roomId: {
       type: Number,
-    }
+    },
   },
   methods: {
     async findUser() {
@@ -101,6 +130,9 @@ export default {
         this.showNoti("Bạn cần tìm người trọ trước", "negative");
       }
     },
+    toDate(date) {
+      return dates.toDate(date);
+    },
   },
   data() {
     return {
@@ -122,4 +154,11 @@ $fontSize: 20px
   box-shadow: 0px 2px 12px gray
 .mr
   margin: 10px !important
+.left-cell
+  width:50%
+.right-cell
+  width:70%
+table, th, td
+  border: 1px solid black
+  border-collapse: collapse
 </style>

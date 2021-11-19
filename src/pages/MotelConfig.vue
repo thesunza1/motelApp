@@ -42,7 +42,7 @@
 
         <q-expansion-item
           expand-separator
-          icon="home"
+          icon="apartment"
           v-model="isOp"
           header-class="g-icon-h2"
           label="Cấu hình nội dung trọ"
@@ -98,7 +98,7 @@
                 >
                   <template v-slot:prepend>
                     <q-icon
-                      name="home"
+                      name="apartment"
                       style="font-size: 30px"
                       class="text-positive"
                     />
@@ -174,7 +174,7 @@
                         class="text-positive"
                         style="font-size: 30px; padding-right: 10px"
                       />
-                      Cửa cổng: &ensp;
+                      Cổng trọ: &ensp;
                     </div>
                     <div class="q-px-md">
                       <q-input
@@ -318,7 +318,7 @@
                 <div class="col-12">
                   <q-card-actions align="right">
                     <q-btn
-                      color="positive"
+                      color="black"
                       rounded
                       label="Cập nhật phí trọ"
                       class="g-header"
@@ -411,7 +411,7 @@
                     />
                     <div class="col-4 row justify-center items-center">
                       <q-btn
-                        color="positive"
+                        color="black"
                         icon="update"
                         rounded
                         label=" Cập nhật"
@@ -454,14 +454,14 @@
                   <q-card-section class="row items-center justify-center">
                     <div class="col-12 row items-center">
                       <q-input
-                        class="col-3"
+                        class="col-4"
                         v-model="roomType.name"
                         type="text"
                         label-color="orange"
                         label=" Tên loại"
                         outlined
                       />
-                      <div class="col-3">
+                      <div class="col-4">
                         <q-input
                           v-model="roomType.area"
                           style="padding-left: 10px"
@@ -472,11 +472,11 @@
                           outlined
                         />
                       </div>
-                      <div class="col-3 text-center">
+                      <div class="col-4 text-center">
                         <b class="text-orange">Tổng số phòng:</b>
                         {{ motel.room_types[index].rooms.length }}
                       </div>
-                      <div class="col-3 row justify-center items-center">
+                      <!-- <div class="col-3 row justify-center items-center">
                         <q-btn
                           rounded
                           color="negative"
@@ -485,7 +485,7 @@
                           class="g-header-up"
                           @click="deleteRoomTypeDialog(roomType, index)"
                         />
-                      </div>
+                      </div> -->
                     </div>
                     <div class="col-12"><br /></div>
                     <div class="col-12 row justify-center items-center">
@@ -530,7 +530,7 @@
                           rounded
                           icon="update"
                           @click="updateRoomTypeContent(index)"
-                          color="positive"
+                          color="black"
                           class="g-header"
                         />
                       </q-card-actions>
@@ -544,9 +544,9 @@
                         label-color="orange"
                       />
                       <q-btn
-                        color="primary"
+                        color="black"
                         icon="add"
-                        label=" Thêm"
+                        label=" Thêm phòng trọ"
                         rounded
                         class="g-header"
                         @click="addNumRoom(roomType.id)"
@@ -569,7 +569,7 @@
                           v-if="countImg > 0"
                           label=" Cập nhật"
                           rounded
-                          color="primary"
+                          color="black"
                           class="g-header"
                           @click="uploadRoomImgs(roomType.id)"
                         />

@@ -75,7 +75,7 @@
                 <q-icon name="subtitles" class="g-icon-h1 text-primary" />
                 Thông tin loại phòng
               </div>
-              <div class="col-12"><br></div>
+              <div class="col-12"><br /></div>
               <div class="col-11 row items-center">
                 <div class="col-4">
                   <q-icon name="bolt" class="g-icon-h2" />
@@ -175,7 +175,7 @@
               </div>
             </q-card-section>
           </q-card>
-          <div class="col-12"><br></div>
+          <div class="col-12"><br /></div>
           <q-card class="col-12 g-border">
             <q-card-section class="row items-center">
               <div class="col-12 text-h5 q-pb-md">
@@ -196,7 +196,6 @@
               <!-- infor motel  -->
               <div class="col-12 row items-center">
                 <div class="col-12"><br /></div>
-
 
                 <!-- chinh sua hinh anh -->
                 <q-card class="col-12 g-border row">
@@ -598,7 +597,7 @@
                 <q-icon name="subtitles" class="g-icon-h1 text-primary" />
                 Thông tin loại phòng
               </div>
-              <div class="col-12"><br></div>
+              <div class="col-12"><br /></div>
               <div class="col-11 row items-center">
                 <div class="col-4">
                   <q-icon name="bolt" class="g-icon-h2" />
@@ -622,7 +621,9 @@
                 </div>
                 <div class="col-4">
                   <q-icon name="remove" class="g-icon-h2" />
-                  <b> Diện tích: </b>{{ post.room.room_type.area }} M<sup>2</sup>
+                  <b> Diện tích: </b>{{ post.room.room_type.area }} M<sup
+                    >2</sup
+                  >
                 </div>
                 <div class="col-4 text-subtitle2">
                   <q-icon name="remove" class="g-icon-h2" />
@@ -693,12 +694,14 @@
                 <div class="col-12"><br /></div>
                 <motel-show-imgs
                   class="col-12"
-                  :img_details="post.room.room_type.motel.motel_imgs[0].img_details"
+                  :img_details="
+                    post.room.room_type.motel.motel_imgs[0].img_details
+                  "
                 ></motel-show-imgs>
               </div>
             </q-card-section>
           </q-card>
-          <div class="col-12"><br></div>
+          <div class="col-12"><br /></div>
           <q-card class="col-12 g-border">
             <q-card-section class="row items-center">
               <div class="col-12 text-h5 q-pb-md">
@@ -719,7 +722,6 @@
               <!-- infor motel  -->
               <div class="col-12 row items-center">
                 <div class="col-12"><br /></div>
-
 
                 <!-- chinh sua hinh anh -->
                 <q-card class="col-12 g-border row">
@@ -756,11 +758,13 @@
                             style="height: 500px"
                             :src="
                               baseUrlImg +
-                              post.room.room_type.motel.motel_imgs[1].img_details[0]
+                              post.room.room_type.motel.motel_imgs[1]
+                                .img_details[0]
                             "
                             @click="
                               seeImg(
-                                post.room.room_type.motel.motel_imgs[1].img_details
+                                post.room.room_type.motel.motel_imgs[1]
+                                  .img_details
                               )
                             "
                             spinner-color="primary"
@@ -771,7 +775,8 @@
                             >
                               {{
                                 toLength(
-                                  post.room.room_type.motel.motel_imgs[1].img_details
+                                  post.room.room_type.motel.motel_imgs[1]
+                                    .img_details
                                 )
                               }}
                               ảnh
@@ -805,11 +810,13 @@
                             style="height: 500px"
                             :src="
                               baseUrlImg +
-                              post.room.room_type.motel.motel_imgs[2].img_details[0]
+                              post.room.room_type.motel.motel_imgs[2]
+                                .img_details[0]
                             "
                             @click="
                               seeImg(
-                                post.room.room_type.motel.motel_imgs[2].img_details
+                                post.room.room_type.motel.motel_imgs[2]
+                                  .img_details
                               )
                             "
                             spinner-color="primary"
@@ -820,7 +827,8 @@
                             >
                               {{
                                 toLength(
-                                  post.room.room_type.motel.motel_imgs[2].img_details
+                                  post.room.room_type.motel.motel_imgs[2]
+                                    .img_details
                                 )
                               }}
                               ảnh
@@ -838,13 +846,16 @@
           </div>
         </div>
       </div>
-      <div v-if="post" class="col-12 items-center justify-center">
-        <div class="col-12"><br /></div>
-        <search-comment-render
-          :post_id="post.id"
-          class="col-12"
-        ></search-comment-render>
-      </div>
+      <div class="col-12"><br /></div>
+      <q-card v-if="post" class="my-card g-border">
+        <q-card-section>
+          <div class="col-12"><br /></div>
+          <search-comment-render
+            :post_id="post.id"
+            class="col-12"
+          ></search-comment-render>
+        </q-card-section>
+      </q-card>
     </div>
     <q-footer
       class="col-12 row justify-center items-center bg-blue-2 pd"
@@ -1002,5 +1013,4 @@ export default {
   padding: 10px 0px
   border-radius: 5px
   box-shadow: 0px 1px 3px $blue-2
-
 </style>

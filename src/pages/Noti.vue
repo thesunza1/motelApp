@@ -95,6 +95,7 @@ export default {
   },
   async created() {
     try {
+      this.updateNotiNum() ;
       const noti = await this.$api.get("getAllNoti");
       const notiType = await this.$api.get("notiType");
       this.$store.dispatch("NotiType/notiType", notiType.data.notiType);

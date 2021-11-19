@@ -61,7 +61,7 @@
       </q-carousel>
       <q-card class="my-cards col-12 col-md-8 g-border">
         <q-card-section style="min-height: 10%" class="row justify-center">
-          <q-responsive :ratio="16 / 9" style="min-width:90%;">
+          <q-responsive :ratio="21 / 11" style="min-width:90%;">
             <q-carousel
               animated
               v-model="slide1"
@@ -73,11 +73,11 @@
               </q-carousel-slide>
               <q-carousel-slide
                 :name="2"
-                :img-src="'/images/searchDetail1.png'"
+                :img-src="'/images/searchIndex2.png'"
               />
               <q-carousel-slide
                 :name="3"
-                :img-src="'/images/searchDetail2.png'"
+                :img-src="'/images/searchIndex3.png'"
               />
             </q-carousel>
           </q-responsive>
@@ -103,20 +103,24 @@
 
       <q-card class="my-cards col-12 col-md-8 g-border">
         <q-card-section style="height: auto" class="row justify-center ">
-          <q-responsive :ratio="16 / 9" style="min-width:90%;">
+          <q-responsive :ratio="21 / 11" style="min-width:90%;">
             <q-carousel
               animated
-              v-model="slide1"
+              v-model="slideMotel"
               thumbnails
               swipeable
               control-color="red"
             >
-              <q-carousel-slide :name="1" :img-src="'/images/motelAll.png'">
-              </q-carousel-slide>
-              <q-carousel-slide :name="2" :img-src="'/images/motelBill.png'" />
               <q-carousel-slide
-                :name="3"
-                :img-src="'/images/motelConfig.png'"
+                :name="1"
+                :img-src="'/images/motelList.png'"
+              />
+              <q-carousel-slide :name="2" :img-src="'/images/motelAll.png'">
+              </q-carousel-slide>
+              <q-carousel-slide :name="3" :img-src="'/images/motelBill.png'" />
+              <q-carousel-slide
+                :name="4"
+                :img-src="'/images/motelPost.png'"
               />
             </q-carousel>
           </q-responsive>
@@ -142,10 +146,10 @@
 
       <q-card class="my-cards col-12 col-md-8 g-border">
         <q-card-section style="height: auto" class="row justify-center ">
-          <q-responsive :ratio="9 / 16" style="width:90%;  ">
+          <q-responsive :ratio="21 / 12" style="width:90%;  ">
             <q-carousel
               animated
-              v-model="slide1"
+              v-model="slideRoom"
               thumbnails
               swipeable
               control-color="red"
@@ -153,7 +157,9 @@
               <q-carousel-slide :name="1" :img-src="'/images/roomIndex.png'">
               </q-carousel-slide>
               <q-carousel-slide :name="2" :img-src="'/images/roomBill.png'" />
-              <q-carousel-slide :name="3" :img-src="'/images/roomShare.png'" />
+              <q-carousel-slide :name="3" :img-src="'/images/roomBill2.png'" />
+              <q-carousel-slide :name="4" :img-src="'/images/roomBill3.png'" />
+              <q-carousel-slide :name="5" :img-src="'/images/roomShare.png'" />
             </q-carousel>
           </q-responsive>
         </q-card-section>
@@ -195,6 +201,8 @@ export default defineComponent({
   data() {
     return {
       slide1: 1,
+      slideMotel: 1,
+      slideRoom: 1,
     };
   },
 });

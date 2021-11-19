@@ -350,7 +350,7 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1">{{ ++index }}</div>
+              <div class="col-1 q-pl-md ">{{ ++index }}</div>
               <div class="col-6 col-md-3 g-header-up">
                 {{ tenant_user.user.name }}
               </div>
