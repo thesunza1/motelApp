@@ -13,6 +13,7 @@ import {
   LPolygon,
   LRectangle,
   LFeatureGroup,
+  LCircle
 } from "@vue-leaflet/vue-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -27,6 +28,7 @@ export default boot(async ({ app }) => {
   app.component("l-tooltip", LTooltip);
   app.component("l-popup", LPopup);
   app.component("l-polyline", LPolyline);
+  app.component("l-circle", LCircle);
   app.component("l-polygon", LPolygon);
   app.component("l-reatangle", LRectangle);
 });

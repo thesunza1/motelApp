@@ -11,13 +11,16 @@
         v-if="motels"
         style="height: 100%"
         v-model:zoom="map.zoom"
-        v-model:center="map.center"
+        :center="map.center"
       >
         <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ></l-tile-layer>
+        <l-circle v-show="radius" :lat-lng="map.center" :radius="radius" :color="'red'" >
+          <q-icon name="print" />
+        </l-circle>
         <l-control position="bottomleft">
-          <q-card-actions  align="center">
+          <q-card-actions align="center">
             <q-btn
               color="black"
               rounded
@@ -56,9 +59,9 @@
             </q-card-section>
           </l-popup>
           <l-tooltip>
-              <div class="text-subtitle2">
-                <q-icon name="apartment"/> {{ motel.name }}
-              </div>
+            <div class="text-subtitle2">
+              <q-icon name="apartment" /> {{ motel.name }}
+            </div>
           </l-tooltip>
         </l-marker>
       </l-map>
@@ -69,19 +72,86 @@
       </div>
       <div class="col-12"><br /></div>
       <div class="col-12">
-        <q-card-actions  align="right">
-          <q-btn rounded icon="refresh" no-caps color="black" label="Tải lại bài đăng" @click="reloadPage()" />
+        <q-card-actions align="right">
+          <q-btn
+            rounded
+            icon="refresh"
+            no-caps
+            color="black"
+            label="Tải lại bài đăng"
+            @click="reloadPage()"
+          />
         </q-card-actions>
       </div>
       <div class="col-12" v-if="thisMotel">
         <search-show-motel-box :motel="thisMotel"></search-show-motel-box>
       </div>
-      <div v-if="isIndex && thisMotel ==null " class="col-12">
-        <search-all-motel :posts="motelPosts" :motels="motels"></search-all-motel>
+      <div v-if="isIndex && thisMotel == null" class="col-12">
+        <q-card class="my-card g-border q-mb-sm">
+          <q-card-section>
+            <div class="text-h6">
+              Chọn tỉnh Hoặc thành phố muốn tìm
+            </div>
+          </q-card-section>
+          <q-card-section class="row items-center">
+            <div class="q-pr-md col-3">
+              <q-select
+                v-model="tinhChon"
+                :options="fillConts"
+                label="Tỉnh, Thành phố"
+                filled
+              />
+            </div>
+            <div class="q-pr-md col-3">
+              <q-select
+                v-if="quanOt"
+                v-model="quanChon"
+                :options="quanOt"
+                label=" Quận, Huyện"
+                filled
+              />
+            </div>
+            <div class="q-pr-md col-2">
+              <q-select
+                v-if="phuongOt"
+                v-model="phuongChon"
+                :options="phuongOt"
+                label=" Phường, Xã"
+                filled
+              />
+            </div>
+            <div class="q-pr-md col-2">
+              <q-select
+                v-if="phuongOt"
+                v-model="banKinh"
+                :options="banKinhOt"
+                label=" Bán kính"
+                filled
+              />
+            </div>
+            <div v-if="phuongChon" class="col-2 row justify-end">
+              <q-btn
+                color="black"
+                rounded
+                icon="search"
+                label=" tìm trọ"
+                no-caps
+                @click="findTinh()"
+              />
+            </div>
+          </q-card-section>
+        </q-card>
+        <search-all-motel
+          :posts="motelPosts"
+          :motels="motels"
+        ></search-all-motel>
       </div>
       <div class="col-12"><br /></div>
       <div v-if="isSearch || thisMotel" class="col-12 col-md-12">
-        <search-render-post :thisMotel="thisMotel" :posts="posts.data"></search-render-post>
+        <search-render-post
+          :thisMotel="thisMotel"
+          :posts="posts.data"
+        ></search-render-post>
       </div>
 
       <q-footer v-show="isSearch" class="bg-white">
@@ -106,6 +176,7 @@ import SearchBox from "../components/SearchBox.vue";
 import SearchShowMotelBox from "../components/SearchShowMotelBox.vue";
 import SearchAllMotel from "../components/SearchAllMotel.vue";
 import { ref } from "vue";
+import noti from "../boot/noti/noti";
 export default {
   setup() {
     const num_page = ref(1);
@@ -128,15 +199,89 @@ export default {
         demoCenter: [10.010999053186, 105.76151916074],
       },
       motels: null,
-      motelPosts:null,
+      motelPosts: null,
       thisMotel: null,
-      isSearch:false ,
-      isIndex: true ,
+      isSearch: false,
+      isIndex: true,
+      fillConts: [
+        {
+          label: "Cần Thơ",
+          value: "Cần Thơ",
+          quan: [
+            {
+              label: "Ninh Kiều",
+              value: "Ninh Kiều",
+              phuong: [
+                {
+                  label: "Hưng lợi",
+                  value: " Hưng lợi",
+                  lat: "10.012903",
+                  long: "105.762307",
+                },
+                {
+                  label: "An nghiệp",
+                  value: "An nghiệp",
+                  lat: "10.036812",
+                  long: "105.77406",
+                },
+              ],
+            },
+            {
+              label: " Bình Thủy",
+              value: "Bình Thủy",
+              phuong: [
+                {
+                  label: "Không có",
+                  value: "Không có",
+                  lat: "10.072556",
+                  long: "105.740985",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Vĩnh Long",
+          value: "Vĩnh Long",
+        },
+      ],
+      tinhChon: null,
+      quanChon: null,
+      quanOt: null,
+      phuongChon: null,
+      phuongOt: null,
+      isTinhSearch: false,
+      banKinhOt: [
+        {
+          label: "1 km",
+          value: 1,
+          leaf: 1000,
+        },
+        {
+          label: "2 km",
+          value: 2,
+          leaf: 2000,
+        },
+      ],
+      banKinh: {
+        label: "1 km",
+        value: 1,
+        leaf: 1000,
+      },
+      radius: null,
     };
   },
   watch: {
     current_page(newVal, OldVal) {
       this.loadpage(newVal);
+    },
+    tinhChon(newVal, OldVal) {
+      this.quanOt = newVal.quan;
+      this.quanChon = newVal.quan[0];
+    },
+    quanChon(newVal, OldVal) {
+      this.phuongOt = newVal.phuong;
+      this.phuongChon = newVal.phuong[0];
     },
   },
   async created() {
@@ -157,6 +302,7 @@ export default {
     },
     refreshCenter() {
       this.map.center = this.map.demoCenter;
+      this.radius = null;
     },
     showPosition(position) {
       this.map.center = [position.coords.latitude, position.coords.longitude];
@@ -171,8 +317,9 @@ export default {
         this.max_page = getPost.data.posts.last_page;
       }
       this.thisMotel = null;
-      this.isSearch= false ;
-      this.isIndex = true ;
+      this.isSearch = false;
+      this.isIndex = true;
+      this.radius = null;
     },
     async loadpage(num_page) {
       const res = await this.$api.get("getPost?page=" + num_page);
@@ -183,23 +330,51 @@ export default {
     },
     updatePost(data) {
       this.thisMotel = null;
-      this.isSearch = true ;
-      this.isIndex = false ;
+      this.isSearch = true;
+      this.isIndex = false;
       this.upPost(data);
     },
-    upPost(data){
+    upPost(data) {
       this.posts = data;
       this.max_page = data.last_page;
       this.num_page = 1;
     },
-    async getPostMotels(motelId , motel) {
+    async getPostMotels(motelId, motel) {
       const res = await this.$api.post("getPostMotels", {
         motelId: motelId,
       });
       if (res.data.statusCode == 1) {
         this.posts = res.data?.posts;
       }
-      this.thisMotel = motel ;
+      this.thisMotel = motel;
+    },
+    async findTinh() {
+      let lat = this.phuongChon.lat;
+      let long = this.phuongChon.long;
+      let distance = this.banKinh.value;
+      let leaf = this.banKinh.leaf;
+      //tinh lat b - e ;
+      let latDistance = distance / 110.574;
+
+      console.log(latDistance);
+      // console.log(longDistance);
+      let latBegin = lat - latDistance;
+      let latEnd = parseFloat(lat) + parseFloat(latDistance);
+      let longBegin = parseFloat(long) - parseFloat(latDistance);
+      let longEnd = parseFloat(long) + parseFloat(latDistance);
+      //ban do : lat long , leaf ,
+      //search: latBegin, latEnd , longBegin , longEnd ,
+      const motelTinh = await this.$api.post("findTinh", {
+        latBegin: latBegin,
+        latEnd: latEnd,
+        longBegin: longBegin,
+        longEnd: longEnd,
+      });
+
+      this.motels = motelTinh.data.motels;
+      noti.showNoti('Tìm thành công','black');
+      this.radius = leaf;
+      this.map.center = [lat, long];
     },
   },
   components: {
