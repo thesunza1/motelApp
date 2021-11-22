@@ -5,15 +5,15 @@
         <div class="text-h5 text-center full-width">Chi tiết trọ</div>
       </q-card-section>
       <q-card-section class="row items-center col-md-12 col-12">
-        <div class="col-12 col-md-4">
-          <q-icon name="apartment" class="g-icon-h2" />
-          <b>Tên trọ</b>:
+        <div class="col-12 col-md-4 text-primary">
+          <q-icon name="apartment" class="g-icon-h1" />
+          <b> Tên trọ</b>:
           <div class="g-header-up" style="display: inline">
             {{ roomTypeUser.motel.name }}
           </div>
         </div>
-        <div class="col-12 col-md-8">
-          <q-icon name="room" class="g-icon-h2" />
+        <div class="col-12 col-md-8 text-primary">
+          <q-icon name="room" class="g-icon-h1" />
           <b> Địa chỉ</b>: {{ roomTypeUser.motel.address }}
         </div>
       </q-card-section>
@@ -46,11 +46,13 @@
         </div>
         <div class="col-12 col-md-4">
           <q-icon name="email" class="g-icon-h2" />
-          <b> Email:</b> {{ roomTypeUser.motel.user.email }}
+          <!-- <b> Email:</b>  -->
+          &nbsp;{{ roomTypeUser.motel.user.email }}
         </div>
         <div class="col-12 col-md-4">
           <q-icon name="phone" class="g-icon-h2" />
-          <b> Sdt:</b> {{ roomTypeUser.motel.phone_number }}
+          <!-- <b> Sdt:</b>  -->
+          &nbsp;{{ roomTypeUser.motel.phone_number }}
         </div>
       </q-card-section>
 

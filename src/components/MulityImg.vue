@@ -5,6 +5,7 @@
       v-model="image"
       @change="fileChange"
       max-files="3"
+      label-color="primary"
       use-chips
       multiple
       outlined

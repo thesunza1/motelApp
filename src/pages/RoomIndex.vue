@@ -227,6 +227,7 @@
                       <div class="gt-ms col-12"></div>
                       <q-btn
                         color="black"
+                        class="q-mt-sm"
                         rounded
                         icon="check"
                         label=" Thêm ảnh"
@@ -455,7 +456,7 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1">{{ index + 1 }}</div>
+              <div class="col-1">&nbsp; {{ index + 1 }}</div>
               <div class="col-6 col-md-3 text-center">
                 {{ check(post.status) }}
               </div>

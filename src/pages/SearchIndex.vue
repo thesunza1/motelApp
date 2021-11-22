@@ -16,7 +16,16 @@
         <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         ></l-tile-layer>
-        <l-circle v-show="radius" :lat-lng="map.center" :radius="radius" :color="'red'" >
+        <l-circle
+          v-show="radius"
+          :lat-lng="map.center"
+          :radius="radius"
+          :color="'red'"
+          :fillColor="'blue'"
+          :fill="true"
+          :fillOpacity="0.1"
+
+        >
           <q-icon name="print" />
         </l-circle>
         <l-control position="bottomleft">
@@ -89,9 +98,7 @@
       <div v-if="isIndex && thisMotel == null" class="col-12">
         <q-card class="my-card g-border q-mb-sm">
           <q-card-section>
-            <div class="text-h6">
-              Chọn tỉnh Hoặc thành phố muốn tìm
-            </div>
+            <div class="text-h6">Chọn tỉnh Hoặc thành phố muốn tìm</div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="q-pr-md col-3">
@@ -140,6 +147,11 @@
               />
             </div>
           </q-card-section>
+          <q-card-section >
+            <div v-if="motels" class="text-right text-subtitle2 text-positive">
+              Tổng số trọ: {{toLength(motels)}}
+            </div>
+          </q-card-section>
         </q-card>
         <search-all-motel
           :posts="motelPosts"
@@ -177,6 +189,7 @@ import SearchShowMotelBox from "../components/SearchShowMotelBox.vue";
 import SearchAllMotel from "../components/SearchAllMotel.vue";
 import { ref } from "vue";
 import noti from "../boot/noti/noti";
+import sp from "../boot/support";
 export default {
   setup() {
     const num_page = ref(1);
@@ -295,6 +308,9 @@ export default {
     this.motels = getMotels.data.motels;
   },
   methods: {
+    toLength(arr) {
+      return sp.length(arr);
+    },
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition);
@@ -311,15 +327,18 @@ export default {
     },
     async reloadPage() {
       const getPost = await this.$api.get("getPost");
+      const getMotels = await this.$api.get("getMapMotels");
       if (getPost.data?.statusCode == 1) {
         this.posts = getPost.data?.posts;
         this.post_types = getPost.data?.post_type;
         this.max_page = getPost.data.posts.last_page;
       }
+      this.motels = getMotels.data.motels;
       this.thisMotel = null;
       this.isSearch = false;
       this.isIndex = true;
       this.radius = null;
+      noti.showNoti('Tải lại thành công' , 'black');
     },
     async loadpage(num_page) {
       const res = await this.$api.get("getPost?page=" + num_page);
@@ -372,7 +391,7 @@ export default {
       });
 
       this.motels = motelTinh.data.motels;
-      noti.showNoti('Tìm thành công','black');
+      noti.showNoti("Tìm thành công", "black");
       this.radius = leaf;
       this.map.center = [lat, long];
     },

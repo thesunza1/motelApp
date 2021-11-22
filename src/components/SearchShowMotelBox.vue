@@ -4,12 +4,12 @@
       class="row items-center justify-start"
       style="font-size: 22px"
     >
-      <div class="col-5">
+      <div class="col-5 text-primary">
         <q-icon name="apartment" class="text-h4" />
         <b> Tên trọ: </b>
         <p style="display: inline" class="g-header-up">{{ motel.name }}</p>
       </div>
-      <div class="col-5">
+      <div class="col-5 text-primary">
         <q-icon name="room" class="text-h4" />
         <!-- <b> Địa chỉ: </b> -->
         <p style="display: inline">{{ motel.address }}</p>

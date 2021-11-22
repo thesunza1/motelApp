@@ -20,7 +20,20 @@
       <q-card class="my-card g-border shadow-up-3 col-12 col-md-8">
         <form method="post">
           <q-card-section>
-            <div class="text-h4 text-center">Tạo tài khoản</div>
+            <div class="text-h4 text-center text-primary">Tạo tài khoản</div>
+          </q-card-section>
+          <q-card-section class="row items-center justify-center">
+            <div class="col-12 text-center text-subtitle2">
+              Chọn loại tài khoản bạn muốn tạo.
+            </div>
+            <div class="col-12 items-center text-center">
+              <q-btn-toggle
+                v-model="isRole"
+                toggle-color="primary"
+                rounded
+                :options="roleOt"
+              />
+            </div>
           </q-card-section>
           <q-card-section class="row">
             <q-input
@@ -165,6 +178,18 @@ export default {
       job: "",
       isError: false,
       errorMes: "",
+      isRole: 1,
+      roleOt: [
+        {
+          label: 'Người thuê' ,
+          value: Number(1),
+        },
+        {
+          label: 'Chủ trọ' ,
+          value: Number(2),
+        }
+      ],
+
     };
   },
   methods: {
@@ -178,6 +203,7 @@ export default {
         phone_number: this.phone_number,
         job: this.job,
         address: this.address,
+        roleId: this.isRole,
       });
       if (reponse.data.statusCode == 0) {
         this.errorMes = "email đã tồn tại ";

@@ -73,20 +73,14 @@
           <q-card-section
             class="row justify-center items-center contents-start size-word"
           >
-            <div class="col-8 row items-center mr">
-              <div class="col-6">
+            <div class="col-12 row items-center mr">
+              <div class="col-4">
                 <q-icon name="home" class="text-positive size-icon" />
                 {{ motel.name }}
               </div>
-              <div class="col-6">
+              <div class="col-8">
                 <q-icon name="room" class="text-positive size-icon" />
                 {{ motel.address }}
-              </div>
-            </div>
-            <div class="col-4 row items-center mr">
-              <div class="col-12">
-                <q-icon name="phone" class="text-positive size-icon" />
-                {{ motel.phone_number }}
               </div>
             </div>
             <div class="col-12"><br /></div>
@@ -96,8 +90,11 @@
               </div>
               <div class="col-4"><b>Nơi để xe máy:</b> {{ motel.parking }}</div>
               <div class="col-4">
-                <b>Giờ đóng mở cổng:</b>
-                {{ motel.open }}h - {{ motel.closed }}h
+                <b>Cổng: </b>
+                <p v-if="motel.open != -1">
+                  mở {{ motel.open }}h - đóng{{ motel.closed }}h
+                </p>
+                <p v-else style="display: inline">Không đóng cổng.</p>
               </div>
             </div>
             <div class="col-12 row items-center mr">
@@ -109,7 +106,7 @@
                 <b>Giá Nước:</b> {{ motel.water_cost }} VNĐ/m3
               </div>
               <div class="col-4">
-                <b>Phụ thu theo người:</b> {{ motel.people_cost }} VNĐ/m3
+                <b>Phụ thu:</b> {{ motel.people_cost }} VNĐ/m3
               </div>
             </div>
           </q-card-section>
@@ -124,7 +121,8 @@
           </q-card-section>
           <q-card-section class="row items-center contents-start size-word">
             <div class="col-4 g-header-up">
-              <q-icon name="face" class="text-positive size-icon" />
+              <q-icon name="person" class="text-positive size-icon" />
+
               {{ motel.user.name }}
             </div>
             <div class="col-4">
@@ -133,17 +131,17 @@
                 {{ motel.user.email }}
               </div>
             </div>
+            <div class="col-4 row items-center mr">
+              <div class="col-12">
+                <q-icon name="phone" class="text-positive size-icon" />
+                {{ motel.user.phone_number }}
+              </div>
+            </div>
             <div class="col-12"></div>
             <div class="col-4 row items-center mr">
               <div>
                 <q-icon name="room" class="text-positive size-icon" />
                 {{ motel.user.address }}
-              </div>
-            </div>
-            <div class="col-6 row items-center mr">
-              <div class="col-4">
-                <q-icon name="phone" class="text-positive size-icon" />
-                {{ motel.user.phone_number }}
               </div>
             </div>
           </q-card-section>
@@ -176,7 +174,7 @@
         <q-card class="my-card g-border" id="motelImgsInfor">
           <q-card-section class="text-h6">
             <q-icon name="home" style="font-size: 30px" />
-            Hình ảnh chung trọ
+            Hình ảnh chung trọ.
           </q-card-section>
           <q-card-section>
             <admin-public-infor :publicImgs="publicImgs"></admin-public-infor>

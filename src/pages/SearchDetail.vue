@@ -47,7 +47,11 @@
                   :key="index"
                   style="display: inline-block"
                 >
-                  <p v-if="room.room_status_id == 1">{{ room.name + ", " }}</p>
+                  <div v-if="room.room_status_id == 1  ">
+                    <p v-if="index < (rooms.lenght -1)">{{ room.name + ", " }}</p>
+                    <p v-else> {{room.name}}. </p>
+                  </div>
+
                 </div>
               </div>
 

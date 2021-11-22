@@ -2,7 +2,7 @@
   <q-page padding class="row items-center justify-center content-start">
     <div v-if="bills" class="col-12 row items-center justify-center">
       <div class="col-md-10 col-12">
-        <q-card class="my-card">
+        <q-card class="g-border my-card">
           <q-card-section>
             <div class="text-h6 text-center">Danh sách hóa đơn phòng</div>
           </q-card-section>
@@ -17,7 +17,7 @@
         </q-card>
         <br />
       </div>
-      <q-card class="my-card col-10 gt-sm">
+      <q-card class="my-card col-10 g-border gt-sm">
         <q-card-section>
           <div class="container">
             <ul class="responsive-table">
@@ -36,10 +36,10 @@
                 <div class="col cola-4 text-right">Tổng tiền (VNĐ)</div>
               </li>
               <li
-                class="table-row shadow-3"
+                class="table-row shadow-up-2"
                 v-for="(bill, index) in bills"
                 :key="index"
-                :class="bill.status == 0 ? 'bg-red-1' : ''"
+                :class="bill.status == 0 ? 'bg-red-4 text-white' : ''"
                 @click="openBill(bill)"
               >
                 <div class="col cola-1 text-right" data-label="STT">
@@ -484,6 +484,7 @@ h2
     display: flex
     justify-content: space-between
     margin-bottom: 25px
+    align-items: flex-end
 
   .table-header
     background-color: #95A5A6

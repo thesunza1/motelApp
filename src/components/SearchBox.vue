@@ -1,10 +1,11 @@
 <template>
-  <div class="full-width row justify-center items-center pd br bg-white">
+  <div class="full-width row justify-center items-center pd g-border bg-white">
     <q-expansion-item
       expand-separator
       icon="search"
       label=" Tìm trọ"
       class="col-12"
+      header-class="text-primary text-h6"
       label-class="g-border"
       caption=" Tìm trọ với địa chỉ và vị trí"
     >

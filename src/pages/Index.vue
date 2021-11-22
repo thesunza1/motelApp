@@ -28,7 +28,7 @@
             <p>Dễ dàng tìm kiếm các trọ , và phòng ghép,..</p>
             <p>
               Xem được thông tin về trọ một cách nhanh chóng: giá phòng , điện
-              nước , thuế , chổ để xe , giờ đống mở cửa
+              nước , thuế , chổ để xe , giờ đóng mở cửa
             </p>
             <p>Xem được tất cả thông tin về người đăng tin ở ghép</p>
           </div>
