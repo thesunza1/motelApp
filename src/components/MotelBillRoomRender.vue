@@ -231,6 +231,11 @@
             </div>
           </q-page>
         </q-page-container>
+        <q-footer class="bg-white"  >
+          <q-card-actions  align="center">
+            <q-btn rounded color="black" icon="close" no-caps label=" Đóng" v-close-popup />
+          </q-card-actions>
+        </q-footer>
       </q-layout>
     </q-dialog>
     <q-dialog v-model="isRoomBill">
@@ -349,7 +354,7 @@ export default {
       } else if (allbill.data.statusCode == 1) {
         mes = "khởi tạo thành công";
         col = "positive";
-        this.getAllBill;
+        this.getAllBill();
       } else if (allbill.data.statusCode == 0) {
         mes = " phòng " + this.error.name + "chưa xác nhận điện nước";
         col = " red";

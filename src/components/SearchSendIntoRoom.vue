@@ -64,7 +64,7 @@ export default {
   methods: {
     async send() {
       if (!this.user) {
-        noti.showNoti(" bạn chưa đăng nhập ", "negative");
+        noti.showNoti(" Bạn chưa đăng nhập ", "negative");
         return;
       }
       if (this.postTypeId == 1) {
@@ -73,18 +73,18 @@ export default {
           ListRooms: this.Lrooms,
         });
         if (sendRes.data.statusCode == 1) {
-          noti.showNoti(" thành công chờ liên lạc", "positive");
+          noti.showNoti(" Thành công chờ liên lạc", "positive");
         } else {
-          noti.showNoti(" lỗi: không xác định", "negative");
+          noti.showNoti(" Lỗi: không xác định", "negative");
         }
       } else {
         const sendRes = await this.$api.post("sendIntoNotiRoom",{
           postId : this.postId,
         });
         if (sendRes.data.statusCode == 1) {
-          noti.showNoti(" thành công chờ liên lạc", "positive");
+          noti.showNoti(" Thành công chờ liên lạc", "positive");
         } else {
-          noti.showNoti(" lỗi: không xác định", "negative");
+          noti.showNoti(" Lỗi: không xác định", "negative");
         }
       }
     },

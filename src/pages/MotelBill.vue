@@ -11,8 +11,8 @@
       <q-btn class="g-header" rounded  outline color="primary" label="Gửi thông báo toàn trọ" @click="isSended = true " />
     </div>
     <div class="col-12"><br></div>
-    <div class="col-12 row fscr">
-      <motel-bill-room-render :motel_id="motel.id"></motel-bill-room-render>
+    <div class="col-12 row fscr" >
+      <motel-bill-room-render :motel_id="motelId"></motel-bill-room-render>
       <div class="col-12"><br /></div>
     </div>
     <q-dialog v-model="isSended" >

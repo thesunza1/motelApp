@@ -44,10 +44,10 @@
             <div class="col-12" v-if="noti.noti_type_id != 3">
               <q-icon name="description" class="g-icon-h2 text-primary" />
               <b> Nội dung:</b>
-              <div class="g-text-indent" v-html="noti.content"></div>
+              <div class="q-pl-lg" v-html="noti.content"></div>
             </div>
             <div class="col-12">
-              <div class="g-text-indent">Nhấn để xem thêm</div>
+              <div class="q-pl-lg">Nhấn để xem thêm</div>
             </div>
           </q-card-section>
         </q-card-section>
