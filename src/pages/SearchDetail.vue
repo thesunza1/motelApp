@@ -48,8 +48,8 @@
                   style="display: inline-block"
                 >
                   <div v-if="room.room_status_id == 1  ">
-                    <p v-if="index < (rooms.lenght -1)">{{ room.name + ", " }}</p>
-                    <p v-else> {{room.name}}. </p>
+                    <p v-if="index < (toLength(rooms) -1)">&nbsp;{{ room.name + ", " }}</p>
+                    <p v-else> &nbsp;{{room.name}}. </p>
                   </div>
 
                 </div>

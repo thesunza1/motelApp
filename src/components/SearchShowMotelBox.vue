@@ -9,7 +9,7 @@
         <b> Tên trọ: </b>
         <p style="display: inline" class="g-header-up">{{ motel.name }}</p>
       </div>
-      <div class="col-5 text-primary">
+      <div class="col-7 text-primary">
         <q-icon name="room" class="text-h4" />
         <!-- <b> Địa chỉ: </b> -->
         <p style="display: inline">{{ motel.address }}</p>

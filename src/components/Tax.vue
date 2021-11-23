@@ -9,7 +9,11 @@
       type="number"
       label="Số tiền"
       suffix="VNĐ"
-    />
+    >
+      <template v-slot:prepend>
+        <q-icon name="paid" class="g-icon-h2 text-primary" />
+      </template>
+    </q-input>
   </div>
 </template>
 

@@ -10,7 +10,11 @@
       multiple
       outlined
       counter
-    />
+    >
+      <template v-slot:prepend>
+        <q-icon name="camera" class="g-icon-h2 text-primary"  />
+      </template>
+    </q-file>
     <div class="row justify-center" v-if="image">
       <div class="col-4" v-for="img in review" :key="img">
         <img :src="img" style="width: 100%; height: 300px; object-fit: cover" />

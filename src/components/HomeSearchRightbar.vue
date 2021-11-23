@@ -63,14 +63,14 @@
                 label="Đăng ký"
                 :to="{ name: 'userRegister' }"
               />
-              <q-btn
+              <!-- <q-btn
                 no-caps
                 color="black"
                 flat
                 icon="receipt"
                 label="Đăng ký trọ"
                 :to="{ name: 'motelRegister' }"
-              />
+              /> -->
             </q-card-actions>
           </q-card-section>
         </q-card>

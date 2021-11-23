@@ -170,7 +170,7 @@
         <q-card-actions horizontal align="right">
           <div>
             <router-link class="lr lgs" to="/login"> Đăng nhập</router-link>
-            <router-link class="lr rg" to="/motelRegister">
+            <router-link class="lr rg" to="/userRegister">
               Đăng ký</router-link
             >
           </div>
@@ -332,12 +332,12 @@ export default {
           link: "/userRegister",
           icon: "assignment",
         },
-        id3: {
-          name: " Đăng ký trọ",
-          col1: "positive",
-          link: "/motelRegister",
-          icon: "receipt",
-        },
+        // id3: {
+        //   name: " Đăng ký trọ",
+        //   col1: "positive",
+        //   link: "/motelRegister",
+        //   icon: "receipt",
+        // },
         id4: {
           name: " Trang chủ",
           col1: "positive",
