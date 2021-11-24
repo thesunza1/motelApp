@@ -36,7 +36,7 @@
             />
           </q-item-section>
           <q-item-section @click="goto('publicMoney')">
-            <q-item-label> Thiết lập chi phí </q-item-label>
+            <q-item-label> Thiết lập khoản thu </q-item-label>
           </q-item-section>
         </q-item>
 
@@ -77,7 +77,7 @@
         </q-expansion-item>
       </q-drawer>
       <div class="col-10">
-        <q-card class="my-card full-width g-border">
+        <!-- <q-card class="my-card full-width g-border"> -->
           <q-form class="q-gutter-md">
             <q-card class="my-card g-border" id="publicInfor">
               <q-card-section class="g-bg-primary-label">
@@ -250,8 +250,8 @@
                 />
               </q-card-actions>
             </q-card>
+            <br>
             <q-card class="my-card g-border" id="publicMoney">
-              <br />
               <q-card-section class="g-bg-primary-label">
                 <div class="text-h6 text-white text-center">Thiết lập giá</div>
               </q-card-section>
@@ -327,6 +327,7 @@
                 </div>
               </div>
             </q-card>
+            <br>
             <div v-for="(motelImg, index) in motelImgs" :key="index">
               <q-card class="my-card g-border full-width" :id="`img${index}`">
                 <q-card-section class="g-bg-primary-label">
@@ -443,7 +444,7 @@
               </q-card-actions>
               <q-card-section v-if="roomTypeImgs">
                 <q-card
-                  class="full-width"
+                  class="full-width g-border"
                   v-for="(roomType, index) in roomTypeImgs"
                   :key="index"
                   :id="`rts${index}`"
@@ -576,14 +577,11 @@
                       </q-card-actions>
                     </div>
                   </q-card-section>
-
-                  <div class="col-12"><br /></div>
-                  <div class="col-12"><hr /></div>
                 </q-card>
               </q-card-section>
             </q-card>
           </q-form>
-        </q-card>
+        <!-- </q-card> -->
       </div>
     </div>
     <q-dialog v-model="isCreate">

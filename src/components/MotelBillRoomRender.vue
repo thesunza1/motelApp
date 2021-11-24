@@ -53,7 +53,7 @@
         v-if="thisRoom"
         view="hHr LpR lFf"
         container
-        class="g-background g-card-width"
+        class="g-background g-border g-card-width"
       >
         <q-header class="bg-white text-positive text-center">
           <div class="text-h5 q-py-md">
@@ -125,7 +125,11 @@
                     </div>
                     <div>
                       =
-                      {{ toNum((bill.elec_end - bill.elec_begin) * bill.elec_cost) }}
+                      {{
+                        toNum(
+                          (bill.elec_end - bill.elec_begin) * bill.elec_cost
+                        )
+                      }}
                       VNĐ
                     </div>
                   </div>
@@ -165,7 +169,9 @@
                     <div>
                       =
                       {{
-                         toNum((bill.water_end - bill.water_begin) * bill.water_cost)
+                        toNum(
+                          (bill.water_end - bill.water_begin) * bill.water_cost
+                        )
                       }}
                     </div>
                   </div>
@@ -185,10 +191,13 @@
                     <div class="col-12 text-right">
                       <b> Tổng phải trả:</b>
                       {{
-                        toNum((bill.cost) +
-                        (bill.people_cost) +
-                        (bill.water_end - bill.water_begin) * (bill.water_cost) +
-                        (bill.elec_end - bill.elec_begin) * (bill.elec_cost))
+                        toNum(
+                          bill.cost +
+                            bill.people_cost +
+                            (bill.water_end - bill.water_begin) *
+                              bill.water_cost +
+                            (bill.elec_end - bill.elec_begin) * bill.elec_cost
+                        )
                       }}
                       VNĐ
                     </div>
@@ -231,15 +240,22 @@
             </div>
           </q-page>
         </q-page-container>
-        <q-footer class="bg-white"  >
-          <q-card-actions  align="center">
-            <q-btn rounded color="black" icon="close" no-caps label=" Đóng" v-close-popup />
+        <q-footer class="bg-white">
+          <q-card-actions align="center">
+            <q-btn
+              rounded
+              color="black"
+              icon="close"
+              no-caps
+              label=" Đóng"
+              v-close-popup
+            />
           </q-card-actions>
         </q-footer>
       </q-layout>
     </q-dialog>
     <q-dialog v-model="isRoomBill">
-      <q-card class="my-card g-card-width">
+      <q-card class="my-card g-border g-card-width">
         <q-card-section
           class="row items-center text-center text-primary bg-white text-h6"
         >
@@ -278,6 +294,25 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="isCreateAllBill" persistent>
+      <q-card class="g-border" style="min-width:40%">
+        <q-card-section  class="row items-center">
+          <div class="text-primary text-h6">
+            Bạn có muốn tạo hóa đơn cho cả trọ
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label=" Hủy" color="negative" v-close-popup />
+          <q-btn
+            flat
+            label=" Tạo ngay"
+            color="primary"
+            v-close-popup
+            @click="createAllBill"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <q-footer class="bg-grey-1 row items-center justify-center">
       <div class="">
         <q-btn
@@ -286,7 +321,7 @@
           rounded
           no-caps
           label=" Tạo cả trọ"
-          @click="createAllBill"
+          @click="isCreateAllBill = !isCreateAllBill"
         />
       </div>
       <div class="">
@@ -327,6 +362,7 @@ export default {
       isDetailBill: false,
       isRoomBill: false,
       chooseRoom: [],
+      isCreateAllBill: false,
     };
   },
   computed: {
@@ -427,7 +463,7 @@ export default {
     },
     toNum(num) {
       return sp.toNum(num);
-    }
+    },
   },
   async created() {
     try {
@@ -437,7 +473,6 @@ export default {
       }
     } catch (error) {}
   },
-
 };
 </script>
 
