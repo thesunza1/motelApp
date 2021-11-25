@@ -106,12 +106,14 @@
                 v-model="tinhChon"
                 :options="fillConts"
                 label="Tỉnh, Thành phố"
+                label-color="primary"
                 filled
               />
             </div>
             <div class="q-pr-md col-3">
               <q-select
                 v-if="quanOt"
+                label-color="primary"
                 v-model="quanChon"
                 :options="quanOt"
                 label=" Quận, Huyện"
@@ -121,6 +123,7 @@
             <div class="q-pr-md col-2">
               <q-select
                 v-if="phuongOt"
+                label-color="primary"
                 v-model="phuongChon"
                 :options="phuongOt"
                 label=" Phường, Xã"
@@ -133,6 +136,7 @@
                 v-model="banKinh"
                 :options="banKinhOt"
                 label=" Bán kính"
+                label-color="primary"
                 filled
               />
             </div>
@@ -141,7 +145,7 @@
                 color="black"
                 rounded
                 icon="search"
-                label=" tìm trọ"
+                label="Tìm trọ"
                 no-caps
                 @click="findTinh()"
               />
@@ -237,6 +241,19 @@ export default {
                   lat: "10.036812",
                   long: "105.77406",
                 },
+                {
+                  label: "An cư",
+                  value: "An cư",
+                  lat: "10.039301",
+                  long: "105.777734",
+                },
+                {
+                  label: "An Phú",
+                  value: "An Phú",
+                  lat: "10.034194 ",
+                  long: "105.774618",
+                },
+
               ],
             },
             {
@@ -244,10 +261,16 @@ export default {
               value: "Bình Thủy",
               phuong: [
                 {
-                  label: "Không có",
-                  value: "Không có",
-                  lat: "10.072556",
-                  long: "105.740985",
+                  label: " Long Tuyền",
+                  value: " Long Tuyền",
+                  lat: "10.028956",
+                  long: "105.725850",
+                },
+                {
+                  label: " An Thới",
+                  value: "An Thới",
+                  lat: "10.057996",
+                  long: "105.759641",
                 },
               ],
             },
@@ -274,6 +297,16 @@ export default {
           label: "2 km",
           value: 2,
           leaf: 2000,
+        },
+        {
+          label: "3 km",
+          value: 3,
+          leaf: 3000,
+        },
+        {
+          label: "4 km",
+          value: 4,
+          leaf: 4000,
         },
       ],
       banKinh: {

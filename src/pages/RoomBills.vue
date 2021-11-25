@@ -253,7 +253,7 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="isBill">
-      <q-card class="my-card" v-if="thisBill" style="min-width: 70%">
+      <q-card class="g-border my-card" v-if="thisBill" style="min-width: 70%">
         <q-card-section
           class="text-white"
           :class="thisBill.status == 1 ? 'bg-positive' : 'bg-negative'"

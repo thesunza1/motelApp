@@ -259,6 +259,7 @@
               <div class="col-12 row items-center">
                 <div>
                   <q-input
+                    class="q-ml-md"
                     v-model="motel.elec_cost"
                     type="number"
                     label="Tiền điện"
@@ -596,6 +597,7 @@
                 v-model="newRoomType.name"
                 type="text"
                 label=" Tên loại phòng"
+                label-color="primary"
                 outlined
                 class="q-pr-md"
               />
@@ -606,6 +608,7 @@
                 v-model="newRoomType.cost"
                 type="number"
                 label=" Giá phòng"
+                label-color="primary"
                 outlined
               />
             </div>
@@ -614,6 +617,7 @@
                 v-model="newRoomType.area"
                 style="padding-left: 10px"
                 type="number"
+                label-color="primary"
                 label=" Diện tích"
                 outlined
                 class="q-px-md"
@@ -623,7 +627,9 @@
               <q-input
                 v-model="newRoomType.numRoom"
                 type="number"
+                label-color="primary"
                 label=" Số phòng"
+                outlined
               />
             </div>
           </div>
@@ -636,6 +642,7 @@
                 style="padding-left: 10px"
                 v-model="newRoomType.content"
                 type="textarea"
+                label-color="primary"
                 label="Đặt điểm"
                 outlined
               />
