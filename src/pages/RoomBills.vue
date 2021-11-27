@@ -4,7 +4,7 @@
       <div class="col-md-10 col-12">
         <q-card class="g-border my-card">
           <q-card-section>
-            <div class="text-h6 text-center">Danh sách hóa đơn phòng</div>
+            <div class="text-h6 text-center text-primary">Danh sách hóa đơn phòng</div>
           </q-card-section>
           <q-card-section>
             <div class="text-subtitle text-red">
@@ -487,7 +487,7 @@ h2
     align-items: flex-end
 
   .table-header
-    background-color: #95A5A6
+    background-color: black
     font-size: 14px
     text-transform: uppercase
     letter-spacing: 0.03em

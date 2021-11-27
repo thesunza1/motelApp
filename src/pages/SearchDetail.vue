@@ -47,21 +47,23 @@
                   :key="index"
                   style="display: inline-block"
                 >
-                  <div v-if="room.room_status_id == 1  ">
-                    <p v-if="index < (toLength(rooms) -1)">&nbsp;{{ room.name + ", " }}</p>
-                    <p v-else> &nbsp;{{room.name}}. </p>
+                  <div v-if="room.room_status_id == 1">
+                    <p v-if="index < toLength(rooms) - 1">
+                      &nbsp;{{ room.name + ", " }}
+                    </p>
+                    <p v-else>&nbsp;{{ room.name }}.</p>
                   </div>
-
                 </div>
               </div>
 
               <div class="col-12 row items-center">
                 <div class="col-4">
-                  <q-icon name="room" class="text-h4" />
+                  <q-icon name="room" class="text-h4 text-primary" />
+                  <b>Vị trí: </b>
                   &nbsp; {{ post.room_type.motel.address }}
                 </div>
                 <div>
-                  <q-icon name="directions" class="text-h4" />
+                  <q-icon name="directions" class="text-h4 text-primary" />
                   <b> Ngày cập nhật:</b> {{ toDate(post.updated_at) }}
                 </div>
               </div>
@@ -76,7 +78,10 @@
           <q-card class="col-12 g-border my-card">
             <q-card-section class="row items-center justify-center">
               <div class="col-12 text-h6">
-                <q-icon name="subtitles" class="g-icon-h1 text-primary" />
+                <q-icon
+                  name="subtitles"
+                  class="g-icon-h1 q-pb-sm text-primary"
+                />
                 Thông tin loại phòng
               </div>
               <div class="col-12"><br /></div>
@@ -125,10 +130,14 @@
             </q-card-section>
           </q-card>
           <div class="col-12"><br /></div>
+          <!-- motelInfo -->
           <q-card class="col-12 g-border">
             <q-card-section class="row items-center justify-center">
               <div class="col-12 text-h6">
-                <q-icon name="subtitles" class="g-icon-h1 text-primary" />
+                <q-icon
+                  name="subtitles"
+                  class="g-icon-h1 q-pb-sm text-primary"
+                />
                 Thông tin trọ
               </div>
               <div class="col-12"><br /></div>
@@ -180,6 +189,7 @@
             </q-card-section>
           </q-card>
           <div class="col-12"><br /></div>
+          <!-- roomLocation -->
           <q-card class="col-12 g-border">
             <q-card-section class="row items-center">
               <div class="col-12 text-h5 q-pb-md">
@@ -205,7 +215,7 @@
                 <q-card class="col-12 g-border row">
                   <q-card-section class="col-12">
                     <div class="text-h5">
-                      <q-icon name="camera" />
+                      <q-icon name="camera" class="text-primary" />
                       &nbsp; Hình ảnh thiết bị trọ
                     </div>
                   </q-card-section>
@@ -321,229 +331,6 @@
           v-if="post.post_type_id == 2"
           class="col-12 row items-center justity-center"
         >
-          <!-- <div class="col-12 row items-center justify-center bg-dark br">
-            <div class="col-12 text-subtitle2 text-white text-center">
-              <q-icon
-                name="photo_camera"
-                class="text-positive"
-                style="font-size: 30px"
-              />
-              Hình ảnh loại phòng
-            </div>
-            <div class="col-12"><br /></div>
-            <motel-show-imgs
-              class="col-12"
-              :img_details="post.room.room_type.img_details"
-            ></motel-show-imgs>
-          </div>
-          <div class="col-12"><br /></div>
-
-          <div class="col-12 row items-center">
-            <div class="col-4 g-header-up text-h5">
-              <q-icon name="apartment" class="text-h4 text-primary" />
-              <b> Tên trọ: </b>
-              <p class="text-black" style="display: inline">
-                {{ post.room.room_type.motel.name }}
-              </p>
-            </div>
-            <div class="col-6 text-h5">
-              <q-icon name="home" class="text-h4 text-primary" />
-              <b> Loại phòng: </b>
-              <p class="text-black g-header-up" style="display: inline">
-                {{ post.room.room_type.name }}
-              </p>
-            </div>
-            <div class="col-4 text-orange text-h6">
-              <q-icon name="paid" class="text-h4 text-primary" />
-              <b class="text-black"> Giá phòng: </b
-              >{{ toNum(post.room.room_type.cost) }} VNĐ
-            </div>
-            <div class="col-6 q-pt-md text-h6 text-accent">
-              <q-icon name="bedroom_child" class="text-h4 text-primary" />
-              <b class="text-black"> Phòng còn trống: </b>
-              <div
-                v-for="(room, index) in rooms"
-                :key="index"
-                style="display: inline-block"
-              >
-                <p v-if="room.room_status_id == 1">{{ room.name + ", " }}</p>
-              </div>
-            </div>
-
-            <div class="col-12 row items-center">
-              <div class="col-4">
-                <q-icon name="room" class="text-h4" />
-                &nbsp; {{ post.room.room_type.motel.address }}
-              </div>
-              <div>
-                <q-icon name="directions" class="text-h4" />
-                <b> Ngày cập nhật:</b> {{ toDate(post.updated_at) }}
-              </div>
-            </div>
-            <div class="col-12"><br /></div>
-            <div class="col-12 justify-center row items-center">
-              <div class="col-12 text-h6">
-                <q-icon name="subtitles" class="g-icon-h1 text-primary" />
-                Thông tin loại phòng
-              </div>
-              <div class="col-11 row items-center">
-                <div class="col-4">
-                  <q-icon name="bolt" class="g-icon-h2" />
-                  <b> Phí điện: </b
-                  >{{ toNum(post.room.room_type.motel.elec_cost) }} VNĐ/kwh
-                </div>
-                <div class="col-4">
-                  <q-icon name="water_drop" class="g-icon-h2" />
-                  <b> Phí nước: </b
-                  >{{ toNum(post.room.room_type.motel.water_cost) }} VNĐ/M3
-                </div>
-                <div class="col-4">
-                  <q-icon name="paid" class="g-icon-h2" />
-                  <b> Phụ thu: </b
-                  >{{ toNum(post.room.room_type.motel.people_cost) }} VNĐ
-                </div>
-                <div class="col-4">
-                  <q-icon name="paid" class="g-icon-h2" />
-                  <b> Đặt cọc: </b
-                  >{{ toNum(post.room.room_type.motel.deposit) }} VNĐ/Phòng
-                </div>
-                <div class="col-4">
-                  <q-icon name="remove" class="g-icon-h2" />
-                  <b> Diện tích: </b>{{ post.room.room_type.area }} M<sup
-                    >3</sup
-                  >
-                </div>
-                <div class="col-4 text-subtitle2">
-                  <q-icon name="remove" class="g-icon-h2" />
-                  <b>Cho phép:</b> {{ toNamNu(post.room.room_type) }}
-                </div>
-              </div>
-              <div class="col-12"><br /></div>
-              <div class="col-11 row items-center justify-center">
-                <div class="col-12 row items-center"></div>
-                <div class="col-12 text-subtitle2">
-                  <q-icon name="subtitles" class="g-icon-h2" />
-                  <b>Mô tả loại phòng: </b>
-                </div>
-                <div class="col-12 g-text-indent">
-                  {{ post.room.room_type.content }}
-                </div>
-              </div>
-              <div class="col-12"><br /></div>
-              <div class="col-12">
-                <hr />
-              </div>
-
-              <div class="col-12 row items-center">
-                <div class="col-12 text-h6">
-                  <q-icon name="subtitles" class="g-icon-h2 text-primary" />
-                  Thông tin trọ
-                </div>
-                <div class="col-12"><br /></div>
-                <div class="q-pl-lg col-12 row items-center justify-end">
-                  <div class="col-12 q-pb-md">
-                    <q-icon name="subtitles" class="g-icon-h2 text-black" />
-                    <b> Mô tả trọ:</b>
-                    <div class="g-text-indent">
-                      &nbsp; {{ post.room.room_type.motel.content }}
-                    </div>
-                  </div>
-                  <div class="col-12 q-pl-lg row items-center content-start">
-                    <div class="col-4">
-                      <q-icon name="remove" class="g-icon-h2" />
-                      <b> Cổng:</b> mở
-                      {{
-                        post.room.room_type.motel.open +
-                        "- đóng" +
-                        post.room.room_type.motel.closed
-                      }}
-                    </div>
-                    <div class="col-4">
-                      <q-icon name="remove" class="g-icon-h2" />
-                      <b>
-                        {{
-                          post.room.room_type.motel.camera == 1
-                            ? "Camera: có "
-                            : "Camera: không"
-                        }}</b
-                      >
-                    </div>
-                    <div class="col-4">
-                      <q-icon name="remove" class="g-icon-h2" />
-                      <b>Chổ để xe :</b> {{ post.room.room_type.motel.parking }}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12"><br /></div>
-                <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white text-center">
-                    Hình ảnh chung của trọ
-                  </div>
-                  <div class="col-12"><br /></div>
-                  <motel-show-imgs
-                    class="col-12"
-                    :img_details="
-                      post.room.room_type.motel.motel_imgs[0].img_details
-                    "
-                  ></motel-show-imgs>
-                </div>
-                <div class="col-12"><br /></div>
-                <div class="col-12"><br /></div>
-                <div class="col-12">
-                  <hr />
-                </div>
-                <div class="col-12 text-h5 q-pb-md">
-                  <q-icon name="room" class="g-icon-h2 text-primary" />
-                  Vị trí trọ
-                </div>
-                <div class="col-12 justity-center row items-center">
-                  <div class="col-12">
-                    <search-show-map :center="center"></search-show-map>
-                  </div>
-                </div>
-                <div class="col-12"><br /></div>
-                <div class="col-12">
-                  <hr />
-                </div>
-                <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white g-text-indent">
-                    Hình ảnh
-                    {{ post.room.room_type.motel.motel_imgs[1].content }}
-                  </div>
-                  <div class="col-12 text-subtitle2 text-white g-text-indent">
-                    Nơi để: {{ post.room.room_type.motel.motel_imgs[1].place }}
-                  </div>
-                  <div class="col-12"><br /></div>
-                  <motel-show-imgs
-                    class="col-12"
-                    :img_details="
-                      post.room.room_type.motel.motel_imgs[1].img_details
-                    "
-                  ></motel-show-imgs>
-                </div>
-                <div class="col-12"><br /></div>
-                <div class="col-12">
-                  <hr />
-                </div>
-                <div class="col-12 row justify-center items-center bg-dark br">
-                  <div class="col-12 text-subtitle2 text-white g-text-indent">
-                    Hình ảnh
-                    {{ post.room.room_type.motel.motel_imgs[2].content }}
-                  </div>
-                  <div class="col-12 text-subtitle2 text-white g-text-indent">
-                    Nơi để: {{ post.room.room_type.motel.motel_imgs[2].place }}
-                  </div>
-                  <div class="col-12"><br /></div>
-                  <motel-show-imgs
-                    class="col-12"
-                    :img_details="
-                      post.room.room_type.motel.motel_imgs[2].img_details
-                    "
-                  ></motel-show-imgs>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <q-card class="col-12 my-card g-border">
             <q-card-section>
               <!-- img roomtype  -->

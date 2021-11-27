@@ -28,12 +28,14 @@
             v-model="noti.title"
             type="text"
             label=" Tiêu đề"
+            label-color="primary"
             outlined
           />
 
           <q-input
             class="col-12"
             v-model="noti.content"
+            label-color="primary"
             type="textarea"
             label=" Nội dung"
             outlined

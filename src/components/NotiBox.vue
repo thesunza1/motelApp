@@ -11,7 +11,7 @@
       <q-card
         @click="open(noti.noti_type_id, noti, index)"
         v-if="noti.status == isSeen"
-        class="my-card row"
+        class="my-card row g-border"
         :class="{ 'bg-green-2': isSeen == 0 }"
       >
         <q-card-section
@@ -28,11 +28,20 @@
                 ? 'person_add'
                 : 'check'
             "
+            :class="
+              noti.noti_type_id == 1
+                ? 'text-purple'
+                : noti.noti_type_id == 2
+                ? 'text-red'
+                : noti.noti_type_id == 3
+                ? 'text-primary'
+                : 'text-warning'
+            "
             style="font-size: 40px; padding-left: 10px"
           />
           <q-card-section class="row col-10 col-md-11 items-center">
             <div class="col-12 col-md-6 text-h6">Tiêu Đề: {{ noti.title }}</div>
-            <div class="col-12 col-md-4 text-subtitle2 ">
+            <div class="col-12 col-md-4 text-subtitle2">
               <q-icon name="email" class="g-icon-h2 text-primary" />
               <b> Email:</b> {{ noti.senderUser.email }}
             </div>

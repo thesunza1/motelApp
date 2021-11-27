@@ -8,7 +8,7 @@
       class="full-width"
     >
       <div><br /></div>
-      <q-card @click="open(noti.noti_type_id, noti)" class="my-card row">
+      <q-card @click="open(noti.noti_type_id, noti)" class="my-card row g-border">
         <q-card-section
           horizontal
           class="col-2 col-md-1 flex items-center full-width"

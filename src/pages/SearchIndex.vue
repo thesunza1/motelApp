@@ -4,7 +4,7 @@
       side="left"
       v-model="isOp"
       bordered
-      :width="600"
+      :width="670"
       content-class="bg-grey-3 gt-sm"
     >
       <l-map
@@ -24,7 +24,6 @@
           :fillColor="'blue'"
           :fill="true"
           :fillOpacity="0.1"
-
         >
           <q-icon name="print" />
         </l-circle>
@@ -98,7 +97,7 @@
       <div v-if="isIndex && thisMotel == null" class="col-12">
         <q-card class="my-card g-border q-mb-sm">
           <q-card-section>
-            <div class="text-h6">Chọn tỉnh Hoặc thành phố muốn tìm</div>
+            <div class="text-h6 text-primary">Chọn tỉnh Hoặc thành phố muốn tìm</div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="q-pr-md col-3">

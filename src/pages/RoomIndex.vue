@@ -421,7 +421,7 @@
             <div class="col-12"><br /></div>
             <div class="col-12">
               <p class="text-red">
-                *khi xác nhận: bạn đã đồng ý số liệu mà chủ trọ nhập vào. và sẽ
+                *Khi xác nhận: bạn đã đồng ý số liệu mà chủ trọ nhập vào. và sẽ
                 được sử dụng khi tạo hóa đơn đầu tiên khi bạn vào trọ.
               </p>
             </div>

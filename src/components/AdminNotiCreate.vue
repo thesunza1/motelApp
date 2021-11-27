@@ -45,8 +45,8 @@
             v-model="noti.title"
             type="text"
             label=" Tiêu đề"
-            outlined
             label-color="primary"
+            outlined
           />
           <q-input
             class="col-12"

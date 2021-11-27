@@ -3,6 +3,7 @@
     <div
       class="text-primary bg-white text-h4 text-bold q-py-md q-pl-md g-border"
     >
+      <q-icon name="list" />
       Danh sách trọ
     </div>
     <div v-if="motels">
