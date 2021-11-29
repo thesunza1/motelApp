@@ -43,7 +43,7 @@
                 @click="openBill(bill)"
               >
                 <div class="col cola-1 text-right" data-label="STT">
-                  {{ index++ }}
+                  {{ ++index }}
                 </div>
                 <div class="col cola-3 text-right q-pr-sm" data-label="STT">
                   {{ toDate(bill.date_begin) }}

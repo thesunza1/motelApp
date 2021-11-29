@@ -4,6 +4,50 @@
       <div class="full-width">
         <q-card-section class="row items-center">
           <div class="col-6 row items-center">
+          </div>
+        </q-card-section>
+        <q-card-actions v-if="thisUser.length == 1" align="right">
+          <q-btn
+            color="black"
+            icon="update"
+            rounded
+            label="Cập nhật"
+            class="g-header"
+            @click="isUpdate = true"
+          />
+          <!-- <q-btn
+            color="black"
+            rounded
+            class="g-header"
+            icon="delete"
+            label="Xóa"
+            @click="isDelete = true"
+          /> -->
+          <q-btn
+            color="black"
+            icon="question_answer"
+            rounded
+            class="g-header"
+            label="Thông báo"
+            @click="isCreate = true"
+          />
+        </q-card-actions>
+      </div>
+      <q-table
+        class="my-header-table g-border"
+        :rows="users"
+        :columns="columns"
+        row-key="name"
+        selection="single"
+        v-model:selected="thisUser"
+        :pagination="pagination"
+      >
+        <template v-slot:top class="row items-center">
+          <div class="text-h6 text-positive col-12">
+            <q-icon name="list" class="g-icon-h1 q-pb-sm" />
+            Danh sách người dùng:
+          </div>
+          <div class="col-12 row items-center justify-end">
             <q-input
               v-model="email"
               outlined
@@ -21,44 +65,7 @@
               @click="findUser()"
             />
           </div>
-        </q-card-section>
-        <q-card-actions v-if="thisUser.length == 1" align="right">
-          <q-btn
-            color="black"
-            icon="update"
-            rounded
-            label="Cập nhật"
-            class="g-header"
-            @click="isUpdate = true"
-          />
-          <q-btn
-            color="black"
-            rounded
-            class="g-header"
-            icon="delete"
-            label="Xóa"
-            @click="isDelete = true"
-          />
-          <q-btn
-            color="black"
-            icon="question_answer"
-            rounded
-            class="g-header"
-            label="Thông báo"
-            @click="isCreate = true"
-          />
-        </q-card-actions>
-      </div>
-      <q-table
-        class="my-header-table"
-        title=" Danh sách người dùng"
-        :rows="users"
-        :columns="columns"
-        row-key="name"
-        selection="single"
-        v-model:selected="thisUser"
-        :pagination="pagination"
-      >
+        </template>
         <template v-slot:header="props">
           <q-tr :props="props">
             <q-th v-for="col in props.cols" :key="col.name" :props="props">
@@ -118,7 +125,7 @@
               label-color="primary"
             />
           </div>
-          <div class="col-12 row items-center ">
+          <div class="col-12 row items-center">
             <q-input
               v-model="password"
               class="col-6"
@@ -136,7 +143,6 @@
             />
           </div>
           <div class="col-12 row items-center">
-
             <!-- <q-input v-model="thisUser[0].birth_date" label="Ngày sinh" color="primary">
               <q-popup-proxy transition-show="scale" transition-hide="scale">
                 <q-date v-model="thisUser[0].birth_date">
@@ -171,12 +177,7 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn
-            label="Thoát"
-            class="g-header"
-            color="black"
-            v-close-popup
-          />
+          <q-btn label="Thoát" class="g-header" color="black" v-close-popup />
           <q-btn
             label="Thay đổi"
             color="black"
@@ -199,12 +200,7 @@
           <div>Mọi thông tin, và trọ hiện tại sẽ bị xóa.</div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn
-            label=" Thoát"
-            class="g-header"
-            color="black"
-            v-close-popup
-          />
+          <q-btn label=" Thoát" class="g-header" color="black" v-close-popup />
           <q-btn
             label=" Xác nhận"
             color="black"
@@ -375,8 +371,9 @@ export default {
       const res = await user.findUser(this.email);
       if (res) {
         this.thisUser = res ? res : [];
-        const check = this.users.find((o) => console.log(o.email));
-        console.log(!check);
+        // console.log(this.thisUser[0].email) ;
+        const check = this.users.find((o) => o.email == this.thisUser[0].email);
+        console.log(check);
         if (!check) {
           this.users.splice(0, 0, res[0]);
         }
@@ -409,12 +406,14 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style scoped lang="sass">
 .mr
   margin-top: 10px
 .my-header-table
   .q-table__top,
   .q-table__bottom,
   thead tr:first-child
-    background-color: $blue-2 !important
+    background-color: white !important
+    color: blue
+    font-weight: bold
 </style>

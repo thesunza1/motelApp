@@ -4,6 +4,37 @@
       <div class="full-width">
         <q-card-section class="row items-center">
           <div class="col-6 row items-center">
+          </div>
+        </q-card-section>
+        <q-card-actions v-if="thisMotel.length == 1" align="right">
+          <q-btn color="primary" icon="question_answer">
+            <router-link
+              :to="{
+                name: 'adminThisMotel',
+                params: { motelId: thisMotel[0].id },
+              }"
+              style="text-decoration: none; color: white"
+            >
+              Đi tới
+            </router-link>
+          </q-btn>
+        </q-card-actions>
+      </div>
+      <q-table
+        :rows="motels"
+        :columns="columns"
+        row-key="name"
+        class="g-border"
+        selection="single"
+        v-model:selected="thisMotel"
+        :pagination="pagination"
+      >
+        <template v-slot:top class="row items-center">
+          <div class="text-h6 text-positive col-12">
+            <q-icon name="list" class="g-icon-h1 q-pb-sm" />
+            Danh sách trọ:
+          </div>
+          <div class="col-12 row items-center justify-end">
             <q-input
               v-model="email"
               outlined
@@ -31,29 +62,7 @@
               @click="reloadPage"
             />
           </div>
-        </q-card-section>
-        <q-card-actions v-if="thisMotel.length == 1" align="right">
-          <q-btn color="primary" icon="question_answer">
-            <router-link
-              :to="{
-                name: 'adminThisMotel',
-                params: { motelId: thisMotel[0].id },
-              }"
-              style="text-decoration: none; color: white"
-            >
-              Đi tới
-            </router-link>
-          </q-btn>
-        </q-card-actions>
-      </div>
-      <q-table
-        title=" Danh sách trọ"
-        :rows="motels"
-        :columns="columns"
-        row-key="name"
-        selection="single"
-        v-model:selected="thisMotel"
-      >
+        </template>
         <template v-slot:header="props">
           <q-tr :props="props">
             <q-th v-for="col in props.cols" :key="col.name" :props="props">
@@ -176,7 +185,7 @@ export default {
         },
       ],
       pagination: {
-        rowsPerPage: 11,
+        rowsPerPage: 10,
       },
       email: null,
       motelId: null,
@@ -231,7 +240,7 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style scoped lang="sass">
 .mr
   margin-top: 10px
 .my-header-table

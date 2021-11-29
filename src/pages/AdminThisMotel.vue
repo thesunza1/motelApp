@@ -73,25 +73,30 @@
           <q-card-section
             class="row justify-center items-center contents-start size-word"
           >
-            <div class="col-12 row items-center mr">
-              <div class="col-4">
-                <q-icon name="home" class="text-positive size-icon" />
-                {{ motel.name }}
+            <div class="col-12 row items-center mr q-mb-md ">
+              <div class="col-12">
+                <q-icon name="apartment" class="text-positive size-icon" />
+                <b> Tên trọ: </b>
+                <p style="display:inline">{{ motel.name }}</p>
               </div>
-              <div class="col-8">
+              <div class="col-12">
                 <q-icon name="room" class="text-positive size-icon" />
+                <b> Địa chỉ: </b>
                 {{ motel.address }}
               </div>
             </div>
-            <div class="col-12"><br /></div>
             <div class="col-12 row items-center mr">
               <div class="col-4 text-bold">
+                <q-icon name="camera" class="text-black size-icon" />
                 {{ motel.camera == 1 ? "Camera: có" : "Camera: không" }}
               </div>
-              <div class="col-4"><b>Nơi để xe máy:</b> {{ motel.parking }}</div>
               <div class="col-4">
+                <q-icon name="remove" class="text-black size-icon" />
+                <b>Nơi để xe máy:</b> {{ motel.parking }}</div>
+              <div class="col-4">
+                <q-icon name="remove" class="text-black size-icon" />
                 <b>Cổng: </b>
-                <p v-if="motel.open != -1">
+                <p style="display:inline" v-if="motel.open != -1">
                   mở {{ motel.open }}h - đóng{{ motel.closed }}h
                 </p>
                 <p v-else style="display: inline">Không đóng cổng.</p>
@@ -99,14 +104,17 @@
             </div>
             <div class="col-12 row items-center mr">
               <div class="col-4">
-                <b>Giá điện:</b>
-                {{ motel.elec_cost }} VNĐ/kwh
+                <q-icon name="bolt" class="text-black size-icon" />
+                <b> Giá điện:</b>
+                {{ toPaid(motel.elec_cost) }} VNĐ/kwh
               </div>
               <div class="col-4">
-                <b>Giá Nước:</b> {{ motel.water_cost }} VNĐ/m3
+                <q-icon name="water_drop" class="text-black size-icon" />
+                <b> Giá Nước:</b> {{ toPaid(motel.water_cost) }} VNĐ/m<sup>3</sup>
               </div>
               <div class="col-4">
-                <b>Phụ thu:</b> {{ motel.people_cost }} VNĐ/m3
+                <q-icon name="paid" class="text-black size-icon" />
+                <b> Phụ thu:</b> {{ toPaid(motel.people_cost) }} VNĐ/m<sup>3</sup>
               </div>
             </div>
           </q-card-section>
@@ -122,25 +130,28 @@
           <q-card-section class="row items-center contents-start size-word">
             <div class="col-4 g-header-up">
               <q-icon name="person" class="text-positive size-icon" />
-
+              <b> họ tên:</b>
               {{ motel.user.name }}
             </div>
             <div class="col-4">
               <div class="col-12">
                 <q-icon name="email" class="text-positive size-icon" />
+                <b> email: </b>
                 {{ motel.user.email }}
               </div>
             </div>
             <div class="col-4 row items-center mr">
               <div class="col-12">
                 <q-icon name="phone" class="text-positive size-icon" />
+                <b> liên lạc:</b>
                 {{ motel.user.phone_number }}
               </div>
             </div>
             <div class="col-12"></div>
-            <div class="col-4 row items-center mr">
+            <div class="col-12 row items-center mr">
               <div>
                 <q-icon name="room" class="text-positive size-icon" />
+                <b> Địa chỉ nhà: </b>
                 {{ motel.user.address }}
               </div>
             </div>
@@ -211,14 +222,14 @@
               label="Thông báo "
               @click="isCreate = true"
             />
-            <q-btn
+            <!-- <q-btn
               no-caps
               rounded
               color="negative"
               icon="delete"
               label="Xóa trọ "
               @click="isDelete = true"
-            />
+            /> -->
           </q-card-actions>
         </q-footer>
       </div>
@@ -290,6 +301,7 @@ import AdminRoomTypeInfor from "../components/AdminRoomTypeInfor.vue";
 import AdminPublicInfor from "../components/AdminPublicInfor.vue";
 import MotelLocation from "../components/motelLocation.vue";
 import SearchShowMap from "../components/SearchShowMap.vue";
+import sp from "../boot/support"
 export default {
   setup() {
     const $q = useQuasar();
@@ -366,6 +378,9 @@ export default {
     },
   },
   methods: {
+    toPaid(paid) {
+      return sp.toNum(paid);
+    },
     openIsOutRoom(data) {
       this.thisUser = data;
       this.isOutRoom = true;
