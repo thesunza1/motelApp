@@ -36,10 +36,10 @@
                 <div class="col cola-4 text-right">Tổng tiền (VNĐ)</div>
               </li>
               <li
-                class="table-row shadow-up-2"
+                class="table-row shadow-up-2 text-bold"
                 v-for="(bill, index) in bills"
                 :key="index"
-                :class="bill.status == 0 ? 'bg-red-4 text-white' : ''"
+                :class="bill.status == 0 ? 'bg-red-1 text-red ' : ''"
                 @click="openBill(bill)"
               >
                 <div class="col cola-1 text-right" data-label="STT">

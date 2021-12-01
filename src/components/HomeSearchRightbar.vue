@@ -12,8 +12,8 @@
       :label="user.name"
       no-caps
     >
-      <q-menu style="min-width: 350px">
-        <q-card class="my-card" style="max-width: 100%">
+      <q-menu style="min-width: 350px" class=" g-border">
+        <q-card class="my-card g-border" style="max-width: 100%">
           <q-card-section>
             <div class="text-subtitle2 row">
               <q-icon name="email" class="g-icon-h2 text-primary"  />
@@ -42,7 +42,7 @@
       label="Bạn chưa đăng nhập"
       no-caps
     >
-      <q-menu>
+      <q-menu class=" g-border">
         <q-card class="my-card">
           <q-card-section style="width: 180px">
             <!-- <main-leftbar style="width: 100%" :link="links"></main-leftbar> -->

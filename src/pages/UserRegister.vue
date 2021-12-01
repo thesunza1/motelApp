@@ -20,16 +20,17 @@
       <q-card class="my-card g-border shadow-up-3 col-12 col-md-8">
         <form method="post">
           <q-card-section>
-            <div class="text-h4 text-center text-primary">Tạo tài khoản</div>
+            <div class="text-h4 text-center text-primary">Tạo Tài Khoản</div>
           </q-card-section>
           <q-card-section class="row items-center justify-center">
-            <div class="col-12 text-center text-subtitle2">
+            <div class="col-12 text-center text-subtitle2 q-mb-sm">
               Chọn loại tài khoản bạn muốn tạo.
             </div>
             <div class="col-12 items-center text-center">
               <q-btn-toggle
+                no-caps
                 v-model="isRole"
-                toggle-color="primary"
+                toggle-color="black"
                 rounded
                 :options="roleOt"
               />
@@ -71,13 +72,17 @@
                 <q-icon name="face" />
                 &nbsp;Giới tính: &nbsp;
               </div>
-              <div class="q-pr-md">
+              <!-- <div class="q-pr-md">
                 <input type="radio" id="name" value="1" v-model="sex" />
                 <label for="name"> Nam</label>
               </div>
               <div class="q-pr-md">
                 <input type="radio" id="nu" value="0" v-model="sex" />
-                <label for="nu"> Nữ </label>
+                <label for="nu">  </label>
+              </div> -->
+              <div class="q-gutter-sm">
+                <q-radio v-model="sex" :val="1" label="Nam" keep-color color="cyan" />
+                <q-radio v-model="sex" :val="0" label="Nữ" />
               </div>
               <div class="col-1"></div>
             </div>
