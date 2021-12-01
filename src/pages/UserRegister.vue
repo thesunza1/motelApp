@@ -20,7 +20,7 @@
       <q-card class="my-card g-border shadow-up-3 col-12 col-md-8">
         <form method="post">
           <q-card-section>
-            <div class="text-h4 text-center text-primary">Tạo Tài Khoản</div>
+            <div class="text-h4 text-center text-primary"> TẠO TÀI KHOẢN</div>
           </q-card-section>
           <q-card-section class="row items-center justify-center">
             <div class="col-12 text-center text-subtitle2 q-mb-sm">
@@ -42,6 +42,7 @@
               label-color="primary"
               clearable
               v-model="email"
+              outlined
               type="email"
               :rules="[(val) => val.length >= 1 || ' Không bỏ trống ']"
               label="Email"
@@ -53,6 +54,7 @@
               class="col-11 col-md-5"
               clearable
               v-model="password"
+              outlined
               type="password"
               label-color="primary"
               label=" Mật khẩu"
@@ -63,7 +65,8 @@
               v-model="names"
               type="text"
               label-color="primary"
-              label=" Họ tên "
+              outlined
+              label=" Họ và tên "
             >
             </q-input>
             <div class="col-1"></div>
@@ -81,16 +84,23 @@
                 <label for="nu">  </label>
               </div> -->
               <div class="q-gutter-sm">
-                <q-radio v-model="sex" :val="1" label="Nam" keep-color color="cyan" />
+                <q-radio
+                  v-model="sex"
+                  :val="1"
+                  label="Nam"
+                  keep-color
+                  color="cyan"
+                />
                 <q-radio v-model="sex" :val="0" label="Nữ" />
               </div>
               <div class="col-1"></div>
             </div>
-            <div class="col-12 row q-py-sm items-center">
+            <div class="col-12 row q-pb-md items-center">
               <q-input
                 class="col-12 col-md-6"
                 v-model="date"
                 label-color="primary"
+                outlined
                 mask="date"
                 label=" Ngày sinh"
               >
@@ -114,10 +124,11 @@
               <div class="gt-sm col-1"></div>
               <div class="col-12 col-md">
                 <q-input
-                  class="col-12 "
+                  class="col-12"
                   v-model="phone_number"
                   label-color="primary"
                   type="text"
+                  outlined
                   label=" Số điện thoại"
                 />
               </div>
@@ -127,6 +138,7 @@
               v-model="address"
               type="text"
               label-color="primary"
+              outlined
               label="Địa chỉ nhà "
             />
             <div class="gt-sm col-1"></div>
@@ -136,6 +148,7 @@
               label-color="primary"
               type="text"
               label="Công việc, nghề nghiệp "
+              outlined
             />
           </q-card-section>
           <q-card-actions align="center">
@@ -145,7 +158,7 @@
               no-caps
               rounded
               icon="login"
-              label="Đăng ký "
+              label="Đăng Ký"
               @click.prevent="register()"
             />
           </q-card-actions>
@@ -186,15 +199,14 @@ export default {
       isRole: 1,
       roleOt: [
         {
-          label: 'Người thuê' ,
+          label: "Người Thuê",
           value: Number(1),
         },
         {
-          label: 'Chủ trọ' ,
+          label: "Chủ Trọ",
           value: Number(2),
-        }
+        },
       ],
-
     };
   },
   methods: {

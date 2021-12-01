@@ -8,13 +8,14 @@
         class="col-md-8 col-12 row justify-center items-center g-mx-md"
       >
         <div class="col-12"><br /></div>
+        <div class="col-12"><br /></div>
         <q-card class="my-card col-11 g-border">
           <q-card-section>
             <div class="text-h6 text-center text-primary g-header-up g-icon-h2">
               <q-icon name="apartment" />
               {{ motel.name }}
             </div>
-            <div class="text-subtitle2">
+            <div class="q-pt-sm text-subtitle2">
               <q-icon name="room" class="g-icon-h2" />
               <b> Địa chỉ:</b> {{ motel.address }}
             </div>
@@ -162,18 +163,18 @@
       </q-card>
     </div>
     <q-dialog v-model="isCreate">
-      <q-card style="min-width: 40%">
+      <q-card class="g-border" style="min-width: 35%">
         <q-card-section>
           <div class="text-h6 text-primary text-center">
             Bạn có muốn tạo một trọ mới?
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat no-caps label=" Không" color="black" v-close-popup />
+          <q-btn flat no-caps label=" Không" color="red" v-close-popup />
           <q-btn
             flat
             no-caps
-            label=" Có"
+            label=" Tạo ngay"
             color="primary"
             v-close-popup
             @click="$router.push({ name: 'motelRegisterOne' })"

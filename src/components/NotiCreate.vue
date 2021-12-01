@@ -49,6 +49,7 @@
         </div>
       </q-card-section>
       <q-card-actions horizontal align="right">
+        <q-btn color="red" text-color="white"  class="g-header" label=" Hủy" v-close-popup />
         <q-btn color="black" text-color="white" type="submit" class="g-header" label=" Gửi" />
       </q-card-actions>
       <q-card-section class="lt-sm" style="min-height: 50vh"> </q-card-section>

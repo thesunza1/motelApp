@@ -6,13 +6,13 @@
     <q-btn
       color="white"
       rounded
-      class="text-black"
+      class="text-black g-header-up"
       v-if="user"
       icon="person"
       :label="user.name"
       no-caps
     >
-      <q-menu style="min-width: 350px" class=" g-border">
+      <q-menu style="min-width: 350px; margin-top: 8px !important;" class=" g-border">
         <q-card class="my-card g-border" style="max-width: 100%">
           <q-card-section>
             <div class="text-subtitle2 row">

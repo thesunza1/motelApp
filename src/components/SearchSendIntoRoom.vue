@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card" style="min-width:70%">
+  <q-card class="my-card g-border" style="min-width:70%">
     <q-form @submit="send()" class="q-gutter-md">
       <q-card-section class="text-center text-h6 text-white bg-primary">
         Bạn có muốn vào trọ này?

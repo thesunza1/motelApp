@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-dialog v-model="isError" persistent>
-      <q-card>
+      <q-card class="g-border">
         <q-card-section class="row items-center">
           <q-avatar
             icon="warning"
@@ -18,7 +18,7 @@
     </q-dialog>
     <q-ajax-bar position="top" size="4px" color="red" />
     <div class="row justify-center">
-      <q-card class="my-card">
+      <q-card class="my-card g-border">
         <q-card-section horizontal>
           <q-card-section class="row items-center content-center">
             <div class="col-12">

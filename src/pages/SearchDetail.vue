@@ -677,6 +677,7 @@
         :postId="post.id"
         :postTypeId="post.post_type_id"
         :rooms="rooms"
+        class="g-border"
         @closePU="confirm = false"
       ></search-send-into-room>
     </q-dialog>

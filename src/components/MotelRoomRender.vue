@@ -5,7 +5,7 @@
       v-for="(room, index) in rooms"
       :key="index"
     >
-      <q-card class="my-card">
+      <q-card class="my-card ">
         <q-card-section
           class="text-white text-center rooms row justify-center items-center"
           :class="{
