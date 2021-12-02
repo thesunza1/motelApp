@@ -20,7 +20,7 @@
               color="teal"
               v-model="Lrooms"
               :label="' ' + room.name"
-              :val="room.name"
+              :val="room.id"
             />
           </div>
         </div>

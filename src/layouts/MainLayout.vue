@@ -123,19 +123,19 @@
       </div>
     </q-header>
     <q-dialog v-model="loginModal">
-      <q-card>
+      <q-card class="g-border">
         <q-card-section class="text-center text-h6 text-primary">
-          Bạn chưa đăng nhập
+          Bạn Chưa Đăng Nhập
         </q-card-section>
         <q-card-section style="text-align: center">
-          <p style="font-size: 1.3em">
-            Đăng nhập hoặc tạo tài khoản để tiếp tục
-          </p>
           <q-icon
             name="account_circle"
             class="text-blue"
             style="font-size: 4rem"
           />
+          <p style="font-size: 1.3em">
+            Đăng nhập hoặc tạo tài khoản để tiếp tục
+          </p>
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
@@ -153,19 +153,19 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="loginModalMotel">
-      <q-card>
+      <q-card class="g-border">
         <q-card-section class="text-center text-h6 text-primary">
-          Bạn chưa đăng nhập
+          Bạn Chưa Đăng Nhập
         </q-card-section>
         <q-card-section style="text-align: center">
-          <p style="font-size: 1.3em">
-            Đăng nhập hoặc tạo tài khoản để tiếp tục
-          </p>
           <q-icon
             name="account_circle"
             class="text-blue"
             style="font-size: 4rem"
           />
+          <p style="font-size: 1.3em">
+            Đăng nhập hoặc tạo tài khoản để tiếp tục
+          </p>
         </q-card-section>
         <q-card-actions horizontal align="right">
           <div>
@@ -181,10 +181,10 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="isNonRoom">
-      <q-card>
-        <q-card-section class="row items-center bg-positive">
-          <div class="col-12 text-center text-h6 text-white">
-            Bạn chưa có phòng
+      <q-card class="g-border">
+        <q-card-section class="row items-center">
+          <div class="col-12 text-center text-h6 text-primary">
+            Bạn chưa thuê phòng
           </div>
         </q-card-section>
         <q-card-section>
@@ -192,6 +192,9 @@
             Bạn cần vào một trọ nào đó để sử dụng tính năng này.
           </div>
         </q-card-section>
+        <q-card-actions  align="right">
+          <q-btn flat label=" Đóng" />
+        </q-card-actions>
       </q-card>
     </q-dialog>
     <q-drawer v-model="rightDrawerOpen" side="right" behavior="mobile" elevated>

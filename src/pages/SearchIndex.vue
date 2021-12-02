@@ -97,7 +97,7 @@
       <div v-if="isIndex && thisMotel == null" class="col-12">
         <q-card class="my-card g-border q-mb-sm">
           <q-card-section>
-            <div class="text-h6 text-primary">Chọn tỉnh Hoặc thành phố muốn tìm</div>
+            <div class="text-h6 text-primary">Chọn Tỉnh hoặc Thành phố muốn tìm</div>
           </q-card-section>
           <q-card-section class="row items-center">
             <div class="q-pr-md col-3">
@@ -229,6 +229,12 @@ export default {
               value: "Ninh Kiều",
               phuong: [
                 {
+                  label: "Tất cả",
+                  value: "Tất cả",
+                  lat: "10.045162",
+                  long: "105.746857",
+                },
+                {
                   label: "Hưng lợi",
                   value: " Hưng lợi",
                   lat: "10.012903",
@@ -259,6 +265,12 @@ export default {
               label: " Bình Thủy",
               value: "Bình Thủy",
               phuong: [
+                {
+                  label: "Tất cả",
+                  value: "Tất cả",
+                  lat: "10.045162",
+                  long: "105.746857",
+                },
                 {
                   label: " Long Tuyền",
                   value: " Long Tuyền",
@@ -306,6 +318,11 @@ export default {
           label: "4 km",
           value: 4,
           leaf: 4000,
+        },
+        {
+          label: "5 km",
+          value: 5,
+          leaf: 5000,
         },
       ],
       banKinh: {

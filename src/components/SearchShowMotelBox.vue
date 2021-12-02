@@ -1,21 +1,22 @@
 <template>
-  <q-card class="my-card">
+  <q-card class="my-card g-border">
     <q-card-section
       class="row items-center justify-start"
       style="font-size: 22px"
     >
-      <div class="col-5 text-primary">
+      <div class="col-4 text-primary">
         <q-icon name="apartment" class="text-h4" />
         <b> Tên trọ: </b>
         <p style="display: inline" class="g-header-up">{{ motel.name }}</p>
       </div>
-      <div class="col-7 text-primary">
+      <div class="col-8 text-primary">
         <q-icon name="room" class="text-h4" />
+        <b> :</b>
         <!-- <b> Địa chỉ: </b> -->
         <p style="display: inline">{{ motel.address }}</p>
       </div>
       <div class="col-12"><br /></div>
-      <div class="col-5">
+      <div class="col-4">
         <q-icon name="person" class="text-h4" />
         <b> Chủ trọ: </b>
         <p style="display: inline" class="g-header-up">{{ motel.user.name }}</p>
@@ -23,16 +24,18 @@
       <div class="col-4">
         <q-icon name="email" class="text-h4" />
         <!-- <b>Email: </b> -->
+        <b> :</b>
         <p style="display: inline">&nbsp; {{ motel.user.email }}</p>
       </div>
-      <div class="col-3">
+      <div class="col-4">
         <q-icon name="phone" class="text-h4" />
         <!-- <b>Điện thoại: </b> -->
+        <b> :</b>
         <p style="display: inline">&nbsp;{{ motel.phone_number }}</p>
       </div>
       <div class="col-12"><br /></div>
       <div class="col-12 row items-center">
-        <div class="col-5">
+        <div class="col-4">
           <q-icon name="bolt" class="text-h4" />
           <b> Giá điện :</b>
            {{ toPrice(motel.elec_cost) }} VNĐ
@@ -41,7 +44,7 @@
           <q-icon name="water_drop" class="text-h4" />
           <b> Giá nước :</b> {{ toPrice(motel.water_cost) }} VNĐ
         </div>
-        <div class="col-3">
+        <div class="col-4">
           <q-icon name="paid" class="text-h4" />
           <b> Đặt cọc :</b> {{ toPrice(motel.deposit) }} VNĐ
         </div>
