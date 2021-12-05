@@ -5,7 +5,10 @@
  */
 function toDate(d) {
   d = String(d);
-  return d.slice(0,10) ;
+  let dateString = d.slice(0,10);
+  let date = new Date(dateString);
+  let dateLocal = date.toLocaleDateString();
+  return dateLocal ;
 }
 
 export default {

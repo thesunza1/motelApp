@@ -133,7 +133,10 @@
             >
               <div class="col-1 gt-sm q-pl-sm">{{ ++index }}</div>
               <div class="col-4 col-md-3 g-header-up">{{ user.user.name }}</div>
-              <div class="col-md-4 col-5"> <p class="lt-md" style="display:inline">&nbsp;</p>{{ user.user.email }}</div>
+              <div class="col-md-4 col-5">
+                <p class="lt-md" style="display: inline">&nbsp;</p>
+                {{ user.user.email }}
+              </div>
               <div class="col-2 gt-sm">{{ user.user.phone_number }}</div>
               <div class="col-2 text-center">
                 <q-btn
@@ -175,22 +178,28 @@
             </div>
           </q-card-section>
           <q-card-section class="col-12 row justify-center">
-            <div class="col-12 row items-center">
-              <div class="col-1 text-bold q-pl-sm">Stt</div>
-              <div class="col-4 text-bold">Tên thiết bị</div>
-              <div class="col-4 text-bold">Trạng Thái</div>
+            <div class="col-12 row q-gutter-sm items-center">
+              <div class="col-12 text-bold"><hr /></div>
+              <div class="col-1 text-bold q-pl-sm">Stt </div>
+              <div class="col-3 text-bold">Tên thiết bị: <p class="text-red g-text-indent">tình trạng</p></div>
               <div class="col-3 text-center text-bold">Hình ảnh</div>
+              <div class="col-2 text-bold text-right q-mr-lg">Thời gian (mm/dd/yyyy)&nbsp;&nbsp;&nbsp;</div>
+              <div class="col-2 text-bold">Trạng thái</div>
               <div class="col-12 text-bold"><hr /></div>
               <div class="col-12"><br /></div>
             </div>
             <div
               v-for="(equip, index) in room.tenant.tenant_room_equips"
               :key="index"
-              class="col-12 row items-center"
+              class="col-12 q-gutter-sm row items-center q-my-sm g-border shadow-up-2"
             >
-              <div class="col-1 q-pl-sm">{{ ++index }}</div>
-              <div class="col-4">{{ equip.name }}</div>
-              <div class="col-4">{{ equip.content }}</div>
+
+              <!-- :class="equip.status == 0? 'white': equip.status==1 ? 'bg-green-1' : 'bg-red-1'" -->
+              <div class="col-1 text-h6 q-pl-sm">{{ ++index }}</div>
+              <div class="col-3 text-h6">
+                {{ equip.name }} : <br />
+                <p class="g-text-indent text-red">{{ equip.content }}</p>
+              </div>
               <div class="col-3">
                 <q-card-actions class="row" align="center">
                   <!-- <q-btn
@@ -206,6 +215,7 @@
                       :ratio="16 / 9"
                       spinner-color="primary"
                       spinner-size="82px"
+                      class="g-border"
                       @click="seeImgs(equip.img_details)"
                     >
                       <div class="absolute-bottom text-subtitle1 text-center">
@@ -216,40 +226,30 @@
                   <div v-else>Chưa có ảnh</div>
                 </q-card-actions>
               </div>
-              <div class="col-12"><hr /></div>
-              <div class="col-12"><br /></div>
-            </div>
-            <div class="col-12"><br /></div>
-            <div class="col-12 items-center row">
-              <div v-if="room.tenant.eq_status == 0" class="col-12 text-red">
-                <q-chip
-                  icon="star"
-                  label=" Bạn chưa xác nhận"
-                  color="negative"
-                  text-color="white"
-                />
-              </div>
-              <div v-else class="col-12 text-blue-10">
-                <q-chip
-                  icon="star"
-                  label=" Bạn đã xác nhận phản ánh "
-                  color="primary"
-                  text-color="white"
-                />
+              <div class="col-2 text-h6"> <p class="text-right q-mr-lg">{{ toDate(equip.created_at)  }}</p> </div>
+              <div class="col-2">
+                <q-select
+                  emit-value
+                  map-options
+                  :disable="equip.status != 0"
+                  v-model="equip.status"
+                  :options="statusOt"
+                  label=" Trạng thái phản ánh"
+                  label-color="primary"
+                  hint="Bạn không thể thay đổi khi đã chuyển đổi trạng thái"
+                  filled
+                  @update:model-value="changeEq($event, equip.id)"
+                >
+                  <template v-slot:selected>
+                    <div
+                      class="text-bold"
+                      :class="`text-${statusOt[equip.status].color}`"
+                    > {{statusOt[equip.status].label  }} </div>
+                  </template>
+                </q-select>
               </div>
             </div>
           </q-card-section>
-          <q-card-actions v-if="room.tenant.eq_status == 0" align="right">
-            <q-btn
-              rounded
-              icon="check"
-              style="margin: 0px 7px"
-              color="grey-10"
-              no-caps
-              label="Xác nhận"
-              @click="confirmEq()"
-            />
-          </q-card-actions>
         </q-card>
         <br />
         <q-card class="my-card g-border" id="roomNum">
@@ -303,7 +303,7 @@
                   <div class="gt-sm">Yêu cầu xác nhận</div>
                 </q-btn>
               </div>
-              <div class="col-12"><br></div>
+              <div class="col-12"><br /></div>
             </div>
             <div class="col-12 items-center row">
               <div v-if="room.tenant.num_status == 0" class="col-12">
@@ -419,10 +419,11 @@
         <q-card-section class="row pd col-12 text-primary">
           <div class="col-11 text-center text-h5">
             <q-icon name="info" class="g-icon-h1" />
-            Chi tiết</div>
+            Chi tiết
+          </div>
         </q-card-section>
         <q-card-section v-if="userFindPop" class="col-10 row justify-center">
-          <div class="col-4 text-bold  text-right">Tên :</div>
+          <div class="col-4 text-bold text-right">Tên :</div>
           <div class="col-1"></div>
           <div class="col-7 g-header-up">{{ userFindPop.name }}</div>
           <div class="col-4 text-bold text-right">Email:</div>
@@ -448,9 +449,17 @@ import roomApi from "../boot/callApi/room";
 import FindUser from "../components/FindUser.vue";
 import GobalImgDetail from "../components/GobalImgDetail.vue";
 import noti from "../boot/noti/noti";
+import tenantRoomEquipApi from "../boot/callApi/tenantRoomEquip";
 import sp from "../boot/support";
+import dateSp from "../boot/noti/date";
+import { ref } from "vue";
 export default {
-
+  setup() {
+    const reStatus = ref(0);
+    return {
+      reStatus,
+    };
+  },
   async created() {
     const resRoom = await roomApi.getRoom(this.roomId);
     this.room = resRoom.room;
@@ -467,9 +476,33 @@ export default {
       isDetailUser: false,
       isSeeImgs: false,
       thisImgs: null,
+      statusOt: [
+        {
+          label: " Chưa xác nhận",
+          value: 0,
+          color: "black",
+        },
+        {
+          label: " Đã đồng ý",
+          value: 1,
+          color: "positive",
+        },
+        {
+          label: " Không đồng ý",
+          value: 2,
+          color: "negative",
+        },
+      ],
     };
   },
   methods: {
+    async changeEq(status, eqId) {
+      const res = await tenantRoomEquipApi.changeStatusRE(eqId, status);
+      if (res.statusCode == 1) {
+        noti.showNoti("Thay đổi thành công", "black");
+      }
+      return;
+    },
     sex(sex) {
       return sp.toSex(sex);
     },
@@ -480,6 +513,9 @@ export default {
     },
     updateUserFind(data) {
       this.userFind = data;
+    },
+    toDate(date) {
+      return dateSp.toDate(date);
     },
     //change status -- not check ..
     async updateRoomStatus() {

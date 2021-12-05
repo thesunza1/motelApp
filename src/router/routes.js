@@ -30,6 +30,7 @@ import NotiOutbox from "pages/NotiOutbox.vue";
 import AdminUser from "pages/AdminUser.vue";
 import AdminMotel from "pages/AdminMotel.vue";
 import AdminThisMotel from "pages/AdminThisMotel.vue";
+import MotelRoomEquip from "pages/motelRoomEquip.vue";
 
 const routes = [
   {
@@ -65,6 +66,7 @@ const routes = [
       { path: "/detailAccount", name: "detailAccount", component: DetailAccount },
       { path: "/motelOutbox", name: "motelOutbox", component: NotiOutbox },
       { path: "/motelPost/:motelId",props:true, name: "motelPost", component: MotelPost },
+      { path: "/motelRoomEquip/:motelId",props:true, name: "motelRoomEquip", component: MotelRoomEquip },
     ],
   },
   {

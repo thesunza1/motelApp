@@ -3,13 +3,13 @@
     <div class="col-12 row items-center rtname">
       <q-tabs align="left">
         <q-route-tab
-          :to="{ name: 'all' , params: {motelId : motelId} }"
+          :to="{ name: 'all', params: { motelId: motelId } }"
           class="g-header"
           icon="home"
           label="Danh sách loại phòng"
         />
         <q-route-tab
-          :to="{ name: 'bill' , params: {motelId : motelId } }"
+          :to="{ name: 'bill', params: { motelId: motelId } }"
           class="g-header"
           icon="paid"
           label="Tiền phòng "
@@ -23,7 +23,7 @@
         :key="index"
         class="col-12 row pd"
       >
-        <q-expansion-item
+        <!-- <q-expansion-item
           expand-separator
           icon="store"
           :label="` ${room_type.name}`"
@@ -39,6 +39,36 @@
           header-class="text-primary g-icon-h1 g-header-up"
           class="col-12 g-border bg-white pd shadow-up-2"
         >
+          <motel-room-render :rooms="room_type.rooms"></motel-room-render>
+        </q-expansion-item> -->
+        <q-expansion-item
+          expand-separator
+          class="col-12 g-border bg-white pd shadow-up-2"
+        >
+          <template v-slot:header>
+            <q-item class="full-width">
+              <q-item-section top avatar>
+                <q-avatar color="primary" text-color="white" icon="home" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label class="g-header-up text-h6"> {{room_type.name  }} </q-item-label>
+                <q-item-label caption lines="2">
+                  <div class="row text-black items-center q-gutter-md">
+                    <div class="q-py-sm q-px-sm">Tổng phòng: {{ lengthArr(room_type.rooms) }}</div>
+                    <div >
+                       <div class="g-display-inline bg-green q-py-sm q-px-sm " ></div> Phòng trống: {{ numRoom(room_type.rooms, 1) }}
+                    </div>
+                    <div class=" q-py-sm q-px-sm">
+                      <div class="g-display-inline bg-red q-py-sm q-px-sm " ></div>
+                      Không sử dụng: {{ numRoom(room_type.rooms, 3) }}</div>
+                    <div class=" q-py-sm q-px-sm">
+                      <div class="g-display-inline bg-blue q-py-sm q-px-sm " ></div>
+                      Phòng Có người: {{ numRoom(room_type.rooms, 1) }}</div>
+                  </div>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
           <motel-room-render :rooms="room_type.rooms"></motel-room-render>
         </q-expansion-item>
       </div>
@@ -60,7 +90,7 @@ export default {
   data() {
     return {
       motelId: this.$route.params.motelId,
-    }
+    };
   },
   methods: {
     lengthArr(arr) {
