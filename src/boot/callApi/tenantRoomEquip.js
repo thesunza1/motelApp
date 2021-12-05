@@ -23,10 +23,10 @@ async function changeStatusRE(tenantId, status) {
  * @param {*} to date
  * @returns response data
  */
-async function getAllTRE(motelId, order = 0, from = null, to = null) {
-  var res ; 
-  if (from != null) {
-    res = await api.get(`getAllTRE/${motelId}/${order}/${form}/${to}`);
+async function getAllTRE(motelId, order = 0, from = 0, to = 0) {
+  var res;
+  if (from != 0) {
+    res = await api.get(`getAllTRE/${motelId}/${order}/${from}/${to}`);
   } else {
     res = await api.get(`getAllTRE/${motelId}/${order}`);
   }

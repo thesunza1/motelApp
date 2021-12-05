@@ -30,7 +30,7 @@ import NotiOutbox from "pages/NotiOutbox.vue";
 import AdminUser from "pages/AdminUser.vue";
 import AdminMotel from "pages/AdminMotel.vue";
 import AdminThisMotel from "pages/AdminThisMotel.vue";
-import MotelRoomEquip from "pages/motelRoomEquip.vue";
+import MotelRoomEquip from "pages/MotelRoomEquip.vue";
 
 const routes = [
   {
