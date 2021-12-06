@@ -9,7 +9,28 @@
         class="g-border"
         row-key="name"
         :pagination="pagination"
+        :filter="filter"
       >
+        <template v-slot:top-right>
+          <div class="q-mr-md g-border shadow-up-1 q-px-md q-py-sm" style="">
+            <div class="text-primary text-h6 g-display-inline">Chọn ngày:</div>
+            <q-icon name="event" class="cursor-pointer g-icon-h1 g-display-inline">
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date v-model="orderDay" range>
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+            <p v-if="orderDay">{{ orderDay.from }} - {{ orderDay.to }}</p>
+          </div>
+          <q-btn :disable="orderDay == null " color="primary" label="Tìm" no-caps rounded icon="search" @click="search()" />
+        </template>
         <template v-slot:header="props">
           <q-tr :props="props">
             <q-th
@@ -45,6 +66,7 @@
                   :ratio="16 / 9"
                   spinner-color="primary"
                   spinner-size="82px"
+                  @click="showImgs(props.row.img_details)"
                 >
                   <div class="absolute-bottom text-subtitle1 text-center">
                     {{ toLength(props.row.img_details) }} ảnh
@@ -59,13 +81,37 @@
               </div>
             </q-td>
             <q-td key="status" :props="props">
-              {{ props.row.status }}
-              <q-input v-model="props.row.status" type="text" label="Label" />
+              <q-select
+                emit-value
+                map-options
+                :disable="props.row.status != 0"
+                v-model="props.row.status"
+                :options="statusOt"
+                label=" Trạng thái phản ánh"
+                label-color="primary"
+                filled
+                @update:model-value="changeEq($event, props.row.id)"
+              >
+                <template v-slot:selected>
+                  <div
+                    class="text-bold"
+                    :class="`text-${statusOt[props.row.status].color}`"
+                  >
+                    {{ statusOt[props.row.status].label }}
+                  </div>
+                </template>
+              </q-select>
             </q-td>
           </q-tr>
         </template>
       </q-table>
     </div>
+    <q-dialog v-model="isSeeImgs">
+      <gobal-img-detail-obj
+        style="min-width: 90%"
+        :img_details="thisImgs"
+      ></gobal-img-detail-obj>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -73,10 +119,34 @@
 import treApi from "../boot/callApi/tenantRoomEquip";
 import noti from "../boot/noti/noti";
 import dateSp from "../boot/noti/date";
+import GobalImgDetailObj from "../components/GobalImgDetailObj.vue";
 import sp from "../boot/support";
 export default {
+  components: {
+    GobalImgDetailObj,
+  },
   data() {
     return {
+      filter: "",
+      statusOt: [
+        {
+          label: " Chưa xác nhận",
+          value: 0,
+          color: "black",
+        },
+        {
+          label: " Đã đồng ý",
+          value: 1,
+          color: "positive",
+        },
+        {
+          label: " Không đồng ý",
+          value: 2,
+          color: "negative",
+        },
+      ],
+      isSeeImgs: false,
+      thisImgs: null,
       pagination: {
         rowsPerPage: 10,
       },
@@ -120,8 +190,7 @@ export default {
           sortable: true,
         },
       ],
-      from: null,
-      to: null,
+      orderDay: null,
       order: 0,
       orderOt: [
         {
@@ -152,6 +221,22 @@ export default {
     toLength(arr) {
       return sp.length(arr);
     },
+    showImgs(imgs) {
+      this.thisImgs = imgs;
+      this.isSeeImgs = true;
+    },
+    async changeEq(status, eqId) {
+      const res = await treApi.changeStatusRE(eqId, status);
+      if (res.statusCode == 1) {
+        noti.showNoti("Thay đổi thành công", "black");
+      }
+      return;
+    },
+    async search() {
+      const res = await treApi.getAllTRE(this.motelId,0, this.orderDay.from, this.orderDay.to);
+      this.tenantRoomEquips = res.tenantRE;
+      return ;
+    }
   },
 };
 </script>

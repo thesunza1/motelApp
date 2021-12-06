@@ -26,14 +26,55 @@ async function changeStatusRE(tenantId, status) {
 async function getAllTRE(motelId, order = 0, from = 0, to = 0) {
   var res;
   if (from != 0) {
-    res = await api.get(`getAllTRE/${motelId}/${order}/${from}/${to}`);
+    res = await api.post(`getAllTRE`,
+      {
+        motelId: motelId,
+        order: order,
+        from: from ,
+        to: to ,
+      }
+    );
   } else {
     res = await api.get(`getAllTRE/${motelId}/${order}`);
   }
   return res.data;
 }
 
+/**
+ *
+ * @param {FormData} fd eqName , eqContent , eqImg1->3 , eqImg_num , tenantId
+ * @returns  statusCode ,
+ */
+async function eqCreate(fd) {
+  const hd = {
+    headers: {
+      "Content-type": "multipart/form-data",
+    },
+  }
+  const res = await api.post("eqCreate",fd, hd );
+  return res.data;
+}
+/**
+ *
+ * @param {Interge} status 0: none ,1: oke , 2 : no
+ * @returns return text from status
+ */
+function statusText(status) {
+  return status == 0 ? 'Chưa xác nhận' : status == 1 ? 'Đã xác nhận' : 'Không đồng Ý' ;
+}
+
+/**
+ *
+ * @param {Interge} status 0: none ,1: oke , 2 : no
+ * @returns return color text
+ */
+function statusColor(status) {
+  return status == 0 ? 'black' : status == 1 ? 'green' : 'red' ;
+}
 export default {
   changeStatusRE,
   getAllTRE,
+  statusText,
+  statusColor,
+  eqCreate,
 };
