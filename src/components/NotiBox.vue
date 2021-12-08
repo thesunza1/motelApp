@@ -66,23 +66,23 @@
           </q-card-section>
           <q-card-section class="row items-center justify-center full-width">
             <div class="col-12 row items-center justify-center">
-              <div class="col-6 text-left">Phòng {{ thisRoom.name }}</div>
+              <div class="col-6 text-left">Phòng số: {{ thisRoom.name }}</div>
               <div class="col-6 text-left">
-                Loại: {{ thisRoom.room_type.name }}
+                Loại phòng thuê: {{ thisRoom.room_type.name }}
               </div>
             </div>
             <div class="col-12 row items-center justify-center">
               <div class="col-6 text-left">
-                Phòng: {{ thisRoom.room_type.cost }}VNĐ
+                Giá thuê: {{ toNum(thisRoom.room_type.cost) }} VNĐ/th
               </div>
               <div class="col-6 text-left">
-                Người: {{ thisRoom.room_type.motel.people_cost }}VNĐ
+                Phụ thu: {{ toNum(thisRoom.room_type.motel.people_cost) }} VNĐ/th
               </div>
               <div class="col-6 text-left">
-                Điện: {{ thisRoom.room_type.motel.elec_cost }}VNĐ
+                Giá điện: {{ toNum(thisRoom.room_type.motel.elec_cost) }} VNĐ/kwh
               </div>
               <div class="col-6 text-left">
-                Nước: {{ thisRoom.room_type.motel.water_cost }}VNĐ
+                Giá nước: {{ toNum(thisRoom.room_type.motel.water_cost) }} VNĐ/m<sup>3</sup>
               </div>
             </div>
             <div class="col-12"><br /></div>
@@ -159,9 +159,10 @@
         </q-card>
       </q-dialog>
       <q-dialog v-model="isConfirm" persistent>
-        <q-card>
-          <q-card-section class="row items-center text-primary bg-white">
-            <q-avatar icon="warning" color="primary" text-color="primary" />
+        <q-card class="g-border">
+          <q-card-section
+            class="row items-center text-center text-h6 text-primary bg-white"
+          >
             <span class="q-ml-sm">
               Sao khi bạn xác nhận thì sẽ được đưa vào trọ!</span
             >
@@ -192,6 +193,7 @@
 <script>
 import noti from "../boot/noti/noti";
 import dateSp from "../boot/noti/date";
+import sp from "../boot/support";
 import notiApi from "../boot/callApi/noti";
 export default {
   props: {
@@ -213,6 +215,9 @@ export default {
     };
   },
   methods: {
+    toNum(num) {
+      return sp.toNum(num);
+    },
     toDate(time) {
       return dateSp.toDate(time);
     },
@@ -227,6 +232,7 @@ export default {
         const Seen = await this.$api.get("isSeen/" + noti.id);
         if (Seen.data.statusCode == 1) {
           this.$emit("updateStatus", index);
+          // noti.showNoti(" Đã đọc", "black");
         }
       }
       this.nt = noti;
@@ -237,7 +243,7 @@ export default {
           this.thisRoom = notiInvite.data.room;
         } catch (error) {}
       } else {
-        this.isDiff = true;
+        // this.isDiff = true;
       }
       this.notiHDer =
         type_id == 1

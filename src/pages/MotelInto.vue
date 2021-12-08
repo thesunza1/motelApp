@@ -8,6 +8,7 @@
         title-class=" text-h6 text-primary"
         row-key="index"
         selection="single"
+        :filter="filter"
         v-model:selected="thisNotis"
         :pagination="pagination"
       >
@@ -15,7 +16,9 @@
           <div class="col-12 text-left text-h6 text-bold text-primary">
             Danh Sách Người Xin Vào
           </div>
-          <div class="col-12 row justify-end q-gutter-sm">
+          <div class="col-12 row  q-gutter-md">
+            <q-space />
+            <q-input v-model="filter" type="text" placeholder="tìm kiếm" debounce="300" dense filled />
             <q-btn
               no-caps
               :disable="thisNotis[0]?.id == null"
@@ -189,6 +192,7 @@ export default {
     const thisNotis = ref([]);
     const thisTitle = ref(null);
     const thisContent = ref(null);
+    const filter = ref();
     //popup
     const isAccept = ref(false);
     const isReject = ref(false);
@@ -279,6 +283,7 @@ export default {
     return {
       thisNotis,
       thisTitle,
+      filter,
       thisContent,
       isAccept,
       isReject,

@@ -8,7 +8,8 @@ function toDate(d) {
   let dateString = d.slice(0,10);
   let date = new Date(dateString);
   let dateLocal = date.toLocaleDateString();
-  return dateLocal ;
+  // return dateLocal ;
+  return dateString;
 }
 
 export default {

@@ -17,7 +17,6 @@
             no-caps
             label="Gửi"
           />
-
           <q-route-tab
             v-else
             :to="{ name: toPath() }"
@@ -30,10 +29,10 @@
       </div>
       <div class="q-pt-sm col-12">
         <q-card-section class="row items-center justify-end">
-          <div class="col-6">
+          <div class="col-4">
             <noti-search-box @updateNoti="findNoti($event)"></noti-search-box>
           </div>
-          <div class="col-12"><br /></div>
+          <q-space />
           <q-btn
             class="col-4 col-md-2"
             color="primary"
