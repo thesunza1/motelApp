@@ -35,6 +35,15 @@ async function findNoti(notiTypeId, from = 0, to = 0) {
 
   return res.data;
 }
+
+/**
+ *
+ * @returns notis json
+ */
+async function getIntoNoti() {
+  const res = await api.get('getIntoNoti');
+  return res.data;
+}
 /**
  *
  * @param {Integer} type_id 1-> 5
@@ -94,10 +103,32 @@ function toNotiTypeOt() {
   return data;
 }
 
+/**
+ *
+ * @param {Integer} status 0: none , 1: yes , 2 : no
+ * @returns string
+ */
+function toIntoNotiStatus(status) {
+    const res = status == 0 ? 'Chưa xác nhận' : status ==1 ? 'Đã vào' : 'Đã từ chối' ;
+    return res ;
+}
+
+/**
+ *
+ * @param {Integer} status 0: none , 1: yes , 2 : no
+ * @returns color class
+ */
+function toIntoNotiStatusColor(status) {
+    const res = status == 0 ? 'black' : status ==1 ? 'positive' : 'negative' ;
+    return res ;
+}
 export default {
   toIcon,
   toColor,
   sendReport,
   toNotiTypeOt,
   findNoti,
+  toIntoNotiStatus,
+  getIntoNoti,
+  toIntoNotiStatusColor,
 };

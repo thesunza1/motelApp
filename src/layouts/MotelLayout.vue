@@ -19,11 +19,12 @@
       <q-tabs align="left">
         <q-route-tab :to="{name:'all' , params: { motelId: motelId}}" class="g-header" label="Trạng thái" />
         <q-route-tab :to="{name:'motelPost' , params: { motelId: motelId}}"  class="g-header" label="Bài đăng" />
-        <q-route-tab :to="{name:'motelRoomEquip' , params: { motelId: motelId}}"  class="g-header" label=" Phản ánh" />
-        <q-route-tab :to="{name:'config' , params: { motelId: motelId}}"  class="g-header" label="Cấu hình" />
+        <q-route-tab :to="{name:'motelRoomEquip' , params: { motelId: motelId}}"  class="g-header" label="Phản ánh" />
+        <q-route-tab :to="{name:'motelInto' , params: { motelId: motelId}}"  class="g-header" label=" Xin vào" />
         <q-route-tab :to="{name:'noti', params: {motelId: motelId}}" class="g-header" label="Thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
+        <q-route-tab :to="{name:'config' , params: { motelId: motelId}}"  class="g-header" label="Cấu hình" />
       </q-tabs>
     </q-header>
 
