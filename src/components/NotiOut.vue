@@ -37,7 +37,7 @@
           <q-card-section class="row col-10 col-md-11 items-center">
             <div class="col-12 col-md-6 text-h6">Tiêu Đề: {{ noti.title }}</div>
             <div class="col-12 col-md-4 text-subtitle2 g-header-up">
-              <b>Người nhận:</b> {{ noti.receiverUser.name }}
+              <b>Người nhận:</b> {{ noti.receiver_user.name }}
             </div>
             <div class="col-12 col-md-2">
               <b>Thời gian:</b> {{ toDate(noti.created_at) }}
@@ -63,10 +63,10 @@
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 col-md-5 text-bold">
-              Email: {{ nt.receiverUser.email }}
+              Email: {{ nt.receiver_user.email }}
             </div>
             <div class="col-md-5 col-12 text-left g-header-up">
-              Tên: {{ nt.receiverUser.name }}
+              Tên: {{ nt.receiver_user.name }}
             </div>
             <div class="col-md-2 col-12 text-right">
               Ngày: {{ toDate(nt.created_at) }}
@@ -126,10 +126,10 @@
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 col-md-5 text-bold">
-              Email: {{ nt.receiverUser.email }}
+              Email: {{ nt.receiver_user.email }}
             </div>
             <div class="col-md-4 col-12 text-left g-header-up">
-              Tên: {{ nt.receiverUser.name }}
+              Tên: {{ nt.receiver_user.name }}
             </div>
             <div class="col-md-3 col-12 text-right">
               Ngày: {{ toDate(nt.created_at) }}

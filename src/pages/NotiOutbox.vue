@@ -3,7 +3,18 @@
     <div class="col-12 col-md-10 row content-start">
       <div class="col-12">
         <q-tabs v-model="tab" class="text-teal g-header">
-          <q-route-tab :to="{name:toPath()}" icon="all_inbox" label="Nhận" />
+          <q-route-tab
+            v-if="toPath() == 'noti'"
+            :to="{ name: toPath() }"
+            icon="all_inbox"
+            label="Nhận"
+          />
+          <q-route-tab
+            v-else
+            :to="{ name: toPath() }"
+            icon="all_inbox"
+            label="Nhận"
+          />
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
             name="movies"
@@ -21,8 +32,7 @@
           rounded
           @click="isCreate = !isCreate"
         >
-
-         <div class="gt-sm">Tạo thông báo</div>
+          <div class="gt-sm">Tạo thông báo</div>
         </q-btn>
       </div>
       <div class="row full-width justify-center col-12">
@@ -88,7 +98,7 @@ export default {
       } else if (path == "/motel") {
         return "noti";
       } else {
-        return "adminNoti" ;
+        return "adminNoti";
       }
     },
   },

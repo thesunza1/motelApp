@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="row justify-center">
     <div class="col-12 col-md-10 row content-start">
-      <div class="col-12">
+      <div class="col-12 " v-if="user">
         <q-tabs v-model="tab" class="text-teal">
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
@@ -10,6 +10,16 @@
             no-caps
           />
           <q-route-tab
+            v-if="toPath() == 'motelOutbox'"
+            :to="{ name: toPath() , params: {motelId : motelId} }"
+            name="movies"
+            icon="outbox"
+            no-caps
+            label="Gửi"
+          />
+
+          <q-route-tab
+            v-else
             :to="{ name: toPath() }"
             name="movies"
             icon="outbox"
@@ -18,17 +28,23 @@
           />
         </q-tabs>
       </div>
-      <div class="q-pt-sm row justify-end col-12">
-        <q-btn
-          class="col-4 col-md-2"
-          color="primary"
-          icon="add"
-          rounded
-          no-caps
-          @click="isCreate = !isCreate"
-        >
-          <div class="gt-sm">Tạo thông báo</div>
-        </q-btn>
+      <div class="q-pt-sm col-12">
+        <q-card-section class="row items-center justify-end">
+          <div class="col-6">
+            <noti-search-box @updateNoti="findNoti($event)"></noti-search-box>
+          </div>
+          <div class="col-12"><br /></div>
+          <q-btn
+            class="col-4 col-md-2"
+            color="primary"
+            icon="add"
+            rounded
+            no-caps
+            @click="isCreate = !isCreate"
+          >
+            <div class="gt-sm">Tạo thông báo</div>
+          </q-btn>
+        </q-card-section>
       </div>
       <div class="row col-12 justify-center">
         <div class="col-12"><br /></div>
@@ -39,7 +55,7 @@
             style="font-size: 30px"
           />
           Chưa đọc:
-          <p class="text-black " style="display:inline">{{ notiNum }}</p>
+          <p class="text-black" style="display: inline">{{ notiNum }}</p>
         </div>
         <div class="col-12">
           <noti-box
@@ -81,21 +97,25 @@ import NotiCreate from "components/NotiCreate.vue";
 import AdminNotiCreate from "components/AdminNotiCreate.vue";
 import NotiBox from "components/NotiBox.vue";
 import { mapGetters } from "vuex";
+import NotiSearchBox from "../components/NotiSearchBox.vue";
+
 export default {
   components: {
     NotiCreate,
     NotiBox,
     AdminNotiCreate,
+    NotiSearchBox,
   },
   setup() {
     var isSeen = false;
+
     return {
       isSeen,
     };
   },
   async created() {
     try {
-      this.updateNotiNum() ;
+      this.updateNotiNum();
       const noti = await this.$api.get("getAllNoti");
       const notiType = await this.$api.get("notiType");
       this.$store.dispatch("NotiType/notiType", notiType.data.notiType);
@@ -107,6 +127,7 @@ export default {
       isCreate: false,
       notis: null,
       notiNum: 0,
+      motelId: this.$route.params?.motelId,
     };
   },
   computed: {
@@ -148,12 +169,16 @@ export default {
       }
       return;
     },
+    findNoti(data) {
+      this.notis = data;
+      return;
+    }
   },
   mounted: function () {
     window.setInterval(() => {
       this.updateNotis();
       this.updateNotiNum();
-    }, 5000);
+    }, 9000);
   },
 };
 </script>

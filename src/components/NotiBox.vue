@@ -19,31 +19,15 @@
           class="col-2 col-md-1 flex items-center full-width"
         >
           <q-icon
-            :name="
-              noti.noti_type_id == 1
-                ? 'info'
-                : noti.noti_type_id == 2
-                ? 'report_problem'
-                : noti.noti_type_id == 3
-                ? 'person_add'
-                : 'check'
-            "
-            :class="
-              noti.noti_type_id == 1
-                ? 'text-purple'
-                : noti.noti_type_id == 2
-                ? 'text-red'
-                : noti.noti_type_id == 3
-                ? 'text-primary'
-                : 'text-warning'
-            "
+            :name="toIcon(noti.noti_type_id)"
+            :class="toColor(noti.noti_type_id)"
             style="font-size: 40px; padding-left: 10px"
           />
           <q-card-section class="row col-10 col-md-11 items-center">
             <div class="col-12 col-md-6 text-h6">Tiêu Đề: {{ noti.title }}</div>
             <div class="col-12 col-md-4 text-subtitle2">
               <q-icon name="email" class="g-icon-h2 text-primary" />
-              <b> Email:</b> {{ noti.senderUser.email }}
+              <b> Email:</b> {{ noti.sender_user.email }}
             </div>
             <div class="col-12 col-md-2">
               <q-icon name="schedule" class="g-icon-h2 text-primary" />
@@ -55,7 +39,7 @@
               <b> Nội dung:</b>
               <div class="q-pl-lg" v-html="noti.content"></div>
             </div>
-            <div class="col-12">
+            <div class="col-12" v-else>
               <div class="q-pl-lg">Nhấn để xem thêm</div>
             </div>
           </q-card-section>
@@ -71,12 +55,12 @@
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 col-md-5 text-bold">
-              Email: {{ nt.senderUser.email }}
+              Email: {{ nt.sender_user.email }}
             </div>
             <div class="col-md-5 col-12 text-left g-header-up">
-              {{ nt.senderUser.name }}
+              {{ nt.sender_user.name }}
             </div>
-            <div class="col-md-5 col-12 text-right">
+            <div class="col-md-2 col-12 text-right">
               {{ toDate(nt.created_at) }}
             </div>
           </q-card-section>
@@ -142,10 +126,10 @@
             </div>
             <div class="col-12"><br /></div>
             <div class="col-12 col-md-5 text-bold">
-              Email: {{ nt.senderUser.email }}
+              Email: {{ nt.sender_user.email }}
             </div>
             <div class="col-md-5 col-12 text-left g-header-up">
-              Tên: {{ nt.senderUser.name }}
+              Tên: {{ nt.sender_user.name }}
             </div>
             <div class="col-md-2 col-12 text-right">
               Ngày: {{ toDate(nt.created_at) }}
@@ -207,6 +191,8 @@
 
 <script>
 import noti from "../boot/noti/noti";
+import dateSp from "../boot/noti/date";
+import notiApi from "../boot/callApi/noti";
 export default {
   props: {
     notis: {
@@ -228,7 +214,13 @@ export default {
   },
   methods: {
     toDate(time) {
-      return time.substring(0, 10);
+      return dateSp.toDate(time);
+    },
+    toIcon(type_id) {
+      return notiApi.toIcon(type_id);
+    },
+    toColor(type_id) {
+      return notiApi.toColor(type_id);
     },
     async open(type_id, noti, index) {
       if (this.isSeen == 0) {

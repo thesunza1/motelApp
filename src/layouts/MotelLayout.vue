@@ -21,7 +21,7 @@
         <q-route-tab :to="{name:'motelPost' , params: { motelId: motelId}}"  class="g-header" label="Bài đăng" />
         <q-route-tab :to="{name:'motelRoomEquip' , params: { motelId: motelId}}"  class="g-header" label=" Phản ánh" />
         <q-route-tab :to="{name:'config' , params: { motelId: motelId}}"  class="g-header" label="Cấu hình" />
-        <q-route-tab :to="{name:'noti'}" class="g-header" label="Thông báo" >
+        <q-route-tab :to="{name:'noti', params: {motelId: motelId}}" class="g-header" label="Thông báo" >
           <q-badge floating color="red" text-color="white" :label="notiNum " />
         </q-route-tab>
       </q-tabs>
@@ -92,11 +92,11 @@ export default {
       return;
     },
   },
-  mounted: function () {
-    window.setInterval(() => {
-      this.updateNotiNum();
-    }, 5000);
-  },
+  // mounted: function () {
+  //   window.setInterval(() => {
+  //     this.updateNotiNum();
+  //   }, 9000);
+  // },
 };
 </script>
 
