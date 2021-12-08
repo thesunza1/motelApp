@@ -41,9 +41,71 @@ async function findNoti(notiTypeId, from = 0, to = 0) {
  * @returns notis json
  */
 async function getIntoNoti() {
-  const res = await api.get('getIntoNoti');
+  const res = await api.get("getIntoNoti");
   return res.data;
 }
+
+/**
+ *
+ * @param {Int} notiId noti id
+ * @returns list room ,
+ */
+async function getRoomInto(notiId) {
+  const res = await api.post("getRoomInto", {
+    notiId: notiId,
+  });
+  return res.data;
+}
+
+/**
+ *
+ * @param {Int} roomId room id
+ * @param {Int} userId User id
+ * @returns statusCode
+ */
+async function sendInvite(roomId, userId) {
+  const data = {
+    roomId: roomId,
+    receiverId: userId,
+  };
+  const res = await api.post("sendInvite", data);
+
+  return res.data;
+}
+
+/**
+ *
+ * @param {*} notiId notiid
+ * @param {*} inviteStatus 1 : oke , 2 : no
+ * @returns statusCode
+ */
+async function changeIntoStatus(notiId, inviteStatus) {
+  const data = {
+    notiId: notiId,
+    inviteStatus: inviteStatus,
+  };
+
+  const res = await api.post("changeIntoStatus", data);
+
+  return res.data;
+}
+
+/**
+ *
+ * @param {*} motelId motel id
+ * @param {*} senderId receiverid ,
+ * @returns
+ */
+async function sendReject(motelId,  senderId , content) {
+  const data = {
+    motelId: motelId,
+    receiverId: senderId,
+    content: content,
+  };
+  const res = await api.post('sendReject', data);
+  return res.data ;
+}
+
 /**
  *
  * @param {Integer} type_id 1-> 5
@@ -109,8 +171,9 @@ function toNotiTypeOt() {
  * @returns string
  */
 function toIntoNotiStatus(status) {
-    const res = status == 0 ? 'Chưa xác nhận' : status ==1 ? 'Đã vào' : 'Đã từ chối' ;
-    return res ;
+  const res =
+    status == 0 ? "Chưa xác nhận" : status == 1 ? " Đã mời vào" : "Đã từ chối";
+  return res;
 }
 
 /**
@@ -119,8 +182,8 @@ function toIntoNotiStatus(status) {
  * @returns color class
  */
 function toIntoNotiStatusColor(status) {
-    const res = status == 0 ? 'black' : status ==1 ? 'positive' : 'negative' ;
-    return res ;
+  const res = status == 0 ? "black" : status == 1 ? "positive" : "negative";
+  return res;
 }
 export default {
   toIcon,
@@ -131,4 +194,8 @@ export default {
   toIntoNotiStatus,
   getIntoNoti,
   toIntoNotiStatusColor,
+  getRoomInto,
+  sendInvite,
+  changeIntoStatus,
+  sendReject,
 };

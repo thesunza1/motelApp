@@ -15,26 +15,43 @@
           <div class="col-12 text-left text-h6 text-bold text-primary">
             Danh Sách Người Xin Vào
           </div>
-          <div
-            class="col-12 row justify-end q-gutter-sm"
-          >
+          <div class="col-12 row justify-end q-gutter-sm">
             <q-btn
               no-caps
               :disable="thisNotis[0]?.id == null"
               color="red"
+              v-if="thisNotis[0]?.invite_status == 0"
               icon="remove"
               label=" Từ chối"
               rounded
-              @click="onClick"
+              @click="opReject()"
             />
             <q-btn
               no-caps
+              color="red"
+              v-if="thisNotis[0]?.invite_status == 2"
+              rounded
+              label=" Bạn đã từ chối"
+            />
+            <q-btn
+              no-caps
+              v-if="thisNotis[0]?.invite_status == 0"
               color="green"
               icon="check"
               :disable="thisNotis[0]?.id == null"
               label=" Chấp nhận"
               rounded
-              @click="onClick"
+              @click="opAccept()"
+            />
+            <q-btn
+              no-caps
+              v-if="thisNotis[0]?.invite_status == 1"
+              color="orange"
+              icon="check"
+              :disable="thisNotis[0]?.id == null"
+              label=" Gửi lại"
+              rounded
+              @click="opAccept()"
             />
           </div>
         </template>
@@ -46,7 +63,12 @@
           >
             <q-td></q-td>
             <q-td key="index" :props="props">
-              <q-badge class="text-h6" color="primary" text-color="white" :label="props.row.index" />
+              <q-badge
+                class="text-h6"
+                color="primary"
+                text-color="white"
+                :label="props.row.index"
+              />
             </q-td>
             <q-td key="title" :props="props">
               <div v-html="props.row.title"></div>
@@ -94,6 +116,62 @@
         </template>
       </q-table>
     </div>
+    <q-dialog v-model="isAccept" v-if="listRoomNoti && thisMotel">
+      <motel-into-accept
+        :rooms="listRoomNoti"
+        :motel="thisMotel"
+        :thisNoti="thisNotis[0]"
+        @reloadNotis="reloadNotis()"
+      ></motel-into-accept>
+    </q-dialog>
+    <q-dialog v-model="isReject">
+      <q-card class="g-border">
+        <q-card-section class="">
+          <div class="text-h6 text-primary text-center">
+            Từ chối người xin vào trọ
+            <p class="g-header-up">{{ thisMotel?.name }}</p>
+          </div>
+        </q-card-section>
+        <q-card-section class=" q-pl-lg row item-center">
+          <div class="col-6">
+            <q-icon name="person" class="text-primary g-icon-h2" /><b>
+              Họ tên:
+            </b>
+            <p class="g-header-up g-display-inline">
+              {{ thisNotis[0]?.sender_user.name }}
+            </p>
+            <br />
+          </div>
+          <div class="col-6">
+            <q-icon name="email" class="text-primary g-icon-h2" /><b>
+              Email:
+            </b>
+            {{ thisNotis[0]?.sender_user.email }}<br />
+          </div>
+          <div class="col-6">
+            <q-icon name="remove" class="text-primary g-icon-h2" /><b>
+              Nghề nghiệp:
+            </b>
+            <p class="g-first-up g-display-inline">
+              {{ thisNotis[0]?.sender_user.job }}
+            </p>
+          </div>
+        </q-card-section>
+        <q-card-section>
+          <q-input
+            filled
+            v-model="thisContent"
+            type="text"
+            label-color="red"
+            label=" Nhập nội dung từ chối"
+          />
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn no-caps flat label=" Hủy" color="red" v-close-popup />
+          <q-btn flat no-caps label=" Gửi" color="primary" @click="sendReject()" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -102,7 +180,11 @@ import { ref } from "vue";
 import notiApi from "../boot/callApi/noti";
 import notiSp from "../boot/noti/noti";
 import dateSp from "../boot/noti/date";
+import MotelIntoAccept from "../components/MotelIntoAccept.vue";
 export default {
+  components: {
+    MotelIntoAccept,
+  },
   setup() {
     const thisNotis = ref([]);
     const thisTitle = ref(null);
@@ -212,7 +294,43 @@ export default {
   data() {
     return {
       notis: null,
+      thisMotel: null,
+      listRoomNoti: null,
     };
+  },
+  methods: {
+    async opAccept() {
+      const res = await notiApi.getRoomInto(this.thisNotis[0].id);
+      this.listRoomNoti = res.room;
+      this.thisMotel = res.motel;
+      console.log(this.listRoomNoti);
+      this.isAccept = !this.isAccept;
+    },
+    opReject() {
+      this.isReject = !this.isReject;
+    },
+    async sendReject(){
+      const res = await notiApi.getRoomInto(this.thisNotis[0].id);
+      this.thisMotel = res.motel;
+      if(res.statusCode == 1) {
+        const send = await notiApi.sendReject(this.thisMotel.id, this.thisNotis[0].sender_user.id , this.thisContent);
+        if(send.statusCode ==1 ) {
+          notiSp.showNoti('Gửi thành công','black');
+          notiApi.changeIntoStatus(this.thisNotis[0].id, 2) ;
+          this.reloadNotis();
+        }
+
+      }
+    },
+    async reloadNotis() {
+      const noti = await notiApi.getIntoNoti();
+      this.notis = noti.notis;
+      this.notis.forEach((row, index) => {
+        row.index = index + 1;
+      });
+      this.pagination.rowsPerPage = this.notis.length;
+      return ;
+    },
   },
   async created() {
     const noti = await notiApi.getIntoNoti();
