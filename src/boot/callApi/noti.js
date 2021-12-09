@@ -172,7 +172,7 @@ function toNotiTypeOt() {
  */
 function toIntoNotiStatus(status) {
   const res =
-    status == 0 ? "Chưa xác nhận" : status == 1 ? " Đã mời vào" : "Đã từ chối";
+    status == 0 ? " Chưa giải quyết" : status == 1 ? " Đã mời vào" : "Đã từ chối";
   return res;
 }
 

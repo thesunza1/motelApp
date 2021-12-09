@@ -16,9 +16,84 @@
           <div class="col-12 text-left text-h6 text-bold text-primary">
             Danh Sách Người Xin Vào
           </div>
-          <div class="col-12 row  q-gutter-md">
+          <div class="col-12"><br /></div>
+          <div class="col-12 row q-gutter-md">
+            <div
+              class="
+                flex
+                items-center
+                q-gutter-md
+                shadow-1
+                g-border
+                q-mr-md q-pt-sm q-px-md
+              "
+              style=""
+            >
+              <div>
+                <div class="text-primary text-subtitle2 g-display-inline">
+                  Chọn ngày &nbsp;
+                </div>
+                <q-icon
+                  name="event"
+                  class="
+                    cursor-pointer
+                    g-border
+                    shadow-1
+                    bg-black
+                    text-white
+                    g-icon-h2
+                    q-px-sm q-py-sm
+                    g-display-inline
+                  "
+                >
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date v-model="orderDay" range>
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Đóng"
+                          no-caps
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+                <p class="g-text-indent" style="display: block" v-if="orderDay">
+                  {{ orderDay.from }} - {{ orderDay.to }}
+                </p>
+                <p class="g-text-indent" style="display: block" v-else>
+                  Chưa chọn ngày
+                </p>
+              </div>
+              <div>
+                <q-btn
+                  class="g-display-inline"
+                  color="primary"
+                  :disable="orderDay == null"
+                  label="Tìm"
+                  no-caps
+                  rounded
+                  icon="search"
+                  @click="findIntoNoti()"
+                />
+              </div>
+            </div>
+
             <q-space />
-            <q-input v-model="filter" type="text" placeholder="tìm kiếm" debounce="300" dense filled />
+            <q-input
+              v-model="filter"
+              type="text"
+              placeholder="Tìm kiếm"
+              debounce="300"
+              dense
+              filled
+            />
             <q-btn
               no-caps
               :disable="thisNotis[0]?.id == null"
@@ -135,7 +210,7 @@
             <p class="g-header-up">{{ thisMotel?.name }}</p>
           </div>
         </q-card-section>
-        <q-card-section class=" q-pl-lg row item-center">
+        <q-card-section class="q-pl-lg row item-center">
           <div class="col-6">
             <q-icon name="person" class="text-primary g-icon-h2" /><b>
               Họ tên:
@@ -171,7 +246,14 @@
         </q-card-section>
         <q-card-actions align="right">
           <q-btn no-caps flat label=" Hủy" color="red" v-close-popup />
-          <q-btn flat no-caps label=" Gửi" color="primary" @click="sendReject()" v-close-popup />
+          <q-btn
+            flat
+            no-caps
+            label=" Gửi"
+            color="primary"
+            @click="sendReject()"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -189,6 +271,7 @@ export default {
     MotelIntoAccept,
   },
   setup() {
+    const orderDay = ref(null);
     const thisNotis = ref([]);
     const thisTitle = ref(null);
     const thisContent = ref(null);
@@ -262,6 +345,7 @@ export default {
         align: "right",
         label: " Ngày gửi",
         sortable: true,
+        // format: (val) => this.toDate(val),
       },
       {
         name: "invite_status",
@@ -269,6 +353,7 @@ export default {
         label: " Trạng thái",
         align: "left",
         sortable: true,
+        // format: (val) => toStatus(val),
       },
     ];
     function toDate(date) {
@@ -287,6 +372,7 @@ export default {
       thisContent,
       isAccept,
       isReject,
+      orderDay,
       //column
       pagination,
       columns,
@@ -304,6 +390,21 @@ export default {
     };
   },
   methods: {
+    async findIntoNoti() {
+      const res = await notiApi.findNoti(
+        5,
+        this.orderDay.from,
+        this.orderDay.to
+      );
+      if (res.statusCode == 1) {
+        this.notis = res.noti;
+        this.pagination.rowsPerPage = this.notis.length;
+        this.notis.forEach((row, index) => {
+          row.index = index + 1;
+        });
+        notiSp.showNoti('Lọc thành công');
+      }
+    },
     async opAccept() {
       const res = await notiApi.getRoomInto(this.thisNotis[0].id);
       this.listRoomNoti = res.room;
@@ -311,20 +412,26 @@ export default {
       console.log(this.listRoomNoti);
       this.isAccept = !this.isAccept;
     },
+    toStatus(val) {
+      return noti.toIntoNotiStatus(val);
+    },
     opReject() {
       this.isReject = !this.isReject;
     },
-    async sendReject(){
+    async sendReject() {
       const res = await notiApi.getRoomInto(this.thisNotis[0].id);
       this.thisMotel = res.motel;
-      if(res.statusCode == 1) {
-        const send = await notiApi.sendReject(this.thisMotel.id, this.thisNotis[0].sender_user.id , this.thisContent);
-        if(send.statusCode ==1 ) {
-          notiSp.showNoti('Gửi thành công','black');
-          notiApi.changeIntoStatus(this.thisNotis[0].id, 2) ;
+      if (res.statusCode == 1) {
+        const send = await notiApi.sendReject(
+          this.thisMotel.id,
+          this.thisNotis[0].sender_user.id,
+          this.thisContent
+        );
+        if (send.statusCode == 1) {
+          notiSp.showNoti("Gửi thành công", "black");
+          notiApi.changeIntoStatus(this.thisNotis[0].id, 2);
           this.reloadNotis();
         }
-
       }
     },
     async reloadNotis() {
@@ -334,7 +441,7 @@ export default {
         row.index = index + 1;
       });
       this.pagination.rowsPerPage = this.notis.length;
-      return ;
+      return;
     },
   },
   async created() {
