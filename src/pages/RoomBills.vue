@@ -22,39 +22,39 @@
           <div class="container">
             <ul class="responsive-table">
               <li class="table-header text-white">
-                <div class="col cola-1 text-right">STT</div>
-                <div class="col cola-3 text-right">Từ ngày</div>
-                <div class="col cola-3 text-right">Đến ngày</div>
-                <div class="col cola-4 text-right">Số điện (Kwh)</div>
-                <div class="col cola-4 text-right">Tổng điện (VNĐ)</div>
-                <div class="col cola-4 text-right">
+                <div class="col cola-stt text-right">STT</div>
+                <div class="col cola-3 text-center q-px-sm"> Ngày: Từ - Đến</div>
+                <!-- <div class="col cola-3 text-right">Đến ngày</div> -->
+                <div class="col cola-4 text-right q-px-sm">Số điện (Kwh)</div>
+                <div class="col cola-4 text-right q-px-sm">Tổng điện (VNĐ)</div>
+                <div class="col cola-4 text-right q-px-sm">
                   Số nước (M<sup>3</sup>)
                 </div>
-                <div class="col cola-4 text-right">Tổng nước (VNĐ)</div>
-                <div class="col cola-4 text-right">Phụ thu (VNĐ)</div>
-                <div class="col cola-4 text-right">Tiền trọ (VNĐ)</div>
-                <div class="col cola-4 text-right">Tổng tiền (VNĐ)</div>
+                <div class="col cola-4 text-right q-px-sm">Tổng nước (VNĐ)</div>
+                <div class="col cola-4 text-right q-px-sm">Phụ thu (VNĐ)</div>
+                <div class="col cola-4 text-right q-px-sm">Tiền trọ (VNĐ)</div>
+                <div class="col cola-4 text-right q-px-sm">Tổng tiền (VNĐ)</div>
+                <div class="col cola-4 text-center q-pl-sm"> Chức năng</div>
               </li>
               <li
                 class="table-row shadow-up-2 text-bold"
                 v-for="(bill, index) in bills"
                 :key="index"
                 :class="bill.status == 0 ? 'bg-red-1 text-red ' : ''"
-                @click="openBill(bill)"
               >
-                <div class="col cola-1 text-right" data-label="STT">
+                <div class="col cola-stt text-right" data-label="STT">
                   {{ ++index }}
                 </div>
-                <div class="col cola-3 text-right q-pr-sm" data-label="STT">
-                  {{ toDate(bill.date_begin) }}
-                </div>
-                <div class="col cola-3 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-3 text-right q-px-sm" data-label="STT">
+                  {{ toDate(bill.date_begin) }} <b> đến </b>
+                <!-- </div>
+                <div class="col cola-3 text-right q-pr-sm" data-label="STT"> -->
                   {{ toDate(bill.date_end) }}
                 </div>
-                <div class="col cola-4 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-4 text-right q-px-sm" data-label="STT">
                   {{ bill.elec_begin }} - {{ bill.elec_end }}
                 </div>
-                <div class="col cola-4 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-4 text-right q-px-sm" data-label="STT">
                   {{ bill.elec_end - bill.elec_begin }} *
                   {{ bill.elec_cost }}
                   =
@@ -62,10 +62,10 @@
                     toNum((bill.elec_end - bill.elec_begin) * bill.elec_cost)
                   }}
                 </div>
-                <div class="col cola-4 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-4 text-right q-px-sm" data-label="STT">
                   {{ bill.water_begin }} - {{ bill.water_end }}
                 </div>
-                <div class="col cola-4 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-4 text-right q-px-sm" data-label="STT">
                   {{ bill.water_end - bill.water_begin }} *
                   {{ bill.water_cost }}
                   =
@@ -73,13 +73,13 @@
                     toNum((bill.water_end - bill.water_begin) * bill.water_cost)
                   }}
                 </div>
-                <div class="col cola-4 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-4 text-right q-px-sm" data-label="STT">
                   {{ toNum(bill.people_cost) }}
                 </div>
-                <div class="col cola-4 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-4 text-right q-px-sm" data-label="STT">
                   {{ toNum(bill.cost) }}
                 </div>
-                <div class="col cola-4 text-right q-pr-sm" data-label="STT">
+                <div class="col cola-4 text-right q-px-sm" data-label="STT">
                   {{
                     toNum(
                       bill.cost +
@@ -88,6 +88,10 @@
                         (bill.elec_end - bill.elec_begin) * bill.elec_cost
                     )
                   }}
+                </div>
+                <div class="col cola-4 text-center row items-center q-gutter-sm q-pl-sm">
+                  <q-btn color="red" rounded icon="error" @click="openIsError(bill)" />
+                  <q-btn color="green" rounded icon="check" @click="openIsNoti(bill)" />
                 </div>
               </li>
             </ul>
@@ -209,7 +213,7 @@
       </div>
     </div>
     <q-dialog v-model="isError">
-      <q-card style="min-width: 60%">
+      <q-card style="min-width: 60%" class="g-border">
         <q-card-section class="row items-center text-white bg-red">
           <span> Gửi báo lỗi </span>
         </q-card-section>
@@ -231,7 +235,7 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="isNoti">
-      <q-card style="min-width: 60%">
+      <q-card style="min-width: 60%" class="g-border">
         <q-card-section class="row items-center text-white bg-positive">
           <span> Thông báo đã trả </span>
         </q-card-section>
@@ -349,20 +353,20 @@
         </q-card-section>
         <q-card-actions v-if="thisBill.status == 0" align="right">
           <q-btn color="black" no-caps flat label=" Đóng" v-close-popup />
-          <q-btn
+          <!-- <q-btn
             color="negetive"
             no-caps
             flat
             label=" Báo lỗi "
             @click="openIsError(thisBill)"
-          />
-          <q-btn
+          /> -->
+          <!-- <q-btn
             color="positive"
             no-caps
             flat
             label=" Báo đã trả"
             @click="openIsNoti(thisBill)"
-          />
+          /> -->
         </q-card-actions>
         <q-card-actions v-else align="right">
           <q-btn color="black" no-caps flat label=" Đóng" v-close-popup />
@@ -424,7 +428,7 @@ export default {
         room_id: this.tenant.room_id,
       });
       if (send.data?.statusCode == 1) {
-        this.showNoti(" Đã gửi thành công", "positive");
+        this.showNoti(" Đã gửi thành công", "black");
       } else {
         this.showNoti("Gửi thất bại", "red");
       }
@@ -436,14 +440,10 @@ export default {
         room_id: this.tenant.room_id,
       });
       if (send.data?.statusCode == 1) {
-        this.showNoti("Đã gửi thành công", "positive");
+        this.showNoti("Đã gửi thành công", "black");
       } else {
         this.showNoti("Gửi thất bại", "red");
       }
-    },
-    openBill(bill) {
-      this.chanceBill(bill);
-      this.isBill = true;
     },
     openIsError(bill) {
       this.chanceBill(bill);
@@ -452,6 +452,10 @@ export default {
     openIsNoti(bill) {
       this.chanceBill(bill);
       this.isNoti = true;
+    },
+    openBill(bill) {
+      this.chanceBill(bill);
+      this.isBill = true;
     },
     chanceBill(bill) {
       this.thisBill = bill;
@@ -497,12 +501,14 @@ h2
     // box-shadow: 0px 0px 9px 0px $grey-6
   .cola-1
     flex-basis: 10%
+  .cola-stt
+    flex-basis: 1%
   .cola-2
     flex-basis: 40%
   .cola-3
-    flex-basis: 25%
+    flex-basis: 30%
   .cola-4
-    flex-basis: 25%
+    flex-basis: 20%
   @media all and (max-width: 767px)
     .table-header
       display: none

@@ -30,7 +30,7 @@
               style=""
             >
               <div>
-                <div class="text-primary text-subtitle2 g-display-inline">
+                <div class="text-primary text-subtitle2 items-center g-display-inline">
                   Chọn ngày &nbsp;
                 </div>
                 <q-icon

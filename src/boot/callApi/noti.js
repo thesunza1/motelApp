@@ -25,7 +25,7 @@ async function findNoti(notiTypeId, from = 0, to = 0) {
     from: from,
     to: to,
   };
-  // const [res, error] = await api.post("findNoti", data);
+  // const [res, error] = await (api.post("findNoti", data);
   const res = await api.post("findNoti", data);
   // if (error) {
   //   return {

@@ -508,6 +508,7 @@
                     label=" Tạo"
                     type="submit"
                     no-caps
+                    v-close-popup
                     flat
                     color="primary"
                   />
