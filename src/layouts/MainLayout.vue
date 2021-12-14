@@ -74,6 +74,12 @@
               @click="$router.push( {name: 'homeInto'})"
             >
               <div class="gt-sm text-indent text-bold">Yêu cầu vào trọ</div>
+              <q-badge
+                color="red"
+                text-color="white"
+                :label="intoNotiNum"
+                floating
+              />
             </q-btn>
           </div>
 
@@ -293,6 +299,7 @@ import { ref } from "vue";
 import MainLeftbar from "./MainLeftbar.vue";
 import { mapGetters } from "vuex";
 import HomeSearchRightbar from "../components/HomeSearchRightbar.vue";
+import notiApi from "../boot/callApi/noti";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
@@ -320,7 +327,10 @@ export default {
       const response = await this.$api.get("user");
       this.$store.dispatch("User/user", response.data.user);
       const user = this.$store.state.User.user;
-      this.role_id = user.role_id;
+      if(user.role_id ==2) {
+        const notiIntoNum = await notiApi.countIntoNoti();
+        this.intoNotiNum = notiIntoNum.num ;
+      }
     } catch (error) {
       if (this.user?.id > 0) {
         this.$router.go();
@@ -333,6 +343,7 @@ export default {
   },
   data() {
     return {
+      intoNotiNum: 0,
       links: {
         id1: {
           name: " Đăng nhập",

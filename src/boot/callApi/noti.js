@@ -25,14 +25,7 @@ async function findNoti(notiTypeId, from = 0, to = 0) {
     from: from,
     to: to,
   };
-  // const [res, error] = await (api.post("findNoti", data);
   const res = await api.post("findNoti", data);
-  // if (error) {
-  //   return {
-  //     statusCode: 0,
-  //   };
-  // }
-
   return res.data;
 }
 
@@ -105,7 +98,14 @@ async function sendReject(motelId,  senderId , content) {
   const res = await api.post('sendReject', data);
   return res.data ;
 }
-
+/**
+ *
+ * @returns num , statusCode
+ */
+async function countIntoNoti(){
+  const res = await api.get('countIntoNoti');
+  return res.data;
+}
 /**
  *
  * @param {Integer} type_id 1-> 5
@@ -198,4 +198,5 @@ export default {
   sendInvite,
   changeIntoStatus,
   sendReject,
+  countIntoNoti,
 };
