@@ -56,7 +56,7 @@
               <div class="gt-sm text-indent">Quản lý phòng</div>
             </q-btn>
           </div>
-          <div class="col-4 row items-center gt-sm justify-center">
+          <div v-if="user.role_id != 2 " class="col-4 row items-center gt-sm justify-center">
             <q-btn
               class="col-10 pd font-header bg-white text-bold text-black"
               rounded
@@ -66,6 +66,17 @@
               <div class="gt-sm text-indent text-bold">Tìm trọ</div>
             </q-btn>
           </div>
+          <div v-if="user.role_id ==2" class="col-4 row items-center gt-sm justify-center">
+            <q-btn
+              class="col-10 pd font-header bg-white text-bold text-black"
+              rounded
+              icon="person"
+              @click="$router.push( {name: 'homeInto'})"
+            >
+              <div class="gt-sm text-indent text-bold">Yêu cầu vào trọ</div>
+            </q-btn>
+          </div>
+
           <div v-if="!user" class="col-4 row items-center justify-center">
             <q-btn
               class="col-10 pd font-header bg-white text-black"

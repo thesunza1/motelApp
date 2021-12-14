@@ -17,7 +17,7 @@
             Danh Sách Người Xin Vào
           </div>
           <div class="col-12"><br /></div>
-          <div class="col-12 row q-gutter-md">
+          <div class="col-12 items-center row q-gutter-md">
             <div
               class="
                 flex

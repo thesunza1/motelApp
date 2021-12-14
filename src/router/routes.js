@@ -42,6 +42,11 @@ const routes = [
       { path: "userNoti", name: "userNoti", component: Noti },
       { path: "userOutbox", name: "userOutbox", component: NotiOutbox },
       { path: "choseMotel", name: "choseMotel", component: ChoseMotel },
+      {
+        path: "homeInto",
+        name: "homeInto",
+        component: MotelInto,
+      },
     ],
   },
   {
@@ -65,6 +70,7 @@ const routes = [
         name: "motelRegisterOne",
         component: MotelRegisterOne,
       },
+
     ],
   },
   {

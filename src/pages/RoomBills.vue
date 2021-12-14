@@ -89,9 +89,11 @@
                     )
                   }}
                 </div>
-                <div class="col cola-4 text-center row items-center q-gutter-sm q-pl-sm">
-                  <q-btn color="red" rounded icon="error" @click="openIsError(bill)" />
-                  <q-btn color="green" rounded icon="check" @click="openIsNoti(bill)" />
+                <div class="col cola-4 text-center justify-center row items-center q-gutter-sm q-pl-sm">
+                  <q-btn v-if="bill.status == 0" color="red" rounded icon="error" @click="openIsError(bill)" />
+                  <q-btn v-if="bill.status == 0" color="green" rounded icon="check" @click="openIsNoti(bill)" />
+                  <q-btn v-if="bill.status == 1" no-caps color="green" flat rounded label="Đã trả" />
+
                 </div>
               </li>
             </ul>
@@ -491,7 +493,8 @@ h2
     align-items: flex-end
 
   .table-header
-    background-color: black
+    background-color: #0091FF
+    // background-color: black
     font-size: 14px
     text-transform: uppercase
     letter-spacing: 0.03em
