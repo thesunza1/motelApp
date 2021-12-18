@@ -77,7 +77,7 @@
           <q-card-section class="row items-center">
             <div class="col-md-3 col-6 text-left">
               <q-icon name="remove" class="g-icon-h2" />
-              <b> Phòng :</b> {{ tenant.room.name }}
+              <b> Phòng số: </b> {{ tenant.room.name }}
             </div>
             <div class="col-md-3 col-6">
               <q-icon name="remove" class="g-icon-h2" />
@@ -137,7 +137,7 @@
           <q-card-section v-if="room_equips_num == 0" class="text-red">
             *Bạn chưa có thiết bị nào
           </q-card-section>
-          <q-card-section v-else class="row items-center justify-center">
+          <!-- <q-card-section v-else class="row items-center justify-center">
             <div class="col-12 row items-center justify-center">
               <div class="col-12"><br /></div>
               <div class="col-3 col-md-3 row">
@@ -230,11 +230,102 @@
               </div>
             </div>
             <div class="col-12"><br /></div>
+          </q-card-section> -->
+          <q-card-section>
+            <q-markup-table class="g-border">
+              <thead>
+                <tr>
+                  <th class="text-right">STT</th>
+                  <th class="text-left">
+                    <div class="row">
+                      <div class="col-12 text-bold">Tiêu đề</div>
+                      <div class="col-12 text-bold">
+                        <p class="g-text-indent">Nội dung</p>
+                      </div>
+                    </div>
+                  </th>
+                  <th class="text-center">Ngày tạo</th>
+                  <th class="text-center">Hình ảnh</th>
+                  <th class="text-center">Trạng thái</th>
+                  <th class="text-center">Xóa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(room_equip, index) in room_equips" :key="index">
+                  <td class="text-right">{{ ++index }}</td>
+                  <td>
+                    <div class="row">
+                      <div class="col-12 row items-center justify-start">
+                        {{ room_equip.name }}:
+                      </div>
+                      <div
+                        class="
+                          col-12
+                          row
+                          items-center
+                          g-text-indent
+                          justify-start
+                        "
+                      >
+                        {{ room_equip.content }}
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{ getDate(room_equip.created_at) }}</td>
+                  <td style="width: 30%">
+                    <q-card-actions class="row" align="center">
+                      <div
+                        class="col-10"
+                        v-if="toLength(room_equip.img_details) > 0"
+                      >
+                        <q-img
+                          :src="baseUrlImg + room_equip.img_details[0]"
+                          :ratio="16 / 9"
+                          class="g-border"
+                          spinner-color="primary"
+                          spinner-size="82px"
+                          @click="seeImgs(room_equip.img_details)"
+                        >
+                          <div
+                            class="absolute-bottom text-subtitle1 text-center"
+                          >
+                            {{ toLength(room_equip.img_details) }} ảnh
+                          </div>
+                        </q-img>
+                      </div>
+                      <div class="col-10 text-center" v-else>Chưa có ảnh</div>
+                    </q-card-actions>
+                  </td>
+                  <td>
+                    <div
+                      class="text-center text-bold"
+                      :class="`text-${statusColor(room_equip.status)}`"
+                    >
+                      {{ statusText(room_equip.status) }}
+                    </div>
+                  </td>
+                  <td >
+                    <div
+                      v-if="room_equip.status == 0"
+                      class=" row justify-center"
+                    >
+                      <q-btn
+                        rounded
+                        outline
+                        color="negative"
+                        icon="delete"
+                        @click="deleteEquip(index)"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </q-markup-table>
           </q-card-section>
         </q-card>
         <div><br /></div>
 
-        <q-card
+        <!-- <q-card
           v-if="tenant_users"
           class="my-card g-border full-width br"
           id="tenantInfor"
@@ -275,7 +366,41 @@
             </div>
             <div class="col-12"><br /></div>
           </q-card-section>
-        </q-card>
+        </q-card> -->
+        <q-table
+          :rows="tenant_users"
+          :columns="columns"
+          row-key="name"
+          v-if="tenant_users"
+          class="g-border full-width"
+        >
+          <template v-slot:top>
+            <div
+              class="text-h6 full-width co-card-header text-primary text-center"
+            >
+              <q-icon name="people_alt" /> Người đang thuê
+            </div>
+          </template>
+          <template v-slot:body="props">
+            <q-tr :props="props">
+              <q-td style="width: 50px" key="index" :props="props">
+                {{ props.row.index }}
+              </q-td>
+              <q-td key="name" class="g-header-up" :props="props">
+                {{ props.row.user.name }}
+              </q-td>
+              <q-td key="email" :props="props">
+                {{ props.row.user.email }}
+              </q-td>
+              <q-td key="job" :props="props">
+                {{ props.row.user.job }}
+              </q-td>
+              <q-td key="phoneNumber" :props="props">
+                {{ props.row.user.phone_number }}
+              </q-td>
+            </q-tr>
+          </template>
+        </q-table>
         <div><br /></div>
         <q-card class="my-card g-border br full-width" id="numInfor">
           <q-card-section class="row items-center text-primary">
@@ -564,7 +689,7 @@ export default {
       const equips = await this.$api.get("getTenantRoomEquips");
       this.room_equips_num = equips.data.equip_num;
       this.room_equips = equips.data.equips;
-      return ;
+      return;
     },
     statusText(status) {
       return treApi.statusText(status);
@@ -703,6 +828,71 @@ export default {
   },
   data() {
     return {
+      columns: [
+        {
+          name: "index",
+          align: "right",
+          label: "STT",
+          field: "index",
+        },
+        {
+          name: "name",
+          align: "left",
+          label: " Họ tên",
+          field: (row) => row.user.name,
+        },
+        {
+          name: "email",
+          align: "left",
+          label: "Email",
+          field: (row) => row.user.email,
+        },
+        {
+          name: "job",
+          align: "left",
+          label: " Nghề nghiệp",
+          field: (row) => row.user.job,
+        },
+        {
+          align: "right",
+          name: "phoneNumber",
+          label: " Diện thoại",
+          field: (row) => row.user.phone_number,
+        },
+      ],
+      equipCol: [
+        {
+          name: "index",
+          align: "right",
+          label: "STT",
+          field: "index",
+        },
+        {
+          name: "titleContent",
+          align: "left",
+          label: "",
+        },
+        {
+          name: "createdAt",
+          align: "left",
+          label: " Ngày tạo",
+        },
+        {
+          name: "img",
+          align: "center",
+          label: " Hình ảnh",
+        },
+        {
+          name: "status",
+          align: "center",
+          label: " Trạng thái",
+        },
+        {
+          name: "del",
+          align: "center",
+          label: " Xóa",
+        },
+      ],
       eqName: null,
       eqContent: null,
       eqImgs: null,
@@ -738,6 +928,9 @@ export default {
     const tenantUsers = await this.$api.get("getTenantUsers/" + this.tenant.id);
     if (tenantUsers.data.statusCode == 1) {
       this.tenant_users = tenantUsers.data.tenantUsers;
+      this.tenant_users.forEach((row, index) => {
+        row.index = index + 1;
+      });
     }
     const posts = await this.$api.get("getPostConpound");
     if (posts.data.statusCode == 1) {

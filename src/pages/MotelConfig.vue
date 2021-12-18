@@ -478,16 +478,6 @@
                         <b class="text-orange">Tổng số phòng:</b>
                         {{ motel.room_types[index].rooms.length }}
                       </div>
-                      <!-- <div class="col-3 row justify-center items-center">
-                        <q-btn
-                          rounded
-                          color="negative"
-                          icon="delete"
-                          label=" Xóa vĩnh viễn"
-                          class="g-header-up"
-                          @click="deleteRoomTypeDialog(roomType, index)"
-                        />
-                      </div> -->
                     </div>
                     <div class="col-12"><br /></div>
                     <div class="col-12 row justify-center items-center">

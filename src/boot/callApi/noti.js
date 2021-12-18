@@ -106,6 +106,34 @@ async function countIntoNoti(){
   const res = await api.get('countIntoNoti');
   return res.data;
 }
+
+/**
+ *
+ * @param {*} postId post id
+ * @param {*} listRooms list id room into
+ * @returns statusCode
+ */
+async function sendIntoNoti(postId , listRooms) {
+  const data = {
+    postId: postId,
+    ListRooms: listRooms,
+  }
+  const res = await api.post("sendIntoNoti", data);
+  return res.data;
+}
+
+/**
+ *
+ * @param {*} postId post id
+ * @returns statusCode
+ */
+async function sendIntoNotiRoom(postId) {
+  const data = {
+    postId: postId,
+  }
+  const res = await api.post("sendIntoNotiRoom", data);
+  return res.data;
+}
 /**
  *
  * @param {Integer} type_id 1-> 5
@@ -199,4 +227,6 @@ export default {
   changeIntoStatus,
   sendReject,
   countIntoNoti,
+  sendIntoNoti,
+  sendIntoNotiRoom,
 };

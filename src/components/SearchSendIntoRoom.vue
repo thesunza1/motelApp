@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import { useQuasar } from "quasar";
 import { mapGetters } from "vuex";
 import noti from "../boot/noti/noti";
+import notiApi from "../boot/callApi/noti";
 export default {
 
   props: {
@@ -68,23 +68,18 @@ export default {
         return;
       }
       if (this.postTypeId == 1) {
-        const sendRes = await this.$api.post("sendIntoNoti", {
-          postId: this.postId,
-          ListRooms: this.Lrooms,
-        });
-        if (sendRes.data.statusCode == 1) {
+        const sendRes = await notiApi.sendIntoNoti(this.postId, this.Lrooms);
+        if (sendRes.statusCode == 1) {
           noti.showNoti(" Thành công chờ liên lạc", "positive");
         } else {
           noti.showNoti(" Lỗi: không xác định", "negative");
         }
       } else {
-        const sendRes = await this.$api.post("sendIntoNotiRoom",{
-          postId : this.postId,
-        });
-        if (sendRes.data.statusCode == 1) {
-          noti.showNoti(" Thành công chờ liên lạc", "positive");
+        const sendRes = await notiApi.sendIntoNotiRoom(this.postId);
+        if (sendRes.statusCode == 1) {
+          noti.showNoti("Thành công chờ liên lạc", "positive");
         } else {
-          noti.showNoti(" Lỗi: không xác định", "negative");
+          noti.showNoti("Lỗi: không xác định", "negative");
         }
       }
     },

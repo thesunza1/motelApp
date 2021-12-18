@@ -13,8 +13,8 @@
       </div>
     </q-card-section>
     <q-card-actions align="right">
-      <q-btn flat color="orange" label=" Đổi trạng thái " @click="$emit('changeSt' , post.post.id)" />
-      <q-btn flat color="primary" label=" Xem bài" @click="$emit('seem' , post.post.id)" />
+      <q-btn flat no-caps color="orange" label=" Đổi trạng thái " @click="$emit('changeSt' , post.post.id)" />
+      <q-btn flat no-caps color="primary" label=" Xem bài" @click="$emit('seem' , post.post.id)" />
     </q-card-actions>
   </q-card>
 </template>

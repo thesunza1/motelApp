@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-12 col-md-10 row content-start">
+    <div class="col-12 col-md-10 bg-white g-border shadow-1 q-px-lg row content-start">
       <div class="col-12 " v-if="user">
         <q-tabs v-model="tab" class="text-teal">
           <q-route-tab

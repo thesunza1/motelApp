@@ -160,17 +160,17 @@
                 v-html="props.row.sender_user.name"
               ></div>
             </q-td>
-            <q-td key="birth_date" :props="props">
-              <div v-html="toDate(props.row.sender_user.birth_date)"></div>
-            </q-td>
             <q-td key="senderEmail" :props="props">
               <div class="text-bold" v-html="props.row.sender_user.email"></div>
             </q-td>
-            <q-td key="senderAddress" :props="props">
+            <q-td key="phoneNumber" :props="props">
               <div
-                class="g-first-up"
-                v-html="props.row.sender_user.address"
+                class="text-bold"
+                v-html="props.row.sender_user.phone_number"
               ></div>
+            </q-td>
+            <q-td key="birth_date" :props="props">
+              <div v-html="toDate(props.row.sender_user.birth_date)"></div>
             </q-td>
             <q-td key="senderJob" :props="props">
               <div class="g-first-up" v-html="props.row.sender_user.job"></div>
@@ -311,25 +311,23 @@ export default {
         sortable: true,
       },
       {
-        name: "birth_date",
-        field: (row) => row.sender_user.birth_date,
-        align: "right",
-        label: " Ngày sinh",
-        sortable: true,
-      },
-      {
         name: "senderEmail",
         field: (row) => row.sender_user.email,
         align: "left",
         label: "Email ",
         sortable: true,
       },
-
       {
-        name: "senderAddress",
-        field: (row) => row.sender_user.address,
-        align: "left",
-        label: " Địa chỉ nhà ",
+        name: "phoneNumber",
+        field: (row) => row.sender_user.phone_number,
+        label: "Số điện thoại",
+        align: "left" ,
+      },
+      {
+        name: "birth_date",
+        field: (row) => row.sender_user.birth_date,
+        align: "right",
+        label: " Ngày sinh",
         sortable: true,
       },
       {
