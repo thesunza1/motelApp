@@ -1,7 +1,7 @@
 <template>
   <q-card class="my-card g-border" style="min-width:70%">
     <q-form @submit="send()" class="q-gutter-md">
-      <q-card-section class="text-center text-h6 text-white bg-primary">
+      <q-card-section v-if="postTypeId == 1" class="text-center text-h6 text-white bg-primary">
         Bạn có muốn vào trọ này?
       </q-card-section>
       <q-card-section v-if="postTypeId == 1" class="row items-center">
@@ -25,7 +25,7 @@
           </div>
         </div>
       </q-card-section>
-      <q-card-section v-else class="row items-center">
+      <q-card-section v-else class="text-center text-primary text-h6" >
         <div class="col-12">Bạn muốn gửi thông báo cho người đăng</div>
       </q-card-section>
       <q-card-actions align="right">

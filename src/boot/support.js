@@ -7,7 +7,7 @@ function length(arr) {
   try {
     return `${arr.length}`;
   } catch (error) {
-    return 0; 
+    return 0;
   }
 }
 

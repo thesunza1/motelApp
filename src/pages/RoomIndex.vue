@@ -38,7 +38,7 @@
           <q-avatar color="black" text-color="white" icon="dialpad" />
         </q-item-section>
         <q-item-section>
-          <q-item-label> Nhập số điện nước khi vào trọ </q-item-label>
+          <q-item-label> Xác nhận số điện nước khi vào trọ </q-item-label>
         </q-item-section>
       </q-item>
       <q-item clickable @click="goto('postsInfor')">
@@ -280,7 +280,7 @@
         <q-card class="my-card g-border br full-width" id="numInfor">
           <q-card-section class="row items-center text-primary">
             <div class="co-card-header col-12 text-center">
-              <q-icon name="dialpad" /> Nhập số điện nước khi vào trọ
+              <q-icon name="dialpad" /> Xác nhận số điện nước khi vào trọ
             </div>
           </q-card-section>
           <q-card-section class="row items-center justify-center">
@@ -296,7 +296,7 @@
               <q-chip
                 icon="star"
                 label=" Bạn chưa xác nhận "
-                color="primary"
+                color="red"
                 text-color="white"
               />
             </div>
@@ -310,7 +310,7 @@
               <div class="col-6 text-center text-h6">
                 <q-icon name="water_drop" class="g-icon-h1 text-primary" />
                 <b> Số nước: &nbsp; </b>
-                {{ elec_num }}
+                {{ water_num }}
               </div>
               <div
                 class="col-12 row items-center justify-end"

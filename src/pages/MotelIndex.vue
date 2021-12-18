@@ -23,24 +23,6 @@
         :key="index"
         class="col-12 row pd"
       >
-        <!-- <q-expansion-item
-          expand-separator
-          icon="store"
-          :label="` ${room_type.name}`"
-          :caption="` Tổng số: ${lengthArr(
-            room_type.rooms
-          )} --- Trống: ${numRoom(
-            room_type.rooms,
-            1
-          )} --- Không sử dụng: ${numRoom(
-            room_type.rooms,
-            3
-          )} --- Có người: ${numRoom(room_type.rooms, 2)}  `"
-          header-class="text-primary g-icon-h1 g-header-up"
-          class="col-12 g-border bg-white pd shadow-up-2"
-        >
-          <motel-room-render :rooms="room_type.rooms"></motel-room-render>
-        </q-expansion-item> -->
         <q-expansion-item
           expand-separator
           class="col-12 g-border bg-white pd shadow-up-2"
@@ -63,7 +45,7 @@
                       Không sử dụng: {{ numRoom(room_type.rooms, 3) }}</div>
                     <div class=" q-py-sm q-px-sm">
                       <div class="g-display-inline bg-blue q-py-sm q-px-sm " ></div>
-                      Phòng Có người: {{ numRoom(room_type.rooms, 1) }}</div>
+                      Phòng Có người: {{ numRoom(room_type.rooms, 2) }}</div>
                   </div>
                 </q-item-label>
               </q-item-section>

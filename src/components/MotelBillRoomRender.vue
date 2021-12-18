@@ -14,6 +14,43 @@
           header-class="text-primary g-icon-h1 g-header-up "
           class="col-12 shadow-up-2 pd bg-white g-border"
         >
+          <template v-slot:header>
+            <q-item class="full-width">
+              <q-item-section top avatar>
+                <q-avatar color="primary" text-color="white" icon="store" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label class="g-header-up text-h6">
+                  {{ room_type.name }}
+                </q-item-label>
+                <q-item-label caption lines="2">
+                  <div class="row text-black items-center q-gutter-md">
+                    <div class="q-py-sm q-px-sm">
+                      Phòng có người: {{ numRoom(room_type.had_rooms) }}
+                    </div>
+                    <div>
+                      <div
+                        class="g-display-inline bg-green q-py-sm q-px-sm"
+                      ></div>
+                      Tất cả hóa dơn đã thanh toán
+                    </div>
+                    <div class="q-py-sm q-px-sm">
+                      <div
+                        class="g-display-inline bg-red q-py-sm q-px-sm"
+                      ></div>
+                      Có hóa đơn chưa thanh toán
+                    </div>
+                    <div class="q-py-sm q-px-sm">
+                      <div
+                        class="g-display-inline bg-blue q-py-sm q-px-sm"
+                      ></div>
+                      Chưa có hóa đơn nào
+                    </div>
+                  </div>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
           <div class="full-width row items-center">
             <div
               class="col-4 col-md-2 text-h4"
@@ -38,6 +75,10 @@
                   @click="openDialog(room)"
                 >
                   <div class="col-12 g-header-up">{{ room.name }}</div>
+                  <div class="col-12 text-subtitle2" v-if="room.tenant.no_bills > 0">
+                    Chưa thanh toán: {{ room.tenant.no_bills  }}
+
+                  </div>
                 </q-card-section>
               </q-card>
             </div>
@@ -295,8 +336,8 @@
       </q-card>
     </q-dialog>
     <q-dialog v-model="isCreateAllBill" persistent>
-      <q-card class="g-border" style="min-width:40%">
-        <q-card-section  class="row items-center">
+      <q-card class="g-border" style="min-width: 40%">
+        <q-card-section class="row items-center">
           <div class="text-primary text-h6">
             Bạn có muốn tạo hóa đơn cho cả trọ
           </div>
