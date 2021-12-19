@@ -231,16 +231,16 @@
             </div>
             <div class="col-12"><br /></div>
           </q-card-section> -->
-          <q-card-section>
-            <q-markup-table class="g-border">
+          <q-card-section v-if="room_equips_num > 0">
+            <q-markup-table separator="cell" class="no-shadow g-border-grey">
               <thead>
                 <tr>
                   <th class="text-right">STT</th>
                   <th class="text-left">
                     <div class="row">
-                      <div class="col-12 text-bold">Tiêu đề</div>
+                      <div class="col-12 text-bold">Thiết bị</div>
                       <div class="col-12 text-bold">
-                        <p class="g-text-indent">Nội dung</p>
+                        <p class="g-text-indent">Tình trạng</p>
                       </div>
                     </div>
                   </th>
@@ -255,7 +255,9 @@
                   <td class="text-right">{{ ++index }}</td>
                   <td>
                     <div class="row">
-                      <div class="col-12 row items-center justify-start">
+                      <div
+                        class="col-12 row items-center justify-start g-first-up"
+                      >
                         {{ room_equip.name }}:
                       </div>
                       <div
@@ -265,13 +267,16 @@
                           items-center
                           g-text-indent
                           justify-start
+                          g-first-up
                         "
                       >
                         {{ room_equip.content }}
                       </div>
                     </div>
                   </td>
-                  <td class="text-center">{{ getDate(room_equip.created_at) }}</td>
+                  <td class="text-center">
+                    {{ getDate(room_equip.created_at) }}
+                  </td>
                   <td style="width: 30%">
                     <q-card-actions class="row" align="center">
                       <div
@@ -281,7 +286,7 @@
                         <q-img
                           :src="baseUrlImg + room_equip.img_details[0]"
                           :ratio="16 / 9"
-                          class="g-border"
+                          class="g-border shadow-1"
                           spinner-color="primary"
                           spinner-size="82px"
                           @click="seeImgs(room_equip.img_details)"
@@ -304,10 +309,10 @@
                       {{ statusText(room_equip.status) }}
                     </div>
                   </td>
-                  <td >
+                  <td>
                     <div
                       v-if="room_equip.status == 0"
-                      class=" row justify-center"
+                      class="row justify-center"
                     >
                       <q-btn
                         rounded
@@ -461,7 +466,11 @@
           </q-card-section>
         </q-card>
         <div><br /></div>
-        <q-card v-if="posts" class="my-card full-width br" id="postsInfor">
+        <q-card
+          v-if="posts"
+          class="my-card full-width g-border"
+          id="postsInfor"
+        >
           <q-card-section class="full-width text-primary">
             <div class="text-center co-card-header">
               <q-icon name="badge" /> Bài đăng
@@ -477,7 +486,7 @@
               @click="isCreate = true"
             />
           </q-card-actions>
-          <q-card-section class="row items-center">
+          <q-card-section v-if="posts.length > 0" class="row items-center">
             <div class="col-1 text-bold">Stt</div>
             <div class="col-6 col-md-3 text-bold text-center">Trạng thái</div>
             <div class="col-6 gt-sm col-md-3 text-bold">Ngày đăng</div>
@@ -526,6 +535,11 @@
               <div class="col-12"><br /></div>
             </div>
           </q-card-section>
+          <q-card-section v-else>
+            <div class="text-subtitle2 text-left text-red">
+              *Bạn chưa có bài đăng.
+            </div>
+          </q-card-section>
         </q-card>
         <div><br /></div>
 
@@ -543,7 +557,7 @@
         <q-dialog v-model="isCreate">
           <q-card class="g-border">
             <q-card-section class="row items-center">
-              <div class="col-12 text-center text-bold">
+              <div class="col-12 text-primary text-center text-bold">
                 Thiết lập nội dung khi đăng bài
               </div>
               <div class="col-12 text-center text-red">

@@ -1,12 +1,12 @@
 <template>
   <q-page padding class="row justify-center">
     <q-card v-if="user" class="my-card col-12 col-md-10 row justify-center  items-center content-center br">
-      <q-card-section class="col-12 text-center text-h5 text-primary">
+      <q-card-section class="col-12 text-center text-h4 text-primary">
         Tài khoản
       </q-card-section>
       <div class="col-12"><br></div>
       <q-form class="col-12 row items-center justify-center">
-        <q-card class="my-card col-5">
+        <q-card class="my-card g-border col-5">
           <q-card-section class="full-width bg-accent">
             <div class="text-h6 full-width text-center text-white">
               Chi tiết thông tin
@@ -44,13 +44,13 @@
             />
             <div class="col-8 col-md-9 row items-center justify-center">
               <div class="col-3 col-md-2">Giới tính</div>
-              <q-radio v-model="user.sex" :val="0" label="Nam" />
-              <q-radio v-model="user.sex" :val="1" label=" Nữ" />
+              <q-radio v-model="user.sex" :val="1" label="Nam" />
+              <q-radio v-model="user.sex" :val="0" label=" Nữ" />
             </div>
           </q-card-section>
           <q-card-actions align="center">
             <q-btn
-              class="bg-primary text-white g-header"
+              class="bg-black text-white g-header"
               rounded
               label="Thay đổi thông tin"
               @click="updateAccount"
@@ -58,7 +58,7 @@
           </q-card-actions>
         </q-card>
         <div class="col-1"></div>
-        <q-card class="my-card col-5">
+        <q-card class="my-card col-5 g-border">
           <q-card-section class="bg-primary text-white text-center">
             <div class="full-width text-h6"> Bảo mật</div>
           </q-card-section>
@@ -101,7 +101,7 @@
           </q-card-section>
           <q-card-actions align="center">
             <q-btn
-              class="bg-primary text-white g-header"
+              class="bg-black text-white g-header"
               rounded
               label=" Thay đổi tài khoản"
               @click="updateUP"
