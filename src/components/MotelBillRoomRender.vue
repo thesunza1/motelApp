@@ -75,9 +75,11 @@
                   @click="openDialog(room)"
                 >
                   <div class="col-12 g-header-up">{{ room.name }}</div>
-                  <div class="col-12 text-subtitle2" v-if="room.tenant.no_bills > 0">
-                    Chưa thanh toán: {{ room.tenant.no_bills  }}
-
+                  <div
+                    class="col-12 text-subtitle2"
+                    v-if="room.tenant.no_bills > 0"
+                  >
+                    Chưa thanh toán: {{ room.tenant.no_bills }}
                   </div>
                 </q-card-section>
               </q-card>
@@ -118,7 +120,7 @@
               class="full-width row items-center"
             >
               <div class="col-12"><br /></div>
-              <q-card class="my-card">
+              <q-card class="my-card g-border">
                 <q-card-section
                   class="col-12 text-white row justify-center"
                   :class="{
@@ -205,7 +207,7 @@
                     <div>
                       <b>Tổng nước:</b>
                       {{ bill.water_end - bill.water_begin }} *
-                      {{ toNum(bill.water_cost) }} VNĐ
+                      {{ toNum(bill.water_cost) }}
                     </div>
                     <div>
                       =
@@ -214,6 +216,7 @@
                           (bill.water_end - bill.water_begin) * bill.water_cost
                         )
                       }}
+                      VNĐ
                     </div>
                   </div>
                   <div class="col-12"><br /></div>
@@ -303,7 +306,7 @@
           <div class="col-12">Chọn phòng để tạo</div>
         </q-card-section>
         <q-card-section class="text-subtitle2">
-          *Chọn phòng để tạo bill
+          *Chọn phòng để tạo hóa đơn.
         </q-card-section>
         <q-card-section>
           <div v-for="(roomType, index) in allBillRoom" :key="index">
@@ -325,9 +328,10 @@
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat color="negative" label="Thoát" v-close-popup />
+          <q-btn flat no-caps color="negative" label="Thoát" v-close-popup />
           <q-btn
             flat
+            no-caps
             color="positive"
             label="Tạo bill "
             @click="createSomeBill"
@@ -338,16 +342,17 @@
     <q-dialog v-model="isCreateAllBill" persistent>
       <q-card class="g-border" style="min-width: 40%">
         <q-card-section class="row items-center">
-          <div class="text-primary text-h6">
+          <div class="text-primary text-center text-h6">
             Bạn có muốn tạo hóa đơn cho cả trọ
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label=" Hủy" color="negative" v-close-popup />
+          <q-btn flat label=" Hủy" no-caps color="negative" v-close-popup />
           <q-btn
             flat
             label=" Tạo ngay"
             color="primary"
+            no-caps
             v-close-popup
             @click="createAllBill"
           />
@@ -453,6 +458,10 @@ export default {
       this.isDetailBill = true;
     },
     async createSomeBill() {
+      if(this.chooseRoom.length == 0 ) {
+        noti.showNoti('Bạn chưa chọn phòng nào' , 'black');
+        return;
+      }
       const create = await this.$api.post("createSomeBill", {
         rooms: this.chooseRoom,
         motelId: this.motel_id,

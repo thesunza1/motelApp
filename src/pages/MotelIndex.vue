@@ -1,5 +1,5 @@
 <template>
-  <q-page class="row content-start" padding>
+  <q-page class="row content-start " padding>
     <div class="col-12 row items-center rtname">
       <q-tabs align="left">
         <q-route-tab
@@ -25,7 +25,7 @@
       >
         <q-expansion-item
           expand-separator
-          class="col-12 g-border bg-white pd shadow-up-2"
+          class="col-12 g-border bg-white pd shadow-1"
         >
           <template v-slot:header>
             <q-item class="full-width">
