@@ -19,7 +19,14 @@
         <div class="col-12" v-for="(comment, index) in comments" :key="index">
           <q-card class="my-card g-border">
             <q-card-section class="row items-center">
-              <div class="col-12 row justify-end">
+              <div class="col-3">
+                <q-icon name="person" class="g-icon-h2 text-primary"/>
+                <div class="g-display-inline g-header-up">
+                  {{comment?.user.name  }}
+                </div>
+              </div>
+              <q-space />
+              <div class="col-3 row justify-end">
                 <q-chip icon="directions" :label="todate(comment.updated_at)" />
               </div>
               <div class="col-12" v-html="comment.content"></div>
@@ -34,9 +41,9 @@
       </div>
     </div>
     <q-dialog v-model="isCreate" >
-      <q-card style="min-width: 60%" class="g-border">
-        <q-card-section class="row items-center bg-primary">
-          <div class="col-12 text-center text-h6 text-white">Tạo bình luận</div>
+      <q-card style="min-width: 40%" class="g-border">
+        <q-card-section class="row items-center text-primary">
+          <div class="col-12 text-center text-h6 ">Tạo Bình Luận Mới</div>
         </q-card-section>
         <q-card-section class="row items-center justify-center">
           <div class="col-12">Mời bạn nhập bình luận</div>

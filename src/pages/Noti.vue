@@ -1,7 +1,17 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-12 col-md-10 bg-white g-border shadow-1 q-px-lg row content-start">
-      <div class="col-12 " v-if="user">
+    <div
+      class="
+        col-12 col-md-10
+        bg-white
+        g-border
+        shadow-1
+        q-px-lg
+        row
+        content-start
+      "
+    >
+      <div class="col-12" v-if="user">
         <q-tabs v-model="tab" class="text-teal">
           <q-route-tab
             :to="$router.currentRoute._rawValue.fullPath"
@@ -11,7 +21,7 @@
           />
           <q-route-tab
             v-if="toPath() == 'motelOutbox'"
-            :to="{ name: toPath() , params: {motelId : motelId} }"
+            :to="{ name: toPath(), params: { motelId: motelId } }"
             name="movies"
             icon="outbox"
             no-caps
@@ -55,6 +65,16 @@
           />
           Chưa đọc:
           <p class="text-black" style="display: inline">{{ notiNum }}</p>
+          <q-btn
+            color="black"
+            icon="check"
+            class="q-ml-sm"
+            no-caps
+            :disable="notiNum ==0"
+            label="Đã đọc tất cả"
+            @click="isRead()"
+            rounded
+          />
         </div>
         <div class="col-12">
           <noti-box
@@ -97,6 +117,7 @@ import AdminNotiCreate from "components/AdminNotiCreate.vue";
 import NotiBox from "components/NotiBox.vue";
 import { mapGetters } from "vuex";
 import NotiSearchBox from "../components/NotiSearchBox.vue";
+import notiApi from "../boot/callApi/noti";
 
 export default {
   components: {
@@ -133,6 +154,16 @@ export default {
     ...mapGetters("User", ["user"]),
   },
   methods: {
+    async isRead() {
+      const res = await notiApi.isReadNoti();
+
+      if (res.statusCode == 1) {
+        this.updateNotiNum();
+        this.reloadNotis();
+      }
+
+      return;
+    },
     updateStatus(index) {
       this.notis[index].status = 1;
     },
@@ -168,10 +199,16 @@ export default {
       }
       return;
     },
+
+    async reloadNotis() {
+      const noti = await this.$api.get("getAllNoti");
+      this.notis = noti.data.notis;
+      return;
+    },
     findNoti(data) {
       this.notis = data;
       return;
-    }
+    },
   },
   mounted: function () {
     window.setInterval(() => {

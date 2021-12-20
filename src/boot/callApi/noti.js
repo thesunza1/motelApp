@@ -89,21 +89,21 @@ async function changeIntoStatus(notiId, inviteStatus) {
  * @param {*} senderId receiverid ,
  * @returns
  */
-async function sendReject(motelId,  senderId , content) {
+async function sendReject(motelId, senderId, content) {
   const data = {
     motelId: motelId,
     receiverId: senderId,
     content: content,
   };
-  const res = await api.post('sendReject', data);
-  return res.data ;
+  const res = await api.post("sendReject", data);
+  return res.data;
 }
 /**
  *
  * @returns num , statusCode
  */
-async function countIntoNoti(){
-  const res = await api.get('countIntoNoti');
+async function countIntoNoti() {
+  const res = await api.get("countIntoNoti");
   return res.data;
 }
 
@@ -113,11 +113,11 @@ async function countIntoNoti(){
  * @param {*} listRooms list id room into
  * @returns statusCode
  */
-async function sendIntoNoti(postId , listRooms) {
+async function sendIntoNoti(postId, listRooms) {
   const data = {
     postId: postId,
     ListRooms: listRooms,
-  }
+  };
   const res = await api.post("sendIntoNoti", data);
   return res.data;
 }
@@ -130,8 +130,13 @@ async function sendIntoNoti(postId , listRooms) {
 async function sendIntoNotiRoom(postId) {
   const data = {
     postId: postId,
-  }
+  };
   const res = await api.post("sendIntoNotiRoom", data);
+  return res.data;
+}
+
+async function isReadNoti() {
+  const res = await api.post("isReadNoti");
   return res.data;
 }
 /**
@@ -200,7 +205,11 @@ function toNotiTypeOt() {
  */
 function toIntoNotiStatus(status) {
   const res =
-    status == 0 ? " Chưa giải quyết" : status == 1 ? " Đã mời vào" : "Đã từ chối";
+    status == 0
+      ? " Chưa giải quyết"
+      : status == 1
+      ? " Đã mời vào"
+      : "Đã từ chối";
   return res;
 }
 
@@ -229,4 +238,5 @@ export default {
   countIntoNoti,
   sendIntoNoti,
   sendIntoNotiRoom,
+  isReadNoti,
 };
