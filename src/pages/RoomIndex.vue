@@ -387,7 +387,9 @@
             </div>
           </template>
           <template v-slot:body="props">
-            <q-tr :props="props">
+            <q-tr :props="props"
+              v-if="props.row.infor_share == 1"
+            >
               <q-td style="width: 50px" key="index" :props="props">
                 {{ props.row.index }}
               </q-td>

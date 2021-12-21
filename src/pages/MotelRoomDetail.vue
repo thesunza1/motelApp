@@ -131,26 +131,30 @@
               :key="index"
               class="col-12 row items-center"
             >
-              <div class="col-1 gt-sm q-pl-sm">{{ ++index }}</div>
-              <div class="col-4 col-md-3 g-header-up">{{ user.user.name }}</div>
-              <div class="col-md-4 col-5">
-                <p class="lt-md" style="display: inline">&nbsp;</p>
-                {{ user.user.email }}
+              <div class="col-12 row items-center" v-if="user.infor_share == 1 ">
+                <div class="col-1 gt-sm q-pl-sm">{{ ++index }}</div>
+                <div class="col-4 col-md-3 g-header-up">
+                  {{ user.user.name }}
+                </div>
+                <div class="col-md-4 col-5">
+                  <p class="lt-md" style="display: inline">&nbsp;</p>
+                  {{ user.user.email }}
+                </div>
+                <div class="col-2 gt-sm">{{ user.user.phone_number }}</div>
+                <div class="col-2 text-center">
+                  <q-btn
+                    rounded
+                    style="margin: 0px 7px"
+                    color="grey-10"
+                    icon="info"
+                    no-caps
+                    @click="findUser(user.user.email)"
+                  >
+                    <div class="gt-sm">&nbsp;Chi tiết</div>
+                  </q-btn>
+                </div>
+                <div class="col-12"><br /></div>
               </div>
-              <div class="col-2 gt-sm">{{ user.user.phone_number }}</div>
-              <div class="col-2 text-center">
-                <q-btn
-                  rounded
-                  style="margin: 0px 7px"
-                  color="grey-10"
-                  icon="info"
-                  no-caps
-                  @click="findUser(user.user.email)"
-                >
-                  <div class="gt-sm">&nbsp;Chi tiết</div>
-                </q-btn>
-              </div>
-              <div class="col-12"><br /></div>
             </div>
           </q-card-section>
           <q-card-section>
@@ -180,10 +184,15 @@
           <q-card-section class="col-12 row justify-center">
             <div class="col-12 row q-gutter-sm items-center">
               <div class="col-12 text-bold"><hr /></div>
-              <div class="col-1 text-bold q-pl-sm">Stt </div>
-              <div class="col-3 text-bold">Tên thiết bị: <p class="text-red g-text-indent">tình trạng</p></div>
+              <div class="col-1 text-bold q-pl-sm">Stt</div>
+              <div class="col-3 text-bold">
+                Tên thiết bị:
+                <p class="text-red g-text-indent">tình trạng</p>
+              </div>
               <div class="col-3 text-center text-bold">Hình ảnh</div>
-              <div class="col-2 text-bold text-right q-mr-lg">Thời gian (mm/dd/yyyy)&nbsp;&nbsp;&nbsp;</div>
+              <div class="col-2 text-bold text-right q-mr-lg">
+                Thời gian (mm/dd/yyyy)&nbsp;&nbsp;&nbsp;
+              </div>
               <div class="col-2 text-bold">Trạng thái</div>
               <div class="col-12 text-bold"><hr /></div>
               <div class="col-12"><br /></div>
@@ -191,9 +200,16 @@
             <div
               v-for="(equip, index) in room.tenant.tenant_room_equips"
               :key="index"
-              class="col-12 q-gutter-sm row items-center q-my-sm g-border shadow-up-2"
+              class="
+                col-12
+                q-gutter-sm
+                row
+                items-center
+                q-my-sm
+                g-border
+                shadow-up-2
+              "
             >
-
               <!-- :class="equip.status == 0? 'white': equip.status==1 ? 'bg-green-1' : 'bg-red-1'" -->
               <div class="col-1 text-h6 q-pl-sm">{{ ++index }}</div>
               <div class="col-3 text-h6">
@@ -226,7 +242,9 @@
                   <div v-else>Chưa có ảnh</div>
                 </q-card-actions>
               </div>
-              <div class="col-2 text-h6"> <p class="text-right q-mr-lg">{{ toDate(equip.created_at)  }}</p> </div>
+              <div class="col-2 text-h6">
+                <p class="text-right q-mr-lg">{{ toDate(equip.created_at) }}</p>
+              </div>
               <div class="col-2">
                 <q-select
                   emit-value
@@ -244,7 +262,9 @@
                     <div
                       class="text-bold"
                       :class="`text-${statusOt[equip.status].color}`"
-                    > {{statusOt[equip.status].label  }} </div>
+                    >
+                      {{ statusOt[equip.status].label }}
+                    </div>
                   </template>
                 </q-select>
               </div>

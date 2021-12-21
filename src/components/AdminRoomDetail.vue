@@ -11,33 +11,34 @@
           v-for="(user, index) in room.tenant.tenant_users"
           :key="index"
         >
-          <q-card-section class="row items-center">
-            <div class="col-6 ">
-              <q-icon name="person" class="text-positive size-icon q-pr-sm" />
-              <div class="g-header-up" style="display:inline"> {{
-                user.user.name
-              }}</div>
-            </div>
-            <div class="col-6">
-              <q-icon name="drafts" class="text-positive size-icon" />
-              {{ user.user.email }}
-            </div>
-            <div class="col-6">
-              <q-icon name="phone" class="text-positive size-icon" />
-              {{ user.user.phone_number }}
-            </div>
+          <q-card-section v-if="user.infor_share ==1 ">
+            <q-card-section class="row items-center">
+              <div class="col-8">
+                <q-icon name="person" class="text-positive size-icon q-pr-sm" />
+                <div class="g-header-up" style="display: inline">
+                  {{ user.user.name }}
+                </div>
+              </div>
+              <div class="col-4">
+                <q-icon name="phone" class="text-positive size-icon" />
+                {{ user.user.phone_number }}
+              </div>
+              <div class="col-8">
+                <q-icon name="drafts" class="text-positive size-icon" />
+                {{ user.user.email }}
+              </div>
+            </q-card-section>
+            <q-card-actions align="right">
+              <q-btn
+                falt
+                color="negative"
+                class="g-header"
+                rounded
+                label="Cho ra"
+                @click="$emit('openIsOutRoom', user.user)"
+              />
+            </q-card-actions>
           </q-card-section>
-          <q-card-actions align="right">
-            <q-btn
-              falt
-              color="negative"
-              icon="delete"
-              class="g-header"
-              rounded
-              label="Cho ra"
-              @click="$emit('openIsOutRoom', user.user)"
-            />
-          </q-card-actions>
         </q-card>
       </q-card-section>
     </q-card>
