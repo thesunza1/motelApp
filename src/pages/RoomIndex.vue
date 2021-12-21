@@ -647,7 +647,6 @@
                     label=" Tạo"
                     type="submit"
                     no-caps
-                    v-close-popup
                     flat
                     color="primary"
                   />
@@ -729,6 +728,18 @@ export default {
       this.isEqCreate = !this.isEqCreate;
     },
     async eqCreate() {
+      if( this.eqName==null || this.eqName.length == 0) {
+        this.showNoti('Trường tên thiết bị không trống.', 'black');
+        return;
+      }
+      if( this.eqContent == null || this.eqContent.length == 0) {
+        this.showNoti('Trường trạng thái thiết bị không trống.', 'black');
+        return;
+      }
+      if( this.eqImgs == null || this.eqImgs.length == 0) {
+        this.showNoti(' Bạn chưa chọn ảnh nào.', 'black');
+        return;
+      }
       let fd = new FormData();
       this.append(fd, this.eqImgs, "eqImg");
       fd.append("eqName", this.eqName);
@@ -739,6 +750,7 @@ export default {
         this.showNoti("Tạo thành công", "black");
         this.getTre();
       }
+      this.isEqCreate = false;
     },
     append(fd, imgs, name) {
       const len = imgs.length;
