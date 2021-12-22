@@ -165,7 +165,7 @@
           </q-card-section>
           <q-card-section>
             <motel-location></motel-location>
-            <search-show-map :center="center"></search-show-map>
+            <search-show-map style="height: 500px" :center="center"></search-show-map>
           </q-card-section>
         </q-card>
         <div><br /></div>

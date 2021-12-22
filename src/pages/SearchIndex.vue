@@ -105,6 +105,7 @@
                 v-model="tinhChon"
                 :options="fillConts"
                 label="Tỉnh, Thành phố"
+                dense
                 label-color="primary"
                 filled
               />
@@ -112,6 +113,7 @@
             <div class="q-pr-md col-3">
               <q-select
                 v-if="quanOt"
+                dense
                 label-color="primary"
                 v-model="quanChon"
                 :options="quanOt"
@@ -122,6 +124,7 @@
             <div class="q-pr-md col-2">
               <q-select
                 v-if="phuongOt"
+                dense
                 label-color="primary"
                 v-model="phuongChon"
                 :options="phuongOt"
@@ -132,6 +135,7 @@
             <div class="q-pr-md col-2">
               <q-select
                 v-if="phuongOt"
+                dense
                 v-model="banKinh"
                 :options="banKinhOt"
                 label=" Bán kính"

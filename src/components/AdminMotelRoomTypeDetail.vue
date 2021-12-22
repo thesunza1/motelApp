@@ -28,7 +28,7 @@
           >
             <admin-room-detail
               @openIsOutRoom="$emit('openIsOutRoom', $event)"
-              class="q-mr-md"
+              class="q-mr-md full-width"
               :room="room"
             ></admin-room-detail>
             <br />
