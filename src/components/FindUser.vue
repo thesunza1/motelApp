@@ -108,8 +108,8 @@ export default {
       }
     },
     sex(sex) {
-      if (sex == 1) return "Nam";
-      else if (sex == 0) return "Nữ";
+      if (sex == 0) return "Nam";
+      else if (sex == 1) return "Nữ";
       return "";
     },
     async addUserToRoom() {

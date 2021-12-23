@@ -357,11 +357,14 @@
                         label=" tên loại "
                         label-color="primary"
                       /> -->
+                      {{room.names  }}
                       <q-select
                         style="min-width: 90%"
                         v-model="room.names"
                         label-color="primary"
                         :options="roomTypesOt"
+                        map-options
+                        emit-value
                         label="Tên loại phòng"
                         filled
                       />
@@ -551,7 +554,7 @@ export default {
       },
       room_types: [
         {
-          names: "Đơn",
+          names: "Phòng Đơn",
           area: "",
           const: "",
           male: true,
@@ -565,19 +568,19 @@ export default {
       roomTypesOt: [
         {
           label: "Đơn",
-          value: "Đơn",
+          value: "Phòng Đơn",
         },
         {
           label: "Đôi",
-          value: "Đôi",
+          value: "Phòng Đôi",
         },
         {
           label: "Vip",
-          value: "Vip",
+          value: "Phòng Vip",
         },
         {
           label: "Có gác",
-          value: "Có gác",
+          value: "Phòng Có gác",
         },
       ],
     };

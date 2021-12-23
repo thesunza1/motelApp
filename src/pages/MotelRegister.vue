@@ -162,11 +162,11 @@
                 &nbsp;Giới tính: &nbsp;
               </div>
               <div class="">
-                <input type="radio" id="name" value="1" v-model="user.sex" />
+                <input type="radio" id="name" value="0" v-model="user.sex" />
                 <label for="name"> Nam</label>
               </div>
               <div class="">
-                <input type="radio" id="nu" value="0" v-model="user.sex" />
+                <input type="radio" id="nu" value="1" v-model="user.sex" />
                 <label for="nu"> Nữ </label>
               </div>
               <div class="col-1"></div>

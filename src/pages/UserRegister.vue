@@ -88,12 +88,12 @@
               <div class="q-gutter-sm">
                 <q-radio
                   v-model="sex"
-                  :val="1"
+                  :val="0"
                   label="Nam"
                   keep-color
                   color="cyan"
                 />
-                <q-radio v-model="sex" :val="0" label="Nữ" />
+                <q-radio v-model="sex" :val="1" label="Nữ" />
               </div>
               <div class="col-1"></div>
             </div>

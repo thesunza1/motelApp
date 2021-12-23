@@ -44,8 +44,8 @@
             />
             <div class="col-8 col-md-9 row items-center justify-center">
               <div class="col-3 col-md-2">Giới tính</div>
-              <q-radio v-model="user.sex" :val="1" label="Nam" />
-              <q-radio v-model="user.sex" :val="0" label=" Nữ" />
+              <q-radio v-model="user.sex" :val="0" label="Nam" />
+              <q-radio v-model="user.sex" :val="1" label=" Nữ" />
             </div>
           </q-card-section>
           <q-card-actions align="center">

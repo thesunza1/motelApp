@@ -423,7 +423,7 @@ export default {
   mounted: function () {
     window.setInterval(() => {
       this.updateNotiNum();
-    }, 5000);
+    }, 9000);
   },
 };
 </script>
