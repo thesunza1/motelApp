@@ -319,7 +319,7 @@
                         outline
                         color="negative"
                         icon="delete"
-                        @click="deleteEquip(index)"
+                        @click="deleteEquip(room_equip.id)"
                       />
                     </div>
                   </td>
@@ -387,9 +387,7 @@
             </div>
           </template>
           <template v-slot:body="props">
-            <q-tr :props="props"
-              v-if="props.row.infor_share == 1"
-            >
+            <q-tr :props="props" v-if="props.row.infor_share == 1">
               <q-td style="width: 50px" key="index" :props="props">
                 {{ props.row.index }}
               </q-td>
@@ -730,16 +728,16 @@ export default {
       this.isEqCreate = !this.isEqCreate;
     },
     async eqCreate() {
-      if( this.eqName==null || this.eqName.length == 0) {
-        this.showNoti('Trường tên thiết bị không trống.', 'black');
+      if (this.eqName == null || this.eqName.length == 0) {
+        this.showNoti("Trường tên thiết bị không trống.", "black");
         return;
       }
-      if( this.eqContent == null || this.eqContent.length == 0) {
-        this.showNoti('Trường trạng thái thiết bị không trống.', 'black');
+      if (this.eqContent == null || this.eqContent.length == 0) {
+        this.showNoti("Trường trạng thái thiết bị không trống.", "black");
         return;
       }
-      if( this.eqImgs == null || this.eqImgs.length == 0) {
-        this.showNoti(' Bạn chưa chọn ảnh nào.', 'black');
+      if (this.eqImgs == null || this.eqImgs.length == 0) {
+        this.showNoti(" Bạn chưa chọn ảnh nào.", "black");
         return;
       }
       let fd = new FormData();
@@ -762,7 +760,8 @@ export default {
       fd.append(name + "_num", len);
     },
     async deleteEquip(index) {
-      let indexId = this.room_equips[index].id;
+      // let indexId = this.room_equips[index].id;
+      let indexId = index;
       console.log(indexId);
       if (indexId === "") {
         this.room_equips.splice(index, 1);
@@ -772,10 +771,11 @@ export default {
           equip_id: indexId,
         });
         if (deleteEquip.data.statusCode == 1) {
-          this.room_equips.splice(index, 1);
+          // this.room_equips.splice(index, 1);
+          this.getTre();
           this.showNoti("Thành công", "black");
-          this.room_equips_num--;
-          this.eq_status = 0;
+          // this.room_equips_num--;
+          // this.eq_status = 0;
         }
       }
     },
