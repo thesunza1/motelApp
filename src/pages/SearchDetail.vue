@@ -364,6 +364,11 @@
                 <b class="text-black"> Giá phòng: </b
                 >{{ toNum(post.room.room_type.cost) }} VNĐ
               </div>
+              <div class="col-4 text-h6">
+                <q-icon name="remove" class="text-h4 text-primary" />
+                <b class="text-black"> Số phòng: </b
+                >{{ post.room.name}}
+              </div>
               <div class="col-12 row items-center">
                 <div class="col-4">
                   <q-icon name="room" class="text-h4" />
@@ -386,10 +391,23 @@
             <q-card-section class="row items-center justify-center">
               <div class="col-12 text-h6">
                 <q-icon name="subtitles" class="g-icon-h1 text-primary" />
-                Thông tin loại phòng
+                Thông tin phòng
               </div>
               <div class="col-12"><br /></div>
               <div class="col-11 row items-center">
+                <div class="col-4">
+                  <q-icon name="remove" class="g-icon-h2 text-primary" />
+                  <b>số người đang ở:</b>
+                  {{ numTenantUser(post.room.tenant.tenant_users) }}
+                </div>
+                <div class="col-8">
+                  <q-icon name="remove" class="g-icon-h2 text-primary" />
+                  <b>Nội dung lời nhắn người đăng:</b>
+                  {{ post.conpound_content }}
+                </div>
+                <div class="col-12">
+                  <br>
+                </div>
                 <div class="col-4">
                   <q-icon name="bolt" class="g-icon-h2" />
                   <b> Phí điện: </b
@@ -723,9 +741,13 @@ export default {
     function ArrCount(data) {
       return data.length;
     }
+    function numTenantUser(tenantUsers) {
+      return sp.numTenantUser(tenantUsers);
+    }
     return {
       toNamNu,
       ArrCount,
+      numTenantUser,
     };
   },
   data() {

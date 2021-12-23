@@ -10,6 +10,18 @@ function length(arr) {
     return 0;
   }
 }
+/**
+ *
+ * @param {*} tenantUsers tenantuser array
+ * @returns numuser in room
+ */
+function numTenantUser(tenantUsers) {
+  var num = tenantUsers.length;
+  tenantUsers.forEach((val) => {
+    if (val.infor_share == 0) num--;
+  });
+  return num;
+}
 
 /**
  * return numRooms in array
@@ -75,4 +87,5 @@ export default {
   numBill,
   toNum,
   getRole,
+  numTenantUser,
 };

@@ -81,6 +81,7 @@
                   /> -->
                   <div class="col-12"><br /></div>
                   <div class="col-12" style="height: 500px">
+                    {{center  }}
                     <l-map v-model:zoom="zoom" :center="center">
                       <l-tile-layer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
