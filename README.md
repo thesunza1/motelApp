@@ -6,21 +6,10 @@ A Quasar Framework app
 ```bash
 npm install
 ```
+## thay đổi địa chỉ Api trong file boot axios ở đường dẫn: ./src/boot/axios.js.
+Thay đổi giá trị baseURL ở dòng 10 thành địa chỉ của server Api.
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Bắt đầu chạy ứng dụng (hot-code reloading, error reporting, etc.)
 ```bash
 quasar dev
 ```
-
-### Lint the files
-```bash
-npm run lint
-```
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://v2.quasar.dev/quasar-cli/quasar-conf-js).
